@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var deepPopulate = require('mongoose-deep-populate');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var worldSchema = new mongoose.Schema({
     tick: {
@@ -16,12 +16,10 @@ var worldSchema = new mongoose.Schema({
         type: Number,
         default: 100
     },
-    map: [
-        [{
-            type: mongoose.Schema.ObjectId,
-            ref: 'Cell'
-        }]
-    ],
+    map: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'CellRow'
+    }],
     environment: {
         type: String,
         default: 'land'

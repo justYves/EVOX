@@ -60,7 +60,7 @@ app.use('/', function(req, res, next) {
     res.sendFile(path.join(__dirname, './index.html'));
 });
 
-app.use('/api', require('./routes'));
+app.use('/api', require('./api/routes'));
 
 
 // Errors
