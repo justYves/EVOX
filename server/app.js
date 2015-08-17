@@ -43,17 +43,17 @@ app.use(function(req, res, next) {
 
 });
 
-// Routes
-//// APIs for AJAX
+// // Routes
+// //// APIs for AJAX
 
-// Look up all route files/folders from directory
-var directories = fs.readdirSync(path.join(__dirname, '/api/'));
+// // Look up all route files/folders from directory
+// var directories = fs.readdirSync(path.join(__dirname, '/api/'));
 
-// Require each route dynamically 
-directories.forEach(function(dir) {
-    // Prepend /api/ to all api routes
-    app.use('/api/' + dir + '/', require('./api/' + dir));
-});
+// // Require each route dynamically 
+// directories.forEach(function(dir) {
+//     // Prepend /api/ to all api routes
+//     app.use('/api/' + dir + '/', require('./api/' + dir));
+// });
 
 //// Index/Home
 app.use('/', function(req, res, next) {
