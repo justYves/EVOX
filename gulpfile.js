@@ -9,6 +9,8 @@ var livereload = require('gulp-livereload');
 var rename = require('gulp-rename');
 var mocha = require('gulp-mocha');
 var babel = require('gulp-babel');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream')
 
 // Live reload
 gulp.task('reload', function() {
@@ -23,6 +25,10 @@ gulp.task('default', function() {
     gulp.watch(['client/pre-build/app.js', 'client/pre-build/**/*.js'], function() {
         runSeq('buildJS', 'reload');
     });
+
+    gulp.watch(['client/game/index.js','client/game/**/*.js'],function(){
+        runSeq('browserify','reload');
+    })
 
     gulp.watch(['client/pre-build/app.scss', 'client/pre-build/**/*.scss'], function() {
         runSeq('buildCSS', 'reload');
@@ -42,11 +48,21 @@ gulp.task('seedDB', function() {
 });
 
 
+
 // Build tasks
 //// Build all
 gulp.task('build', function() {
-    runSeq(['buildJS', 'buildCSS']);
+    runSeq(['buildJS','browserify', 'buildCSS']);
 });
+
+//Browserify
+gulp.task('browserify', function() {
+    return browserify('./client/game/index.js')
+        .bundle()
+        .pipe(source('bundle.js'))
+        .pipe(gulp.dest('./client/build'))
+});
+
 
 gulp.task('buildJS', function() {
     return gulp.src(['./client/pre-build/app.js', './client/pre-build/**/*.js'])
