@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate');
 
 var worldSchema = new mongoose.Schema({
     tick: {
@@ -27,6 +28,8 @@ var worldSchema = new mongoose.Schema({
     }, //air, aquatic, tundra
     temperature: Number
 });
+
+worldSchema.plugin(deepPopulate, {});
 
 worldSchema.pre('save', function(next) {
     this.timestamp.push(Date.now());

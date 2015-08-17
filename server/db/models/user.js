@@ -23,7 +23,10 @@ var userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    world: {type: mongoose.Schema.ObjectId, ref: 'World'}
+    world: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'World'
+    }]
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
