@@ -26,9 +26,9 @@ gulp.task('default', function() {
         runSeq('buildJS', 'reload');
     });
 
-    gulp.watch(['client/game/index.js','client/game/**/*.js'],function(){
-        runSeq('browserify','reload');
-    })
+    // gulp.watch(['client/game/index.js','client/game/**/*.js'],function(){
+    //     runSeq('browserify','reload');
+    // })
 
     gulp.watch(['client/pre-build/app.scss', 'client/pre-build/**/*.scss'], function() {
         runSeq('buildCSS', 'reload');
@@ -52,7 +52,7 @@ gulp.task('seedDB', function() {
 // Build tasks
 //// Build all
 gulp.task('build', function() {
-    runSeq(['buildJS','browserify', 'buildCSS']);
+    runSeq(['buildJS', 'buildCSS']);
 });
 
 //Browserify
