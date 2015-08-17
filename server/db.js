@@ -1,13 +1,15 @@
 var Promise = require('bluebird');
 var chalk = require('chalk');
-var dbName = "meaniscule-app";
+var dbName = "gameoflife";
 
 var DATABASE_URI = "mongodb://localhost:27017/" + dbName;
 
 var mongoose = require('mongoose');
 var db = mongoose.connect(DATABASE_URI).connection;
 
-var startDbPromise = new Promise(function (resolve, reject) {
+require('./db/models');
+
+var startDbPromise = new Promise(function(resolve, reject) {
     db.on('open', resolve);
     db.on('error', reject);
 });
@@ -15,10 +17,9 @@ var startDbPromise = new Promise(function (resolve, reject) {
 
 console.log('Starting MongoDB...');
 
-startDbPromise.then(function () {
+startDbPromise.then(function() {
     console.log(chalk.green('MongoDB connection opened! dbName:'), chalk.magenta(dbName));
 });
 
 
 module.exports = startDbPromise;
-

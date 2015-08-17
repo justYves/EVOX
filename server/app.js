@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 
 var clientPath = path.join(__dirname, '../client');
-var buildPath = path.join(__dirname, '../client/build');    // for gulped files
+var buildPath = path.join(__dirname, '../client/build'); // for gulped files
 var indexHtmlPath = path.join(__dirname, './index.html');
 var nodePath = path.join(__dirname, '../node_modules');
 var imagePath = path.join(__dirname, './images');
@@ -20,7 +20,9 @@ uncomment the following line and the related `app.use` line below.
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(express.static(clientPath));
 app.use(express.static(buildPath));
@@ -33,48 +35,51 @@ app.use(express.static(texturesPath));
 Provides a 404 for times
 Credit to `fsg` module for this one!
 */
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
 
-  if (path.extname(req.path).length > 0) {
-    res.status(404).end();
-  } else {
-    next(null);
-  }
+    if (path.extname(req.path).length > 0) {
+        res.status(404).end();
+    } else {
+        next(null);
+    }
 
 });
 
-// Routes
-//// APIs for AJAX
+// // Routes
+// //// APIs for AJAX
 
-// Look up all route files/folders from directory
-var directories = fs.readdirSync(path.join(__dirname, '/api/'));
+// // Look up all route files/folders from directory
+// var directories = fs.readdirSync(path.join(__dirname, '/api/'));
 
-// Require each route dynamically
-directories.forEach(function(dir) {
-  // Prepend /api/ to all api routes
-  app.use('/api/' + dir + '/', require('./api/' + dir));
-});
+
+// // Require each route dynamically
+// directories.forEach(function(dir) {
+//     // Prepend /api/ to all api routes
+//     app.use('/api/' + dir + '/', require('./api/' + dir));
+// });
+
 
 //// Index/Home
 app.use('/', function(req, res, next) {
-  res.sendFile(path.join(__dirname, './index.html'));
+    res.sendFile(path.join(__dirname, './index.html'));
 });
+
+app.use('/api', require('./api/routes'));
 
 
 // Errors
 //// Not found
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 //// Server issues
 app.use(function(err, req, res, next) {
-  res.sendStatus(err.status || 500);
+    res.sendStatus(err.status || 500);
 
 });
 
 
 module.exports = app;
-
