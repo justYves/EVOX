@@ -14,7 +14,8 @@ var cellSchema = new mongoose.Schema({
     z: Number
 });
 
-cellSchema.method('coordinate', function () {
-    return [this.x,this.y,this.z];
+cellSchema.method('coordinate', function() {
+    return [this.x, this.y, this.z];
+})
 
 mongoose.model('Cell', cellSchema);
