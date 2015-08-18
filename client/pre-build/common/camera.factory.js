@@ -72,6 +72,7 @@ app.factory('CameraFactory', function() {
         event.preventDefault()
         if (true) {}
         if (isMouseDown) {
+          //controls are set in the stream in the voxel engine/ voxel control / stream on event(attain)
           theta = (game.controls.state.y_rotation_accum * 0.5) + onMouseDownTheta
           phi = -(game.controls.state.x_rotation_accum * 0.5) + onMouseDownPhi
 
