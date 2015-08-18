@@ -23,9 +23,15 @@ var userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    world: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'World'
+    worlds: [{
+        name: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'World'
+        },
+        creatures: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Creature'
+        }
     }]
 });
 
@@ -42,6 +48,16 @@ var encryptPassword = function(plainText, salt) {
     return hash.digest('hex');
 };
 
+userSchema.pre('save', function(next) {
+
+    if (this.isModified('password')) {
+        this.salt = this.constructor.generateSalt();
+        this.password = this.constructor.encryptPassword(this.password, this.salt);
+    }
+
+    next();
+
+});
 
 userSchema.statics.generateSalt = generateSalt;
 userSchema.statics.encryptPassword = encryptPassword;
