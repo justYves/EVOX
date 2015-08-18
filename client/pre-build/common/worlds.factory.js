@@ -35,7 +35,7 @@ app.factory('WorldsFactory', function($http, MapFactory) {
                 tick: 5,
                 size: size,
                 map: concatMap(MapFactory.map),
-                materials: materials
+                environment: 'land'
             }
             return $http.post('/api/worlds', world)
                 .then(function(res) {

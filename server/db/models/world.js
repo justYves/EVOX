@@ -20,11 +20,11 @@ var worldSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Cell'
     }],
-    materials: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'Material'
-    }],
-    environment: {
+    // materials: [{
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'Material'
+    // }],
+    environment: { // set materials on front end depending on env
         type: String,
         default: 'land'
     }, //air, aquatic, tundra
