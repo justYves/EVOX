@@ -6,10 +6,23 @@ var creatureSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Shape'
     },
-    hp: {
+    name: String,
+    social: {
         type: Number,
         default: 10
     },
+    intelligence: {
+        type: Number,
+        default: 10
+    },
+    // memory: [],
+    // food: [],
+    offspring: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Creature'
+    },
+    pregnant: Boolean,
+    hp: Number,
     carnivore: {
         type: Boolean,
         default: false
@@ -30,18 +43,20 @@ var creatureSchema = new mongoose.Schema({
         type: Number,
         default: null
     },
-    x: {
-        type: Number,
-        default: 0
+    position: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Coordinate'
     },
-    y: {
-        type: Number,
-        default: 0
-    },
-    z: {
-        type: Number,
-        default: 0
+    rotation: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Coordinate'
     }
+});
+
+creatureSchema.path('size').set(function(value) {
+    this.hp = value * 10;
+    this.hunger = Math.floor(this.hp / 4);
+    return value;
 });
 
 mongoose.model('Creature', creatureSchema);

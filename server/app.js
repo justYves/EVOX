@@ -59,13 +59,12 @@ app.use(function(req, res, next) {
 // });
 
 
-//// Index/Home
-app.use('/', function(req, res, next) {
-    res.sendFile(path.join(__dirname, './index.html'));
-});
-
 app.use('/api', require('./api/routes'));
 
+//// Index/Home
+app.use('/*', function(req, res, next) {
+    res.sendFile(path.join(__dirname, './index.html'));
+});
 
 // Errors
 //// Not found
