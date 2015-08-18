@@ -34,14 +34,14 @@ router.post('/', function(req, res, next) {
     Cell.create(req.body.map)
         .then(function(cells) {
             req.body.map = cells;
-            return Promise.all(req.body.materials.map(function(facesArr) {
-                return Material.create({
-                    materials: facesArr
-                })
-            }))
-        })
-        .then(function(materials) {
-            req.body.materials = materials;
+        //     return Promise.all(req.body.materials.map(function(facesArr) {
+        //         return Material.create({
+        //             materials: facesArr
+        //         })
+        //     }))
+        // })
+        // .then(function(materials) {
+        //     req.body.materials = materials;
             return World.create(req.body)
         })
         .then(function(world) {
