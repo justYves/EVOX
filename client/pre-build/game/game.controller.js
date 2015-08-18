@@ -1,10 +1,13 @@
-app.controller('GameController', function($scope, $http, WorldsFactory,CameraFactory) {
+app.controller('GameController', function($scope, $http, WorldsFactory, CameraFactory,MapFactory) {
 
 
   // <------ GAME ------>
   //voxel-engine: base module
+  var map = new MapFactory.create()
+  window.Map =MapFactory.getCurrentMap(); // Working
+
   var createGame = window.voxelEngine;
-  var game = createGame(WorldsFactory.newWorldOptions); //World Data from factory
+  var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
 
 
   game.appendTo(document.body)
@@ -16,20 +19,36 @@ app.controller('GameController', function($scope, $http, WorldsFactory,CameraFac
   CameraFactory.set(game);
 
   // <------ SKY ------>
-  var createSky = window.Sky({game:game});
+  var createSky = window.Sky({
+    game: game
+  });
   var sky = createSky();
 
-  game.on('tick',sky);
+  game.on('tick', sky);
 
   //need to debug interact
   var start = window.start(game);
+
+  var Highlight = window.Highlight;
+  var highlighter = Highlight(game);
+  var positionME;
+  highlighter.on('highlight', function(voxelPosArray) {
+    positionME = voxelPosArray;
+  });
+
+//   var Trees = window.Tree(game, {
+//     bark: 3,
+//     leaves: 4,
+//     densityScale: 2,
+//     treeType: 'subspace',
+//     size : 20
+// });
+
 
 
   // $scope.save = function(){
 
   // };
-
-
 
 
 

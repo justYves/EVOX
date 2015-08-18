@@ -4279,7 +4279,6 @@ function interact(el, skiplock) {
   function forward() {
     internal.on('attain', function(stream) {
       ee.emit('attain', stream)
-      console.log(stream)
     })
 
     internal.on('release', function() {
@@ -42108,7 +42107,7 @@ proto.createWriteRotationStream = function() {
   return stream
 
   function write(changes) {
-    console.log(changes)
+    // console.log(changes)
     state.x_rotation_accum -= changes.dy || 0
     state.y_rotation_accum -= changes.dx || 0
     state.z_rotation_accum += changes.dz || 0

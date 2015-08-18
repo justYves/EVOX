@@ -1,5 +1,4 @@
-app.factory('WorldsFactory', function($http) {
-
+app.factory('WorldsFactory', function($http,MapFactory) {
   var grass = ['grass', 'dirt', 'grass_dirt']; //this will come from the server
   var dirt = ['dirt', 'dirt', 'dirt'];
   var bark = ['tree_side'];
@@ -8,6 +7,7 @@ app.factory('WorldsFactory', function($http) {
   var size = 20;
 
   var currentGame;
+
 
   return {
     getWorlds: function() {
@@ -47,9 +47,10 @@ app.factory('WorldsFactory', function($http) {
       return currentGame;
     }
     ,
-    newWorldOptions: {
-      generate: function(x, y, z) {
-        return (y === 0 && x >= 0 && x <= size && z >= 0 && z <= size) ? 1 : 0;
+    newWorldOptions:function(){
+      return {
+        generate: function(x, y, z) {
+        return (y === 0 && x >= 0 && x <= size && z >= 0 && z <= size) ?MapFactory.getCurrentMap().getMaterial(x, z) : 0;
       },
       materials: materials,
       texturePath: '../textures/',
@@ -57,6 +58,7 @@ app.factory('WorldsFactory', function($http) {
         discreteFire: true
       },
       // // lightsDisabled: true
+    }
     }
   }
 })
