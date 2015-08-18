@@ -162,8 +162,30 @@ creatures.push(duck);
 
 
 
-var models = [Shape, Creature];
-var data = [shapes, creatures];
+var users = [
+    new User({
+        name: {
+            first: 'Justin',
+            last: 'Kim'
+        },
+        email: 'jkim430@gmail.com',
+        password: 'cowgoesmoo',
+        isAdmin: true
+    }),
+    new User({
+        name: {
+            first: 'Charles',
+            last: 'Darwin'
+        },
+        email: 'darwin@gmail.com',
+        password: 'evolution',
+        isAdmin: false
+    })
+]
+
+
+var models = [Shape, Creature, User];
+var data = [shapes, creatures, users];
 
 startDb.then(function() {
     return Promise.all(models.map(function(model) {
