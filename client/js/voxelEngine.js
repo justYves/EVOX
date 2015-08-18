@@ -611,7 +611,6 @@ Game.prototype.onControlChange = function(gained, stream) {
     this.buttons.disable()
     return
   }
-
   this.buttons.enable()
   stream.pipe(this.controls.createWriteRotationStream())
 }
@@ -709,11 +708,11 @@ Game.prototype.initializeControls = function(opts) {
   this.buttons = kb(document.body, this.keybindings)
   this.buttons.disable()
   this.optout = false
-  // this.interact = interact(opts.interactElement || this.view.element, opts.interactMouseDrag)
-  // this.interact
-  //     .on('attain', this.onControlChange.bind(this, true))
-  //     .on('release', this.onControlChange.bind(this, false))
-  //     .on('opt-out', this.onControlOptOut.bind(this))
+  this.interact = interact(opts.interactElement || this.view.element, opts.interactMouseDrag)
+  this.interact
+      .on('attain', this.onControlChange.bind(this, true))
+      .on('release', this.onControlChange.bind(this, false))
+      .on('opt-out', this.onControlOptOut.bind(this))
   this.hookupControls(this.buttons, opts)
 }
 
@@ -4280,6 +4279,7 @@ function interact(el, skiplock) {
   function forward() {
     internal.on('attain', function(stream) {
       ee.emit('attain', stream)
+      console.log(stream)
     })
 
     internal.on('release', function() {
@@ -42096,7 +42096,10 @@ proto.createWriteRotationStream = function() {
 
   state.x_rotation_accum =
   state.y_rotation_accum =
-  state.z_rotation_accum = 0
+  state.z_rotation_accum =
+  state.x_position =
+  state.y_position =
+  state.z_position  = 0
 
   stream.writable = true
   stream.write = write
@@ -42105,9 +42108,13 @@ proto.createWriteRotationStream = function() {
   return stream
 
   function write(changes) {
+    console.log(changes)
     state.x_rotation_accum -= changes.dy || 0
     state.y_rotation_accum -= changes.dx || 0
     state.z_rotation_accum += changes.dz || 0
+    state.x_position = changes.dx ||0
+    state.y_position = changes.dy ||0
+    state.z_position  = 0
   }
 
   function end(deltas) {
