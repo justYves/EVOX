@@ -8,19 +8,23 @@ var worldSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    timestamp: [{
+    timestamp: {
         type: Date,
         default: Date.now
-    }],
+    },
     size: {
         type: Number,
         default: 100
     },
     map: [{
         type: mongoose.Schema.ObjectId,
-        ref: 'CellRow'
+        ref: 'Cell'
     }],
-    environment: {
+    // materials: [{
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'Material'
+    // }],
+    environment: { // set materials on front end depending on env
         type: String,
         default: 'land'
     }, //air, aquatic, tundra
@@ -30,7 +34,7 @@ var worldSchema = new mongoose.Schema({
 worldSchema.plugin(deepPopulate, {});
 
 worldSchema.pre('save', function(next) {
-    this.timestamp.push(Date.now());
+    this.timestamp = Date.now();
     next();
 });
 

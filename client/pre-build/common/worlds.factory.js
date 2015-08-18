@@ -1,4 +1,8 @@
-app.factory('WorldsFactory', function($http,MapFactory) {
+app.factory('WorldsFactory', function($http, MapFactory) {
+
+  //integrate map and saving worlds and shit
+    var currentGame;
+
   var grass = ['grass', 'dirt', 'grass_dirt']; //this will come from the server
   var dirt = ['dirt', 'dirt', 'dirt'];
   var bark = ['tree_side'];
@@ -6,8 +10,11 @@ app.factory('WorldsFactory', function($http,MapFactory) {
   var materials = [grass, dirt, bark, leaves];
   var size = 20;
 
-  var currentGame;
-
+  function concatMap(map) {
+    return map.reduce(function(a, b) {
+      return a.concat(b);
+    }, [])
+  }
 
   return {
     getWorlds: function() {
@@ -22,7 +29,13 @@ app.factory('WorldsFactory', function($http,MapFactory) {
           return res.data;
         })
     },
-    postWorld: function(world) {
+    postWorld: function() {
+      var world = {
+        tick: 5,
+        size: size,
+        map: concatMap(MapFactory.map),
+        environment: 'land'
+      }
       return $http.post('/api/worlds', world)
         .then(function(res) {
           return res.data;
@@ -40,25 +53,24 @@ app.factory('WorldsFactory', function($http,MapFactory) {
           return res.data;
         })
     },
-    setCurrentGame:function(game){
+    setCurrentGame: function(game) {
       currentGame = game;
     },
-    getCurrentGame: function(){
+    getCurrentGame: function() {
       return currentGame;
-    }
-    ,
-    newWorldOptions:function(){
+    },
+    newWorldOptions: function() {
       return {
         generate: function(x, y, z) {
-        return (y === 0 && x >= 0 && x <= size && z >= 0 && z <= size) ?MapFactory.getCurrentMap().getMaterial(x, z) : 0;
-      },
-      materials: materials,
-      texturePath: '../textures/',
-      controls: {
-        discreteFire: true
-      },
-      // // lightsDisabled: true
-    }
+          return (y === 0 && x >= 0 && x <= size && z >= 0 && z <= size) ? MapFactory.getCurrentMap().getMaterial(x, z) : 0;
+        },
+        materials: materials,
+        texturePath: '../textures/',
+        controls: {
+          discreteFire: true
+        },
+        // // lightsDisabled: true
+      }
     }
   }
 })

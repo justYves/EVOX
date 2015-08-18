@@ -2,6 +2,9 @@
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var World = mongoose.model('World');
+var Cell = mongoose.model('Cell');
+var Material = mongoose.model('Material');
+var Promise = require('bluebird');
 var router = require('express').Router();
 module.exports = router;
 
@@ -28,12 +31,24 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    World.create(req.body)
+    Cell.create(req.body.map)
+        .then(function(cells) {
+            req.body.map = cells;
+        //     return Promise.all(req.body.materials.map(function(facesArr) {
+        //         return Material.create({
+        //             materials: facesArr
+        //         })
+        //     }))
+        // })
+        // .then(function(materials) {
+        //     req.body.materials = materials;
+            return World.create(req.body)
+        })
         .then(function(world) {
             res.status(201).json(world);
         })
         .then(null, next);
-});
+})
 
 router.get('/:id', function(req, res, next) {
     res.json(req.world);
