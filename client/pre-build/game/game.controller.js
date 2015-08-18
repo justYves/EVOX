@@ -46,9 +46,9 @@ app.controller('GameController', function($scope, $http, WorldsFactory, CameraFa
 
 
 
-  // $scope.save = function(){
-
-  // };
+  $scope.save = function(){
+    WorldsFactory.postWorld();
+  };
 
 
 

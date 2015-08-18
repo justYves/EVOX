@@ -10,7 +10,6 @@ app.factory('MapFactory', function($http) {
     this.fertilized = [];
     this.createMap(n);
     this.setNeighbors();
-    currentMap = this;
   }
 
   Map.prototype.createMap = function(n) {
@@ -103,7 +102,7 @@ app.factory('MapFactory', function($http) {
 
 
   function Cell(x, z, material) {
-    this.material = material || "dirt";
+    this.material = material || "grass"; //need to change
     this.coordinate = [x, 0, z];
     this.neighbors = [];
     this.x = x;
@@ -121,8 +120,8 @@ app.factory('MapFactory', function($http) {
 
   return {
     create: function(){
-      var map = new Map(20);
-      return map
+      currentMap = new Map(20);
+      return currentMap
     }
     ,
     getCurrentMap: function(){

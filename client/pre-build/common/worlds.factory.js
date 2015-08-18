@@ -11,9 +11,13 @@ app.factory('WorldsFactory', function($http, MapFactory) {
   var size = 20;
 
   function concatMap(map) {
-    return map.reduce(function(a, b) {
+    var cells = map.data.reduce(function(a, b) {
       return a.concat(b);
     }, [])
+    return cells.map(function(cell) {
+      delete cell.neighbors;
+      return cell;
+    })
   }
 
   return {
@@ -30,10 +34,11 @@ app.factory('WorldsFactory', function($http, MapFactory) {
         })
     },
     postWorld: function() {
+      console.log(concatMap(MapFactory.getCurrentMap()))
       var world = {
         tick: 5,
         size: size,
-        map: concatMap(MapFactory.map),
+        map: concatMap(MapFactory.getCurrentMap()),
         environment: 'land'
       }
       return $http.post('/api/worlds', world)
