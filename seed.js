@@ -192,7 +192,7 @@ startDb.then(function() {
         return model.find().remove()
     }))
 })
-    .then(function(shapes) {
+    .then(function() {
         return Promise.all(models.map(function(model, index) {
             return model.create(data[index]);
         }))
