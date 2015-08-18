@@ -21,7 +21,8 @@ app.controller('GameController', function($scope, $http, WorldsFactory,CameraFac
 
   game.on('tick',sky);
 
-
+  //need to debug interact
+  var start = window.start(game);
 
 
   // $scope.save = function(){
