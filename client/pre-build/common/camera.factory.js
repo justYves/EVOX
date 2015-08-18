@@ -72,8 +72,8 @@ app.factory('CameraFactory', function() {
         event.preventDefault()
         if (true) {}
         if (isMouseDown) {
-          theta = -((event.clientX - onMouseDownPosition.x) * 0.5) + onMouseDownTheta
-          phi = ((event.clientY - onMouseDownPosition.y) * 0.5) + onMouseDownPhi
+          theta = (game.controls.state.y_rotation_accum * 0.5) + onMouseDownTheta
+          phi = -(game.controls.state.x_rotation_accum * 0.5) + onMouseDownPhi
 
           phi = Math.min(180, Math.max(0, phi))
 
