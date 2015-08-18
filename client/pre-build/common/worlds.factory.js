@@ -7,6 +7,8 @@ app.factory('WorldsFactory', function($http) {
   var materials = [grass, dirt, bark, leaves];
   var size = 20;
 
+  var currentGame;
+
   return {
     getWorlds: function() {
       return $http.get('/api/worlds')
@@ -38,7 +40,14 @@ app.factory('WorldsFactory', function($http) {
           return res.data;
         })
     },
-    newWorld: {
+    setCurrentGame:function(game){
+      currentGame = game;
+    },
+    getCurrentGame: function(){
+      return currentGame;
+    }
+    ,
+    newWorldOptions: {
       generate: function(x, y, z) {
         return (y === 0 && x >= 0 && x <= size && z >= 0 && z <= size) ? 1 : 0;
       },
