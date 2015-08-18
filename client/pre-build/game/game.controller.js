@@ -3,16 +3,31 @@ app.controller('GameController', function($scope, $http, WorldsFactory,CameraFac
 
   // <------ GAME ------>
   //voxel-engine: base module
-
   var createGame = window.voxelEngine;
-  var game = createGame(WorldsFactory.newWorld); //World Data from factory
+  var game = createGame(WorldsFactory.newWorldOptions); //World Data from factory
 
 
   game.appendTo(document.body)
-  window.game = game;
+  window.game = game; //For Debugging
+  WorldsFactory.setCurrentGame(game);
 
-  //add Camera
+
+  // <------ CAMERA ------>
   CameraFactory.set(game);
+
+  // <------ SKY ------>
+  var createSky = window.Sky({game:game});
+  var sky = createSky();
+
+  game.on('tick',sky);
+
+
+
+
+  // $scope.save = function(){
+
+  // };
+
 
 
 
