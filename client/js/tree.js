@@ -70,7 +70,8 @@
                     height: treePos[2],
                     bark: opts.bark,
                     leaves: opts.leaves,
-                    treeType: opts.treeType
+                    treeType: opts.treeType,
+                    random: opts.random || undefined
                 });
                 var currentCell = map.getCell(treePos[0], treePos[1]);
                 currentCell.obstructed = true;
@@ -186,7 +187,7 @@
                         if (y >= opts.base) {
                             around.forEach(function(offset) {
                                 var rand =1 ;
-                                if (opts.random() > 0.5) return;
+                                if (opts.random() < 0.5) return;
                                 var x = offset[0]
                                 var z = offset[1]
                                 pos.x += x;
