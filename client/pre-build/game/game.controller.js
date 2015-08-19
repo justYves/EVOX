@@ -1,7 +1,6 @@
 app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory) {
 
 
-
     // <------ GAME ------>
     //voxel-engine: base module
     var map = MapFactory.getCurrentMap();
@@ -9,6 +8,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
 
     var createGame = window.voxelEngine;
     var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
+    game.map = map;
 
     game.appendTo(document.body)
     window.game = game; //For Debugging
@@ -42,7 +42,10 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         bark: 3,
         leaves: 4,
         densityScale: 2,
-        treeType: 'subspace'
+        treeType: 'subspace',
+        random: function() {
+            return 1;
+        }
     });
 
     $scope.save = function() {
@@ -73,5 +76,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     // var makeFly = fly(game);
     // var target = game.controls.target();
     // game.flyer = makeFly(target);
+
 
 });
