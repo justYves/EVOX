@@ -25,26 +25,28 @@
     1: [function(require, module, exports) {
         var Tree = require('../tree');
 
-        window.Tree = function(game){
-
-           if(!game.trees) return function(opts){
-                createNew(game,opts);
-            }
+        window.Tree = function(game) {
+            // if (!game.trees) {
+                return function(opts) {
+                    createNew(game, opts);
+                };
+            // }
         };
+
         function createNew(game, opts) {
-            var map = game.map
+            var map = game.map;
             game.trees = [];
             if (opts.position === undefined) opts.position = {};
-            if (!opts.position.x) opts.position.x = Math.floor(Math.random() * map.size) + 1;
-            if (!opts.position.z) opts.position.z = Math.floor(Math.random() * map.size) + 1;
+            if (!opts.position.x) opts.position.x = Math.floor(Math.random() * map.size);
+            if (!opts.position.z) opts.position.z = Math.floor(Math.random() * map.size);
             if (!opts.densityScale) opts.densityScale = 5
             if (opts.treeType === undefined) opts.treeType = "subspace"
             if (opts.bark === undefined) throw "Must choose bark tile"
             if (opts.leaves === undefined) throw "Must choose leaves tile"
             var treeArr = [];
             var randCoords = function() {
-                opts.position.x = Math.floor(Math.random() * map.size) + 1;
-                opts.position.z = Math.floor(Math.random() * map.size) + 1;
+                opts.position.x = Math.floor(Math.random() * map.size);
+                opts.position.z = Math.floor(Math.random() * map.size);
                 randH = Math.floor(Math.random() * map.size / 2) + 3;
                 if (treeArr.length) {
                     for (var i = 0; i < treeArr.length; i++) {
@@ -77,7 +79,7 @@
                 currentCell.obstructed = true;
                 game.trees.push(treeObject);
             }
-            game.trees= JSON.stringify(game.trees);
+            game.trees = JSON.stringify(game.trees);
         };
 
     }, {
@@ -162,6 +164,7 @@
             }
             var generators = {
                 subspace: function() {
+                    console.log("subspace");
                     var around = [
                         [0, 1],
                         [0, -1],
@@ -186,7 +189,7 @@
                         // console.log("y", y)
                         if (y >= opts.base) {
                             around.forEach(function(offset) {
-                                var rand =1 ;
+                                var rand = 1;
                                 if (opts.random() < 0.5) return;
                                 var x = offset[0]
                                 var z = offset[1]
