@@ -1,4 +1,4 @@
-app.controller('GameController', function($scope, $http, WorldsFactory, CameraFactory, MapFactory) {
+app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory) {
 
 
 
@@ -46,7 +46,7 @@ app.controller('GameController', function($scope, $http, WorldsFactory, CameraFa
     });
 
     $scope.save = function() {
-        WorldsFactory.postWorld();
+        WorldsFactory.updateWorld($stateParams.id);
     };
 
 

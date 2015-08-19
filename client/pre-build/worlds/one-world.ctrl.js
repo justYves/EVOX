@@ -2,8 +2,9 @@ app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactor
     $scope.currentWorld = WorldsFactory.getCurrentWorld();
 
     $scope.loadGame = function() {
-        console.log($scope.currentWorld.map)
         MapFactory.create($scope.currentWorld.size, $scope.currentWorld.map);
-        $state.go('game')
+        $state.go('game', {
+            id: $scope.currentWorld._id
+        });
     }
 });
