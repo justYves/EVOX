@@ -25,8 +25,13 @@
     1: [function(require, module, exports) {
         var Tree = require('../tree');
 
+        window.Tree = function(game){
 
-        window.Tree = function(game, opts) {
+           if(!game.trees) return function(opts){
+                createNew(game,opts);
+            }
+        };
+        function createNew(game, opts) {
             var map = game.map
             game.trees = [];
             if (opts.position === undefined) opts.position = {};
@@ -71,7 +76,7 @@
                 currentCell.obstructed = true;
                 game.trees.push(treeObject);
             }
-            // game.trees= treeArr;
+            game.trees= JSON.stringify(game.trees);
         };
 
     }, {
