@@ -1,81 +1,92 @@
 app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory) {
 
 
-    // <------ GAME ------>
-    //voxel-engine: base module
-    var map = MapFactory.getCurrentMap();
-    window.Map = map; // Working
+  // <------ GAME ------>
+  //voxel-engine: base module
+  var map = MapFactory.getCurrentMap();
+  window.Map = map; // Working
 
-    var createGame = window.voxelEngine;
-    var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
-    game.map = map;
+  var createGame = window.voxelEngine;
+  var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
+  game.map = map;
 
-    game.appendTo(document.body)
-    window.game = game; //For Debugging
-    WorldsFactory.setCurrentGame(game);
-
-
-    // <------ CAMERA ------>
-    CameraFactory.set(game);
-
-    // <------ SKY ------>
-    var createSky = window.Sky({
-        game: game
-    });
-    var sky = createSky();
-
-    game.on('tick', sky);
-
-    //need to debug interact
-    var start = window.start(game);
-
-    var Highlight = window.Highlight;
-    var highlighter = Highlight(game);
-    var positionME;
-    highlighter.on('highlight', function(voxelPosArray) {
-        positionME = voxelPosArray;
-    });
+  game.appendTo(document.body)
+  window.game = game; //For Debugging
+  WorldsFactory.setCurrentGame(game);
 
 
-    var createTrees = window.Tree(game);
-    createTrees({
-        bark: 3,
-        leaves: 4,
-        densityScale: 2,
-        treeType: 'subspace',
-        random: function() {
-            return 1;
-        }
-    });
+  // <------ CAMERA ------>
+  CameraFactory.set(game);
 
-    $scope.save = function() {
-        WorldsFactory.updateWorld($stateParams.id);
-    };
+  // <------ SKY ------>
+  var createSky = window.Sky({
+    game: game
+  });
+  var sky = createSky();
+
+  game.on('tick', sky);
+
+  //need to debug interact
+  var start = window.start(game);
+
+  var Highlight = window.Highlight;
+  var highlighter = Highlight(game);
+  var positionME;
+  highlighter.on('highlight', function(voxelPosArray) {
+    positionME = voxelPosArray;
+  });
+
+
+  var createTrees = window.Tree(game);
+  createTrees({
+    bark: 3,
+    leaves: 4,
+    densityScale: 2,
+    treeType: 'subspace',
+    random: function() {
+      return 1;
+    }
+  });
+
+  // map.creatures = [];
+
+  // var render = require('../js/creature-render.js');
+  // var Creature = window.Creature;
+  // var cow = new Creature({
+  //   name: 'cow',
+  //   size: 8,
+  //   vision: 3
+  // });
+  // window.cow = cow; //for debugging
+  // map.creatures.push(cow);
+
+  $scope.save = function() {
+    WorldsFactory.updateWorld($stateParams.id);
+  };
 
 
 
+  // <------ PLAYER ------>
+  // voxel-player: add player that can move around. It needs a copy of the game
+  // var createPlayer = window.voxelPlayer(game);
+  // var player = createPlayer(); //creates player and provide dummy texture
+  // window.player = player;
+  // player.pov('third');
+  // player.possess(); //camera follow player
+  // player.yaw.position.set(size / 2, 10, size / 2);
 
-    // <------ PLAYER ------>
-    // voxel-player: add player that can move around. It needs a copy of the game
-    // var createPlayer = window.voxelPlayer(game);
-    // var player = createPlayer(); //creates player and provide dummy texture
-    // window.player = player;
-    // player.pov('third');
-    // player.possess(); //camera follow player
-    // player.yaw.position.set(size / 2, 10, size / 2);
+  // //Toggle Camera First / Third Person View
+  // window.addEventListener('keydown', function(ev) {
+  //   if (ev.keyCode === 'R'.charCodeAt(0)) {
+  //     player.toggle();
+  //   }
+  // });
 
-    // //Toggle Camera First / Third Person View
-    // window.addEventListener('keydown', function(ev) {
-    //   if (ev.keyCode === 'R'.charCodeAt(0)) {
-    //     player.toggle();
-    //   }
-    // });
-
-    // // Make Player Fly
-    // var fly = window.voxelFly;
-    // var makeFly = fly(game);
-    // var target = game.controls.target();
-    // game.flyer = makeFly(target);
+  // // Make Player Fly
+  // var fly = window.voxelFly;
+  // var makeFly = fly(game);
+  // var target = game.controls.target();
+  // game.flyer = makeFly(target);
 
 
 });
