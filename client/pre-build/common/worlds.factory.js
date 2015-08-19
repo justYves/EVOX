@@ -1,81 +1,101 @@
 app.factory('WorldsFactory', function($http, MapFactory) {
 
-  //integrate map and saving worlds and shit
-    var currentGame;
+    //integrate map and saving worlds and shit
+    var currentGame, currentWorld;
 
-  var grass = ['grass', 'dirt', 'grass_dirt']; //this will come from the server
-  var dirt = ['dirt', 'dirt', 'dirt'];
-  var bark = ['tree_side'];
-  var leaves = ['leaves_opaque'];
-  var materials = [grass, dirt, bark, leaves];
-  var size = 20;
+    var grass, dirt, bark, leaves;
+    var materials;
+    var size;
 
-  function concatMap(map) {
-    var cells = map.data.reduce(function(a, b) {
-      return a.concat(b);
-    }, [])
-    return cells.map(function(cell) {
-      delete cell.neighbors;
-      return cell;
-    })
-  }
-
-  return {
-    getWorlds: function() {
-      return $http.get('/api/worlds')
-        .then(function(res) {
-          return res.data;
+    function concatMap(map) {
+        var cells = map.data.reduce(function(a, b) {
+            return a.concat(b);
+        }, [])
+        return cells.map(function(cell) {
+            delete cell.neighbors;
+            return cell;
         })
-    },
-    getWorld: function(id) {
-      return $http.get('/api/worlds/' + id)
-        .then(function(res) {
-          return res.data;
-        })
-    },
-    postWorld: function() {
-      console.log(concatMap(MapFactory.getCurrentMap()))
-      var world = {
-        tick: 5,
-        size: size,
-        map: concatMap(MapFactory.getCurrentMap()),
-        environment: 'land'
-      }
-      return $http.post('/api/worlds', world)
-        .then(function(res) {
-          return res.data;
-        })
-    },
-    updateWorld: function(id) {
-      return $http.put('/api/worlds/' + id)
-        .then(function(res) {
-          return res.data;
-        })
-    },
-    removeWorld: function(id) {
-      return $http.delete('/api/worlds/' + id)
-        .then(function(res) {
-          return res.data;
-        })
-    },
-    setCurrentGame: function(game) {
-      currentGame = game;
-    },
-    getCurrentGame: function() {
-      return currentGame;
-    },
-    newWorldOptions: function() {
-      return {
-        generate: function(x, y, z) {
-          return (y === 0 && x >= 0 && x <= size && z >= 0 && z <= size) ? MapFactory.getCurrentMap().getMaterial(x, z) : 0;
-        },
-        materials: materials,
-        texturePath: '../textures/',
-        controls: {
-          discreteFire: true
-        },
-        // // lightsDisabled: true
-      }
     }
-  }
+
+    return {
+        getWorlds: function() {
+            return $http.get('/api/worlds')
+                .then(function(res) {
+                    return res.data;
+                })
+        },
+        getWorld: function(id) {
+            return $http.get('/api/worlds/' + id)
+                .then(function(res) {
+                    return res.data;
+                })
+        },
+        postWorld: function(world) {
+            world.map = concatMap(MapFactory.create(world.size))
+            return $http.post('/api/worlds', world)
+                .then(function(res) {
+                    return res.data;
+                })
+        },
+        updateWorld: function(id, obj) {
+            return $http.put('/api/worlds/' + id, obj)
+                .then(function(res) {
+                    return res.data;
+                })
+        },
+        removeWorld: function(id) {
+            return $http.delete('/api/worlds/' + id)
+                .then(function(res) {
+                    return res.data;
+                })
+        },
+        setCurrentGame: function(game) {
+            currentGame = game;
+        },
+        getCurrentGame: function() {
+            return currentGame;
+        },
+        newWorldOptions: function() {
+            console.log(size);
+            return {
+                generate: function(x, y, z) {
+                    return (y === 0 && x >= 0 && x < size && z >= 0 && z < size) ? MapFactory.getCurrentMap().getMaterial(x, z) : 0;
+                },
+                materials: materials,
+                texturePath: '../textures/',
+                controls: {
+                    discreteFire: true
+                },
+                // // lightsDisabled: true
+            }
+        },
+        setCurrentWorld: function(world) {
+            currentWorld = world;
+            size = world.size;
+            if (world.environment === 'land') {
+                grass = ['grass', 'dirt', 'grass_dirt'];
+                dirt = ['dirt', 'dirt', 'dirt'];
+                bark = ['tree_side'];
+                leaves = ['leaves_opaque'];
+                materials = [grass, dirt, bark, leaves];
+            }
+            if (world.environment === 'ice') {
+                grass = ['snow', 'dirt', 'grass_dirt'];
+                dirt = ['dirt', 'dirt', 'dirt'];
+                bark = ['tree_side'];
+                leaves = ['leaves_opaque'];
+                materials = [grass, dirt, bark, leaves];
+            }
+            if (world.environment === 'water') {
+                grass = ['crate', 'dirt', 'grass_dirt'];
+                dirt = ['dirt', 'dirt', 'dirt'];
+                bark = ['tree_side'];
+                leaves = ['leaves_opaque'];
+                materials = [grass, dirt, bark, leaves];
+            }
+        },
+        getCurrentWorld: function() {
+            return currentWorld;
+        }
+    }
 })

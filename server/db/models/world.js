@@ -4,9 +4,10 @@ var mongoose = require('mongoose');
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var worldSchema = new mongoose.Schema({
+    name: String,
     tick: {
         type: Number,
-        required: true
+        default: 10
     },
     timestamp: {
         type: Date,
