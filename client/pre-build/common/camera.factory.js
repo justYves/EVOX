@@ -2,10 +2,11 @@ app.factory('CameraFactory', function() {
   return {
     set: function(game) {
       var camera = new game.THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000)
+      var size = game.map.size
       window.camera = camera;
       camera.position.set(18, 8, 50);
 
-      var target = new game.THREE.Vector3(10, 0, 10)
+      var target = new game.THREE.Vector3(size/2, 0, size/2)
 
       var radius = 50,
         theta = 90,
@@ -79,9 +80,9 @@ app.factory('CameraFactory', function() {
           phi = Math.min(180, Math.max(0, phi))
 
           // theta is x; phi is y;
-          camera.position.x = (radius * Math.sin(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)) + 10
+          camera.position.x = (radius * Math.sin(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)) + size /2;
           camera.position.y = radius * Math.sin(phi * Math.PI / 360)
-          camera.position.z = (radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)) + 10
+          camera.position.z = (radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)) + size/2;
           render();
         }
       }
