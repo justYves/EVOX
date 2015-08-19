@@ -56,7 +56,6 @@ app.factory('WorldsFactory', function($http, MapFactory) {
             return currentGame;
         },
         newWorldOptions: function() {
-            console.log(size);
             return {
                 generate: function(x, y, z) {
                     return (y === 0 && x >= 0 && x < size && z >= 0 && z < size) ? MapFactory.getCurrentMap().getMaterial(x, z) : 0;

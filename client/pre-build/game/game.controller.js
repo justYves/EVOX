@@ -36,7 +36,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         positionME = voxelPosArray;
     });
 
-
+    game.trees = WorldsFactory.getCurrentWorld().trees || undefined;
     var createTrees = window.Tree(game);
     createTrees({
         bark: 3,
@@ -49,7 +49,11 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     });
 
     $scope.save = function() {
-        WorldsFactory.updateWorld($stateParams.id);
+        var updatedWorld = {
+            map: game.map,
+            trees: game.trees
+        };
+        WorldsFactory.updateWorld($stateParams.id, updatedWorld);
     };
 
 
