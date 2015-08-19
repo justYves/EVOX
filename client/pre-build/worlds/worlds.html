@@ -1,8 +1,8 @@
 <ul>
 	<li 
 		ng-repeat="world in worlds"
-		ui-sref="worlds.world({id:'testing123'})"
-		style="cursor:pointer"><a>{{world}}</a></li>
+		ng-click="currentWorld(world)"
+		style="cursor:pointer"><a>{{world.name}}</a></li>
 </ul>
 
 <ui-view></ui-view>

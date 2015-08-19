@@ -12,6 +12,7 @@ app.config(function($stateProvider) {
         })
         .state('worlds.world', {
             url: '/:id',
+            controller: 'OneWorldCtrl',
             templateUrl: '/pre-build/worlds/oneWorld.html'
         })
 });
