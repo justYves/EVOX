@@ -1,6 +1,7 @@
 app.controller('GameController', function($scope, $http, WorldsFactory, CameraFactory, MapFactory) {
 
 
+
   // <------ GAME ------>
   //voxel-engine: base module
   var map = new MapFactory.create()
