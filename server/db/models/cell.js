@@ -3,10 +3,10 @@ var mongoose = require('mongoose');
 
 var cellSchema = new mongoose.Schema({
     material: String,
-    neighbors: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'Cell'
-    }],
+    // neighbors: [{
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'Cell'
+    // }],
     //To be added later on
     // creatures =[{type:mongoose.Schema.ObjectId, ref:'Creature'}]
     x: Number,
