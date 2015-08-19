@@ -6,7 +6,7 @@ app.factory('CameraFactory', function() {
       window.camera = camera;
       camera.position.set(18, 8, 50);
 
-      var target = new game.THREE.Vector3(10, 0, 10)
+      var target = new game.THREE.Vector3(size/2, 0, size/2)
 
       var radius = 50,
         theta = 90,
