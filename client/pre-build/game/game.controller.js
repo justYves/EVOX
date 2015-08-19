@@ -1,10 +1,10 @@
-app.controller('GameController', function($scope, $http, WorldsFactory, CameraFactory,MapFactory) {
+app.controller('GameController', function($scope, $http, WorldsFactory, CameraFactory, MapFactory) {
 
 
   // <------ GAME ------>
   //voxel-engine: base module
   var map = new MapFactory.create()
-  window.Map =MapFactory.getCurrentMap(); // Working
+  window.Map = MapFactory.getCurrentMap(); // Working
 
   var createGame = window.voxelEngine;
   var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
@@ -36,16 +36,15 @@ app.controller('GameController', function($scope, $http, WorldsFactory, CameraFa
     positionME = voxelPosArray;
   });
 
-  var Trees = window.Tree(game, {
+  var createTrees = window.Tree(game);
+  createTrees({
     bark: 3,
     leaves: 4,
     densityScale: 2,
     treeType: 'subspace'
-});
+  });
 
-
-
-  $scope.save = function(){
+  $scope.save = function() {
     WorldsFactory.postWorld();
   };
 
