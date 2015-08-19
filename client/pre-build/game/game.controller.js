@@ -41,7 +41,10 @@ app.controller('GameController', function($scope, $http, WorldsFactory, CameraFa
     bark: 3,
     leaves: 4,
     densityScale: 2,
-    treeType: 'subspace'
+    treeType: 'subspace',
+    random: function(){
+      return 1;
+    }
   });
 
   $scope.save = function() {
