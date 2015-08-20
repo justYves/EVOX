@@ -1,4 +1,4 @@
-app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, $state) {
+app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory,$state) {
 
 
   // <------ GAME ------>
@@ -26,6 +26,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
 
   game.on('tick', sky);
 
+  TimeFactory.setTick(game);
+
   //need to debug interact
   var start = window.start(game);
 
@@ -37,7 +39,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   });
 
   game.trees = WorldsFactory.getCurrentWorld().trees || undefined;
-  console.log(game.trees);
+  // console.log(game.trees);
   var createTrees = window.Tree(game);
   if (!game.trees) {
     createTrees({
