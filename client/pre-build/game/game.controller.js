@@ -36,7 +36,6 @@ app.controller('GameController', function($scope, $stateParams, $state, WorldsFa
     });
 
     game.trees = WorldsFactory.getCurrentWorld().trees || undefined;
-    console.log(game.trees);
     var createTrees = window.Tree(game);
     if (!game.trees) {
         createTrees({
@@ -62,6 +61,7 @@ app.controller('GameController', function($scope, $stateParams, $state, WorldsFa
     }
 
     $scope.save = function() {
+        game.trees = JSON.stringify(game.trees);
         var updatedWorld = {
             map: game.map,
             trees: game.trees

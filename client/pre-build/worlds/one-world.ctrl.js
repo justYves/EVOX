@@ -7,4 +7,10 @@ app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactor
             id: $stateParams.id
         });
     }
+    $scope.deleteWorld = function() {
+        WorldsFactory.removeWorld($stateParams.id)
+            .then(function() {
+                $state.go('worlds');
+            })
+    }
 });
