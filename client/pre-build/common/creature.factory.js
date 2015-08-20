@@ -42,11 +42,11 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         ShapeFactory.getShape(this.name).then(function(data) {
             render(self, data, game, voxel, mesh);
         })
-            .then(function() {
-                self.game.addEvent(function() {
-                    self.exist();
-                }, self.speed, self.item.avatar.id);
-            });
+        .then(function() {
+            self.game.addEvent(function() {
+                self.exist();
+            }, self.speed, self.item.avatar.id);
+        });
 
 
 
