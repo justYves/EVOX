@@ -40,7 +40,7 @@ app.factory('TimeFactory', function() {
 
 
     function processTick() {
-      game.emit('1ms Tick');
+      console.log("tick");
       game.events.forEach(function(event, index) {
         event.elapsed++;
         if (event.elapsed > event.unit) {
