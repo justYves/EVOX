@@ -1,5 +1,6 @@
 app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, $state, $q) {
 
+    if ($('canvas')) $('canvas').remove();
     // <------ GAME ------>
     //voxel-engine: base module
     var map = MapFactory.getCurrentMap();
@@ -12,6 +13,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     game.appendTo(document.body)
     window.game = game; //For Debugging
     WorldsFactory.setCurrentGame(game);
+
 
     // <------ CAMERA ------>
     CameraFactory.set(game);
@@ -26,9 +28,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
 
     TimeFactory.setTick(game);
 
-    //need to debug interact
-    var start = window.start(game);
-
     var Highlight = window.Highlight;
     var highlighter = Highlight(game);
     var positionME;
@@ -37,6 +36,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     });
 
     game.trees = WorldsFactory.getCurrentWorld().trees || undefined;
+    // console.log(game.trees);
     var createTrees = window.Tree(game);
     if (!game.trees) {
         createTrees({
@@ -60,8 +60,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             }
         });
     }
-
-
     //calling creature constructor
     var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
     var pigeon = new createCreature({
@@ -72,8 +70,36 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     });
     window.pigeon = pigeon;
 
+    var clouds = window.Clouds({
+        // pass a copy of the game
+        game: game,
+
+        // how high up the clouds should be from the player
+        high: 10,
+
+        // the distance from the player the clouds should repeat
+        distance: 25,
+
+        // how many clouds to generate
+        many: 10,
+
+        // how fast the clouds should move
+        speed: 0.01,
+
+        // material of the clouds
+        material: new game.THREE.MeshBasicMaterial({
+            emissive: 0xffffff,
+            shading: game.THREE.FlatShading,
+            fog: false,
+            transparent: true,
+            opacity: 0.5,
+        }),
+    });
+
 
     //render
+
+    var start = window.start(game);
 
     function updateCreatureStuff(arr) {
         return $q.all(arr.map(function(creature) {
