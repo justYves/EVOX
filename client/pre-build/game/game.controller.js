@@ -1,4 +1,4 @@
-app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory,CreatureFactory) {
+app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory,$state) {
 
 
   // <------ GAME ------>
@@ -37,35 +37,57 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   });
 
 
+  game.trees = WorldsFactory.getCurrentWorld().trees || undefined;
+  console.log(game.trees);
   var createTrees = window.Tree(game);
-  createTrees({
-    bark: 3,
-    leaves: 4,
-    densityScale: 2,
-    treeType: 'subspace',
-    random: function() {
-      return 1;
-    }
-  });
+  if (!game.trees) {
+    createTrees({
+      bark: 3,
+      leaves: 4,
+      densityScale: 2,
+      treeType: 'subspace',
+      random: function() {
+        return 1;
+      }
+    });
+  } else {
+    game.trees = JSON.parse(game.trees);
+    createTrees({
+      bark: 3,
+      leaves: 4,
+      treeType: 'subspace',
+      // densityScale: 2,
+      random: function() {
+        return 1;
+      }
+    });
+  }
 
-//calling creature constructor
-  map.creatures = [];
-  // var render = require('../js/creature-render.js');
-  var createCreature = CreatureFactory.create(game);
-  var cow = createCreature({
-    name: 'cow',
-    size: 8,
-    vision: 3
-  });
 
-//render
+  //calling creature constructor
+var createCreature = CreatureFactory.create(game,window.voxel,window.voxelMesh)
+  var pigeon = new createCreature({
+  name: 'pigeon',
+  size: 1,
+  vision: 3,
+  isHerbivore: true
+});
+window.pigeon = pigeon;
 
 
+  //render
 
 
 
   $scope.save = function() {
-    WorldsFactory.updateWorld($stateParams.id);
+    var updatedWorld = {
+      map: game.map,
+      trees: game.trees
+    };
+    WorldsFactory.updateWorld($stateParams.id, updatedWorld)
+      .then(function() {
+        $state.go('worlds');
+      })
   };
 
 
@@ -91,6 +113,5 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   // var makeFly = fly(game);
   // var target = game.controls.target();
   // game.flyer = makeFly(target);
-
 
 });
