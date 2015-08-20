@@ -1,4 +1,4 @@
-app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory) {
+app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory,CreatureFactory) {
 
 
   // <------ GAME ------>
@@ -48,17 +48,21 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     }
   });
 
-  // map.creatures = [];
-
+//calling creature constructor
+  map.creatures = [];
   // var render = require('../js/creature-render.js');
-  // var Creature = window.Creature;
-  // var cow = new Creature({
-  //   name: 'cow',
-  //   size: 8,
-  //   vision: 3
-  // });
-  // window.cow = cow; //for debugging
-  // map.creatures.push(cow);
+  var createCreature = CreatureFactory.create(game);
+  var cow = createCreature({
+    name: 'cow',
+    size: 8,
+    vision: 3
+  });
+
+//render
+
+
+
+
 
   $scope.save = function() {
     WorldsFactory.updateWorld($stateParams.id);
