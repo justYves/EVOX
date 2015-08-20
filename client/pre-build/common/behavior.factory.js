@@ -1,4 +1,4 @@
-app.factory('BehaviorFactory', function() {
+app.factory('BehaviorFactory', function(MoveWorker) {
   //Creature constructor
   function Creature() {
   }
@@ -73,7 +73,7 @@ app.factory('BehaviorFactory', function() {
       size: this.map.size
     };
 
-    var myWorker = new Worker("./creature/behavior/moveWorker.js");
+    var myWorker = new Worker(MoveWorker);
     myWorker.postMessage(data);
     var self = this;
     this.map.getCell(self.position.x - 0.5, self.position.z - 0.5).hasAnimal = null;

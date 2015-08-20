@@ -1,5 +1,4 @@
-app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, $state, $q) {
-
+app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, $state, $q) {
 
     // <------ GAME ------>
     //voxel-engine: base module
@@ -24,6 +23,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     var sky = createSky();
 
     game.on('tick', sky);
+
+    TimeFactory.setTick(game);
 
     //need to debug interact
     var start = window.start(game);
@@ -124,75 +125,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             .then(function() {
                 $state.go('worlds');
             })
-
-        // if (existing.length) {
-        //     $q.all(existing.map(function(creature) {
-        //         return CreatureFactory.updateCoord(creature.position)
-        //             .then(function() {
-        //                 return CreatureFactory.updateCoord(creature.rotation)
-        //             })
-        //     }))
-        //         .then(function() {
-        //             $q.all(isNew.map(function(creature) {
-        //                 return CreatureFactory.setParents(creature.parents);
-        //             }))
-        //         })
-        // }
-
-
-
-        // $q.all(game.creatures.map(function(creature) {
-        //     CreatureFactory.postShape(creature.shape)
-        //         .then(function(shape) {
-        //             if (shape) creature.shape = shape;
-        //             if (!creature._id) return CreatureFactory.postParents(creature.parents);
-        //             else return;
-        //         })
-        //         .then(function(parents) {
-        //             if (parents) creature.parents = parents;
-        //             if (!creature._id) return CreatureFactory.postCoord([creature.position, creature.rotation]);
-        //             else {
-        //                 return CreatureFactory.updateCoord(creature.position)
-        //                     .then(function() {
-        //                         return CreatureFactory.updateCoord(creature.rotation)
-        //                     })
-        //             }
-        //         })
-        //         .then(function(data) {
-        //             if (Array.isArray(data)) {
-        //                 creature.position = data[0];
-        //                 creature.rotation = data[1];
-        //             }
-        //             if (!creature._id) return CreatureFactory.postCreature(creature);
-        //         })
-        // }))
-        //     .then(function(creatures) {
-
-        //     })
-
-
-        // var shapes = game.creatures.map(function(creature) {
-        //     return creature.shape;
-        // }).filter(function(shape) {
-        //     return !shape._id;
-        // });
-
-        // CreatureFactory.postShape(shapes)
-        //     .then(function() {
-        //         if ()
-        //             CreatureFactory.postOffspring
-        //     })
-
-        // game.trees = JSON.stringify(game.trees);
-        // var updatedWorld = {
-        //     map: game.map,
-        //     trees: game.trees,
-        //     creatures: game.creatures
-        // };
-        // WorldsFactory.updateWorld($stateParams.id, updatedWorld)
-        //     .then(function() {
-        //         $state.go('worlds');
-        //     })
     };
 
 

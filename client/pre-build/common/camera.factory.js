@@ -31,7 +31,7 @@ app.factory('CameraFactory', function() {
       function mousewheel(event) {
         event.preventDefault()
           // prevent zoom if a modal is open
-        zoom(event.wheelDeltaY / 4 || event.detail)
+        zoom(event.wheelDeltaY / 15 || event.detail)
       }
 
 

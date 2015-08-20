@@ -52,6 +52,8 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, $http) {
         return trait * factor;
     }
 
+
+
     function divide(trait, factor) {
         return Math.floor(trait / factor);
     }

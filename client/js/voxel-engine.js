@@ -620,6 +620,7 @@ Game.prototype.onControlOptOut = function() {
 }
 
 Game.prototype.onFire = function(state) {
+  console.log("fire",state)
   this.emit('fire', this.controlling, state)
 }
 
@@ -4894,6 +4895,7 @@ function pointer(el) {
   return ee
 
   function onmousedown(ev) {
+    // console.log("mousedown",ev)
     if(pointerlockelement()) {
       return
     }
@@ -5094,6 +5096,7 @@ module.exports = function(el, bindings, state) {
   }
 
   function mouse(ev) {
+    // console.log("within kb",ev) //returns 1
     return '<mouse '+ev.which+'>'
   }
 
@@ -41909,7 +41912,7 @@ Tic.prototype.tick = function(dt) {
   });
 };
 
-},{}],28:[function(require,module,exports){
+},{}],28:[function(require,module,exports){ //voxel control
 module.exports = control
 
 var Stream = require('stream').Stream
