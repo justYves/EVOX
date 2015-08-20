@@ -23,18 +23,32 @@
     return s
 })({
     1: [
+
         function(require, module, exports) {
             var Tree = require('../tree');
 
             window.Tree = function(game) {
-
-                if (!game.trees) return function(opts) {
-                    createNew(game, opts);
+                if (!game.trees) {
+                    return function(opts) {
+                        createNew(game, opts);
+                    };
+                } else {
+                    return function(opts) {
+                        game.trees.forEach(function(tree) {
+                            opts.position = {
+                                x: tree.position[0],
+                                y: tree.position[1],
+                                z: tree.position[2]
+                            };
+                            opts.height = tree.height + 1;
+                            Tree(game, opts);
+                        })
+                    }
                 }
             };
 
             function createNew(game, opts) {
-                var map = game.map
+                var map = game.map;
                 game.trees = [];
                 if (opts.position === undefined) opts.position = {};
                 if (!opts.position.x) opts.position.x = Math.floor(Math.random() * map.size);
@@ -45,8 +59,8 @@
                 if (opts.leaves === undefined) throw "Must choose leaves tile"
                 var treeArr = [];
                 var randCoords = function() {
-                    opts.position.x = Math.floor(Math.random() * map.size) + 1;
-                    opts.position.z = Math.floor(Math.random() * map.size) + 1;
+                    opts.position.x = Math.floor(Math.random() * map.size);
+                    opts.position.z = Math.floor(Math.random() * map.size);
                     randH = Math.floor(Math.random() * map.size / 2) + 3;
                     if (treeArr.length) {
                         for (var i = 0; i < treeArr.length; i++) {
@@ -87,6 +101,7 @@
         }
     ],
     2: [
+
         function(require, module, exports) {
             module.exports = function(game, opts) {
                 if (!opts) opts = {};
@@ -166,6 +181,7 @@
                 }
                 var generators = {
                     subspace: function() {
+                        console.log("subspace");
                         var around = [
                             [0, 1],
                             [0, -1],
@@ -207,7 +223,8 @@
                         return {
                             position: [pos.x, 1, pos.z],
                             height: pos.y,
-                            leaves: leaves
+                            leaves: leaves,
+                            base: opts.base
                         };
                     },
                 }

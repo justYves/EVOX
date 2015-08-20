@@ -38,6 +38,7 @@ app.factory('WorldsFactory', function($http, MapFactory) {
                 })
         },
         updateWorld: function(id, obj) {
+            obj.map = concatMap(obj.map);
             return $http.put('/api/worlds/' + id, obj)
                 .then(function(res) {
                     return res.data;

@@ -1,5 +1,4 @@
-app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory) {
-
+app.controller('GameController', function($scope, $stateParams, $state, WorldsFactory, CameraFactory, MapFactory) {
 
     // <------ GAME ------>
     //voxel-engine: base module
@@ -37,23 +36,40 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     });
 
     game.trees = WorldsFactory.getCurrentWorld().trees || undefined;
+    console.log(game.trees);
     var createTrees = window.Tree(game);
-    createTrees({
-        bark: 3,
-        leaves: 4,
-        densityScale: 2,
-        treeType: 'subspace',
-        random: function() {
-            return 1;
-        }
-    });
+    if (!game.trees) {
+        createTrees({
+            bark: 3,
+            leaves: 4,
+            densityScale: 2,
+            treeType: 'subspace',
+            random: function() {
+                return 1;
+            }
+        });
+    } else {
+        game.trees = JSON.parse(game.trees);
+        createTrees({
+            bark: 3,
+            leaves: 4,
+            treeType: 'subspace',
+            // densityScale: 2,
+            random: function() {
+                return 1;
+            }
+        });
+    }
 
     $scope.save = function() {
         var updatedWorld = {
             map: game.map,
             trees: game.trees
         };
-        WorldsFactory.updateWorld($stateParams.id, updatedWorld);
+        WorldsFactory.updateWorld($stateParams.id, updatedWorld)
+            .then(function() {
+                $state.go('worlds');
+            })
     };
 
 
