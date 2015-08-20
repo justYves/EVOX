@@ -181,7 +181,7 @@
                 }
                 var generators = {
                     subspace: function() {
-                        console.log("subspace");
+                        // console.log("subspace");
                         var around = [
                             [0, 1],
                             [0, -1],

@@ -17,11 +17,21 @@ router.get('/', function(req, res, next) {
         .then(null, next);
 });
 
+router.get('/:name', function(req, res, next) {
+    Shape.findOne({
+            name: req.params.name
+        }).exec()
+        .then(function(data) {
+            res.json(data.shape);
+        })
+        .then(null, next);
+});
+
 router.post('/', function(req, res, next) {
     Shape.create({
-        name: req.body.name,
-        shape: JSON.stringify(req.body.shape)
-    })
+            name: req.body.name,
+            shape: JSON.stringify(req.body.shape)
+        })
         .then(function(shape) {
             res.status(201).json(shape);
         })
