@@ -15,6 +15,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   WorldsFactory.setCurrentGame(game);
 
 
+
   // <------ CAMERA ------>
   CameraFactory.set(game);
 
@@ -25,7 +26,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   var sky = createSky();
 
   game.on('tick', sky);
-
+ 
   TimeFactory.setTick(game);
 
   var Highlight = window.Highlight;
@@ -66,7 +67,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
   var pigeon = new createCreature({
     name: 'pigeon',
-    size: 1,
+    size: 10,
     vision: 3,
     isHerbivore: true
   });
@@ -76,6 +77,7 @@ var clouds = window.Clouds({
   // pass a copy of the game
   game: game,
 
+
   // how high up the clouds should be from the player
   high: 10,
 
@@ -84,6 +86,7 @@ var clouds = window.Clouds({
 
   // how many clouds to generate
   many: 10,
+
 
   // how fast the clouds should move
   speed: 0.01,
@@ -113,6 +116,11 @@ var clouds = window.Clouds({
       .then(function() {
         $state.go('worlds');
       })
+
+  //render
+
+// Setting game event loop
+
   };
 
 
