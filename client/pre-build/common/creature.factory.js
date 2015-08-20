@@ -1,9 +1,10 @@
 app.factory('CreatureFactory', function(ShapeFactory,BehaviorFactory) {
   //Creature constructor
   function Creature(game, opts, voxel, mesh) {
+    this.game = game;
     this.map = game.map;
     this.hpMax = multiply(opts.size, 5);
-    this.hp = this.hpMax
+    this.hp = this.hpMax;
     this.age = 0;
     this.name = opts.name;
     this.alive = true;
@@ -58,13 +59,13 @@ app.factory('CreatureFactory', function(ShapeFactory,BehaviorFactory) {
 
   //render the 3D model
   function render(model, shape, game, voxel, mesh) {
-    console.log("game", game);
-    console.log(arguments);
+    // console.log("game", game);
+    // console.log(arguments);
     if (typeof shape !== "function") {
-      console.log("Render is called!");
+      // console.log("Render is called!");
       var displayScale = shape.display || 0.5;
       shape = build(shape, shape.scale, game, voxel, game.mesh);
-      console.log(displayScale);
+      // console.log(displayScale);
       shape.scale = new game.THREE.Vector3(displayScale, displayScale, displayScale);
     } else {
       shape = shape();
