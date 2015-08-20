@@ -1,6 +1,7 @@
-app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, $http) {
+app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFactory, $http) {
     //Creature constructor
     function Creature(game, opts, voxel, mesh) {
+        this.game = game;
         this.map = game.map;
         this.hpMax = multiply(opts.size, 5);
         this.hp = this.hpMax
@@ -40,7 +41,14 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, $http) {
 
         ShapeFactory.getShape(this.name).then(function(data) {
             render(self, data, game, voxel, mesh);
-        });
+        })
+            .then(function() {
+                self.game.addEvent(function() {
+                    self.exist();
+                }, self.speed, self.item.avatar.id);
+            });
+
+
 
         if (!game.creatures) game.creatures = [];
         game.creatures.push(this);
@@ -52,19 +60,19 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, $http) {
         return trait * factor;
     }
 
-
-
     function divide(trait, factor) {
         return Math.floor(trait / factor);
     }
 
     //render the 3D model
     function render(model, shape, game, voxel, mesh) {
+        // console.log("game", game);
+        // console.log(arguments);
         if (typeof shape !== "function") {
-            console.log("Render is called!");
+            // console.log("Render is called!");
             var displayScale = shape.display || 0.5;
             shape = build(shape, shape.scale, game, voxel, game.mesh);
-            console.log(displayScale);
+            // console.log(displayScale);
             shape.scale = new game.THREE.Vector3(displayScale, displayScale, displayScale);
         } else {
             shape = shape();

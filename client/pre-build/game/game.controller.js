@@ -58,17 +58,20 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             random: function() {
                 return 1;
             }
-        });
+        })
     }
+
     //calling creature constructor
     var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
     var pigeon = new createCreature({
         name: 'pigeon',
-        size: 1,
+        size: 10,
         vision: 3,
         isHerbivore: true
     });
     window.pigeon = pigeon;
+
+
 
     var clouds = window.Clouds({
         // pass a copy of the game
