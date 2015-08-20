@@ -38,6 +38,7 @@ app.factory('WorldsFactory', function($http, MapFactory) {
                 })
         },
         updateWorld: function(id, obj) {
+            obj.map = concatMap(obj.map);
             return $http.put('/api/worlds/' + id, obj)
                 .then(function(res) {
                     return res.data;
@@ -56,7 +57,6 @@ app.factory('WorldsFactory', function($http, MapFactory) {
             return currentGame;
         },
         newWorldOptions: function() {
-            console.log(size);
             return {
                 generate: function(x, y, z) {
                     return (y === 0 && x >= 0 && x < size && z >= 0 && z < size) ? MapFactory.getCurrentMap().getMaterial(x, z) : 0;
