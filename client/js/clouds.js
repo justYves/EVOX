@@ -36045,6 +36045,7 @@ function Clouds(opts) {
   this.distance = opts.distance || 300;
   this.many = opts.many || 100;
   this.speed = opts.speed || 0.01;
+  this.pos = new game.THREE.Vector3(game.map.size/2, 1, game.map.size/2)
   this.material = opts.material || new this.game.THREE.MeshBasicMaterial({
     emissive: 0xffffff,
     shading: this.game.THREE.FlatShading,
@@ -36058,7 +36059,7 @@ function Clouds(opts) {
   }
 }
 module.exports = Clouds;
-
+window.Clouds = Clouds;
 Clouds.prototype.generate = function(size) {
   var game = this.game;
   size = size || 16;
@@ -36086,20 +36087,18 @@ Clouds.prototype.generate = function(size) {
 
 Clouds.prototype.tick = function(dt) {
   var self = this;
-  var player = self.game.controls.target().avatar.position;
   self.clouds.forEach(function(cloud) {
     cloud.surfaceMesh.position.z += self.speed * rand(1, 1.5);
-    if (distanceTo(cloud.surfaceMesh.position, player) > self.distance) {
+    if (distanceTo(cloud.surfaceMesh.position, this.pos) > self.distance) {
       self._position(cloud);
     }
   });
 };
 
 Clouds.prototype._position = function(cloud) {
-  var player = this.game.controls.target().avatar.position;
-  var x = rand(player.x - this.distance, player.x + this.distance);
-  var y = player.y + this.high + rand(0, this.high * 2);
-  var z = rand(player.z - this.distance, player.z + this.distance);
+  var x = rand(this.pos.x - this.distance, this.pos.x + this.distance);
+  var y = this.pos.y + this.high + rand(0, this.high * 2);
+  var z = rand(this.pos.z - this.distance, this.pos.z + this.distance);
   cloud.setPosition(x, y, z);
 };
 
