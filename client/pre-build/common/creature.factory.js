@@ -1,4 +1,4 @@
-app.factory('CreatureFactory', function(ShapeFactory,BehaviorFactory) {
+app.factory('CreatureFactory', function(ShapeFactory,BehaviorFactory, TimeFactory) {
   //Creature constructor
   function Creature(game, opts, voxel, mesh) {
     this.game = game;
@@ -41,11 +41,18 @@ app.factory('CreatureFactory', function(ShapeFactory,BehaviorFactory) {
 
     ShapeFactory.getShape(this.name).then(function(data) {
       render(self, data, game, voxel, mesh);
+    })
+    .then(function(){
+      self.game.addEvent(function(){
+            self.exist();
+        }, self.speed, self.item.avatar.id);
     });
+
+
 
     if(!game.creatures) game.creatures = [];
         game.creatures.push(this);
-  }
+    }
 
 
 

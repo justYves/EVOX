@@ -93,7 +93,57 @@ app.factory('TimeFactory', function() {
       console.log("Current Time: " + game.time + "h.")
     }
   }
+
+/* Event loop settings */
+function setEvent() {
+    // var cow = creatures.cow[0];
+
+    //Notified that an Creature is eating grass at position x,z
+    // game.on('eat', function(x, z, creature) {
+    //     // console.log(x, z);
+    //     // if(creature.isHerbivore){
+    //     //     map.empty(creature.food.x, creature.food.z);
+    //     // }
+    //     // else{
+    //         console.log('die event', creature.name)
+    //         creature.die();
+    //     // }
+    // });
+
+    //Creature is procreating
+    game.on('procreate', function(x, z, type) {
+        console.log(type);
+    });
+    game.on('speed', function() {
+        console.log(game.speed);
+    });
+
+    game.on('speed2', function() {
+        console.log(speed);
+    });
+
+
+
+    // <------ TICK ------>
+    //Game.add Event takes a function that will be called at every 10 game time unit.
+    game.addEvent(function() {
+        game.map.growGrass(game);
+    }, 10);
+    game.creatures.forEach(function(creature){
+        console.log('exists creature ',creature);
+
+        console.log('exists creature item',creature.item);
+        console.log('exists creature item avatar',creature.item.avatar);
+        console.log('exists creature avatar id',creature.item.avatar.id);
+
+        game.addEvent(function(){
+            creature.exist();
+        }, creature.speed, creature.item.avatar.id);
+    });
+}
+
   return {
-    setTick: setTick
+    setTick: setTick,
+    setEvent: setEvent
   }
 })

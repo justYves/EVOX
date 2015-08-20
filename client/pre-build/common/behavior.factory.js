@@ -35,10 +35,10 @@ app.factory('BehaviorFactory', function(MoveWorker) {
     this.isAlive = false;
     var ind;
     var self = this;
-    this.map.creatures.forEach(function(creature, index) {
+    this.game.creatures.forEach(function(creature, index) {
       if (self.item.avatar.id === creature.item.avatar.id) {
         ind = index;
-        this.map.creatures.splice(ind, 1);
+        self.game.creatures.splice(ind, 1);
       }
     });
     game.removeItem(this);
@@ -54,7 +54,7 @@ app.factory('BehaviorFactory', function(MoveWorker) {
       vision: this.vision,
       isHerbivore: this.isHerbivore
     });
-    this.map.creatures.push(newCreature);
+    this.game.creatures.push(newCreature);
     render(newCreature, this.map);
     newCreature.setPosition(this.position.x - 0.5, 10, this.position.z - 0.5);
     game.addEvent(function() {
@@ -76,13 +76,11 @@ app.factory('BehaviorFactory', function(MoveWorker) {
     var myWorker = new Worker(MoveWorker);
     myWorker.postMessage(data);
     var self = this;
-    this.map.getCell(self.position.x - 0.5, self.position.z - 0.5).hasAnimal = null;
     myWorker.onmessage = function(result) {
       self.position.x = result.data.x;
       self.position.y = result.data.y;
       self.position.z = result.data.z;
       self.rotation.y = Number(result.data.rotY) || self.rotation.y;
-      this.map.getCell(self.position.x - 0.5, self.position.z - 0.5).hasAnimal = self;
     };
   };
 
@@ -130,56 +128,6 @@ app.factory('BehaviorFactory', function(MoveWorker) {
   //     }, opts.interval);
   // };
 
-  Creature.prototype.lookAround = function(searchRadius, objective) {
-    var x = this.position.x - 0.5;
-    var z = this.position.z - 0.5;
-    var xPlus = x + searchRadius;
-    var xMinus = x - searchRadius;
-    var zPlus = z + searchRadius;
-    var zMinus = z - searchRadius;
-    var self = this;
-    var around = [];
-
-    for (var i = xMinus; i <= xPlus; i++) {
-      for (var j = zMinus; j <= zPlus; j++) {
-        var cell = this.map.getCell(i, j);
-        if (cell) {
-          around.push(cell);
-        }
-      }
-    }
-
-    //for herbivores
-    if (objective === 'material') {
-      return around.filter(function(cell) {
-        return cell.material === 'grass';
-      });
-    }
-
-    //for carnivores
-    else {
-      return around.filter(function(cell) {
-        if (cell.x !== self.position.x - 0.5 && cell.z !== self.position.z - 0.5) {
-          return cell.hasAnimal !== null && cell.hasAnimal.name !== self.name;
-        }
-      });
-    }
-    //get surrounding area
-    // this.map.data.forEach(function(row, rowIndex) {
-    //     if (rowIndex <= x + searchRadius && rowIndex >= x - searchRadius) {
-    //         row.forEach(function(cell, cellIndex) {
-    //             if (cellIndex <= z + searchRadius && cellIndex >= z - searchRadius) {
-    //                 around.push({
-    //                     cell: cell,
-    //                     x: rowIndex,
-    //                     z: cellIndex
-    //                 });
-    //             }
-    //         });
-    //     }
-    // });
-
-  };
 
   Creature.prototype.step = function(dir, objective) {
     if (dir < objective) return 1;
@@ -187,7 +135,7 @@ app.factory('BehaviorFactory', function(MoveWorker) {
     else return 0;
   };
 
-  Creature.prototype.moveTowardsObjective = function(cell) {
+  Creature.prototype.moveTowardsObjective = function(objv) {
     var x = this.position.x - 0.5;
     var z = this.position.z - 0.5;
     var self = this;
@@ -205,48 +153,70 @@ app.factory('BehaviorFactory', function(MoveWorker) {
     ];
 
     var foundFood = false;
+    if(this.isHerbivore === false){
+        ard.forEach(function(coords){
+            if(coords[0] === objv.position.x - 0.5 && coords[1] === objv.position.z - 0.5 && !foundFood){
+                console.log('killer: ',self.name,"target: ", objv.name);
+                foundFood = true;
+                self.lookAt(objv);
+                self.eat(objv);
+            }
+        });
+        if(foundFood === false){
+            this.move(this.step(x, objv.position.x - 0.5), 0, this.step(z, objv.position.z - 0.5));
+        }
 
-    ard.forEach(function(coords) {
-      if (map.getCell(coords[0], coords[1]) === cell) {
-        foundFood = true;
-      }
-    });
-
-    if (foundFood === false) {
-      this.move(this.step(x, cell.x), 0, this.step(z, cell.z));
-    } else {
-      self.lookAt(cell);
-      self.eat();
+    }
+    if(this.isHerbivore){
+        var count = 0;
+         ard.forEach(function(coords){
+            if(self.map.getCell(coords[0], coords[1]).material === objv){
+                if(count <= self.appetite){
+                    count++;
+                    foundFood = true;
+                    self.lookAt(this.map.getCell(coords[0], coords[1]));
+                    self.eat(this.map.getCell(coords[0], coords[1]));
+                }
+            }
+        });
     }
   };
 
   Creature.prototype.herd = function() {
     var x = this.position.x - 0.5;
     var z = this.position.z - 0.5;
-    var neighbors = this.lookAround(this.social, 'hasAnimal');
     var foundNeighbor = false;
     var self = this;
     var min;
 
     //finding the closest neighbor cell
-    neighbors.forEach(function(cell) {
-      if (cell.hasAnimal !== null) {
-        if (cell.hasAnimal.name === self.name) {
-          foundNeighbor = true;
-          var dist = Math.sqrt(Math.pow((cell.x - x), 2) + Math.pow((cell.z - z), 2));
-          if (!min) {
-            min = dist;
-            closestCell = cell;
-          } else if (dist < min) {
-            min = dist;
-            closestCell = cell;
+    this.game.creatures.forEach(function(creature){
+       if(creature !== self && creature.name === self.name){
+          var dist = Math.sqrt(Math.pow((creature.position.x - x), 2) + Math.pow((creature.position.z - z), 2)) ;
+          if(dist < self.social){  
+              foundNeighbor = true;  
+              if(!min){
+                  min = dist;
+                  nearestNeighbor = creature;
+              }else if(dist < min){
+                  min = dist;
+                  nearestNeighbor = creature;
+              }
           }
-        }
       }
-    });
 
-    //move towards herd
-    if (foundNeighbor) this.move(this.step(x, closestCell.x), 0, this.step(y, closestCell.y));
+
+        });
+    if(foundNeighbor){
+        futureX = x + this.step(x, nearestNeighbor.position.x - 0.5);
+        futureZ = z + this.step(z, nearestNeighbor.position.z - 0.5);
+        if(futureX !== nearestNeighbor.position.x && futureZ !== nearestNeighbor.position.z){
+            //move towards herd
+            this.move(this.step(x, nearestNeighbor.position.x - 0.5), 0, this.step(z, nearestNeighbor.position.z - 0.5));
+        }
+    }
+
+
     else this.moveRandomly(2);
   };
 
@@ -270,12 +240,56 @@ app.factory('BehaviorFactory', function(MoveWorker) {
           this.procreate();
           this.lifeCycle === this.hpMax * 4;
         }
-      } else {
+      } 
+      if(this.hunger < Math.floor(this.hp / 2)){
         console.log(this.name + " is herding");
         this.herd();
       }
     }
   };
+/**** Eating behavior *****/
+Creature.prototype.getFood = function() {
+    var x = this.position.x - 0.5;
+    var z = this.position.z - 0.5;
+    var min;
+    var closestCell;
+    var objective;
+   
+    var foodSource;
+
+    //determine closest cell
+    if(!this.isHerbivore){
+        var self = this;
+        this.game.creatures.forEach(function(creature){
+             if(creature !== self){
+                var dist = Math.sqrt(Math.pow((creature.position.x - x), 2) + Math.pow((creature.position.z - z), 2)) ;
+                if(dist < self.vision){  
+                    if(!min){
+                        min = dist;
+                        closestCell = creature;
+                    }else if(dist < min && dist){
+                        min = dist;
+                        closestCell = creature;
+                    }
+                }
+            }
+        });
+        this.moveTowardsObjective(closestCell); 
+    }
+
+    if(this.isHerbivore){
+        this.moveTowardsObjective("grass");
+    }
+};
+Creature.prototype.eat = function(target) {
+    // console.log(this.name + " ate " + this.food.material, this.food.hasAnimal);
+    // this.game.emit('eat', this.position.x - 0.5, this.position.z - 0.5, target);
+    if(this.hunger > 0){
+        this.hunger -= 10; 
+    }
+    if(this.isHerbivore) this.map.empty(target.x, target.z);
+    else target.die()
+};
 
 
   return Creature;

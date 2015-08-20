@@ -15,6 +15,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   WorldsFactory.setCurrentGame(game);
 
 
+
   // <------ CAMERA ------>
   CameraFactory.set(game);
 
@@ -25,7 +26,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   var sky = createSky();
 
   game.on('tick', sky);
-
+ 
   TimeFactory.setTick(game);
 
   //need to debug interact
@@ -69,14 +70,13 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
   var pigeon = new createCreature({
     name: 'pigeon',
-    size: 1,
+    size: 10,
     vision: 3,
     isHerbivore: true
   });
   window.pigeon = pigeon;
 
 
-  //render
 
 
 
@@ -90,6 +90,11 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
       .then(function() {
         $state.go('worlds');
       })
+
+  //render
+
+// Setting game event loop
+
   };
 
 
