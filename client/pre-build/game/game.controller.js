@@ -1,4 +1,4 @@
-app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory,$state) {
+app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, $state) {
 
 
   // <------ GAME ------>
@@ -36,7 +36,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     positionME = voxelPosArray;
   });
 
-
   game.trees = WorldsFactory.getCurrentWorld().trees || undefined;
   console.log(game.trees);
   var createTrees = window.Tree(game);
@@ -65,14 +64,14 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
 
 
   //calling creature constructor
-var createCreature = CreatureFactory.create(game,window.voxel,window.voxelMesh)
+  var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
   var pigeon = new createCreature({
-  name: 'pigeon',
-  size: 1,
-  vision: 3,
-  isHerbivore: true
-});
-window.pigeon = pigeon;
+    name: 'pigeon',
+    size: 1,
+    vision: 3,
+    isHerbivore: true
+  });
+  window.pigeon = pigeon;
 
 
   //render
@@ -80,6 +79,7 @@ window.pigeon = pigeon;
 
 
   $scope.save = function() {
+    game.trees = JSON.stringify(game.trees);
     var updatedWorld = {
       map: game.map,
       trees: game.trees

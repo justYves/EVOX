@@ -41,6 +41,7 @@
                                 z: tree.position[2]
                             };
                             opts.height = tree.height + 1;
+                            opts.base = tree.base;
                             Tree(game, opts);
                         })
                     }
@@ -93,7 +94,6 @@
                     currentCell.obstructed = true;
                     game.trees.push(treeObject);
                 }
-                game.trees = JSON.stringify(game.trees);
             };
 
         }, {
