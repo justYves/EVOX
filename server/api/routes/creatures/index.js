@@ -28,8 +28,25 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    Creature.create(req.body)
+    if (!req.body.parents) req.body.parents = [{
+        name: 'God'
+    }, {
+        name: 'Darwin'
+    }];
+    var setParents = [];
+    Creature.findOne(req.body.parents[0]).exec()
+        .then(function(parent) {
+            setParents.push(parent);
+            return Creature.findOne(req.body.parents[1]).exec()
+        })
+        .then(function(parent) {
+            setParents.push(parent);
+            req.body.parents = setParents
+            console.log('why', req.body)
+            return Creature.create(req.body)
+        })
         .then(function(creature) {
+            console.log('yes', creature)
             res.status(201).json(creature);
         })
         .then(null, next);

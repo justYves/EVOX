@@ -1,6 +1,6 @@
 require('./cell');
 require('./coordinate');
-require('./material');
+// require('./material');
 require('./creature');
 require('./user');
 require('./shape');
