@@ -57,104 +57,123 @@ app.factory('CreatureFactory', function(ShapeFactory,BehaviorFactory, TimeFactor
 
 
 
-  function multiply(trait, factor) {
-    return trait * factor;
-  }
-
-  function divide(trait, factor) {
-    return Math.floor(trait / factor);
-  }
-
-  //render the 3D model
-  function render(model, shape, game, voxel, mesh) {
-    // console.log("game", game);
-    // console.log(arguments);
-    if (typeof shape !== "function") {
-      // console.log("Render is called!");
-      var displayScale = shape.display || 0.5;
-      shape = build(shape, shape.scale, game, voxel, game.mesh);
-      // console.log(displayScale);
-      shape.scale = new game.THREE.Vector3(displayScale, displayScale, displayScale);
-    } else {
-      shape = shape();
-      shape.scale = new game.THREE.Vector3(0.04, 0.04, 0.04);
+    function multiply(trait, factor) {
+        return trait * factor;
     }
 
-    model.map = game.map;
-    model.item = game.makePhysical(shape);
-    model.item.subjectTo(game.gravity);
-    game.scene.add(shape);
-    game.addItem(model.item);
-
-    model.position = model.item.yaw.position;
-    model.rotation = model.item.yaw.rotation;
-    model.setPosition(Math.round(Math.random() * game.map.size), 10, Math.round(Math.random() * game.map.size));
-  }
-
-  function build(obj, scale, game, voxel, mesh) {
-    var bounds = obj.bounds;
-    var voxels = obj.voxels;
-    var colors = obj.colors;
-
-    // create voxels
-    bounds[0] = bounds[0].map(function(b) {
-      return b - 1;
-    });
-    bounds[1] = bounds[1].map(function(b) {
-      return b + 1;
-    });
-    var voxels = generate(bounds[0], bounds[1], function(x, y, z) {
-      return voxels[[x, y, z].join('|')] || 0;
-    });
-    console.log(voxels);
-    // create mesh
-    scale = scale || 0.2;
-    var mesh = voxelMesh(voxels, game.mesher, new game.THREE.Vector3(scale, scale, scale), game.THREE);
-    var mat = new self.game.THREE.MeshBasicMaterial({
-      vertexColors: game.THREE.FaceColors
-    });
-    mesh.createSurfaceMesh(mat);
-
-    // colorize
-    for (var i = 0; i < mesh.surfaceMesh.geometry.faces.length; i++) {
-      var face = mesh.surfaceMesh.geometry.faces[i];
-      var index = Math.floor(face.color.b * 255 + face.color.g * 255 * 255 + face.color.r * 255 * 255 * 255);
-      var color = colors[index] || colors[0];
-      face.color.setRGB(color[0], color[1], color[2]);
+    function divide(trait, factor) {
+        return Math.floor(trait / factor);
     }
 
-    function generate(l, h, f, game) {
-      var d = [h[0] - l[0], h[1] - l[1], h[2] - l[2]];
-      var v = new Int8Array(d[0] * d[1] * d[2]);
-      var n = 0;
-      for (var k = l[2]; k < h[2]; ++k)
-        for (var j = l[1]; j < h[1]; ++j)
-          for (var i = l[0]; i < h[0]; ++i, ++n) {
-            v[n] = f(i, j, k, n, game);
-          }
-      return {
-        voxels: v,
-        dims: d
-      };
+    //render the 3D model
+    function render(model, shape, game, voxel, mesh) {
+        // console.log("game", game);
+        // console.log(arguments);
+        if (typeof shape !== "function") {
+            // console.log("Render is called!");
+            var displayScale = shape.display || 0.5;
+            shape = build(shape, shape.scale, game, voxel, game.mesh);
+            // console.log(displayScale);
+            shape.scale = new game.THREE.Vector3(displayScale, displayScale, displayScale);
+        } else {
+            shape = shape();
+            shape.scale = new game.THREE.Vector3(0.04, 0.04, 0.04);
+        }
+
+        model.map = game.map;
+        model.item = game.makePhysical(shape);
+        model.item.subjectTo(game.gravity);
+        game.scene.add(shape);
+        game.addItem(model.item);
+
+        model.position = model.item.yaw.position;
+        model.rotation = model.item.yaw.rotation;
+        model.setPosition(Math.round(Math.random() * game.map.size), 10, Math.round(Math.random() * game.map.size));
     }
 
+    function build(obj, scale, game, voxel, mesh) {
+        var bounds = obj.bounds;
+        var voxels = obj.voxels;
+        var colors = obj.colors;
 
-    // center the geometry
-    game.THREE.GeometryUtils.center(mesh.surfaceMesh.geometry);
-    mesh.setPosition(0, 1.5, 0);
+        // create voxels
+        bounds[0] = bounds[0].map(function(b) {
+            return b - 1;
+        });
+        bounds[1] = bounds[1].map(function(b) {
+            return b + 1;
+        });
+        var voxels = generate(bounds[0], bounds[1], function(x, y, z) {
+            return voxels[[x, y, z].join('|')] || 0;
+        });
+        console.log(voxels);
+        // create mesh
+        scale = scale || 0.2;
+        var mesh = voxelMesh(voxels, game.mesher, new game.THREE.Vector3(scale, scale, scale), game.THREE);
+        var mat = new self.game.THREE.MeshBasicMaterial({
+            vertexColors: game.THREE.FaceColors
+        });
+        mesh.createSurfaceMesh(mat);
 
-    // create creature
-    var body = new game.THREE.Object3D();
-    body.add(mesh.surfaceMesh);
-    return body;
-  }
+        // colorize
+        for (var i = 0; i < mesh.surfaceMesh.geometry.faces.length; i++) {
+            var face = mesh.surfaceMesh.geometry.faces[i];
+            var index = Math.floor(face.color.b * 255 + face.color.g * 255 * 255 + face.color.r * 255 * 255 * 255);
+            var color = colors[index] || colors[0];
+            face.color.setRGB(color[0], color[1], color[2]);
+        }
 
-  return {
-    create: function(game, voxel, mesh) {
-      return function(opts) {
-        return new Creature(game, opts, voxel, mesh);
-      };
-    },
-    render: render
-  };
+        function generate(l, h, f, game) {
+            var d = [h[0] - l[0], h[1] - l[1], h[2] - l[2]];
+            var v = new Int8Array(d[0] * d[1] * d[2]);
+            var n = 0;
+            for (var k = l[2]; k < h[2]; ++k)
+                for (var j = l[1]; j < h[1]; ++j)
+                    for (var i = l[0]; i < h[0]; ++i, ++n) {
+                        v[n] = f(i, j, k, n, game);
+                    }
+            return {
+                voxels: v,
+                dims: d
+            };
+        }
+
+
+        // center the geometry
+        game.THREE.GeometryUtils.center(mesh.surfaceMesh.geometry);
+        mesh.setPosition(0, 1.5, 0);
+
+        // create creature
+        var body = new game.THREE.Object3D();
+        body.add(mesh.surfaceMesh);
+        return body;
+    }
+
+    return {
+        create: function(game, voxel, mesh) {
+            return function(opts) {
+                return new Creature(game, opts, voxel, mesh);
+            };
+        },
+        render: render,
+        postCoord: function(coord) {
+            return $http.post('/api/coordinates', coord)
+                .then(function(res) {
+                    return res.data
+                })
+        },
+        updateCoord: function(coord) {
+            return $http.put('/api/coordinates/' + coord._id, coord)
+                .then(function(res) {
+                    return res.data
+                })
+        },
+        postCreature: function(creature) {
+            return $http.post('/api/creatures', creature)
+                .then(function(res) {
+                    return res.data
+                })
+        }
+        // shape, parents, position, rotation
+    };
 })
