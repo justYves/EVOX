@@ -10,11 +10,46 @@ app.factory('WorldsFactory', function($http, MapFactory) {
     function concatMap(map) {
         var cells = map.data.reduce(function(a, b) {
             return a.concat(b);
-        }, [])
+        }, []).reduce(function(a, b) {
+            return a.concat(b);
+        }, []);
         return cells.map(function(cell) {
             delete cell.neighbors;
             return cell;
         })
+    }
+
+    // function threeArray(size, y) {
+    //     var three = new Array(size);
+    //     for (var i = 0; i < size; i++) {
+    //         three[i] = new Array(y);
+    //         for (var j = 0; j < y; j++) {
+    //             three[i][j] = new Array(size);
+    //             for (var k = 0; k < size; k++) {
+    //                 if (j === 0) three[i][j][k] = 1;
+    //                 else if (i && k && i < size - 1 && k < size - 2) {
+    //                     if (j === 1 && Math.round(Math.random() * 1.4) === 1) {
+    //                         three[i][j][k] = 1;
+    //                         three[i - 1][j][k] = 1;
+    //                         three[i][j][k - 1] = 1;
+    //                         three[i][j][k + 1] = 1;
+    //                     } else {
+    //                         if (!three[i][j - 1][k - 1] || !three[i][j - 1][k + 1] || !three[i - 1][j - 1][k] || !three[i][j - 1][k]) three[i][j][k] = 0;
+    //                         else three[i][j][k] = Math.round(Math.random() * 0.6);
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return three;
+    // }
+
+    var map;
+
+    function randomMap(x, y, z) {
+        if (y >= 0 && y < 3 && x >= 0 && x < size && z >= 0 && z < size) {
+            return map.data[x][y][z] && map.data[x][y][z].legit ? map.getMaterial(x, y, z) : 0;
+        }
     }
 
     return {
@@ -57,10 +92,10 @@ app.factory('WorldsFactory', function($http, MapFactory) {
             return currentGame;
         },
         newWorldOptions: function() {
+            map = MapFactory.getCurrentMap();
+            console.log(map)
             return {
-                generate: function(x, y, z) {
-                    return (y === 0 && x >= 0 && x < size && z >= 0 && z < size) ? MapFactory.getCurrentMap().getMaterial(x, z) : 0;
-                },
+                generate: randomMap,
                 materials: materials,
                 texturePath: '../textures/',
                 controls: {
