@@ -24,8 +24,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     });
     var sky = createSky();
 
-    game.on('tick', sky);
-
     TimeFactory.setTick(game);
 
     var Highlight = window.Highlight;
@@ -100,6 +98,41 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     });
 
 
+    // if (WorldsFactory.getCurrentWorld().environment === 'ice') {
+    // var snow = window.Snow({
+    //         game: game,
+
+    //         // how many particles of snow
+    //         count: 1000,
+
+    //         // size of snowfall
+    //         size: 20,
+
+    //         // // speed it falls
+    //         // speed: 0.1,
+
+    //         // // speed it drifts
+    //         // drift: 1,
+
+    //         // // material of the particle
+    //         // material: new game.THREE.ParticleBasicMaterial({
+    //         //     color: 0xffffff,
+    //         //     size: 1
+    //         // })
+    //     })
+        // }
+    game.on('tick', sky
+        // snow.tick();
+    );
+
+    // game.on('tick', function() {
+    //     snow.tick();
+    // })
+
+    // game.addEvent(snow.tick, 1 / 100);
+    // game.on('tick', function() {
+    //     console.log("tick");
+    // })
     //render
 
     var start = window.start(game);
@@ -130,6 +163,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         var existing = [],
             isNew = [];
         game.creatures.forEach(function(creature) {
+            // deleting circular reference for JSON
             delete creature.map;
             delete creature.game;
             delete creature.item;

@@ -80,10 +80,10 @@ app.factory('WorldsFactory', function($http, MapFactory) {
                 materials = [grass, dirt, bark, leaves];
             }
             if (world.environment === 'ice') {
-                grass = ['snow', 'dirt-med', 'dirt-med'];
+                grass = ['whitewool', 'dirt-med', 'dirt-med'];
                 dirt = ['dirt', 'dirt', 'dirt'];
-                bark = ['snow', 'bark'];
-                leaves = ['snow', 'leaves1', 'leaves1'];
+                bark = ['whitewool', 'bark'];
+                leaves = ['whitewool', 'leaves1', 'leaves1'];
                 materials = [grass, dirt, bark, leaves];
             }
             if (world.environment === 'water') {
