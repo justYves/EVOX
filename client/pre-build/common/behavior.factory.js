@@ -194,10 +194,9 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
     //finding the closest neighbor cell
     var nearest = utilitiesFactory.findCreature(this.game.creatures,currentPos,this.vision, this);
     // console.log('HEARD NEAREST',nearest);
-    if(nearest && utilitiesFactory.distance(currentPos, nearest) > this.social ){
+    if(nearest && utilitiesFactory.distance(currentPos, nearest) > this.social && nearest.name === self.name){
             //move towards herd
-            this.move(this.step(x, nearest.position.x - 0.5), 0, this.step(z, nearest.position.z - 0.5));
-        
+            this.move(this.step(x, nearest.position.x - 0.5), 0, this.step(z, nearest.position.z - 0.5));       
     }
 
 
@@ -244,10 +243,11 @@ Creature.prototype.getFood = function() {
     //determine closest cell
     if(!this.isHerbivore){
         var nearest = utilitiesFactory.findCreature(this.game.creatures,currentPos,this.vision, this);
-        console.log('CARNIVORE NEAREST FOOD: ',nearest)
-        if(nearest){
+        if(nearest && nearest.name !== this.name){
+          console.log("moving to food", this.name)
           this.moveTowardsObjective(nearest); 
         }else{
+          console.log("just moving", this.name)
           this.herd()
         }
     }
