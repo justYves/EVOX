@@ -4,6 +4,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.game = game;
         this.map = game.map;
         this.hpMax = multiply(opts.size, 5);
+        this.appetite = divide(opts.size / 4) || 1;
         this.hp = this.hpMax
         this.age = 0;
         this.name = opts.name;
@@ -42,11 +43,11 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         ShapeFactory.getShape(this.name).then(function(data) {
             render(self, data, game, voxel, mesh);
         })
-        .then(function() {
-            self.game.addEvent(function() {
-                self.exist();
-            }, self.speed, self.item.avatar.id);
-        });
+            .then(function() {
+                self.game.addEvent(function() {
+                    self.exist();
+                }, self.speed, self.item.avatar.id);
+            });
 
 
 

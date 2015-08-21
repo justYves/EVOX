@@ -31,7 +31,7 @@ app.factory('MapFactory', function($http) {
         }
         var self = this;
         cells.forEach(function(cell) {
-            self.data[cell.x][cell.z] = cell;
+            self.data[cell.x][cell.z] = new Cell(cell.x, cell.z, cell.material);
         })
     }
 
@@ -103,6 +103,7 @@ app.factory('MapFactory', function($http) {
     Map.prototype.empty = function(x, z) {
         var currentCell = this.getCell(x, z);
         if (currentCell.getMaterial === "dirt") return; //if animal eat empty patch
+        console.log('EMPTY MAP FUNC',currentCell)
         currentCell.setMaterial("dirt");
         game.setBlock(currentCell.coordinate, 2); // 2 = Dirt
 
