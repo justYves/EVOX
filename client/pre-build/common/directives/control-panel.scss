@@ -3,9 +3,21 @@
 	width: 25%;
 	height: 100%;
 	position: absolute;
+
+	.fui-cross {
+		vertical-align: text-top;
+		float: right;
+
+		&:hover{
+			cursor: pointer;
+			color: #660000;
+		}
+	}
 }
 
 .tile {
+	border: 2px #34495e;
+
 	> * {
 		text-align: left;
 		padding-top: 0;
@@ -25,5 +37,22 @@
 
 	.progress {
 		margin-bottom: 10%;
+	}
+
+	button {
+		width: 100%;
+		background-color: #34495e;
+		margin: 3%;
+		margin-left: 0;
+		&:hover{
+			color: #34495e;
+			background-color: #ffffff;
+			.caret {
+				border-top-color: #34495e;
+			}
+		}
+		#creature {
+			display: inline;
+		}
 	}
 }

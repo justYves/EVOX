@@ -43,12 +43,12 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
     });
     game.removeItem(this);
     game.scene.remove(this.item.avatar);
-    game.removeEvent(this.item.avatar.id)
+    game.removeEvent(this.item.avatar.id);
   };
 
   Creature.prototype.procreate = function() {
     this.game.emit("procreate", 5.5, this.position.z - 0.5, this.name);
-    console.log(this.constructor)
+    console.log(this.constructor);
     var newCreature = new this.constructor(this.game,{
       name: this.name,
       size: this.size,

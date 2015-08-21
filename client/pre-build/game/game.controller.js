@@ -49,6 +49,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   });
   window.deer = deer;
 
+
   // var lion = new createCreature({
   //   name: 'lion',
   //   size: 5,
@@ -202,8 +203,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
                     creature.rotation = coords[1];
                     console.log(creature)
                     return CreatureFactory.postCreature(creature); //parents will be set here
-                })
-        }))
+                });
+        }));
     }
 
     $scope.save = function() {
@@ -230,12 +231,38 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
                     creatures: allCreatures
                 };
 
-                return WorldsFactory.updateWorld($stateParams.id, updatedWorld)
+                return WorldsFactory.updateWorld($stateParams.id, updatedWorld);
             })
             .then(function() {
                 $state.go('worlds');
-            })
+            });
     };
+
+    // game.on('tick', function(){
+    //     $scope.creatures = creatures;
+    // });
+    $scope.control = true;
+    $scope.stats = false;
+
+    $scope.controlHide = function(){
+        $scope.control = !$scope.control;
+        clearInterval(statsCounter);
+    };
+
+    $scope.statsShow = function() {
+        $scope.stats = !$scope.stats;
+    };
+
+    $scope.getCreatures = function(){
+        var statsCounter = setInterval(function(){
+            $scope.creatures = game.creatures;
+            $scope.$digest();
+        });
+    };
+
+    $scope.worldName = map.name || "your World";
+    $scope.points = 25;
+    $scope.currentUser = "Game-of-Lifer";
 
 
 
