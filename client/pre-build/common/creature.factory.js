@@ -5,7 +5,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.map = game.map;
         this.hpMax = multiply(opts.size, 5);
         this.appetite = divide(opts.size / 4) || 1;
-        this.hp = this.hpMax
+        this.hp = this.hpMax;
         this.age = 0;
         this.name = opts.name;
         this.alive = true;

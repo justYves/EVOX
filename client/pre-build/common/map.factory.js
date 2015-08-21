@@ -32,8 +32,8 @@ app.factory('MapFactory', function($http) {
         var self = this;
         cells.forEach(function(cell) {
             self.data[cell.x][cell.z] = new Cell(cell.x, cell.z, cell.material);
-        })
-    }
+        });
+    };
 
     Map.prototype.setNeighbors = function() {
         var self = this;

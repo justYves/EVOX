@@ -1,0 +1,44 @@
+
+<div id="instructions">
+  <div class="tile">
+    <h3>My World</h3>
+    <div class="row color-container">
+      <div class="span3">
+          <div class="btn-group animal-picker">
+            <a class="btn btn-primary colorPickButton active" href="#" ng-repeat="creature in creatures">{{creature.name}}</a>
+          </div>
+      </div>
+    </div>
+    <ul>
+      <li>
+        <p>Total Points: {{creature.hp}}</p>
+      </li>
+      <li>
+        <p>Health</p>
+        <div class="progress">
+          <div class="progress-bar" style="width: 40%;"></div>
+          <div class="progress-bar progress-bar-warning" style="width: 10%;"></div>
+          <div class="progress-bar progress-bar-danger" style="width: 10%;"></div>
+          <div class="progress-bar progress-bar-success" style="width: 10%;"></div>
+          <div class="progress-bar progress-bar-info" style="width: 10%;"></div>
+        </div>
+      </li>
+      <li>
+        <p>{{creature.hunger}}</p>
+        <div class="progress">
+          <div class="progress-bar" style="width: 40%;"></div>
+          <div class="progress-bar progress-bar-warning" style="width: 10%;"></div>
+          <div class="progress-bar progress-bar-danger" style="width: 10%;"></div>
+          <div class="progress-bar progress-bar-success" style="width: 10%;"></div>
+          <div class="progress-bar progress-bar-info" style="width: 10%;"></div>
+        </div>
+      </li>
+    </ul>
+  </div>  
+  <div class="summary">
+    <div class="tile">
+      <p>Game Summary</p>
+      <pre>{{game}}</pre>
+    </div>
+  </div>
+</div>
