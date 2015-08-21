@@ -4,7 +4,7 @@ app.factory('utilitiesFactory',function(){
 	function findCreature(mapCreatures, currentPoint,radius, self){
 		// console.log("the factory is working", self);
 		mapCreatures.forEach(function(creature){
-	       if(creature !== self && creature.name === self.name){
+	       if(creature !== self){
 	       	  var dist = distance(currentPoint, creature.position);
 	       	  // console.log("distance: ", dist);
  	          //var dist = Math.sqrt(Math.pow((creature.position.x - x), 2) + Math.pow((creature.position.z - z), 2)) ;

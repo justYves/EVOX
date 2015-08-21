@@ -116,15 +116,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         })
     }
 
-    //calling creature constructor
-    var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
-    var pigeon = new createCreature({
-        name: 'pigeon',
-        size: 10,
-        vision: 3,
-        isHerbivore: true
-    });
-    window.pigeon = pigeon;
+  
 
 
 
