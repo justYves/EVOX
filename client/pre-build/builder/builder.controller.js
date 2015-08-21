@@ -566,16 +566,7 @@ app.controller('BuilderController', function($scope, $state) {
     }, 1)
 
     return voxels
-  } //<---UpdateHash --- >
-
-  // function onWindowResize() {
-
-  //   camera.aspect = window.innerWidth / window.innerHeight
-  //   camera.updateProjectionMatrix()
-
-  //   renderer.setSize( window.innerWidth, window.innerHeight )
-  //   interact()
-  // }
+  }
 
   function getIntersecting() {
     var intersectable = []
@@ -715,6 +706,8 @@ app.controller('BuilderController', function($scope, $state) {
     }
     brush.position.y = 2000
   }
+
+
 
   // Color convertor Helper functions
   function v2h(value) {

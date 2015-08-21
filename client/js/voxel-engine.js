@@ -615,6 +615,9 @@ Game.prototype.onControlChange = function(gained, stream) {
   stream.pipe(this.controls.createWriteRotationStream())
 }
 
+
+
+
 Game.prototype.onControlOptOut = function() {
   this.optout = true
 }
@@ -709,12 +712,16 @@ Game.prototype.initializeControls = function(opts) {
   this.buttons = kb(document.body, this.keybindings)
   this.buttons.disable()
   this.optout = false
-  this.interact = interact(opts.interactElement || this.view.element, opts.interactMouseDrag)
-  this.interact
-      .on('attain', this.onControlChange.bind(this, true))
-      .on('release', this.onControlChange.bind(this, false))
-      .on('opt-out', this.onControlOptOut.bind(this))
-  this.hookupControls(this.buttons, opts)
+  // this.interact = interact(opts.interactElement || this.view.element, opts.interactMouseDrag)
+  // this.interact
+  //     .on('attain', this.onControlChange.bind(this, true))
+  //     .on('release', this.onControlChange.bind(this, false))
+  //     .on('opt-out', this.onControlOptOut.bind(this))
+  // this.hookupControls(this.buttons, opts)
+}
+
+Game.prototype.start = function(){
+  this.paused = false;
 }
 
 Game.prototype.hookupControls = function(buttons, opts) {
@@ -41969,7 +41976,7 @@ function Control(state, opts) {
   this.writable = true
 
   this.buffer = []
-  this.paused = false
+  this.paused = true;
 }
 
 var cons = Control
