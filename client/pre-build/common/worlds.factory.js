@@ -65,25 +65,25 @@ app.factory('WorldsFactory', function($http, MapFactory) {
                 texturePath: '../textures/',
                 controls: {
                     discreteFire: true
-                },
-                // // lightsDisabled: true
+                }
+                // lightsDisabled: true
             }
         },
         setCurrentWorld: function(world) {
             currentWorld = world;
             size = world.size;
             if (world.environment === 'land') {
-                grass = ['grass', 'dirt', 'grass_dirt'];
-                dirt = ['dirt', 'dirt', 'dirt'];
-                bark = ['tree_side'];
-                leaves = ['leaves_opaque'];
+                grass = ['grass-nice', 'light-dirt', 'grass-dirt-light'];
+                dirt = ['light-dirt', 'light-dirt', 'light-dirt'];
+                bark = ['leaves2', 'bark'];
+                leaves = ['leaves2'];
                 materials = [grass, dirt, bark, leaves];
             }
             if (world.environment === 'ice') {
-                grass = ['snow', 'dirt', 'grass_dirt'];
+                grass = ['whitewool', 'dirt-med', 'dirt-med'];
                 dirt = ['dirt', 'dirt', 'dirt'];
-                bark = ['tree_side'];
-                leaves = ['leaves_opaque'];
+                bark = ['whitewool', 'bark'];
+                leaves = ['whitewool', 'leaves1', 'leaves1'];
                 materials = [grass, dirt, bark, leaves];
             }
             if (world.environment === 'water') {

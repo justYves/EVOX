@@ -3,14 +3,14 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var World = mongoose.model('World');
 var Cell = mongoose.model('Cell');
-var Material = mongoose.model('Material');
 var Promise = require('bluebird');
+var Creature = mongoose.model('Creature');
 var router = require('express').Router();
 module.exports = router;
 
 //  /api/worlds/
 router.param('id', function(req, res, next, id) {
-    World.findById(id).populate('map').exec()
+    World.findById(id).deepPopulate('map creatures.position creatures.rotation').exec()
         .then(function(world) {
             if (!world) {
                 throw new Error("World doesn't exist!");
@@ -23,7 +23,7 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
-    World.find().deepPopulate('map.neighbors').exec()
+    World.find().deepPopulate('map creatures.position creatures.rotation').exec()
         .then(function(worlds) {
             res.json(worlds);
         })
@@ -34,14 +34,6 @@ router.post('/', function(req, res, next) {
     Cell.create(req.body.map)
         .then(function(cells) {
             req.body.map = cells;
-        //     return Promise.all(req.body.materials.map(function(facesArr) {
-        //         return Material.create({
-        //             materials: facesArr
-        //         })
-        //     }))
-        // })
-        // .then(function(materials) {
-        //     req.body.materials = materials;
             return World.create(req.body)
         })
         .then(function(world) {

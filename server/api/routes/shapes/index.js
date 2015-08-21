@@ -19,8 +19,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/:name', function(req, res, next) {
     Shape.findOne({
-            name: req.params.name
-        }).exec()
+        name: req.params.name
+    }).exec()
         .then(function(data) {
             res.json(data.shape);
         })
@@ -28,10 +28,7 @@ router.get('/:name', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    Shape.create({
-            name: req.body.name,
-            shape: JSON.stringify(req.body.shape)
-        })
+    Shape.create(req.body)
         .then(function(shape) {
             res.status(201).json(shape);
         })

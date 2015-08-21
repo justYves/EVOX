@@ -2,10 +2,8 @@
 var mongoose = require('mongoose');
 
 var creatureSchema = new mongoose.Schema({
-    shape: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Shape'
-    },
+    lifeCycle: Number,
+    speed: Number,
     name: String,
     social: {
         type: Number,
@@ -15,19 +13,19 @@ var creatureSchema = new mongoose.Schema({
         type: Number,
         default: 10
     },
-    // memory: [],
+    memory: [String],
     // food: [],
-    offspring: {
+    parents: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Creature'
-    },
+    }],
     pregnant: Boolean,
-    hp: Number,
-    carnivore: {
+    hp: {type: Number, default: 40},
+    isCarnivore: {
         type: Boolean,
         default: false
     },
-    herbivore: {
+    isHerbivore: {
         type: Boolean,
         default: true
     },
@@ -41,7 +39,7 @@ var creatureSchema = new mongoose.Schema({
     },
     hunger: {
         type: Number,
-        default: null
+        default: 10
     },
     position: {
         type: mongoose.Schema.ObjectId,
@@ -53,10 +51,10 @@ var creatureSchema = new mongoose.Schema({
     }
 });
 
-creatureSchema.path('size').set(function(value) {
-    this.hp = value * 10;
-    this.hunger = Math.floor(this.hp / 4);
-    return value;
-});
+// creatureSchema.path('size').set(function(value) {
+//     this.hp = value * 10;
+//     this.hunger = Math.floor(this.hp / 4);
+//     return value;
+// });
 
 mongoose.model('Creature', creatureSchema);

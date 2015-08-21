@@ -25,6 +25,10 @@ var worldSchema = new mongoose.Schema({
     //     type: mongoose.Schema.ObjectId,
     //     ref: 'Material'
     // }],
+    creatures: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Creature'
+    }],
     environment: { // set materials on front end depending on env
         type: String,
         default: 'land'
