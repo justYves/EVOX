@@ -1,4 +1,4 @@
-var app = angular.module('GameOfLife', ['ui.router', 'fsaPreBuilt']);
+var app = angular.module('GameOfLife', ['ui.router', 'fsaPreBuilt','btford.socket-io']);
 
 app.config(function($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)

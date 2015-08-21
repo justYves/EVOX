@@ -7,12 +7,17 @@ var chalk = require('chalk');
 var startDb = require('./db');
 var port = (process.env.PORT || 4545);
 var app;
-  
+
 // Start the server
+//HTTP
+var server = require('http').createServer();
+
 startDb
   .then(function() {
     app = require('./app');
-    app.listen(port, function() {
+    server.on('request', app);
+    require('./io')(server);
+    server.listen(port, function() {
       console.log('The server is listening on port', chalk.green.bold(port), 'and loves you very much.');
     });
   })
