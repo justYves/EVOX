@@ -6,6 +6,13 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     var map = MapFactory.getCurrentMap();
     window.Map = map; // Working
 
+  var createGame = window.voxelEngine;
+    var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
+    game.map = map;
+
+    game.appendTo(document.body)
+    window.game = game; //For Debugging
+    WorldsFactory.setCurrentGame(game);
   //calling creature constructor
   var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
   // var pigeon = new createCreature({
@@ -60,13 +67,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   window.turtle = turtle;
 
 
-    var createGame = window.voxelEngine;
-    var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
-    game.map = map;
-
-    game.appendTo(document.body)
-    window.game = game; //For Debugging
-    WorldsFactory.setCurrentGame(game);
+   
 
 
     // <------ CAMERA ------>
