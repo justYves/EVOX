@@ -1,56 +1,57 @@
-app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFactory, $http) {
-    //Creature constructor
-    function Creature(game, opts, voxel, mesh) {
-        this.game = game;
-        this.map = game.map;
-        this.hpMax = multiply(opts.size, 5);
-        this.hp = this.hpMax
-        this.age = 0;
-        this.name = opts.name;
-        this.alive = true;
-        this.lifeCycle = this.hp * 4;
-        this.size = opts.size;
-        this.isHerbivore = opts.isHerbivore;
-        this.hunger = divide(this.hp, 4);
-        this.vision = opts.vision;
-        this.speed = divide(this.size, 4);
-        this.social = opts.social || 10;
-        this.memory = [];
-        this.food = "none";
-        this.parents = opts.parents;
-        this.position = {
-            x: 0,
-            y: 0,
-            z: 0
-        };
-        this.rotation = {
-            x: 0,
-            y: 0,
-            z: 0
-        };
+app.factory('CreatureFactory', function(ShapeFactory,BehaviorFactory, TimeFactory) {
+  //Creature constructor
+  function Creature(game, opts, voxel, mesh) {
+    this.game = game;
+    this.map = game.map;
+    this.size = opts.size;
+    this.hpMax = multiply(opts.size, 5);
+    this.appetite = divide(opts.size / 4) || 1;
+    this.hp = this.hpMax;
+    this.age = 0;
+    this.name = opts.name;
+    this.alive = true;
+    this.lifeCycle = this.hpMax * 4;
+    this.isHerbivore = opts.isHerbivore;
+    this.hunger = divide(this.hp, 4);
+    this.vision = opts.vision;
+    this.speed = divide(this.size, 4);
+    this.social = opts.social || 3;
+    this.memory = [];
+    this.food = "none";
+    this.offspring;
+    this.position = {
+      x: 0,
+      y: 0,
+      z: 0
+    };
+    this.rotation = {
+      x: 0,
+      y: 0,
+      z: 0
+    };
 
-        // this.intelligence = opts.intelligence || 10;
-        // console.log(BehaviorFactory.prototype);
-        // console.log("this",this.prototype);
-        // angular.extend(this.prototype,BehaviorFactory);
-        // console.log("textended this",test);
-        var self = this;
+    // this.intelligence = opts.intelligence || 10;
+    // console.log(BehaviorFactory.prototype);
+    // console.log("this",this.prototype);
+    // angular.extend(this.prototype,BehaviorFactory);
+    // console.log("textended this",test);
+    var self = this;
 
-        //gives basic behavior
-        angular.extend(Creature.prototype, BehaviorFactory.prototype);
+    //gives basic behavior
+    angular.extend(Creature.prototype, BehaviorFactory.prototype);
 
-        ShapeFactory.getShape(this.name).then(function(data) {
-            render(self, data, game, voxel, mesh);
-        })
-            .then(function() {
-                self.game.addEvent(function() {
-                    self.exist();
-                }, self.speed, self.item.avatar.id);
-            });
+    ShapeFactory.getShape(this.name).then(function(data) {
+      render(self, data, game, voxel, mesh);
+    })
+    .then(function(){
+      self.game.addEvent(function(){
+            self.exist();
+        }, self.speed, self.item.avatar.id);
+    });
 
 
 
-        if (!game.creatures) game.creatures = [];
+    if(!game.creatures) game.creatures = [];
         game.creatures.push(this);
     }
 

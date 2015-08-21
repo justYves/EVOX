@@ -40,7 +40,7 @@ app.factory('TimeFactory', function() {
 
 
     function processTick() {
-      console.log("tick");
+      // console.log("tick");
       game.events.forEach(function(event, index) {
         event.elapsed++;
         if (event.elapsed > event.unit) {
@@ -129,21 +129,10 @@ function setEvent() {
     game.addEvent(function() {
         game.map.growGrass(game);
     }, 10);
-    game.creatures.forEach(function(creature){
-        console.log('exists creature ',creature);
-
-        console.log('exists creature item',creature.item);
-        console.log('exists creature item avatar',creature.item.avatar);
-        console.log('exists creature avatar id',creature.item.avatar.id);
-
-        game.addEvent(function(){
-            creature.exist();
-        }, creature.speed, creature.item.avatar.id);
-    });
 }
 
   return {
     setTick: setTick,
     setEvent: setEvent
   }
-})
+});

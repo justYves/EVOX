@@ -1,4 +1,4 @@
-app.factory('BehaviorFactory', function(MoveWorker) {
+app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
   //Creature constructor
   function Creature() {
   }
@@ -48,14 +48,15 @@ app.factory('BehaviorFactory', function(MoveWorker) {
 
   Creature.prototype.procreate = function() {
     this.game.emit("procreate", 5.5, this.position.z - 0.5, this.name);
-    var newCreature = new this.constructor({
+    console.log(this.constructor)
+    var newCreature = new this.constructor(this.game,{
       name: this.name,
       size: this.size,
       vision: this.vision,
       isHerbivore: this.isHerbivore
     });
     this.game.creatures.push(newCreature);
-    render(newCreature, this.map);
+    //render(newCreature, this.map);
     newCreature.setPosition(this.position.x - 0.5, 10, this.position.z - 0.5);
     game.addEvent(function() {
       newCreature.exist();
@@ -155,8 +156,8 @@ app.factory('BehaviorFactory', function(MoveWorker) {
     var foundFood = false;
     if(this.isHerbivore === false){
         ard.forEach(function(coords){
+          // console.log("i want eat: ", objv)
             if(coords[0] === objv.position.x - 0.5 && coords[1] === objv.position.z - 0.5 && !foundFood){
-                console.log('killer: ',self.name,"target: ", objv.name);
                 foundFood = true;
                 self.lookAt(objv);
                 self.eat(objv);
@@ -171,11 +172,12 @@ app.factory('BehaviorFactory', function(MoveWorker) {
         var count = 0;
          ard.forEach(function(coords){
             if(self.map.getCell(coords[0], coords[1]).material === objv){
+              // console.log("getting objv", self.name)
                 if(count <= self.appetite){
                     count++;
                     foundFood = true;
-                    self.lookAt(this.map.getCell(coords[0], coords[1]));
-                    self.eat(this.map.getCell(coords[0], coords[1]));
+                    self.lookAt(self.map.getCell(coords[0], coords[1]));
+                    self.eat(self.map.getCell(coords[0], coords[1]));
                 }
             }
         });
@@ -185,35 +187,17 @@ app.factory('BehaviorFactory', function(MoveWorker) {
   Creature.prototype.herd = function() {
     var x = this.position.x - 0.5;
     var z = this.position.z - 0.5;
+    var currentPos = [x,z]
     var foundNeighbor = false;
-    var self = this;
     var min;
-
+    // var nearestNeighbor;
     //finding the closest neighbor cell
-    this.game.creatures.forEach(function(creature){
-       if(creature !== self && creature.name === self.name){
-          var dist = Math.sqrt(Math.pow((creature.position.x - x), 2) + Math.pow((creature.position.z - z), 2)) ;
-          if(dist < self.social){  
-              foundNeighbor = true;  
-              if(!min){
-                  min = dist;
-                  nearestNeighbor = creature;
-              }else if(dist < min){
-                  min = dist;
-                  nearestNeighbor = creature;
-              }
-          }
-      }
-
-
-        });
-    if(foundNeighbor){
-        futureX = x + this.step(x, nearestNeighbor.position.x - 0.5);
-        futureZ = z + this.step(z, nearestNeighbor.position.z - 0.5);
-        if(futureX !== nearestNeighbor.position.x && futureZ !== nearestNeighbor.position.z){
+    var nearest = utilitiesFactory.findCreature(this.game.creatures,currentPos,this.vision, this);
+    // console.log('HEARD NEAREST',nearest);
+    if(nearest && utilitiesFactory.distance(currentPos, nearest) > this.social ){
             //move towards herd
-            this.move(this.step(x, nearestNeighbor.position.x - 0.5), 0, this.step(z, nearestNeighbor.position.z - 0.5));
-        }
+            this.move(this.step(x, nearest.position.x - 0.5), 0, this.step(z, nearest.position.z - 0.5));
+        
     }
 
 
@@ -222,7 +206,7 @@ app.factory('BehaviorFactory', function(MoveWorker) {
 
   Creature.prototype.exist = function() {
     if (this.alive) {
-      console.log("NAME: " + this.name + ", Hunger: " + this.hunger + ", HP: " + this.hp);
+      // console.log("NAME: " + this.name + ", Hunger: " + this.hunger + ", HP: " + this.hp);
       this.hunger++;
       this.age++;
       this.lifeCycle--;
@@ -231,18 +215,18 @@ app.factory('BehaviorFactory', function(MoveWorker) {
       if (this.hp <= 0) this.die();
 
       if (this.hunger >= Math.floor(this.hp / 2)) {
-        console.log(this.name + " is looking for food");
+        // console.log(this.name + " is looking for food");
         this.getFood();
       }
       if (this.lifeCycle === 0) {
-        console.log(this.name + ' is procreating');
+        // console.log(this.name + ' is procreating');
         if (Math.random() < 0.2) {
           this.procreate();
           this.lifeCycle === this.hpMax * 4;
         }
       } 
       if(this.hunger < Math.floor(this.hp / 2)){
-        console.log(this.name + " is herding");
+        // console.log(this.name + " is herding");
         this.herd();
       }
     }
@@ -251,33 +235,25 @@ app.factory('BehaviorFactory', function(MoveWorker) {
 Creature.prototype.getFood = function() {
     var x = this.position.x - 0.5;
     var z = this.position.z - 0.5;
+    var currentPos = [x,z];
     var min;
     var closestCell;
     var objective;
    
     var foodSource;
-
     //determine closest cell
     if(!this.isHerbivore){
-        var self = this;
-        this.game.creatures.forEach(function(creature){
-             if(creature !== self){
-                var dist = Math.sqrt(Math.pow((creature.position.x - x), 2) + Math.pow((creature.position.z - z), 2)) ;
-                if(dist < self.vision){  
-                    if(!min){
-                        min = dist;
-                        closestCell = creature;
-                    }else if(dist < min && dist){
-                        min = dist;
-                        closestCell = creature;
-                    }
-                }
-            }
-        });
-        this.moveTowardsObjective(closestCell); 
+        var nearest = utilitiesFactory.findCreature(this.game.creatures,currentPos,this.vision, this);
+        console.log('CARNIVORE NEAREST FOOD: ',nearest)
+        if(nearest){
+          this.moveTowardsObjective(nearest); 
+        }else{
+          this.herd()
+        }
     }
 
     if(this.isHerbivore){
+        // console.log('getFood HERB', this.name)
         this.moveTowardsObjective("grass");
     }
 };
@@ -287,9 +263,11 @@ Creature.prototype.eat = function(target) {
     if(this.hunger > 0){
         this.hunger -= 10; 
     }
+    // console.log('INSIDE THE EAT FUNC',target)
     if(this.isHerbivore) this.map.empty(target.x, target.z);
     else target.die()
 };
+
 
 
   return Creature;
