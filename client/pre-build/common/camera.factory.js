@@ -21,11 +21,11 @@ app.factory('CameraFactory', function() {
       camera.position.y = radius * Math.sin(phi * Math.PI / 360)
       camera.position.z = (radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360))
 
-      game.view.renderer.domElement.addEventListener('DOMMouseScroll', mousewheel, false);
-      game.view.renderer.domElement.addEventListener('mousewheel', mousewheel, false);
+      document.addEventListener('DOMMouseScroll', mousewheel, false);
+      document.addEventListener('mousewheel', mousewheel, false);
       game.view.renderer.domElement.addEventListener('resize', onWindowResize, false);
-      game.view.renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false)
-      game.view.renderer.domElement.addEventListener('mousedown', onDocumentMouseDown, false)
+      document.addEventListener('mousemove', onDocumentMouseMove, false)
+      document.addEventListener('mousedown', onDocumentMouseDown, false)
       game.view.renderer.domElement.addEventListener('mouseup', onDocumentMouseUp, false)
 
 
