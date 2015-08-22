@@ -53,9 +53,9 @@ app.factory('CameraFactory', function() {
           currentPos = undefined;
           return;
         }
-        console.log("old",currentPos);
-        console.log("recorded",intersect.point);
-        console.log(raycaster.ray.direction);
+        // console.log("old",currentPos);
+        // console.log("recorded",intersect.point);
+        // console.log(raycaster.ray.direction);
         if((currentPos && Math.abs(currentPos.x - intersect.point.x ) < 0.25 &&
           Math.abs(currentPos.y - intersect.point.y) < 0.25 &&
           Math.abs(currentPos.z - intersect.point.z) < 0.25)) return;
@@ -79,7 +79,7 @@ app.factory('CameraFactory', function() {
         if (!highlighted) {
           highlight(x, y, z);
         } else {
-          console.log("newPos:", x,y,z)
+          // console.log("newPos:", x,y,z)
           highlighted.position.x = x;
           highlighted.position.y = y;
           highlighted.position.z = z;
