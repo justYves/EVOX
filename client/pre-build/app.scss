@@ -10,6 +10,19 @@
   }
 }
 
+#control-bar {
+opacity: 0.1;
+transition: 0.4s ease all;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+}
+
+#control-bar:hover{
+  opacity:0.8;
+}
+
 // Add your fractal Sass files below!
 @import 'navbar/navbar';
 @import 'home/home';

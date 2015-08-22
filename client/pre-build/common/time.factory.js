@@ -37,7 +37,10 @@ app.factory('TimeFactory', function() {
                 }
             }
         }, 15);
-
+var i = 0;
+game.addEvent(function(){
+    console.log(++i);
+},1)
 
         function processTick() {
             game.events.forEach(function(event, index) {
@@ -47,6 +50,7 @@ app.factory('TimeFactory', function() {
                     event.func();
                 }
             });
+            console.log(game.speed);
             nextTick = game.setTimeout(processTick, game.speed / 100);
         }
 

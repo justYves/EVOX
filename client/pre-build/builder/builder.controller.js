@@ -657,7 +657,6 @@ app.controller('BuilderController', function($scope, $state) {
 
   function interact() {
     if (typeof raycaster === 'undefined') return
-
     if (objectHovered) {
       objectHovered.material.opacity = 1
       objectHovered = null
