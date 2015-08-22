@@ -1,4 +1,4 @@
-app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactory, $stateParams, worlds) {
+app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactory, $stateParams, worlds, CreatureFactory) {
     if (!WorldsFactory.getCurrentWorld()) {
         for (var i = 0; i < worlds.length; i++) {
             if (worlds[i]._id === $stateParams.id) {
@@ -10,8 +10,8 @@ app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactor
     } else $scope.currentWorld = WorldsFactory.getCurrentWorld();
 
     $scope.loadGame = function() {
-        console.log('world', $scope.currentWorld)
         MapFactory.create($scope.currentWorld.size, $scope.currentWorld.map, $scope.currentWorld.flat);
+        CreatureFactory.currentCreatures = $scope.currentWorld.creatures;
         $state.go('game', {
             id: $stateParams.id
         });

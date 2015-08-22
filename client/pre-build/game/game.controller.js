@@ -1,8 +1,13 @@
 app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q) {
+    $scope.creatures = CreatureFactory.currentCreatures;
     var createGame = window.voxelEngine; // use to create the World
     var createCreature;
     var map, game, size;
     var sky, clouds;
+
+    // $scope.getCreatures = function() {
+    //     $scope.creatures = game.creatures;
+    // };
 
     initMap();
     initGame();
@@ -22,9 +27,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     };
     $scope.slowDown = function() {
         game.slowDown();
-    };
-    $scope.getCreatures = function() {
-        $scope.creatures = game.creatures;
     };
 
     $scope.save = function() {
@@ -47,7 +49,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
                 game.trees = JSON.stringify(game.trees);
 
                 var updatedWorld = WorldsFactory.getCurrentWorld();
-                console.log(game.map);
                 updatedWorld.map = game.map;
                 updatedWorld.trees = game.trees;
                 updatedWorld.creatures = allCreatures;
@@ -83,24 +84,26 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
 
     // <------ Creature ------>
     function initCreatures() {
-
-        var startCreature = [{
-            name: 'deer',
-            size: 5,
-            vision: 5,
-            social: 2,
-            isHerbivore: true
-        }, {
-            name: 'turtle',
-            size: 5,
-            vision: 5,
-            social: 7,
-            isHerbivore: false
-        }];
+        if (!$scope.creatures) {
+            $scope.creatures = [{
+                name: 'deer',
+                size: 5,
+                vision: 5,
+                social: 2,
+                isHerbivore: true
+            }, {
+                name: 'turtle',
+                size: 5,
+                vision: 5,
+                social: 7,
+                isHerbivore: false
+            }];
+        }
         createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
-        startCreature.forEach(function(creature) {
-            new createCreature(creature);
+        $scope.creatures.forEach(function(creature) {
+            createCreature(creature);
         });
+
         // //calling creature constructor
 
         // // var pigeon = new createCreature({
