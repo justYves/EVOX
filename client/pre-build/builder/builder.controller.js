@@ -68,7 +68,7 @@ app.controller('BuilderController', function($scope, $state) {
     camera.position.z = radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)
 
     scene = new THREE.Scene()
-    window.scene = scene
+    // window.scene = scene
 
     // // Grid
 
@@ -159,7 +159,7 @@ app.controller('BuilderController', function($scope, $state) {
 
   function render() {
     camera.lookAt(target)
-    raycaster = projector.pickingRay(mouse2D.clone(), camera)
+    raycaster = projector.pickingRay(mouse2D.clone(), camera);
     renderer.render(scene, camera)
   }
 
@@ -290,6 +290,8 @@ app.controller('BuilderController', function($scope, $state) {
       onMouseDownPhi = phi
       onMouseDownPosition.x = event.clientX
       onMouseDownPosition.y = event.clientY
+      console.log(raycaster);
+      console.log(event);
     }
 
     function onDocumentMouseUp(event) {
@@ -570,6 +572,7 @@ app.controller('BuilderController', function($scope, $state) {
 
   function getIntersecting() {
     var intersectable = []
+    console.log(scene.children);
     scene.children.map(function(c) {
       if (c.isVoxel || c.isPlane) intersectable.push(c);
     })
@@ -661,9 +664,8 @@ app.controller('BuilderController', function($scope, $state) {
       objectHovered.material.opacity = 1
       objectHovered = null
     }
-
     var intersect = getIntersecting()
-
+    console.log(intersect);
     if (intersect) {
       var normal = intersect.face.normal.clone()
       normal.applyMatrix4(intersect.object.matrixRotationWorld)
