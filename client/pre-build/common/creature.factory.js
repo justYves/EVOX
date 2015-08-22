@@ -51,8 +51,6 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
                 });
         }
 
-
-
         if (!game.creatures) game.creatures = [];
         game.creatures.push(this);
     }

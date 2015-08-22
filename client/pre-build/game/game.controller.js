@@ -84,7 +84,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
 
     // <------ Creature ------>
     function initCreatures() {
-        if (!$scope.creatures) {
+        if (!$scope.creatures.length) {
             $scope.creatures = [{
                 name: 'deer',
                 size: 5,
@@ -101,7 +101,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         }
         createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
         $scope.creatures.forEach(function(creature) {
-            createCreature(creature);
+            new createCreature(creature);
         });
 
         // //calling creature constructor
