@@ -23,6 +23,9 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   $scope.slowDown = function() {
     game.slowDown();
   };
+  $scope.getCreatures = function() {
+    $scope.creatures = game.creatures;
+  };
 
   $scope.save = function() {
     var existing = [],
