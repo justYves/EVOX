@@ -10,9 +10,12 @@ app.directive('controlPanel', function() {
     };
 
 })
-    .controller("PanelController", function($scope) {
-        $scope.worldName = "your World";
-        $scope.currentUser = "Game-of-Lifer";
+    .controller("PanelController", function($scope, AuthService, WorldsFactory) {
+        AuthService.getLoggedInUser()
+            .then(function(user) {
+                $scope.user = user;
+            })
+        $scope.world = WorldsFactory.getCurrentWorld();
         $scope.points = 25;
         $scope.stats = false;
         $scope.control = true;
