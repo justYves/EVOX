@@ -82,7 +82,6 @@ app.factory('MapFactory', function($http) {
         cells.forEach(function(cell) {
             self.data[cell.x][cell.z] = new Cell(cell.x, 0, cell.z, cell.material);
         })
-        console.log(cells)
     }
 
     Map.prototype.load3DMap = function(height, cells) {
@@ -198,13 +197,13 @@ app.factory('MapFactory', function($http) {
 
         //Check if neighbors is alive to regrow
         var self = this;
-        var hasGrass =false;
+        var hasGrass = false;
         currentCell.neighbors.forEach(function(neighbor) {
             if (neighbor.material == "grass") {
                 hasGrass = true;
             }
         });
-                if (hasGrass) self.nextRound.push(currentCell);
+        if (hasGrass) self.nextRound.push(currentCell);
     };
 
 
