@@ -61,6 +61,8 @@ game.addEvent(function(){
         game.speedUp = function() {
             this.speed /= 2;
             console.log("game speed: " + 1 / game.speed * 1000 + 'X');
+            nextTick(); //so that if the game is running very slow, it breaks out of the slow loop to process the next speed up immediatly;
+            processTick();
         };
 
         game.slowDown = function() {
