@@ -18,11 +18,11 @@ app.factory('MoveWorker', function() {
                     if (x === 0) rotationY = Math.PI;
                     else rotationY = Math.PI * (3 / 4) * (x / Math.abs(x));
                 }
-                if (z > 0) {
+                else if (z > 0) {
                     if (x === 0) rotationY = 0;
                     else rotationY = Math.PI * (1 / 4) * (x / Math.abs(x));
                 }
-                if (z === 0 && x !== 0) {
+                else if (z === 0 && x !== 0) {
                     rotationY = Math.PI * (1 / 2) * (x / Math.abs(x));
                 }
 

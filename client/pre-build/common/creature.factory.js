@@ -3,18 +3,18 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
     function Creature(game, opts, voxel, mesh) {
         this.game = game;
         this.map = game.map;
-        this.hpMax = multiply(opts.size, 5);
-        this.appetite = divide(opts.size / 4) || 1;
-        this.hp = this.hpMax;
+        this.size = opts.size;
+        this.hpMax = multiply(this.size, 5);
+        this.appetite = Math.floor(opts.size / 4);
+        this.hp = this.hpMax
         this.age = 0;
         this.name = opts.name;
         this.alive = true;
         this.lifeCycle = this.hp * 4;
-        this.size = opts.size;
         this.isHerbivore = opts.isHerbivore;
         this.hunger = divide(this.hp, 4);
         this.vision = opts.vision;
-        this.speed = divide(this.size, 4);
+        this.speed = 1;
         this.social = opts.social || 10;
         this.memory = [];
         this.food = "none";
@@ -46,7 +46,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
             .then(function() {
                 self.game.addEvent(function() {
                     self.exist();
-                }, self.speed, self.item.avatar.id);
+                }, 1, self.item.avatar.id);
             });
 
 
@@ -92,6 +92,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
     }
 
     function build(obj, scale, game, voxel, mesh) {
+        // console.log("build", arguments)
         var bounds = obj.bounds;
         var voxels = obj.voxels;
         var colors = obj.colors;
@@ -106,11 +107,11 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         var voxels = generate(bounds[0], bounds[1], function(x, y, z) {
             return voxels[[x, y, z].join('|')] || 0;
         });
-        console.log(voxels);
+        // console.log(voxels);
         // create mesh
         scale = scale || 0.2;
         var mesh = voxelMesh(voxels, game.mesher, new game.THREE.Vector3(scale, scale, scale), game.THREE);
-        var mat = new self.game.THREE.MeshBasicMaterial({
+        var mat = new game.THREE.MeshBasicMaterial({
             vertexColors: game.THREE.FaceColors
         });
         mesh.createSurfaceMesh(mat);

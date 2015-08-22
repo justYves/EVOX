@@ -62,7 +62,7 @@ app.factory('MapFactory', function($http) {
                 this.data[x][y] = new Array(this.size);
             }
         }
-        console.log(this.data);
+        // console.log(this.data);
         var self = this;
         cells.forEach(function(cell) {
             if (cell.legit) self.data[cell.x][cell.y][cell.z] = new Cell(cell.x, cell.y, cell.z, cell.material);
@@ -119,11 +119,11 @@ app.factory('MapFactory', function($http) {
     };
 
     Map.prototype.growGrass = function(game) {
-        this.game = game;
+        this.game = this.game || game;
         var self = this;
         this.fertilized.forEach(function(cell) {
             cell.setMaterial("grass");
-            game.setBlock(cell.coordinate, 1); // 1 = grass
+            self.game.setBlock(cell.coordinate, 1); // 1 = grass
             cell.neighbors.forEach(function(neighbor) {
                 if (neighbor.material !== "grass") {
                     if (Math.random() > 0.9)
@@ -137,17 +137,24 @@ app.factory('MapFactory', function($http) {
         this.fertilized = this.nextRound;
     };
 
+
     Map.prototype.empty = function(x, y, z) {
         var currentCell = this.getCell(x, y, z);
         if (currentCell.getMaterial === "dirt") return; //if animal eat empty patch
-        console.log('EMPTY MAP FUNC', currentCell)
+        // console.log('EMPTY MAP FUNC', currentCell)
         currentCell.setMaterial("dirt");
-        game.setBlock(currentCell.coordinate, 2); // 2 = Dirt
+
+        this.game.setBlock(currentCell.coordinate, 2); // 2 = Dirt
 
         //Check if neighbors is alive to regrow
+        var self = this;
+        var hasGrass =false;
         currentCell.neighbors.forEach(function(neighbor) {
-            if (neighbor.getMaterial === "grass") this.nextRound.push(currentCell);
+            if (neighbor.material == "grass") {
+                hasGrass = true;
+            }
         });
+                if (hasGrass) self.nextRound.push(currentCell);
     };
 
 
