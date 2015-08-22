@@ -20,9 +20,9 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
         self.game.creatures.splice(ind, 1);
       }
     });
-    game.removeItem(this);
-    game.scene.remove(this.item.avatar);
-    game.removeEvent(this.item.avatar.id)
+    this.game.removeItem(this);
+    this.game.scene.remove(this.item.avatar);
+    this.game.removeEvent(this.item.avatar.id)
   };
 
   Creature.prototype.procreate = function() {
@@ -38,7 +38,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
     this.game.creatures.push(newCreature);
     //render(newCreature, this.map);
     newCreature.setPosition(this.position.x - 0.5, 10, this.position.z - 0.5);
-    game.addEvent(function() {
+    this.game.addEvent(function() {
       newCreature.exist();
     }, 1);
   };
@@ -68,8 +68,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
   Creature.prototype.moveRandomly = function(amt) {
     var x = Math.round((Math.random() * amt) - amt / 2);
     var z = Math.round((Math.random() * amt) - amt / 2);
-    console.log('moving to this cell',game.map.getCell(x,z))
-    if(!game.map.getCell(x,z).obstructed){
+    if(!this.game.map.getCell(x,z).obstructed){
       this.move(x, 0, z);
     }
   };
@@ -131,11 +130,14 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
     }
     if(nearest && dist > this.social && nearest.name === this.name){
             //move towards herd
+
             console.log('just herdin');
             this.move(step(x, nearest.position.x - 0.5), 0, step(z, nearest.position.z - 0.5));       
     }
     else{
       this.moveRandomly(2);
+
+
     }
   };
 
@@ -163,6 +165,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
           this.lifeCycle === this.hpMax * 4;
         }
       } 
+
     }
   };
 /**** Eating behavior *****/
@@ -173,7 +176,7 @@ Creature.prototype.getFood = function() {
     var min;
     var closestCell;
     var objective;
-   
+
     var foodSource;
     //determine closest cell
     if(!this.isHerbivore){
@@ -181,6 +184,7 @@ Creature.prototype.getFood = function() {
         if(nearest && nearest.name !== this.name){
           // console.log("moving to food", this.name)
           this.moveTowardsObjective(nearest); 
+
         }else{
           // console.log("just moving", this.name)
           this.herd()

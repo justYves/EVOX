@@ -92,6 +92,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
     }
 
     function build(obj, scale, game, voxel, mesh) {
+        // console.log("build", arguments)
         var bounds = obj.bounds;
         var voxels = obj.voxels;
         var colors = obj.colors;
@@ -106,11 +107,11 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         var voxels = generate(bounds[0], bounds[1], function(x, y, z) {
             return voxels[[x, y, z].join('|')] || 0;
         });
-        console.log(voxels);
+        // console.log(voxels);
         // create mesh
         scale = scale || 0.2;
         var mesh = voxelMesh(voxels, game.mesher, new game.THREE.Vector3(scale, scale, scale), game.THREE);
-        var mat = new self.game.THREE.MeshBasicMaterial({
+        var mat = new game.THREE.MeshBasicMaterial({
             vertexColors: game.THREE.FaceColors
         });
         mesh.createSurfaceMesh(mat);
