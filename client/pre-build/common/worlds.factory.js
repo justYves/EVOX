@@ -68,7 +68,7 @@ app.factory('WorldsFactory', function($http, MapFactory) {
         },
         newWorldOptions: function() {
             map = MapFactory.getCurrentMap();
-            console.log(map)
+            // console.log(map)
             return {
                 generate: randomMap,
                 materials: materials,
