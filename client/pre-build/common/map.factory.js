@@ -69,7 +69,6 @@ app.factory('MapFactory', function($http) {
             else self.data[cell.x][cell.y][cell.z] = cell;
         })
     }
->>>>>>> master
 
     Map.prototype.setNeighbors = function() {
         var self = this;
