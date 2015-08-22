@@ -1,1 +1,1 @@
-require('voxel-snow');
+require('voxel-perlin-terrain');

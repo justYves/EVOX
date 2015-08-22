@@ -37,7 +37,10 @@ app.factory('TimeFactory', function() {
                 }
             }
         }, 15);
-
+var i = 0;
+game.addEvent(function(){
+    console.log(++i);
+},1)
 
         function processTick() {
             game.events.forEach(function(event, index) {
@@ -47,6 +50,7 @@ app.factory('TimeFactory', function() {
                     event.func();
                 }
             });
+            console.log(game.speed);
             nextTick = game.setTimeout(processTick, game.speed / 100);
         }
 
@@ -57,6 +61,8 @@ app.factory('TimeFactory', function() {
         game.speedUp = function() {
             this.speed /= 2;
             console.log("game speed: " + 1 / game.speed * 1000 + 'X');
+            nextTick(); //so that if the game is running very slow, it breaks out of the slow loop to process the next speed up immediatly;
+            processTick();
         };
 
         game.slowDown = function() {

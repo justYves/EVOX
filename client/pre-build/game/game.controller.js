@@ -6,13 +6,19 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   var map = MapFactory.getCurrentMap();
   window.Map = map; // Working
 
-  var createGame = window.voxelEngine;
-  var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
-  game.map = map;
+    var terrain = window.terrain;
+    var size = WorldsFactory.getCurrentWorld().size;
 
-  game.appendTo(document.body);
-  window.game = game; //For Debugging
-  WorldsFactory.setCurrentGame(game);
+    var createGame = window.voxelEngine;
+    var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
+    game.map = map;
+
+
+
+    game.appendTo(document.getElementById("container"))
+    window.game = game; //For Debugging
+    WorldsFactory.setCurrentGame(game);
+
   //calling creature constructor
   var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
   // var pigeon = new createCreature({
@@ -67,8 +73,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   // window.turtle = turtle;
 
 
-   
-
 
   // <------ CAMERA ------>
   CameraFactory.set(game);
@@ -113,8 +117,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
           }
       })
   }
-
-  
 
 
 
@@ -238,6 +240,20 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
               $state.go('worlds');
           })
   };
+
+
+    $scope.play = function(){
+        game.play();
+    }
+    $scope.pause = function(){
+        game.pause();
+    }
+    $scope.speedUp = function(){
+        game.speedUp();
+    }
+    $scope.slowDown = function(){
+        game.slowDown();
+    };
 
 
 
