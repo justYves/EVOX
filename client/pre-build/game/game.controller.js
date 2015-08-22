@@ -1,5 +1,4 @@
 app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q) {
-
   var createGame = window.voxelEngine; // use to create the World
   var createCreature;
   var map, game, size;
@@ -161,31 +160,33 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     sky = createSky();
     game.on('tick', sky);
     // //create clouds
-    // var clouds = window.Clouds({
-    //   // pass a copy of the game
-    //   game: game,
+    var clouds = window.Clouds({
+      // pass a copy of the game
+      game: game,
 
-    //   // how high up the clouds should be from the player
-    //   high: 10,
+      // how high up the clouds should be from the player
+      high: 10,
 
-    //   // the distance from the player the clouds should repeat
-    //   distance: 25,
+      // the distance from the player the clouds should repeat
+      distance: 100,
 
-    //   // how many clouds to generate
-    //   many: 10,
+      // how many clouds to generate
+      many: 10,
 
-    //   // how fast the clouds should move
-    //   speed: 0.01,
+      // how fast the clouds should move
+      speed: 0.01,
 
-    //   // material of the clouds
-    //   material: new game.THREE.MeshBasicMaterial({
-    //     emissive: 0xffffff,
-    //     shading: game.THREE.FlatShading,
-    //     fog: false,
-    //     transparent: true,
-    //     opacity: 0.5,
-    //   }),
-    // });
+      // material of the clouds
+      material: new game.THREE.MeshBasicMaterial({
+        emissive: 0xffffff,
+        shading: game.THREE.FlatShading,
+        fog: false,
+        transparent: true,
+        opacity: 0.5,
+      }),
+    });
+    console.log(clouds);
+    game.on('tick', clouds.tick.bind(clouds))
   }
 
   function startGame() {
@@ -270,7 +271,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
 
 // }
 
-// setTimeout(    game.on('tick', clouds.tick.bind(clouds)),10000)
+
 
 
 // game.on('tick', function() {

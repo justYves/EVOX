@@ -1293,7 +1293,7 @@ THREE.extend( THREE.Vector2.prototype, {
 	toArray: function () {
 
 		return [ this.x, this.y ];
-		
+
 	},
 
 	clone: function () {
@@ -2105,7 +2105,7 @@ THREE.extend( THREE.Vector3.prototype, {
 	toArray: function () {
 
 		return [ this.x, this.y, this.z ];
-		
+
 	},
 
 	clone: function () {
@@ -2665,7 +2665,7 @@ THREE.extend( THREE.Vector4.prototype, {
 	toArray: function () {
 
 		return [ this.x, this.y, this.z, this.w ];
-		
+
 	},
 
 	clone: function () {
@@ -3412,7 +3412,7 @@ THREE.extend( THREE.Matrix3.prototype, {
 
 			if ( throwOnInvertible || false ) {
 
-				throw new Error( msg ); 
+				throw new Error( msg );
 
 			} else {
 
@@ -4058,7 +4058,7 @@ THREE.extend( THREE.Matrix4.prototype, {
 
 			if ( throwOnInvertible || false ) {
 
-				throw new Error( msg ); 
+				throw new Error( msg );
 
 			} else {
 
@@ -4081,7 +4081,7 @@ THREE.extend( THREE.Matrix4.prototype, {
 
 		var mRotation = new THREE.Matrix4(),
 			mScale = new THREE.Matrix4();
-		
+
 		return function ( translation, rotation, scale ) {
 
 			var te = this.elements;
@@ -8762,7 +8762,7 @@ THREE.PerspectiveCamera.prototype.updateProjectionMatrix = function () {
  * @author mrdoob / http://mrdoob.com/
  * @author alteredq / http://alteredqualia.com/
  */
- 
+
 THREE.Light = function ( hex ) {
 
 	THREE.Object3D.call( this );
@@ -18045,19 +18045,19 @@ THREE.WebGLRenderer = function ( parameters ) {
 		return _glExtensionTextureFloat;
 
 	};
-	
+
 	this.supportsStandardDerivatives = function () {
 
 		return _glExtensionStandardDerivatives;
 
 	};
-	
+
 	this.supportsCompressedTextureS3TC = function () {
 
 		return _glExtensionCompressedTextureS3TC;
 
 	};
-	
+
 	this.getMaxAnisotropy  = function () {
 
 		return _maxAnisotropy;
@@ -25251,17 +25251,17 @@ THREE.WebGLRenderer = function ( parameters ) {
 			console.log( 'THREE.WebGLRenderer: S3TC compressed textures not supported.' );
 
 		}
-		
+
 		if ( _gl.getShaderPrecisionFormat === undefined ) {
-			
-			_gl.getShaderPrecisionFormat = function() { 
-				
+
+			_gl.getShaderPrecisionFormat = function() {
+
 				return {
 					"rangeMin"  : 1,
 					"rangeMax"  : 1,
 					"precision" : 1
 				};
-				
+
 			}
 		}
 
@@ -26894,7 +26894,7 @@ THREE.FontUtils = {
 
 THREE.FontUtils.generateShapes = function( text, parameters ) {
 
-	// Parameters 
+	// Parameters
 
 	parameters = parameters || {};
 
@@ -27884,7 +27884,7 @@ THREE.CurvePath = function () {
 
 	this.curves = [];
 	this.bends = [];
-	
+
 	this.autoClose = false; // Automatically closes the path
 };
 
@@ -27908,11 +27908,11 @@ THREE.CurvePath.prototype.closePath = function() {
 	// Add a line curve if start and end of lines are not connected
 	var startPoint = this.curves[0].getPoint(0);
 	var endPoint = this.curves[this.curves.length-1].getPoint(1);
-	
+
 	if (!startPoint.equals(endPoint)) {
 		this.curves.push( new THREE.LineCurve(endPoint, startPoint) );
 	}
-	
+
 };
 
 // To get accurate point with reference to
@@ -28398,14 +28398,14 @@ THREE.Path.prototype.arc = function ( aX, aY, aRadius,
 
 	this.absarc(aX + x0, aY + y0, aRadius,
 		aStartAngle, aEndAngle, aClockwise );
-	
+
  };
 
  THREE.Path.prototype.absarc = function ( aX, aY, aRadius,
 									  aStartAngle, aEndAngle, aClockwise ) {
 	this.absellipse(aX, aY, aRadius, aRadius, aStartAngle, aEndAngle, aClockwise);
  };
- 
+
 THREE.Path.prototype.ellipse = function ( aX, aY, xRadius, yRadius,
 									  aStartAngle, aEndAngle, aClockwise ) {
 
@@ -28417,7 +28417,7 @@ THREE.Path.prototype.ellipse = function ( aX, aY, xRadius, yRadius,
 		aStartAngle, aEndAngle, aClockwise );
 
  };
- 
+
 
 THREE.Path.prototype.absellipse = function ( aX, aY, xRadius, yRadius,
 									  aStartAngle, aEndAngle, aClockwise ) {
@@ -28632,7 +28632,7 @@ THREE.Path.prototype.getPoints = function( divisions, closedPath ) {
 			//console.log(points);
 
 		  break;
-		  
+
 		case THREE.PathActions.ELLIPSE:
 
 			var aX = args[ 0 ], aY = args[ 1 ],
@@ -30130,7 +30130,7 @@ THREE.KeyFrameAnimation.prototype.stop = function() {
 	// reset JIT matrix and remove cache
 
 	for ( var h = 0; h < this.data.hierarchy.length; h++ ) {
-        
+
         var obj = this.hierarchy[ h ];
 		var node = this.data.hierarchy[ h ];
 
@@ -31952,7 +31952,7 @@ THREE.ShapeGeometry.prototype.addShape = function ( shape, options ) {
  * @author bhouston / http://exocortex.com
  */
 
-// points - to create a closed torus, one must use a set of points 
+// points - to create a closed torus, one must use a set of points
 //    like so: [ a, b, c, d, a ], see first is the same as last.
 // segments - the number of circumference segments to create
 // phiStart - the starting radian
@@ -32013,7 +32013,7 @@ THREE.LatheGeometry = function ( points, segments, phiStart, phiLength ) {
 
 			this.faceVertexUvs[ 0 ].push( [
 
-				new THREE.Vector2( u0, v0 ), 
+				new THREE.Vector2( u0, v0 ),
 				new THREE.Vector2( u1, v0 ),
 				new THREE.Vector2( u1, v1 ),
 				new THREE.Vector2( u0, v1 )
@@ -33018,11 +33018,11 @@ THREE.ParametricGeometry = function ( func, slices, stacks, useTris ) {
 THREE.ParametricGeometry.prototype = Object.create( THREE.Geometry.prototype );
 /**
  * @author qiao / https://github.com/qiao
- * @fileoverview This is a convex hull generator using the incremental method. 
+ * @fileoverview This is a convex hull generator using the incremental method.
  * The complexity is O(n^2) where n is the number of vertices.
  * O(nlogn) algorithms do exist, but they are much more complicated.
  *
- * Benchmark: 
+ * Benchmark:
  *
  *  Platform: CPU: P7350 @2.00GHz Engine: V8
  *
@@ -33039,7 +33039,7 @@ THREE.ConvexGeometry = function( vertices ) {
 
 	THREE.Geometry.call( this );
 
-	var faces = [ [ 0, 1, 2 ], [ 0, 2, 1 ] ]; 
+	var faces = [ [ 0, 1, 2 ], [ 0, 2, 1 ] ];
 
 	for ( var i = 3; i < vertices.length; i++ ) {
 
@@ -33108,7 +33108,7 @@ THREE.ConvexGeometry = function( vertices ) {
 		// construct the new faces formed by the edges of the hole and the vertex
 		for ( var h = 0; h < hole.length; h++ ) {
 
-			faces.push( [ 
+			faces.push( [
 				hole[ h ][ 0 ],
 				hole[ h ][ 1 ],
 				vertexId
@@ -33131,7 +33131,7 @@ THREE.ConvexGeometry = function( vertices ) {
 		// distance from face to origin
 		var dist = n.dot( va );
 
-		return n.dot( vertex ) >= dist; 
+		return n.dot( vertex ) >= dist;
 
 	}
 
@@ -33160,7 +33160,7 @@ THREE.ConvexGeometry = function( vertices ) {
 	 */
 	function equalEdge( ea, eb ) {
 
-		return ea[ 0 ] === eb[ 1 ] && ea[ 1 ] === eb[ 0 ]; 
+		return ea[ 0 ] === eb[ 1 ] && ea[ 1 ] === eb[ 0 ];
 
 	}
 
@@ -33210,7 +33210,7 @@ THREE.ConvexGeometry = function( vertices ) {
 	// Convert faces into instances of THREE.Face3
 	for ( var i = 0; i < faces.length; i++ ) {
 
-		this.faces.push( new THREE.Face3( 
+		this.faces.push( new THREE.Face3(
 				faces[ i ][ 0 ],
 				faces[ i ][ 1 ],
 				faces[ i ][ 2 ]
@@ -33317,7 +33317,7 @@ THREE.ArrowHelper.prototype.setDirection = function ( dir ) {
     if ( d.y > 0.999 ) {
 
         this.rotation.set( 0, 0, 0 );
- 
+
     } else if ( d.y < - 0.999 ) {
 
         this.rotation.set( Math.PI, 0, 0 );
@@ -36036,11 +36036,13 @@ if (typeof exports !== 'undefined') {
 var voxelMesh = require('voxel-mesh');
 var voxel = require('voxel');
 var Perlin = require('perlin');
-
+var game
 function Clouds(opts) {
   if (!(this instanceof Clouds)) return new Clouds(opts || {});
   if (opts.THREE) opts = {game:opts};
   this.game = opts.game;
+  game= opts.game;
+	console.log(this.game)
   this.high = opts.high || 10;
   this.distance = opts.distance || 300;
   this.many = opts.many || 100;
@@ -36054,6 +36056,7 @@ function Clouds(opts) {
     opacity: 0.5,
   });
   this.clouds = [];
+  console.log(this.pos)
   for (var i = 0; i < this.many; i++) {
     this.generate();
   }
@@ -36062,6 +36065,7 @@ module.exports = Clouds;
 window.Clouds = Clouds;
 Clouds.prototype.generate = function(size) {
   var game = this.game;
+  // console.log("inside generate",game)
   size = size || 16;
   var scale = new game.THREE.Vector3(1, 1, 1);
 
@@ -36087,11 +36091,14 @@ Clouds.prototype.generate = function(size) {
 
 Clouds.prototype.tick = function(dt) {
   var self = this;
+
   self.clouds.forEach(function(cloud) {
+
     cloud.surfaceMesh.position.z += self.speed * rand(1, 1.5);
-    if (distanceTo(cloud.surfaceMesh.position, this.pos) > self.distance) {
+    if (distanceTo(cloud.surfaceMesh.position, self.pos) > self.distance) {
       self._position(cloud);
     }
+
   });
 };
 
@@ -36107,6 +36114,7 @@ function rand(min, max) {
 }
 
 function distanceTo(a, b) {
+
   if (!Array.isArray(a)) a = [a.x, a.y, a.z];
   if (!Array.isArray(b)) b = [b.x, b.y, b.z];
   var dx = b[0] - a[0];
@@ -36119,7 +36127,7 @@ function distanceTo(a, b) {
 function Perlin ( table ) {
 
 	this._table = table || this.makeTable( 255 );
-	
+
 	this.octaves = 10;
 	this.frequency = .05;
 	this.persistence = .5;
@@ -36127,7 +36135,7 @@ function Perlin ( table ) {
 };
 
 Perlin.prototype = {
-  
+
   random: function ( ) {
 
   	return Math.random( );
@@ -36152,96 +36160,96 @@ Perlin.prototype = {
   	return ( 1 - c ) * a + c * b;
 
   },
-	
+
 	_randify : function ( n ) {
 
 		return this._table[ Math.floor( n % this._table.length ) ];
 
 	},
-	
+
 	_noise : function ( point ) {
 
 		var value = 0;
-		
+
 		var dimensions = point.length;
 		for (var dimension = 0; dimension < dimensions; ++ dimension )
 			value = this._randify( Math.floor( value * 85000 ) + point[ dimension ] );
-		
+
 		return value;
 
 	},
-	
+
 	_smooth : function ( point, dimension ) {
 
 		if ( dimension < 0 )
 			return this._noise( point );
-		
+
 		var value = point[ dimension ];
 		var integer = Math.floor( value );
 		var fractional = value - integer;
-		
+
 		point[ dimension ] = integer;
 		var a = this._smooth( point, dimension - 1 );
-		
+
 		point[ dimension ] = integer + 1;
 		var b = this._smooth( point, dimension - 1 );
-		
+
 		point[ dimension ] = value;
-		
+
 		return this.cosineInterpolate( a, b, fractional );
 
 	},
-	
+
 	_perlin : function ( point ) {
 
 		var value = 0;
 		var amplitude = 1;
-		
+
 		var octaves = this.octaves;
 		var frequency = this.frequency;
 		var persistence = this.persistence;
-		
+
 		var copy = point.slice( );
 		var dimensions = copy.length;
-		
+
 		for ( var i = 0; i < octaves; ++ i )
 		{
 			var t = i * 4096;
-			
+
 			for ( var dimension = 0; dimension < dimensions; ++ dimension )
 				copy[ dimension ] = point[ dimension ] * frequency + t;
-			
+
 			value += this._smooth( copy, dimensions - 1 ) * amplitude;
-			
+
 			amplitude *= persistence;
 			frequency *= 2;
 		}
-		
+
 		var limiter = ( 1 - persistence ) / ( 1 - amplitude );
 		return value * limiter;
 
 	},
-	
+
 	_generate : function ( start, size, callback, dimension ) {
 
 		if ( dimension < 0 )
 			return callback( start, this._perlin( start ) );
-		
+
 		for ( var end = start[ dimension ] + size[ dimension ]; start[ dimension ] < end; ++ start[ dimension ] )
 			this._generate( start, size, callback, dimension - 1 );
-		
+
 		start[ dimension ] -= size[ dimension ];
 
 		return null;
 
 	},
-	
+
 	generate : function ( start, size, callback ) {
 
 		this._generate( start, size, callback, start.length - 1 );
 
 	}
-	
+
 };
 
 module.exports = Perlin
@@ -36259,7 +36267,7 @@ function Mesh(data, mesher, scaleFactor, three) {
   this.data = data
   var geometry = this.geometry = new this.THREE.Geometry()
   this.scale = scaleFactor || new this.THREE.Vector3(10, 10, 10)
-  
+
   var result = mesher( data.voxels, data.dims )
   this.meshed = result
 
@@ -36269,11 +36277,11 @@ function Mesh(data, mesher, scaleFactor, three) {
   for (var i = 0; i < result.vertices.length; ++i) {
     var q = result.vertices[i]
     geometry.vertices.push(new this.THREE.Vector3(q[0], q[1], q[2]))
-  } 
-  
+  }
+
   for (var i = 0; i < result.faces.length; ++i) {
     geometry.faceVertexUvs[0].push(this.faceVertexUv(i))
-    
+
     var q = result.faces[i]
     if (q.length === 5) {
       var f = new this.THREE.Face4(q[0], q[1], q[2], q[3])
@@ -36285,7 +36293,7 @@ function Mesh(data, mesher, scaleFactor, three) {
       geometry.faces.push(f)
     }
   }
-  
+
   geometry.computeFaceNormals()
 
   geometry.verticesNeedUpdate = true
@@ -36297,7 +36305,7 @@ function Mesh(data, mesher, scaleFactor, three) {
 
 }
 
-Mesh.prototype.createWireMesh = function(hexColor) {    
+Mesh.prototype.createWireMesh = function(hexColor) {
   var wireMaterial = new this.THREE.MeshBasicMaterial({
     color : hexColor || 0xffffff,
     wireframe : true
@@ -36594,7 +36602,7 @@ module.exports.generator['Valley'] = function(i,j,k) {
 }
 
 module.exports.generator['Hilly Terrain'] = function(i,j,k) {
-  var h0 = 3.0 * Math.sin(Math.PI * i / 12.0 - Math.PI * k * 0.1) + 27;    
+  var h0 = 3.0 * Math.sin(Math.PI * i / 12.0 - Math.PI * k * 0.1) + 27;
   if(j > h0+1) {
     return 0;
   }
@@ -36664,7 +36672,7 @@ function CulledMesh(volume, dims) {
         , u = dir[d][s]
         , v = dir[d][s^1];
       ++t[d];
-      
+
       var vertex_count = vertices.length;
       vertices.push([t[0],           t[1],           t[2]          ]);
       vertices.push([t[0]+u[0],      t[1]+u[1],      t[2]+u[2]     ]);
@@ -36816,7 +36824,7 @@ MonotonePolygon.prototype.close_off = function(v) {
 
 MonotonePolygon.prototype.merge_run = function(v, u_l, u_r) {
   var l = this.left[this.left.length-1][0]
-    , r = this.right[this.right.length-1][0]; 
+    , r = this.right[this.right.length-1][0];
   if(l !== u_l) {
     this.left.push([ l, v ]);
     this.left.push([ u_l, v ]);
@@ -36939,9 +36947,9 @@ return function(volume, dims) {
         p.close_off(dims[v]);
       }
       // --- Monotone subdivision of polygon is complete at this point ---
-      
+
       x[d]++;
-      
+
       //Now we just need to triangulate each monotone polygon
       for(var i=0; i<polygons.length; ++i) {
         var p = polygons[i]
@@ -36975,15 +36983,15 @@ return function(volume, dims) {
           , l_i = 1
           , r_i = 1
           , side = true;  //true = right, false = left
-        
+
         stack[top++] = left_index[0];
         stack[top++] = p.left[0][0];
         stack[top++] = p.left[0][1];
-        
+
         stack[top++] = right_index[0];
         stack[top++] = p.right[0][0];
         stack[top++] = p.right[0][1];
-        
+
         while(l_i < p.left.length || r_i < p.right.length) {
           //Compute next side
           var n_side = false;
@@ -37002,7 +37010,7 @@ return function(volume, dims) {
               if(flipped === n_side) {
                 faces.push([ stack[bottom], stack[bottom+3], idx, c]);
               } else {
-                faces.push([ stack[bottom+3], stack[bottom], idx, c]);              
+                faces.push([ stack[bottom+3], stack[bottom], idx, c]);
               }
               bottom += 3;
             }
