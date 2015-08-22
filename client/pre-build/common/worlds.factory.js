@@ -5,25 +5,37 @@ app.factory('WorldsFactory', function($http, MapFactory) {
 
     var grass, dirt, bark, leaves;
     var materials;
-    var size;
+    var size, flat;
 
-    function concatMap(map) {
+    function concat3DMap(map) {
         var cells = map.data.reduce(function(a, b) {
             return a.concat(b);
         }, []).reduce(function(a, b) {
             return a.concat(b);
         }, []);
-        return cells.map(function(cell) {
+        return JSON.stringify(cells.map(function(cell) {
             delete cell.neighbors;
             return cell;
-        })
+        }))
+    }
+
+    function concatFlatMap(map) {
+        var cells = map.data.reduce(function(a, b) {
+            return a.concat(b);
+        }, [])
+        return JSON.stringify(cells.map(function(cell) {
+            delete cell.neighbors;
+            return cell;
+        }))
     }
 
     var map;
 
     function randomMap(x, y, z) {
-        if (y >= 0 && y < 3 && x >= 0 && x < size && z >= 0 && z < size) {
-            return map.data[x][y][z] && map.data[x][y][z].legit ? map.getMaterial(x, y, z) : 0;
+        if (flat) {
+            return (y === 0 && x >= 0 && x < size && z >= 0 && z < size) ? map.getMaterial(x, z) : 0;
+        } else {
+            return (y >= 0 && y < 3 && x >= 0 && x < size && z >= 0 && z < size && map.data[x][y][z] && map.data[x][y][z].legit) ? map.getMaterial(x, y, z) : 0;
         }
     }
 
@@ -41,15 +53,21 @@ app.factory('WorldsFactory', function($http, MapFactory) {
                 })
         },
         postWorld: function(world) {
-            world.map = concatMap(MapFactory.create(world.size))
+            var func;
+            if (world.flat) func = concatFlatMap;
+            else func = concat3DMap;
+            world.map = func(MapFactory.create(world.size, null, world.flat))
             return $http.post('/api/worlds', world)
                 .then(function(res) {
                     return res.data;
                 })
         },
-        updateWorld: function(id, obj) {
-            obj.map = concatMap(obj.map);
-            return $http.put('/api/worlds/' + id, obj)
+        updateWorld: function(world) {
+            var func;
+            if (world.flat) func = concatFlatMap;
+            else func = concat3DMap;
+            world.map = func(world.map);
+            return $http.put('/api/worlds/' + world._id, world)
                 .then(function(res) {
                     return res.data;
                 })
@@ -81,6 +99,7 @@ app.factory('WorldsFactory', function($http, MapFactory) {
         },
         setCurrentWorld: function(world) {
             currentWorld = world;
+            flat = world.flat;
             size = world.size;
             if (world.environment === 'land') {
                 grass = ['grass-nice', 'light-dirt', 'grass-dirt-light'];

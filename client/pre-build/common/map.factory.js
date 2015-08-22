@@ -2,19 +2,36 @@ app.factory('MapFactory', function($http) {
 
     var currentMap;
 
-    function Map(n, cells) {
+    function Map(n, cells, flat) {
         this.game;
         this.size = n;
         this.data = [];
         this.nextRound = [];
         this.fertilized = [];
         if (cells) {
-            this.loadMap(3, cells);
-            this.setNeighbors();
-        } else this.createMap(3);
+            if (flat) {
+                this.loadFlatMap(cells);
+                this.setFlatNeighbors();
+            } else {
+                this.load3DMap(3, cells);
+                this.set3DNeighbors();
+            }
+        } else {
+            if (flat) this.createFlatMap();
+            else this.create3DMap(3);
+        }
     }
 
-    Map.prototype.createMap = function(height) {
+    Map.prototype.createFlatMap = function() {
+        for (var x = 0; x < this.size; x++) {
+            this.data[x] = new Array(this.size);
+            for (var z = 0; z < this.size; z++) {
+                this.data[x][z] = new Cell(x, 0, z);
+            }
+        }
+    }
+
+    Map.prototype.create3DMap = function(height) {
         var three = new Array(this.size);
         for (var x = 0; x < this.size; x++) {
             three[x] = new Array(height);
@@ -55,7 +72,21 @@ app.factory('MapFactory', function($http) {
         this.data = three;
     }
 
-    Map.prototype.loadMap = function(height, cells) {
+    Map.prototype.loadFlatMap = function(cells) {
+        cells = JSON.parse(cells);
+        for (var x = 0; x < this.size; x++) {
+            this.data[x] = new Array(this.size);
+        }
+
+        var self = this;
+        cells.forEach(function(cell) {
+            self.data[cell.x][cell.z] = new Cell(cell.x, 0, cell.z, cell.material);
+        })
+        console.log(cells)
+    }
+
+    Map.prototype.load3DMap = function(height, cells) {
+        cells = JSON.parse(cells);
         for (var x = 0; x < this.size; x++) {
             this.data[x] = new Array(height);
             for (var y = 0; y < height; y++) {
@@ -70,7 +101,24 @@ app.factory('MapFactory', function($http) {
         })
     }
 
-    Map.prototype.setNeighbors = function() {
+    Map.prototype.setFlatNeighbors = function() {
+        var self = this;
+        this.data.forEach(function(column) {
+            column.forEach(function(cell) {
+                cell.neighbors = [];
+                for (var x = cell.x - 1; x <= cell.x + 1; x++) {
+                    for (var z = cell.z - 1; z <= cell.z + 1; z++) {
+                        if ((cell.x == x || cell.z == z) && (!(cell.x == x && cell.z == z))) {
+                            var neighbor = self.getCell(x, 0, z);
+                            if (neighbor) cell.neighbors.push(neighbor);
+                        }
+                    }
+                }
+            })
+        })
+    }
+
+    Map.prototype.set3DNeighbors = function() {
         var self = this;
         this.data.forEach(function(column) {
             column.forEach(function(row, y) {
@@ -97,7 +145,9 @@ app.factory('MapFactory', function($http) {
             return false;
         }
     };
+
     Map.prototype.getMaterial = function(x, y, z) {
+        if (!z) return this.data[x][y].material === "dirt" ? 2 : 1 //y is really z
         return this.data[x][y][z].material === "dirt" ? 2 : 1; //Need to modify so that it's not hard coded
     };
 
@@ -171,11 +221,11 @@ app.factory('MapFactory', function($http) {
     };
 
     return {
-        create: function(size, cells) { //used for both creating new world and loading world
+        create: function(size, cells, flat) { //used for both creating new world and loading world
             if (cells) {
-                currentMap = new Map(size, cells);
+                currentMap = new Map(size, cells, flat);
                 return currentMap
-            } else return new Map(size);
+            } else return new Map(size, null, flat);
         },
         getCurrentMap: function() {
             return currentMap;
