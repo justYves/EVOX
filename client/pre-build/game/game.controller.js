@@ -3,12 +3,13 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   var createCreature;
   var map, game, size;
   var sky, clouds;
+  var feature = false;
 
   initMap();
   initGame();
   initTrees();
   initCreatures();
-  initEnvironment();
+  if(feature) initEnvironment();
   startGame();
 
   $scope.play = function() {
@@ -70,7 +71,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
     game.map = map;
     game.appendTo(document.getElementById("container"));
-      // window.game = game; //For Debugging
+      window.game = game; //For Debugging
     WorldsFactory.setCurrentGame(game);
     // var terrain = window.terrain;
     //set Camera
@@ -168,10 +169,10 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
       high: 10,
 
       // the distance from the player the clouds should repeat
-      distance: 100,
+      distance: game.map.size*5,
 
       // how many clouds to generate
-      many: 10,
+      many: game.map.size/2,
 
       // how fast the clouds should move
       speed: 0.01,
@@ -219,31 +220,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     }
     createTrees(options);
 }
-
-
-// var createTrees = window.Tree(game);
-// if (!game.trees) {
-//   createTrees({
-//     bark: 3,
-//     leaves: 4,
-//     densityScale: 2,
-//     treeType: 'subspace',
-//     random: function() {
-//       return 1;
-//     }
-//   });
-// } else {
-//   game.trees = JSON.parse(game.trees);
-//   createTrees({
-//     bark: 3,
-//     leaves: 4,
-//     treeType: 'subspace',
-//     random: function() {
-//       return 1;
-//     }
-//   })
-// }
-
 
 
 // if (WorldsFactory.getCurrentWorld().environment === 'ice') {

@@ -26,7 +26,7 @@ app.factory('CameraFactory', function() {
       game.view.renderer.domElement.addEventListener('resize', onWindowResize, false);
       document.addEventListener('mousemove', onDocumentMouseMove, false)
       document.addEventListener('mousedown', onDocumentMouseDown, false)
-      game.view.renderer.domElement.addEventListener('mouseup', onDocumentMouseUp, false)
+      document.addEventListener('mouseup', onDocumentMouseUp, false)
 
 
       function mousewheel(event) {
@@ -34,6 +34,10 @@ app.factory('CameraFactory', function() {
           // prevent zoom if a modal is open
         zoom(event.wheelDeltaY / 15 || event.detail)
       }
+
+      var highlighted;
+      var currentPos;
+      var toggle;
 
       function interact() {
         if (typeof raycaster === 'undefined') return
@@ -43,60 +47,72 @@ app.factory('CameraFactory', function() {
           // }
 
         var intersect = getIntersecting()
-          // console.log(intersect);
-          // if (intersect) {
-          //   var normal = intersect.face.normal.clone()
-          //   normal.applyMatrix4(intersect.object.matrixRotationWorld)
-          //   var position = new THREE.Vector3().addVectors(intersect.point, normal)
-          //   var newCube = [Math.floor(position.x / 50), Math.floor(position.y / 50), Math.floor(position.z / 50)]
+        if (!intersect) {
+          game.scene.remove(highlighted);
+          highlighted = undefined;
+          currentPos = undefined;
+          return;
+        }
+        console.log("old",currentPos);
+        console.log("recorded",intersect.point);
+        console.log(raycaster.ray.direction);
+        if((currentPos && Math.abs(currentPos.x - intersect.point.x ) < 0.25 &&
+          Math.abs(currentPos.y - intersect.point.y) < 0.25 &&
+          Math.abs(currentPos.z - intersect.point.z) < 0.25)) return;
+        currentPos = {
+          x:intersect.point.x,
+          y:intersect.point.y,
+          z:intersect.point.z
+        };
 
-        //   function updateBrush() {
-        //     brush.position.x = Math.floor(position.x / 50) * 50 + 25
-        //     brush.position.y = Math.floor(position.y / 50) * 50 + 25
-        //     brush.position.z = Math.floor(position.z / 50) * 50 + 25
-        //   }
+        // console.log(intersect);
+        // var normal = intersect.face.normal.clone()
+        // normal.applyMatrix4(intersect.object.matrixRotationWorld)
+        // var position = new game.THREE.Vector3().addVectors(intersect.point, normal)
+        var x = Math.floor(intersect.point.x+ Math.sign(raycaster.ray.direction.x)*0.01) + 0.5;
+        var y = Math.floor(intersect.point.y-0.01) + 0.5;
+        var z = Math.floor(intersect.point.z+ Math.sign(raycaster.ray.direction.z)*0.01) + 0.5;
+        // console.log([z,y,z]);
+        // if (newPos === currentPos) return;
+        // game.scene.remove(highlighted);
 
-        //   if (isAltDown) {
-        //     if (!brush.currentCube) brush.currentCube = newCube
-        //     if (brush.currentCube.join('') !== newCube.join('')) {
-        //       if (isShiftDown) {
-        //         if (intersect.object !== plane) {
-        //           scene.remove(intersect.object.wireMesh)
-        //           scene.remove(intersect.object)
-        //         }
-        //       } else {
-        //         if (brush.position.y != 2000) addVoxel(brush.position.x, brush.position.y, brush.position.z, color)
-        //       }
-        //     }
-        //     updateBrush()
-        //     updateHash()
-        //     return brush.currentCube = newCube
-        //   } else if (isShiftDown) {
-        //     if (intersect.object !== plane) {
-        //       objectHovered = intersect.object
-        //       objectHovered.material.opacity = 0.5
-        //       brush.position.y = 2000
-        //       return
-        //     }
-        //   } else {
-        //     updateBrush()
-        //     return
-        //   }
-        // }
-        // brush.position.y = 2000
+        if (!highlighted) {
+          highlight(x, y, z);
+        } else {
+          console.log("newPos:", x,y,z)
+          highlighted.position.x = x;
+          highlighted.position.y = y;
+          highlighted.position.z = z;
+        }
+      }
+
+      function highlight(x, y, z) {
+        var geometry = new game.THREE.CubeGeometry(1, 1, 1);
+        var material = new game.THREE.MeshBasicMaterial({
+          color: 0x000000,
+          wireframe: true,
+          wireframeLinewidth: 3,
+          transparent: true,
+          opacity: 0.5
+        });
+        highlighted = new game.THREE.Mesh(geometry, material);
+        highlighted.isHighlight = true;
+        // var voxel = new game.THREE.Mesh(cube, cubeMaterial)
+        // voxel.wireMesh = new game.THREE.Mesh(wireframeCube, wireframeMaterial)
+        highlighted.position.x = x;
+        highlighted.position.y = y;
+        highlighted.position.z = z;
+        game.scene.add(highlighted);
       }
 
       function getIntersecting() {
 
-        var hit = game.raycastVoxels(raycaster.ray.direction, raycaster.ray.position, 10000);
-        // console.log("hit",hit);
-
+        // console.log(game.scene.children);
         var intersectable = [];
         var intersections = raycaster.intersectObjects(game.scene.children);
-        if (intersections.length > 0) {
+        if (intersections.length) {
           // console.log(intersections);
-          var intersect = intersections[0].object.isBrush ? intersections[1] : intersections[0];
-          return intersect;
+          return intersections[0].object.isHighlight ? intersections[1] : intersections[0];
         }
       }
 
@@ -104,17 +120,17 @@ app.factory('CameraFactory', function() {
 
       function zoom(delta) {
         var origin = {
-          x: 10,
+          x: game.map.size / 2,
           y: 0,
-          z: 10
-        }
-        var distance = camera.position.distanceTo(origin)
-        var tooFar = distance > 100
-        var tooClose = distance < 5
-        if (delta > 0 && tooFar) return
-        if (delta < 0 && tooClose) return
-        radius = distance // for mouse drag calculations to be correct
-        camera.translateZ(delta)
+          z: game.map.size / 2
+        };
+        var distance = camera.position.distanceTo(origin);
+        var tooFar = distance > 100;
+        var tooClose = distance < 5;
+        if (delta > 0 && tooFar) return;
+        if (delta < 0 && tooClose) return;
+        radius = distance; // for mouse drag calculations to be correct
+        camera.translateZ(delta);
         render();
       }
 
@@ -150,9 +166,10 @@ app.factory('CameraFactory', function() {
           camera.position.x = (radius * Math.sin(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)) + size / 2;
           camera.position.y = radius * Math.sin(phi * Math.PI / 360)
           camera.position.z = (radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)) + size / 2;
-          interact();
-          render();
         }
+        mouse2D.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse2D.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        render();
       }
 
       function onDocumentMouseDown(event) {
@@ -175,11 +192,12 @@ app.factory('CameraFactory', function() {
       function render() {
         camera.lookAt(target)
         raycaster = projector.pickingRay(mouse2D.clone(), camera)
-          // console.log(raycaster);
+        interact()
         game.view.renderer.render(game.scene, camera)
       }
-      camera.lookAt(target)
+
+      camera.lookAt(target);
       game.view.camera = camera;
     }
-  }
+  };
 })
