@@ -5,7 +5,7 @@ app.directive('controlPanel', function() {
         scope: {
             creatures: "="
         },
-        templateUrl: "pre-build/common/directives/control-panel.html",
+        templateUrl: "pre-build/common/directives/control-panel/control-panel.html",
         controller: "PanelController"
     };
 
