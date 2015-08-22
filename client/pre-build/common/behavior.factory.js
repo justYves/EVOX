@@ -41,9 +41,9 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
         self.game.creatures.splice(ind, 1);
       }
     });
-    game.removeItem(this);
-    game.scene.remove(this.item.avatar);
-    game.removeEvent(this.item.avatar.id)
+    this.game.removeItem(this);
+    this.game.scene.remove(this.item.avatar);
+    this.game.removeEvent(this.item.avatar.id)
   };
 
   Creature.prototype.procreate = function() {
@@ -58,7 +58,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
     this.game.creatures.push(newCreature);
     //render(newCreature, this.map);
     newCreature.setPosition(this.position.x - 0.5, 10, this.position.z - 0.5);
-    game.addEvent(function() {
+    this.game.addEvent(function() {
       newCreature.exist();
     }, 1);
   };
@@ -196,7 +196,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
     // console.log('HEARD NEAREST',nearest);
     if(nearest && utilitiesFactory.distance(currentPos, nearest) > this.social && nearest.name === self.name){
             //move towards herd
-            this.move(this.step(x, nearest.position.x - 0.5), 0, this.step(z, nearest.position.z - 0.5));       
+            this.move(this.step(x, nearest.position.x - 0.5), 0, this.step(z, nearest.position.z - 0.5));
     }
 
 
@@ -223,7 +223,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
           this.procreate();
           this.lifeCycle === this.hpMax * 4;
         }
-      } 
+      }
       if(this.hunger < Math.floor(this.hp / 2)){
         // console.log(this.name + " is herding");
         this.herd();
@@ -238,14 +238,14 @@ Creature.prototype.getFood = function() {
     var min;
     var closestCell;
     var objective;
-   
+
     var foodSource;
     //determine closest cell
     if(!this.isHerbivore){
         var nearest = utilitiesFactory.findCreature(this.game.creatures,currentPos,this.vision, this);
         if(nearest && nearest.name !== this.name){
           console.log("moving to food", this.name)
-          this.moveTowardsObjective(nearest); 
+          this.moveTowardsObjective(nearest);
         }else{
           console.log("just moving", this.name)
           this.herd()
@@ -261,7 +261,7 @@ Creature.prototype.eat = function(target) {
     // console.log(this.name + " ate " + this.food.material, this.food.hasAnimal);
     // this.game.emit('eat', this.position.x - 0.5, this.position.z - 0.5, target);
     if(this.hunger > 0){
-        this.hunger -= 10; 
+        this.hunger -= 10;
     }
     // console.log('INSIDE THE EAT FUNC',target)
     if(this.isHerbivore) this.map.empty(target.x, target.z);
