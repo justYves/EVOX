@@ -1,4 +1,4 @@
-require('./cell');
+// require('./cell');
 require('./coordinate');
 // require('./material');
 require('./creature');

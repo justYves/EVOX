@@ -17,10 +17,11 @@ var worldSchema = new mongoose.Schema({
         type: Number,
         default: 100
     },
-    map: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'Cell'
-    }],
+    // map: [{
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'Cell'
+    // }],
+    map: String,
     // materials: [{
     //     type: mongoose.Schema.ObjectId,
     //     ref: 'Material'
@@ -34,7 +35,8 @@ var worldSchema = new mongoose.Schema({
         default: 'land'
     }, //air, aquatic, tundra
     temperature: Number,
-    trees: String
+    trees: String,
+    flat: Boolean
 });
 
 worldSchema.plugin(deepPopulate, {});
