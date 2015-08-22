@@ -97,6 +97,10 @@ var i = 0;
         game.getTime = function() {
             console.log("Current Time: " + game.time + "h.")
         }
+
+        game.animateMove = function(){
+          console.log()
+        };
     }
     return {
         startTime: setTick

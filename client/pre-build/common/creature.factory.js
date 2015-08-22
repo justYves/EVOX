@@ -3,18 +3,18 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
     function Creature(game, opts, voxel, mesh) {
         this.game = game;
         this.map = game.map;
-        this.hpMax = multiply(opts.size, 5);
-        this.appetite = divide(opts.size / 4) || 1;
+        this.size = opts.size;
+        this.hpMax = multiply(this.size, 5);
+        this.appetite = Math.floor(opts.size / 4);
         this.hp = this.hpMax
         this.age = 0;
         this.name = opts.name;
         this.alive = true;
         this.lifeCycle = this.hp * 4;
-        this.size = opts.size;
         this.isHerbivore = opts.isHerbivore;
         this.hunger = divide(this.hp, 4);
         this.vision = opts.vision;
-        this.speed = divide(this.size, 4);
+        this.speed = 1;
         this.social = opts.social || 10;
         this.memory = [];
         this.food = "none";
@@ -46,7 +46,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
             .then(function() {
                 self.game.addEvent(function() {
                     self.exist();
-                }, self.speed, self.item.avatar.id);
+                }, 1, self.item.avatar.id);
             });
 
 
