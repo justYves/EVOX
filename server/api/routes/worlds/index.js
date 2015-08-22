@@ -2,7 +2,6 @@
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var World = mongoose.model('World');
-var Cell = mongoose.model('Cell');
 var Promise = require('bluebird');
 var Creature = mongoose.model('Creature');
 var router = require('express').Router();
@@ -31,11 +30,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    Cell.create(req.body.map)
-        .then(function(cells) {
-            req.body.map = cells;
-            return World.create(req.body)
-        })
+    World.create(req.body)
         .then(function(world) {
             res.status(201).json(world);
         })

@@ -40,16 +40,16 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         //gives basic behavior
         angular.extend(Creature.prototype, BehaviorFactory.prototype);
 
-        ShapeFactory.getShape(this.name).then(function(data) {
-            render(self, data, game, voxel, mesh);
-        })
-            .then(function() {
-                self.game.addEvent(function() {
-                    self.exist();
-                }, 1, self.item.avatar.id);
-            });
-
-
+        if (voxel && mesh) {
+            ShapeFactory.getShape(this.name).then(function(data) {
+                render(self, data, game, voxel, mesh);
+            })
+                .then(function() {
+                    self.game.addEvent(function() {
+                        self.exist();
+                    }, 1, self.item.avatar.id);
+                });
+        }
 
         if (!game.creatures) game.creatures = [];
         game.creatures.push(this);
@@ -175,6 +175,6 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
                     return res.data
                 })
         }
-        // shape, parents, position, rotation
+        // currentCreatures set in one-world.ctrl
     };
 })
