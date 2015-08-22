@@ -1,8 +1,36 @@
+<style type="text/css">
+.highlight:hover {
+	background: #eee;
+}
+</style>
 <ul>
-	<li 
-		ng-repeat="world in worlds"
-		ng-click="currentWorld(world)"
-		style="cursor:pointer"><a>{{world.name}}</a></li>
-</ul>
-
-<ui-view></ui-view>
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading">Worlds</div>
+		<!-- Table -->
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+					<th>Environment</th>
+					<th>Terrain</th>
+					<th>Size</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="world in worlds"
+				ng-click="currentWorld(world)"
+				style="cursor:pointer"
+				class="highlight">
+					<th scope="row">{{$index+1}}</th>
+					<td>{{world.name}}</td>
+					<td>{{world.environment}}</td>
+					<td ng-show="world.flat">Flat</td>
+					<td ng-hide="world.flat">3D</td>
+					<td>{{world.size}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<ui-view></ui-view>
