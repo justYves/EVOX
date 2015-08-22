@@ -6,7 +6,10 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     var map = MapFactory.getCurrentMap();
     window.Map = map; // Working
 
-  var createGame = window.voxelEngine;
+    var terrain = window.terrain;
+    var size = WorldsFactory.getCurrentWorld().size;
+
+    var createGame = window.voxelEngine;
     var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
     game.map = map;
 
@@ -68,7 +71,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     isHerbivore: false
   });
   window.turtle = turtle;
-
 
 
 
@@ -172,6 +174,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     //         //     size: 1
     //         // })
     //     })
+
         // }
     game.on('tick', sky);
     // setTimeout(    game.on('tick', clouds.tick.bind(clouds)),10000)

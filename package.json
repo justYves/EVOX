@@ -44,6 +44,7 @@
     "run-sequence": "^1.1.0",
     "socket.io": "^1.3.6",
     "voxel-engine": "^0.20.2",
+    "voxel-perlin-terrain": "^1.0.0",
     "voxel-player": "^0.1.0",
     "voxel-snow": "^0.2.0"
   },
