@@ -5,9 +5,10 @@ app.factory('CameraFactory', function() {
       var size = game.map.size
       window.camera = camera;
       camera.position.set(18, 8, 50);
-
+      var projector = new game.THREE.Projector()
+       var mouse2D = new game.THREE.Vector3(0, 10000, 0.5)
       var target = new game.THREE.Vector3(size/2, 0, size/2)
-
+        var mouse3D, raycaster, objectHovered;
       var radius = 50,
         theta = 90,
         phi = 90;
@@ -33,6 +34,73 @@ app.factory('CameraFactory', function() {
           // prevent zoom if a modal is open
         zoom(event.wheelDeltaY / 15 || event.detail)
       }
+
+      function interact() {
+    if (typeof raycaster === 'undefined') return
+    // if (objectHovered) {
+    //   objectHovered.material.opacity = 1
+    //   objectHovered = null
+    // }
+
+    var intersect = getIntersecting()
+    // console.log(intersect);
+    // if (intersect) {
+    //   var normal = intersect.face.normal.clone()
+    //   normal.applyMatrix4(intersect.object.matrixRotationWorld)
+    //   var position = new THREE.Vector3().addVectors(intersect.point, normal)
+    //   var newCube = [Math.floor(position.x / 50), Math.floor(position.y / 50), Math.floor(position.z / 50)]
+
+    //   function updateBrush() {
+    //     brush.position.x = Math.floor(position.x / 50) * 50 + 25
+    //     brush.position.y = Math.floor(position.y / 50) * 50 + 25
+    //     brush.position.z = Math.floor(position.z / 50) * 50 + 25
+    //   }
+
+    //   if (isAltDown) {
+    //     if (!brush.currentCube) brush.currentCube = newCube
+    //     if (brush.currentCube.join('') !== newCube.join('')) {
+    //       if (isShiftDown) {
+    //         if (intersect.object !== plane) {
+    //           scene.remove(intersect.object.wireMesh)
+    //           scene.remove(intersect.object)
+    //         }
+    //       } else {
+    //         if (brush.position.y != 2000) addVoxel(brush.position.x, brush.position.y, brush.position.z, color)
+    //       }
+    //     }
+    //     updateBrush()
+    //     updateHash()
+    //     return brush.currentCube = newCube
+    //   } else if (isShiftDown) {
+    //     if (intersect.object !== plane) {
+    //       objectHovered = intersect.object
+    //       objectHovered.material.opacity = 0.5
+    //       brush.position.y = 2000
+    //       return
+    //     }
+    //   } else {
+    //     updateBrush()
+    //     return
+    //   }
+    // }
+    // brush.position.y = 2000
+  }
+
+    function getIntersecting() {
+
+    var hit = game.raycastVoxels(raycaster.ray.direction, raycaster.ray.position, 10000);
+    // console.log("hit",hit);
+
+    var intersectable = [];
+    var intersections = raycaster.intersectObjects(game.scene.children);
+    if (intersections.length > 0) {
+      // console.log(intersections);
+      var intersect = intersections[0].object.isBrush ? intersections[1] : intersections[0]
+      ;
+      return intersect;
+    }
+  }
+
 
 
       function zoom(delta) {
@@ -83,12 +151,12 @@ app.factory('CameraFactory', function() {
           camera.position.x = (radius * Math.sin(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)) + size /2;
           camera.position.y = radius * Math.sin(phi * Math.PI / 360)
           camera.position.z = (radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)) + size/2;
+          interact();
           render();
         }
       }
 
       function onDocumentMouseDown(event) {
-        console.log(event)
         event.preventDefault()
         isMouseDown = true
         onMouseDownTheta = theta
@@ -107,7 +175,8 @@ app.factory('CameraFactory', function() {
 
       function render() {
         camera.lookAt(target)
-          // raycaster = projector.pickingRay( mouse2D.clone(), camera )
+        raycaster = projector.pickingRay( mouse2D.clone(), camera )
+        // console.log(raycaster);
         game.view.renderer.render(game.scene, camera)
       }
       camera.lookAt(target)

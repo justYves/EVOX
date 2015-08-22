@@ -85,12 +85,12 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
 
     TimeFactory.setTick(game);
 
-    var Highlight = window.Highlight;
-    var highlighter = Highlight(game);
-    var positionME;
-    highlighter.on('highlight', function(voxelPosArray) {
-        positionME = voxelPosArray;
-    });
+    // var Highlight = window.Highlight;
+    // var highlighter = Highlight(game);
+    // var positionME;
+    // highlighter.on('highlight', function(voxelPosArray) {
+    //     positionME = voxelPosArray;
+    // });
 
     game.trees = WorldsFactory.getCurrentWorld().trees || undefined;
     // console.log(game.trees);
@@ -245,6 +245,19 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             .then(function() {
                 $state.go('worlds');
             })
+    };
+
+    $scope.play = function(){
+        game.play();
+    }
+    $scope.pause = function(){
+        game.pause();
+    }
+    $scope.speedUp = function(){
+        game.speedUp();
+    }
+    $scope.slowDown = function(){
+        game.slowDown();
     };
 
 
