@@ -77,6 +77,11 @@ app.factory('utilitiesFactory',function(){
 
 	}
 
+	function step() {
+	   return 0;
+	  }
+	  
+
 	 function step(dir, objective) {
 	    if (dir < objective) return 1;
 	    else if (dir > objective) return -1;
