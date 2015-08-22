@@ -10,12 +10,12 @@ app.directive('controlPanel', function(){
 	};
 
 })
-.controller("PanelController", function($scope, $timeout){
-	console.log('in PanelController', new Date());
+.controller("PanelController", function($scope){
 	$scope.worldName = "your World";
     $scope.currentUser = "Game-of-Lifer";
     $scope.points = 25;
     $scope.stats = false;
+    $scope.control = true;
 
     $scope.controlHide = function(){
         $scope.control = !$scope.control;
@@ -25,7 +25,5 @@ app.directive('controlPanel', function(){
         $scope.stats = !$scope.stats;
     };
 
-	$timeout(function(){
-		$scope.creatures = creatures;
-	}, 250);
+    $scope.creatures = creatures;
 });
