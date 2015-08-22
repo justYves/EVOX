@@ -7,7 +7,7 @@
     <hr>
     <div class="row creature-container">
         <div class="btn-group">
-          <button class ="btn btn-default" ng-click="getCreatures()">Creatures<span class="caret"></span></button>
+          <button class ="btn btn-default">Creatures<span class="caret"></span></button>
           <ul>
             <li ng-show="!!creatures" ng-repeat="creature in creatures"><button class="btn btn-default" id="creatures" ng-click="statsShow()">{{creature.name}}</button><creature-stats ng-show="stats"></creature-stats></li>
           </ul>

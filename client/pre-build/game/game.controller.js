@@ -238,26 +238,19 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             });
     };
 
-    // game.on('tick', function(){
-    //     $scope.creatures = creatures;
-    // });
+    game.on('tick', function(){
+        $scope.creatures = game.creatures;
+    });
+    
     $scope.control = true;
     $scope.stats = false;
 
     $scope.controlHide = function(){
         $scope.control = !$scope.control;
-        clearInterval(statsCounter);
     };
 
     $scope.statsShow = function() {
         $scope.stats = !$scope.stats;
-    };
-
-    $scope.getCreatures = function(){
-        var statsCounter = setInterval(function(){
-            $scope.creatures = game.creatures;
-            $scope.$digest();
-        });
     };
 
     $scope.worldName = map.name || "your World";
