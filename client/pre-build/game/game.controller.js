@@ -6,13 +6,19 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     var map = MapFactory.getCurrentMap();
     window.Map = map; // Working
 
-  var createGame = window.voxelEngine;
+    var terrain = window.terrain;
+    var size = WorldsFactory.getCurrentWorld().size;
+
+    var createGame = window.voxelEngine;
     var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
     game.map = map;
 
-    game.appendTo(document.body)
+
+
+    game.appendTo(document.getElementById("container"))
     window.game = game; //For Debugging
     WorldsFactory.setCurrentGame(game);
+
   //calling creature constructor
   var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
   // var pigeon = new createCreature({
@@ -68,8 +74,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   window.turtle = turtle;
 
 
-   
-
 
     // <------ CAMERA ------>
     CameraFactory.set(game);
@@ -82,12 +86,12 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
 
     TimeFactory.setTick(game);
 
-    var Highlight = window.Highlight;
-    var highlighter = Highlight(game);
-    var positionME;
-    highlighter.on('highlight', function(voxelPosArray) {
-        positionME = voxelPosArray;
-    });
+    // var Highlight = window.Highlight;
+    // var highlighter = Highlight(game);
+    // var positionME;
+    // highlighter.on('highlight', function(voxelPosArray) {
+    //     positionME = voxelPosArray;
+    // });
 
     game.trees = WorldsFactory.getCurrentWorld().trees || undefined;
     // console.log(game.trees);
@@ -115,7 +119,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         })
     }
 
-  
+
+
 
 
 
@@ -146,6 +151,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     });
 
 
+
+
     // if (WorldsFactory.getCurrentWorld().environment === 'ice') {
     // var snow = window.Snow({
     //         game: game,
@@ -168,10 +175,11 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     //         //     size: 1
     //         // })
     //     })
+
         // }
-    game.on('tick', sky
-        // snow.tick();
-    );
+    game.on('tick', sky);
+    // setTimeout(    game.on('tick', clouds.tick.bind(clouds)),10000)
+
 
     // game.on('tick', function() {
     //     snow.tick();
@@ -183,7 +191,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     // })
     //render
 
-    var start = window.start(game);
+    // var start = window.start(game);
 
     function updateCreatureStuff(arr) {
         return $q.all(arr.map(function(creature) {
@@ -206,6 +214,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
                 });
         }));
     }
+
+    game.start();
 
     $scope.save = function() {
         var existing = [],
@@ -257,6 +267,18 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     $scope.points = 25;
     $scope.currentUser = "Game-of-Lifer";
 
+    $scope.play = function(){
+        game.play();
+    }
+    $scope.pause = function(){
+        game.pause();
+    }
+    $scope.speedUp = function(){
+        game.speedUp();
+    }
+    $scope.slowDown = function(){
+        game.slowDown();
+    };
 
 
     // <------ PLAYER ------>

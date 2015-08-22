@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 
 var cellSchema = new mongoose.Schema({
     material: String,
+    legit: Boolean,
     // neighbors: [{
     //     type: mongoose.Schema.ObjectId,
     //     ref: 'Cell'

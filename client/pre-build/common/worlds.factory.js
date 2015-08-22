@@ -10,11 +10,21 @@ app.factory('WorldsFactory', function($http, MapFactory) {
     function concatMap(map) {
         var cells = map.data.reduce(function(a, b) {
             return a.concat(b);
-        }, [])
+        }, []).reduce(function(a, b) {
+            return a.concat(b);
+        }, []);
         return cells.map(function(cell) {
             delete cell.neighbors;
             return cell;
         })
+    }
+
+    var map;
+
+    function randomMap(x, y, z) {
+        if (y >= 0 && y < 3 && x >= 0 && x < size && z >= 0 && z < size) {
+            return map.data[x][y][z] && map.data[x][y][z].legit ? map.getMaterial(x, y, z) : 0;
+        }
     }
 
     return {
@@ -57,10 +67,10 @@ app.factory('WorldsFactory', function($http, MapFactory) {
             return currentGame;
         },
         newWorldOptions: function() {
+            map = MapFactory.getCurrentMap();
+            console.log(map)
             return {
-                generate: function(x, y, z) {
-                    return (y === 0 && x >= 0 && x < size && z >= 0 && z < size) ? MapFactory.getCurrentMap().getMaterial(x, z) : 0;
-                },
+                generate: randomMap,
                 materials: materials,
                 texturePath: '../textures/',
                 controls: {
