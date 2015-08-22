@@ -300,6 +300,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   //   }
   // });
 
+
   // // Make Player Fly
   // var fly = window.voxelFly;
   // var makeFly = fly(game);
