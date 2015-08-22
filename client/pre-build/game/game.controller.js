@@ -10,11 +10,11 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
   var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
   game.map = map;
 
-  game.appendTo(document.body)
+  game.appendTo(document.body);
   window.game = game; //For Debugging
   WorldsFactory.setCurrentGame(game);
   //calling creature constructor
-  var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
+  var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
   // var pigeon = new createCreature({
   //   name: 'pigeon',
   //   size: 5,
