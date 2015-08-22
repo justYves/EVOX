@@ -13,9 +13,65 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     var game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
     game.map = map;
 
-    game.appendTo(document.body)
+
+
+    game.appendTo(document.getElementById("container"))
     window.game = game; //For Debugging
     WorldsFactory.setCurrentGame(game);
+
+  //calling creature constructor
+  var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
+  // var pigeon = new createCreature({
+  //   name: 'pigeon',
+  //   size: 5,
+  //   vision: 3,
+  //   isHerbivore: true
+  // });
+  // window.pigeon = pigeon;
+
+  // var crocodile = new createCreature({
+  //   name: 'crocodile',
+  //   size: 5,
+  //   vision: 5,
+  //   isHerbivore: false
+  // });
+  // window.crocodile = crocodile;
+
+
+  // var duck = new createCreature({
+  //   name: 'duck',
+  //   size: 5,
+  //   vision: 5,
+  //   isHerbivore: true
+  // });
+  // window.duck = duck;
+
+  var deer = new createCreature({
+    name: 'deer',
+    size: 5,
+    vision: 5,
+    social: 2,
+    isHerbivore: true
+  });
+  window.deer = deer;
+
+  // var lion = new createCreature({
+  //   name: 'lion',
+  //   size: 5,
+  //   vision: 5,
+  //   isHerbivore: false
+  // });
+  // window.lion = lion;
+
+  var turtle = new createCreature({
+    name: 'turtle',
+    size: 5,
+    vision: 5,
+    social: 7,
+    isHerbivore: false
+  });
+  window.turtle = turtle;
+
 
 
     // <------ CAMERA ------>
@@ -62,7 +118,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         })
     }
 
-  
+
+
 
 
 
@@ -93,6 +150,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     });
 
 
+
+
     // if (WorldsFactory.getCurrentWorld().environment === 'ice') {
     // var snow = window.Snow({
     //         game: game,
@@ -115,10 +174,11 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     //         //     size: 1
     //         // })
     //     })
-    // }
-    game.on('tick', sky
-        // snow.tick();
-    );
+
+        // }
+    game.on('tick', sky);
+    // setTimeout(    game.on('tick', clouds.tick.bind(clouds)),10000)
+
 
     // game.on('tick', function() {
     //     snow.tick();
@@ -130,7 +190,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     // })
     //render
 
-    var start = window.start(game);
+    // var start = window.start(game);
 
     function updateCreatureStuff(arr) {
         return $q.all(arr.map(function(creature) {
@@ -153,6 +213,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
                 })
         }))
     }
+
+    game.start();
 
     $scope.save = function() {
         var existing = [],
