@@ -1,15 +1,15 @@
 <ul>
-  <li>Name: {{creature.name}}</li>
-  <li>Age: {{creature.age}}</li>
-  <li>Location: [{{creature.position.x - 0.5}}, {{creature.position.y}}]</li>
+  <li ng-model="creature.name">Name: {{creature.name}}</li>
+  <li ng-model="creature.age">Age: {{creature.age}}</li>
+  <li ng-model="creature.position">Location: [{{creature.position.x - 0.5}}, {{creature.position.y}}]</li>
   <li>
-    <p>Health: {{creature.hp}}</p>
+    <p ng-model="creature.hp">Health: {{creature.hp}}</p>
     <div class="progress">
       <div class="progress-bar progress-bar-success" style="width: 100%;"></div>
     </div>
   </li>
   <li>
-    <p>Hunger: {{creature.hunger}}</p>
+    <p ng-model="creature.hunger">Hunger: {{creature.hunger}}</p>
     <div class="progress">
       <div class="progress-bar progress-bar-success" style="width: 100%;"></div>
     </div>

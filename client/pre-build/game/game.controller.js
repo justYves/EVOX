@@ -1,4 +1,4 @@
-app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, $state, $q) {
+app.controller('GameController', function($interval, $scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, $state, $q) {
 
     if ($('canvas')) $('canvas').remove();
     // <------ GAME ------>
@@ -248,38 +248,21 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             });
     };
 
-    game.on('tick', function(){
-        $scope.creatures = game.creatures;
-    });
-    
-    $scope.control = true;
-    $scope.stats = false;
-
-    $scope.controlHide = function(){
-        $scope.control = !$scope.control;
-    };
-
-    $scope.statsShow = function() {
-        $scope.stats = !$scope.stats;
-    };
-
-    $scope.worldName = map.name || "your World";
-    $scope.points = 25;
-    $scope.currentUser = "Game-of-Lifer";
-
     $scope.play = function(){
         game.play();
-    }
+    };
+
     $scope.pause = function(){
         game.pause();
-    }
+    };
+
     $scope.speedUp = function(){
         game.speedUp();
-    }
+    };
+
     $scope.slowDown = function(){
         game.slowDown();
     };
-
 
     // <------ PLAYER ------>
     // voxel-player: add player that can move around. It needs a copy of the game
