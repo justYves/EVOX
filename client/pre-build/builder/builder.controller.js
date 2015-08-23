@@ -2,8 +2,6 @@ app.controller('BuilderController', function($scope, $state) {
   var THREE = window.THREE;
 
   var raf = window.raf;
-
-  console.log(THREE);
   var container;
   var camera, renderer, brush;
   var projector, plane, scene, grid, shareDialog;
@@ -47,20 +45,186 @@ app.controller('BuilderController', function($scope, $state) {
   }
 
   init();
-  raf(window).on('data', render)
+  raf(window).on('data', render);
   render();
-  addEventListener()
+  addEventListener();
   interact();
 
-  // raf(window).on('data', render)
+  $scope.setWireframe = function() {
+    wireframe = !wireframe;
+    scene.children
+      .filter(function(el) {
+        return el.isVoxel
+      })
+      .map(function(mesh) {
+        mesh.wireMesh.visible = wireframe
+      });
+  };
+
+  $scope.showGrid = function() {
+    grid.material.visible = !grid.material.visible;
+  };
+
+  $scope.export = function() {
+    var voxels = updateHash();
+    if (voxels.length === 0) return;
+    window.open(exportImage(800, 600).src, 'voxel-painter-window');
+  };
+
+
+  function exportImage(width, height) {
+    var canvas = getExportCanvas(width, height);
+    var image = new Image
+    image.src = canvas.toDataURL();
+    return image;
+  }
+
+  function getExportCanvas(width, height) {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    var source = renderer.domElement;
+    var width = canvas.width = width || source.width;
+    var height = canvas.height = height || source.height;
+
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.render(scene, camera);
+
+    ctx.fillStyle = 'rgb(255,255,255)';
+    ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(source, 0, 0, width, height);
+
+    updateHash();
+
+    var imageData = ctx.getImageData(0, 0, width, height);
+    var voxelData = $scope.currentHash;
+    var text = 'voxel-painter:' + voxelData;
+
+    encodePng(imageData.data, text, pickRGB);
+
+    ctx.putImageData(imageData, 0, 0);
+    onWindowResize()
+    return canvas;
+  }
+
+  function setupImageDropImport(element) {
+    element.ondragover = function(event) {
+      return event.preventDefault(event) && false
+    }
+    element.ondrop = function(event) {
+      event.preventDefault()
+      event.stopPropagation()
+
+      if (!event.dataTransfer) return false
+
+      var file = event.dataTransfer.files[0]
+      if (!file) return false
+      if (!file.type.match(/image/)) return false
+
+      var reader = new FileReader
+      reader.onload = function(event) {
+        var image = new Image
+        image.src = event.target.result
+        image.onload = function() {
+          if (importImage(image)) return
+          window.alert('Looks like that image doesn\'t have any voxels inside it...')
+        }
+      }
+      reader.readAsDataURL(file)
+      return false
+    }
+  }
+
+  function pickRGB(idx) {
+    return idx + (idx / 3) | 0;
+  }
+
+  function encodePng(channel, stegotext, fn) {
+    fn = fn || function index(n) {
+      return n;
+    };
+
+    var i = 0,
+      channelLength = channel.length,
+      stegoLength, textLength, index;
+
+    textLength = stegotext.length;
+    stegotext = stringToBits(stegotext);
+    stegoLength = stegotext.length;
+
+    // Encode length into the first 32 bytes
+    var lengthString = '';
+    lengthString += String.fromCharCode((textLength >> 32) & 255);
+    lengthString += String.fromCharCode((textLength >> 24) & 255);
+    lengthString += String.fromCharCode((textLength >> 16) & 255);
+    lengthString += String.fromCharCode((textLength >> 8) & 255);
+    lengthString = stringToBits(lengthString);
+
+    function unload(data) {
+      var length = data.length;
+      var j = 0;
+
+      while (i < channelLength && j < length) {
+        index = fn(i);
+        if (index < 0) break;
+        channel[index] = (channel[index] & 254) + (data[j] ? 1 : 0);
+        i += 1;
+        j += 1;
+      }
+    }
+
+    unload(lengthString);
+    unload(stegotext);
+
+    return channel;
+  }
+
+  function stringToBits(str) {
+    var bits = []
+
+    for (var i = 0, l = str.length; i < l; i += 1) {
+      var character = str[i],
+        number = str.charCodeAt(i)
+
+      // Non-standard characters are treated as spaces
+      if (number > 255) number = spaceCode
+
+      // Split the character code into bits
+      for (var j = 7; j >= 0; j -= 1) {
+        bits[i * 8 + 7 - j] = (number >> j) & 1
+      }
+    }
+
+    return bits
+  }
+
+  function bitsToString(bits) {
+    var str = '',
+      character
+
+    for (var i = 0, l = bits.length; i < l; i += 8) {
+      character = 0
+      for (var j = 7; j >= 0; j -= 1) {
+        character += bits[i + 7 - j] << j
+      }
+      str += String.fromCharCode(character)
+    }
+
+    return str
+  }
+
+
+
+  ///<---- EXPORT ---->
 
   function init() {
-    bindEventsAndPlugins()
-    setupImageDropImport(document.body)
+    bindEventsAndPlugins();
+    setupImageDropImport(document.body);
 
-    container = document.createElement( 'div' )
+    container = document.createElement('div');
     // container = document.getElementById("container")
-    document.getElementById("container").appendChild(container)
+    document.getElementById("container").appendChild(container);
 
     camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000)
     camera.position.x = radius * Math.sin(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)
@@ -68,7 +232,7 @@ app.controller('BuilderController', function($scope, $state) {
     camera.position.z = radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)
 
     scene = new THREE.Scene()
-    // window.scene = scene
+      // window.scene = scene
 
     // // Grid
 
@@ -244,6 +408,58 @@ app.controller('BuilderController', function($scope, $state) {
     }
   } //<---- SET UP IMAGE DROP ---->
 
+
+    function importImage(image) {
+    var canvas = document.createElement('canvas')
+    var ctx = canvas.getContext('2d')
+    var width = canvas.width = image.width
+    var height = canvas.height = image.height
+
+    ctx.fillStyle = 'rgb(255,255,255)'
+    ctx.fillRect(0, 0, width, height)
+    ctx.drawImage(image, 0, 0)
+
+    var imageData = ctx.getImageData(0, 0, width, height)
+    var text = decodePng(imageData.data, pickRGB)
+
+    // ignore images that weren't generated by voxel-painter
+    if (text.slice(0, 14) !== 'voxel-painter:') return false
+
+    $scope.currentHash = text.slice(14)
+    buildFromHash()
+    return true
+  }
+
+  function decodePng(channel, fn) {
+  fn = fn || function index(n) { return n }
+
+  var i = 0
+    , l = 0
+    , stegotext = []
+    , length = []
+    , index
+
+  for (var n = 0; n < 32; n += 1) {
+    length[n] = (channel[fn(n)] & 1) ? 1 : 0
+  }
+  length = bitsToString(length)
+
+  l += length.charCodeAt(0) << 32
+  l += length.charCodeAt(1) << 24
+  l += length.charCodeAt(2) << 16
+  l += length.charCodeAt(3) << 8
+  l = Math.min(l * 8, channel.length)
+
+  while (i < l) {
+    index = fn(i + 32)
+    if (index < 0) break
+    stegotext[i] = (channel[index] & 1) ? 1 : 0
+    i += 1
+  }
+
+  return bitsToString(stegotext)
+}
+
   function addEventListener() {
     renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false)
     renderer.domElement.addEventListener('mousedown', onDocumentMouseDown, false)
@@ -254,158 +470,158 @@ app.controller('BuilderController', function($scope, $state) {
     window.addEventListener('mousewheel', mousewheel, false);
     window.addEventListener('resize', onWindowResize, false)
 
-    function mousewheel(event) {
-      // prevent zoom if a modal is open
-      if ($('.modal').hasClass('in'))
-        return
-      zoom(event.wheelDeltaY || event.detail)
-    }
-
-    function onDocumentMouseMove(event) {
-      event.preventDefault()
-      if (isMouseDown) {
-
-        theta = -((event.clientX - onMouseDownPosition.x) * 0.5) + onMouseDownTheta
-        phi = ((event.clientY - onMouseDownPosition.y) * 0.5) + onMouseDownPhi
-
-        phi = Math.min(180, Math.max(0, phi))
-
-        camera.position.x = radius * Math.sin(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)
-        camera.position.y = radius * Math.sin(phi * Math.PI / 360)
-        camera.position.z = radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)
-        camera.updateMatrix()
-
-      }
-
-      mouse2D.x = (event.clientX / window.innerWidth) * 2 - 1
-      mouse2D.y = -(event.clientY / window.innerHeight) * 2 + 1
-
-      interact()
-    }
-
-    function onDocumentMouseDown(event) {
-      event.preventDefault()
-      isMouseDown = true
-      onMouseDownTheta = theta
-      onMouseDownPhi = phi
-      onMouseDownPosition.x = event.clientX
-      onMouseDownPosition.y = event.clientY
-      console.log(raycaster);
-      console.log(event);
-    }
-
-    function onDocumentMouseUp(event) {
-      event.preventDefault()
-      isMouseDown = false
-      onMouseDownPosition.x = event.clientX - onMouseDownPosition.x
-      onMouseDownPosition.y = event.clientY - onMouseDownPosition.y
-
-      if (onMouseDownPosition.length() > 5) return
-
-      var intersect = getIntersecting()
-
-      if (intersect) {
-        if (isShiftDown) {
-          if (intersect.object != plane) {
-            scene.remove(intersect.object.wireMesh)
-            scene.remove(intersect.object)
-          }
-        } else {
-          if (brush.position.y != 2000) addVoxel(brush.position.x, brush.position.y, brush.position.z, color)
-        }
-      }
-
-      updateHash()
-      render()
-      interact()
-    }
-
-    function onDocumentKeyDown(event) {
-      switch (event.keyCode) {
-        case 189:
-          zoom(100);
-          break
-        case 187:
-          zoom(-100);
-          break
-        case 49:
-          setColor(0);
-          break
-        case 50:
-          setColor(1);
-          break
-        case 51:
-          setColor(2);
-          break
-        case 52:
-          setColor(3);
-          break
-        case 53:
-          setColor(4);
-          break
-        case 54:
-          setColor(5);
-          break
-        case 55:
-          setColor(6);
-          break
-        case 56:
-          setColor(7);
-          break
-        case 57:
-          setColor(8);
-          break
-        case 48:
-          setColor(9);
-          break
-        case 16:
-          isShiftDown = true;
-          break
-        case 17:
-          isCtrlDown = true;
-          break
-        case 18:
-          isAltDown = true;
-          break
-        case 65:
-          setIsometricAngle();
-          break
-      }
-    }
-
-    function onDocumentKeyUp(event) {
-
-      switch (event.keyCode) {
-        case 16:
-          isShiftDown = false;
-          break
-        case 17:
-          isCtrlDown = false;
-          break
-        case 18:
-          isAltDown = false;
-          break
-      }
-    }
-
-    function onWindowResize() {
-      camera.aspect = window.innerWidth / window.innerHeight
-      camera.updateProjectionMatrix()
-
-      renderer.setSize(window.innerWidth, window.innerHeight)
-      interact()
-    }
-
     if ($scope.currentHash) buildFromHash()
-
     updateHash()
   }
+
+
+
+  function mousewheel(event) {
+    // prevent zoom if a modal is open
+    if ($('.modal').hasClass('in'))
+      return
+    zoom(event.wheelDeltaY || event.detail)
+  }
+
+  function onDocumentMouseMove(event) {
+    event.preventDefault()
+    if (isMouseDown) {
+
+      theta = -((event.clientX - onMouseDownPosition.x) * 0.5) + onMouseDownTheta
+      phi = ((event.clientY - onMouseDownPosition.y) * 0.5) + onMouseDownPhi
+
+      phi = Math.min(180, Math.max(0, phi))
+
+      camera.position.x = radius * Math.sin(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)
+      camera.position.y = radius * Math.sin(phi * Math.PI / 360)
+      camera.position.z = radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)
+      camera.updateMatrix()
+
+    }
+
+    mouse2D.x = (event.clientX / window.innerWidth) * 2 - 1
+    mouse2D.y = -(event.clientY / window.innerHeight) * 2 + 1
+
+    interact()
+  }
+
+  function onDocumentMouseDown(event) {
+    event.preventDefault()
+    isMouseDown = true
+    onMouseDownTheta = theta
+    onMouseDownPhi = phi
+    onMouseDownPosition.x = event.clientX
+    onMouseDownPosition.y = event.clientY
+  }
+
+  function onDocumentMouseUp(event) {
+    event.preventDefault()
+    isMouseDown = false
+    onMouseDownPosition.x = event.clientX - onMouseDownPosition.x
+    onMouseDownPosition.y = event.clientY - onMouseDownPosition.y
+
+    if (onMouseDownPosition.length() > 5) return
+
+    var intersect = getIntersecting()
+
+    if (intersect) {
+      if (isShiftDown) {
+        if (intersect.object != plane) {
+          scene.remove(intersect.object.wireMesh)
+          scene.remove(intersect.object)
+        }
+      } else {
+        if (brush.position.y != 2000) addVoxel(brush.position.x, brush.position.y, brush.position.z, color)
+      }
+    }
+
+    updateHash()
+    render()
+    interact()
+  }
+
+  function onDocumentKeyDown(event) {
+    switch (event.keyCode) {
+      case 189:
+        zoom(100);
+        break
+      case 187:
+        zoom(-100);
+        break
+      case 49:
+        setColor(0);
+        break
+      case 50:
+        setColor(1);
+        break
+      case 51:
+        setColor(2);
+        break
+      case 52:
+        setColor(3);
+        break
+      case 53:
+        setColor(4);
+        break
+      case 54:
+        setColor(5);
+        break
+      case 55:
+        setColor(6);
+        break
+      case 56:
+        setColor(7);
+        break
+      case 57:
+        setColor(8);
+        break
+      case 48:
+        setColor(9);
+        break
+      case 16:
+        isShiftDown = true;
+        break
+      case 17:
+        isCtrlDown = true;
+        break
+      case 18:
+        isAltDown = true;
+        break
+      case 65:
+        setIsometricAngle();
+        break
+    }
+  }
+
+  function onDocumentKeyUp(event) {
+
+    switch (event.keyCode) {
+      case 16:
+        isShiftDown = false;
+        break
+      case 17:
+        isCtrlDown = false;
+        break
+      case 18:
+        isAltDown = false;
+        break
+    }
+  }
+
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    interact()
+  }
+
 
   function buildFromHash(hashMask) {
 
     var hash = $scope.currentHash.slice(1)
-    var  hashChunks = hash.split(':');
-      var chunks = {}
+    var hashChunks = hash.split(':');
+    var chunks = {}
 
     animationFrames = []
     for (var j = 0, n = hashChunks.length; j < n; j++) {
@@ -572,7 +788,6 @@ app.controller('BuilderController', function($scope, $state) {
 
   function getIntersecting() {
     var intersectable = []
-    console.log(scene.children);
     scene.children.map(function(c) {
       if (c.isVoxel || c.isPlane) intersectable.push(c);
     })
@@ -600,10 +815,6 @@ app.controller('BuilderController', function($scope, $state) {
     return output
   }
 
-  // function save() {
-  //   window.open( renderer.domElement.toDataURL('image/png'), 'mywindow' )
-  // }
-  //
   function addVoxel(x, y, z, c) {
     var cubeMaterial = new CubeMaterial({
       vertexColors: THREE.VertexColors,
@@ -665,7 +876,6 @@ app.controller('BuilderController', function($scope, $state) {
       objectHovered = null
     }
     var intersect = getIntersecting()
-    console.log(intersect);
     if (intersect) {
       var normal = intersect.face.normal.clone()
       normal.applyMatrix4(intersect.object.matrixRotationWorld)
@@ -804,7 +1014,6 @@ app.controller('BuilderController', function($scope, $state) {
 
   function updateColor(idx) {
     color = idx
-    // console.log("called");
     var picker = $('i[data-color="' + idx + '"]').parent().colorpicker('show')
 
     picker.on('changeColor', function(e) {
