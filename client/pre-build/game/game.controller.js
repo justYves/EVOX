@@ -41,17 +41,19 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             if (creature._id) existing.push(creature);
             else isNew.push(creature);
         })
+        var allCreatures
         updateCreatureStuff(existing)
             .then(function() {
                 return postCreatureStuff(isNew)
             })
             .then(function(newCreatures) {
-                var allCreatures = existing.concat(newCreatures);
-                game.trees = JSON.stringify(game.trees);
-
+                allCreatures = existing.concat(newCreatures);
+                return JSON.stringify(game.trees);
+            })
+            .then(function(trees) {
                 var updatedWorld = WorldsFactory.getCurrentWorld();
                 updatedWorld.map = game.map;
-                updatedWorld.trees = game.trees;
+                updatedWorld.trees = trees;
                 updatedWorld.creatures = allCreatures;
 
                 return WorldsFactory.updateWorld(updatedWorld);
@@ -98,6 +100,16 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
                 vision: 5,
                 social: 7,
                 isHerbivore: false
+            }, {
+                name: 'crocodile',
+                size: 5,
+                vision: 5,
+                isHerbivore: false
+            }, {
+                name: 'lion',
+                size: 5,
+                vision: 5,
+                isHerbivore: false
             }];
         }
         createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
@@ -105,32 +117,32 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             new createCreature(creature);
         });
 
-        // //calling creature constructor
+        //calling creature constructor
 
-        // // var pigeon = new createCreature({
-        // //   name: 'pigeon',
-        // //   size: 5,
-        // //   vision: 3,
-        // //   isHerbivore: true
-        // // });
-        // // window.pigeon = pigeon;
+        // var pigeon = new createCreature({
+        //   name: 'pigeon',
+        //   size: 5,
+        //   vision: 3,
+        //   isHerbivore: true
+        // });
+        // window.pigeon = pigeon;
 
-        // // var crocodile = new createCreature({
-        // //   name: 'crocodile',
-        // //   size: 5,
-        // //   vision: 5,
-        // //   isHerbivore: false
-        // // });
-        // // window.crocodile = crocodile;
+        // var crocodile = new createCreature({
+        //   name: 'crocodile',
+        //   size: 5,
+        //   vision: 5,
+        //   isHerbivore: false
+        // });
+        // window.crocodile = crocodile;
 
 
-        // // var duck = new createCreature({
-        // //   name: 'duck',
-        // //   size: 5,
-        // //   vision: 5,
-        // //   isHerbivore: true
-        // // });
-        // // window.duck = duck;
+        // var duck = new createCreature({
+        //   name: 'duck',
+        //   size: 5,
+        //   vision: 5,
+        //   isHerbivore: true
+        // });
+        // window.duck = duck;
 
         // var deer = new createCreature({
         //   name: 'deer',
@@ -141,13 +153,13 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         // });
         // window.deer = deer;
 
-        // // var lion = new createCreature({
-        // //   name: 'lion',
-        // //   size: 5,
-        // //   vision: 5,
-        // //   isHerbivore: false
-        // // });
-        // // window.lion = lion;
+        // var lion = new createCreature({
+        //   name: 'lion',
+        //   size: 5,
+        //   vision: 5,
+        //   isHerbivore: false
+        // });
+        // window.lion = lion;
 
         // var turtle = new createCreature({
         //   name: 'turtle',
