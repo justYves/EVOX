@@ -117,6 +117,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             new createCreature(creature);
         });
 
+        // $scope.currentAnimal = CameraFactory.currentAnimal;
+
         //calling creature constructor
 
         // var pigeon = new createCreature({
