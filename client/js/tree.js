@@ -62,7 +62,7 @@
                 var randCoords = function() {
                     opts.position.x = Math.floor(Math.random() * map.size);
                     opts.position.z = Math.floor(Math.random() * map.size);
-                    randH = Math.floor(Math.random() * map.size / 2) + 3;
+                    randH = Math.floor(Math.random() * 10) + 3;
                     if (treeArr.length) {
                         for (var i = 0; i < treeArr.length; i++) {
                             if (treeArr[i][0] === opts.position.x || treeArr[i][1] === opts.position.z) {

@@ -20,8 +20,11 @@ uncomment the following line and the related `app.use` line below.
 // var bowerPath = path.join(__dirname, '../bower_components');
 app.use(logger('dev'));
 app.use(cookieParser());
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+    limit: '50mb'
+}));
 app.use(bodyParser.urlencoded({
+    limit: '50mb',
     extended: true
 }));
 
