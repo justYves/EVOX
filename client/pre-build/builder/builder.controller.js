@@ -71,6 +71,11 @@ app.controller('BuilderController', function($scope, $state) {
     window.open(exportImage(800, 600).src, 'voxel-painter-window');
   };
 
+  $scope.save = function(){
+    var data = convertToVoxels($scope.currentHash);
+    console.log(data);
+  }
+
 
   function exportImage(width, height) {
     var canvas = getExportCanvas(width, height);
@@ -107,6 +112,57 @@ app.controller('BuilderController', function($scope, $state) {
     onWindowResize()
     return canvas;
   }
+
+  function convertToVoxels(hash, done) {
+  var hashChunks = hash.split(':');
+  console.log(hashChunks);
+  var chunks = {};
+  var colors = [0x000000];
+
+  for (var j = 0; j < hashChunks.length; j++) {
+    chunks[hashChunks[j][0]] = hashChunks[j].substr(2);
+  }
+
+  if (chunks['C']) {
+    // decode colors
+    colors = [];
+    var hexColors = chunks['C'];
+    for(var c = 0, nC = hexColors.length/6; c < nC; c++) {
+      var hex = hexColors.substr(c * 6, 6);
+      colors[c] = hex2rgb(hex);
+      console.log(colors[c])
+    }
+  }
+
+  if (chunks['A']) {
+    // decode geo
+    var current = [0, 0, 0, 0];
+    var data = decode(chunks['A']);
+    var i = 0, l = data.length;
+    var voxels = Object.create(null);
+    var bounds = [[-1, -1, -1], [1, 1, 1]];
+
+    while (i < l) {
+      var code = data[i++].toString(2);
+      if (code.charAt(1) === '1') current[0] += data[i++] - 32;
+      if (code.charAt(2) === '1') current[1] += data[i++] - 32;
+      if (code.charAt(3) === '1') current[2] += data[i++] - 32;
+      if (code.charAt(4) === '1') current[3] += data[i++] - 32;
+      if (code.charAt(0) === '1') {
+        if (current[0] < 0 && current[0] < bounds[0][0]) bounds[0][0] = current[0];
+        if (current[0] > 0 && current[0] > bounds[1][0]) bounds[1][0] = current[0];
+        if (current[1] < 0 && current[1] < bounds[0][1]) bounds[0][1] = current[1];
+        if (current[1] > 0 && current[1] > bounds[1][1]) bounds[1][1] = current[1];
+        if (current[2] < 0 && current[2] < bounds[0][2]) bounds[0][2] = current[2];
+        if (current[2] > 0 && current[2] > bounds[1][2]) bounds[1][2] = current[2];
+        voxels[current.slice(0, 3).join('|')] = current.slice(3)[0];
+      }
+    }
+  }
+
+  return { voxels: voxels, colors: colors, bounds: bounds };
+}
+
 
   function setupImageDropImport(element) {
     element.ondragover = function(event) {
@@ -844,7 +900,7 @@ app.controller('BuilderController', function($scope, $state) {
   //   var hash = window.location.hash.substr(1)
   //   var convert = new Convert()
   //   var data = convert.toVoxels(hash)
-  //   var l = data.bounds[0]
+  //   var l = data.bounds[0]fget
   //   var h = data.bounds[1]
   //   var d = [h[0] - l[0] + 1, h[1] - l[1] + 1, h[2] - l[2] + 1]
   //   var len = d[0] * d[1] * d[2]
