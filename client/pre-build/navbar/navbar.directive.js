@@ -1,4 +1,4 @@
-app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS) {
+app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, CreatureFactory) {
     return {
         restrict: "E",
         templateUrl: "/pre-build/navbar/navbar.html",
@@ -11,6 +11,9 @@ app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS) {
                     $state.go('home');
                 });
             };
+            scope.reset = function() {
+                CreatureFactory.currentHash = null;
+            }
 
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {
