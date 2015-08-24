@@ -38,6 +38,10 @@ app.directive('controlPanel', function() {
              });
         };
 
+        $scope.fertilize = function(){
+            console.log(game.map);
+        };
+
         $scope.$on("currentCreature", function(event, creature){
             $scope.stats = true;
             $scope.creature = creature;
