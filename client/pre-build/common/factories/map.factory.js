@@ -2,7 +2,7 @@ app.factory('MapFactory', function($http) {
 
     var currentMap;
 
-    function Map(n, cells, flat) {
+    function Map(n, cells, flat,grassPercent) {
         this.game;
         this.size = n;
         this.data = [];
@@ -17,21 +17,21 @@ app.factory('MapFactory', function($http) {
                 this.set3DNeighbors();
             }
         } else {
-            if (flat) this.createFlatMap();
-            else this.create3DMap(3);
+            if (flat) this.createFlatMap(grassPercent);
+            else this.create3DMap(3,grassPercent);
         }
     }
 
-    Map.prototype.createFlatMap = function() {
+    Map.prototype.createFlatMap = function(grassPercent) {
         for (var x = 0; x < this.size; x++) {
             this.data[x] = new Array(this.size);
             for (var z = 0; z < this.size; z++) {
-                this.data[x][z] = new Cell(x, 0, z);
+                this.data[x][z] = new Cell(x, 0, z,grassPercent);
             }
         }
     };
 
-    Map.prototype.create3DMap = function(height) {
+    Map.prototype.create3DMap = function(height,grassPercent) {
         var three = new Array(this.size);
         for (var x = 0; x < this.size; x++) {
             three[x] = new Array(height);
@@ -54,17 +54,17 @@ app.factory('MapFactory', function($http) {
                     if (y === 0) three[x][y][z] = new Cell(x, y, z);
                     if (!three[x][y][z].legit && x > 1 && z > 1 && x < this.size - 2 && z < this.size - 2) {
                         if (y === 1 && Math.random() > 0.85) {
-                            three[x][y][z] = new Cell(x, y, z);
-                            three[x - 1][y][z] = new Cell(x - 1, y, z);
-                            three[x][y][z - 1] = new Cell(x, y, z - 1);
-                            three[x + 1][y][z] = new Cell(x + 1, y, z);
-                            three[x][y][z + 1] = new Cell(x, y, z + 1);
-                            three[x - 1][y][z - 1] = new Cell(x - 1, y, z - 1);
-                            three[x - 1][y][z + 1] = new Cell(x - 1, y, z + 1);
-                            three[x + 1][y][z - 1] = new Cell(x + 1, y, z - 1);
-                            three[x + 1][y][z + 1] = new Cell(x + 1, y, z + 1);
+                            three[x][y][z] = new Cell(x, y, z,grassPercent);
+                            three[x - 1][y][z] = new Cell(x - 1, y, z,grassPercent);
+                            three[x][y][z - 1] = new Cell(x, y, z - 1,grassPercent);
+                            three[x + 1][y][z] = new Cell(x + 1, y, z,grassPercent);
+                            three[x][y][z + 1] = new Cell(x, y, z + 1,grassPercent);
+                            three[x - 1][y][z - 1] = new Cell(x - 1, y, z - 1,grassPercent);
+                            three[x - 1][y][z + 1] = new Cell(x - 1, y, z + 1,grassPercent);
+                            three[x + 1][y][z - 1] = new Cell(x + 1, y, z - 1,grassPercent);
+                            three[x + 1][y][z + 1] = new Cell(x + 1, y, z + 1,grassPercent);
                         }
-                        if (y > 1 && Math.random() > 0.5 && three[x - 1][y - 1][z].legit && three[x + 1][y - 1][z].legit && three[x][y - 1][z - 1].legit && three[x][y - 1][z + 1].legit) three[x][y][z] = new Cell(x, y, z);
+                        if (y > 1 && Math.random() > 0.5 && three[x - 1][y - 1][z].legit && three[x + 1][y - 1][z].legit && three[x][y - 1][z - 1].legit && three[x][y - 1][z + 1].legit) three[x][y][z] = new Cell(x, y, z,grassPercent);
                     }
                 }
             }
@@ -218,9 +218,10 @@ app.factory('MapFactory', function($http) {
 
 
 
-    function Cell(x, y, z, material) {
+    function Cell(x, y, z, rand) {
+        rand = rand || 1;
         this.legit = true;
-        this.material = material || "dirt"; //need to change
+        this.material = (Math.random>rand) ? "grass" : "dirt"; //need to change
         this.coordinate = [x, y, z];
         this.neighbors = [];
         this.x = x;
