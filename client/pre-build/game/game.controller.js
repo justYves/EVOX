@@ -78,7 +78,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         game = createGame(WorldsFactory.newWorldOptions()); //World Data from factory
         game.map = map;
         game.appendTo(document.getElementById("container"));
-        // window.game = game; //For Debugging
+        window.game = game; //For Debugging
         WorldsFactory.setCurrentGame(game);
         // var terrain = window.terrain;
         //set Camera
@@ -94,27 +94,29 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
                 vision: 5,
                 social: 2,
                 isHerbivore: true
-            }, {
-                name: 'turtle',
-                size: 5,
-                vision: 5,
-                social: 7,
-                isHerbivore: false
-            }, {
-                name: 'crocodile',
-                size: 5,
-                vision: 5,
-                isHerbivore: false
-            }, {
-                name: 'lion',
-                size: 5,
-                vision: 5,
-                isHerbivore: false
-            }];
+            }
+            // , {
+            //     name: 'turtle',
+            //     size: 5,
+            //     vision: 5,
+            //     social: 7,
+            //     isHerbivore: false
+            // }, {
+            //     name: 'crocodile',
+            //     size: 5,
+            //     vision: 5,
+            //     isHerbivore: false
+            // }, {
+            //     name: 'lion',
+            //     size: 5,
+            //     vision: 5,
+            //     isHerbivore: false
+            // }
+            ];
         }
         createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
         $scope.creatures.forEach(function(creature) {
-            new createCreature(creature);
+           window[creature.name] = new createCreature(creature);
         });
 
         // $scope.currentAnimal = CameraFactory.currentAnimal;

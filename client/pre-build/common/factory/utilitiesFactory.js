@@ -60,12 +60,14 @@ app.factory('utilitiesFactory', function() {
             var count = 0;
             // console.log("WHAT MY APPETITE", self.appetite)
             foundFood = ard.some(function(coords) {
-                if (self.map.getCell(coords[0], coords[1]).material === objv) {
-                    self.lookAt(self.map.getCell(coords[0], coords[1]));
-                    self.eat(self.map.getCell(coords[0], coords[1]));
-                    count++;
-                    if (count >= self.appetite) {
-                        return true;
+                if(self.game.getBlock([coords[0], self.position.y,coords[1]])){
+                    if (self.map.getCell(coords[0], self.position.y,coords[1]).material === objv) {
+                        self.lookAt(self.map.getCell(coords[0], self.position.y,coords[1]));
+                        self.eat(self.map.getCell(coords[0], self.position.y,coords[1]));
+                        count++;
+                        if (count >= self.appetite) {
+                            return true;
+                        }
                     }
                 }
             });
