@@ -33,7 +33,7 @@ app.factory('EventsFactory', function() {
         game.map.growGrass(game);
         game.addEvent(function() {
             game.map.growGrass(game);
-        }, 10);
+        }, 20);
     }
     return {
         startLoop: setEvent

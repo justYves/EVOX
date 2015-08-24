@@ -29,7 +29,7 @@ app.factory('MapFactory', function($http) {
                 this.data[x][z] = new Cell(x, 0, z);
             }
         }
-    }
+    };
 
     Map.prototype.create3DMap = function(height) {
         var three = new Array(this.size);

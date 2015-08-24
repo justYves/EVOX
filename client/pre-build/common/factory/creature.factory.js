@@ -6,11 +6,11 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.size = opts.size;
         this.hpMax = multiply(this.size, 5);
         this.appetite = Math.floor(opts.size / 4);
-        this.hp = this.hpMax
+        this.hp = this.hpMax;
         this.age = 0;
         this.name = opts.name;
         this.alive = true;
-        this.lifeCycle = this.hp * 4;
+        this.lifeCycle = this.size * 4;
         this.isHerbivore = opts.isHerbivore;
         this.hunger = divide(this.hp, 4);
         this.vision = opts.vision;
@@ -19,6 +19,9 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.memory = [];
         this.food = "none";
         this.parents = opts.parents;
+        this.deathAge = Math.floor(this.size * 10);
+        this.maturity = Math.floor(this.deathAge * 0.7);
+        this.startPos = opts.startPos;
         this.position = {
             x: 0,
             y: 0,
@@ -88,7 +91,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
 
         model.position = model.item.yaw.position;
         model.rotation = model.item.yaw.rotation;
-        model.setPosition(Math.round(Math.random() * game.map.size), 10, Math.round(Math.random() * game.map.size));
+        model.setPosition(model.startPos[0], 10, model.startPos[1]);
     }
 
     function build(obj, scale, game, voxel, mesh) {
