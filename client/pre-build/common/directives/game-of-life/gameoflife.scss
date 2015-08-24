@@ -1,0 +1,23 @@
+
+#board {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	z-index: -1;
+
+	td {
+		background-color: #34495e;
+		height: 5%;
+		width: 0.25%;
+	}
+
+	.alive {
+		opacity: 0.5;
+		transition: opacity .10s ease-in-out;
+	}
+
+	.dead {
+		opacity: 0;
+	}
+	
+}
