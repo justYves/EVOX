@@ -2,7 +2,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
   //Creature constructor
   function Creature() {
   }
-
+  console.log(_)
   Creature.prototype.setPosition = function(x, y, z) {
     parseXYZ(x, y, z);
     this.position.y = y;
@@ -27,7 +27,6 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
 
   Creature.prototype.procreate = function() {
     //this.game.emit("procreate", 5.5, this.position.z - 0.5, this.name);
-    console.log(voxel)
     var newCreature = new this.constructor(this.game,{
       name: this.name,
       size: this.size,
@@ -53,23 +52,37 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
       currentZ: this.position.z,
       size: this.map.size
     };
-
     var myWorker = new Worker(MoveWorker);
     myWorker.postMessage(data);
     var self = this;
     myWorker.onmessage = function(result) {
       var y = result.data.y;
-      var block = self.game.getBlock([result.data.x,y,result.data.z]);
-      console.log(block)
-      if(block){
-        self.jump();
-        self.position.x = result.data.x;
-      self.position.z = result.data.z;
-      }else{
-        self.position.y = result.data.y;
-        self.position.x = result.data.x;
-      self.position.z = result.data.z;
+      var x = result.data.x - 0.5;
+      var z = result.data.z - 0.5;
+      console.log(self.position, "###", result.data)
+      console.log("BLOCK IM CHECKING", result.data.x-0.5, self.position.y, result.data.z - 0.5)
+      var block =  self.game.getBlock(result.data.x-0.5, self.position.y, result.data.z - 0.5);
+      console.log("block",block);
+      if(x > 0 && x < self.game.map.size - 1 && z > 0 && z < self.game.map.size - 1 ){
+        if(block && self.game.map.getCell(x,self.position.y,z).legit){
+          self.position.y = self.position.y + 1;
+          self.position.x = result.data.x;
+          self.position.z = result.data.z;
+        }else{
+          self.position.y = result.data.y;
+          self.position.x = result.data.x;
+          self.position.z = result.data.z;
+        }
       }
+      else{
+          self.position.y = result.data.y;
+          self.position.x = result.data.x;
+          self.position.z = result.data.z;
+      }
+       
+        
+        
+    
       
       
       self.rotation.y = Number(result.data.rotY) || self.rotation.y;
@@ -79,7 +92,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
   Creature.prototype.moveRandomly = function(amt) {
     var x = Math.round((Math.random() * amt) - amt / 2);
     var z = Math.round((Math.random() * amt) - amt / 2);
-    if(!this.game.map.getCell(x,z).obstructed){
+    if(!this.game.map.getCell(x,1,z).obstructed){
       this.move(x, 0, z);
     }
   };
