@@ -56,3 +56,4 @@ app.directive('controlPanel', function() {
         });
 
     });
+
