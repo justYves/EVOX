@@ -24,6 +24,8 @@ transition: 0.4s ease all;
   opacity:0.8;
 }
 
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 // Add your fractal Sass files below!
 @import 'navbar/navbar';
 @import 'home/home';

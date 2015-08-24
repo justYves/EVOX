@@ -1,10 +1,12 @@
-app.controller('BuilderController', function($scope, $state) {
+app.controller('BuilderController', function($scope, $state, CreatureFactory) {
+    $scope.currentHash = CreatureFactory.currentHash;
+    // if ($scope.currentHash) buildFromHash();
     var THREE = window.THREE;
 
     var raf = window.raf;
     var container;
     var camera, renderer, brush;
-    var projector, plane, scene, grid, shareDialog;
+    var projector, plane, scene, grid, shareDialog, front
     var mouse2D, mouse3D, raycaster, objectHovered;
     var isShiftDown = false,
         isCtrlDown = false,
@@ -81,6 +83,7 @@ app.controller('BuilderController', function($scope, $state) {
         var canvas = getExportCanvas(width, height);
         var image = new Image
         image.src = canvas.toDataURL();
+        console.log(image.src);
         return image;
     }
 
@@ -131,7 +134,7 @@ app.controller('BuilderController', function($scope, $state) {
             for (var c = 0, nC = hexColors.length / 6; c < nC; c++) {
                 var hex = hexColors.substr(c * 6, 6);
                 colors[c] = hex2rgb(hex);
-                console.log(colors[c])
+                console.log(colors[c]);
             }
         }
 
@@ -297,14 +300,14 @@ app.controller('BuilderController', function($scope, $state) {
         camera.position.z = radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)
 
         scene = new THREE.Scene()
-            // window.scene = scene
+        // window.scene = scene
 
         // // Grid
 
         var size = 500,
-            step = 50
+            step = 50;
 
-        var geometry = new THREE.Geometry()
+        var geometry = new THREE.Geometry();
 
         for (var i = -size; i <= size; i += step) {
 
@@ -337,6 +340,24 @@ app.controller('BuilderController', function($scope, $state) {
         scene.add(plane)
 
         mouse2D = new THREE.Vector3(0, 10000, 0.5)
+
+        // // Front
+        var canvas = document.createElement('canvas');
+        canvas.width= 1958;
+        canvas.height = 964;
+        var context = canvas.getContext('2d');
+        context.font = "Bold 400px Lato";
+        context.fillStyle = '#34495e';
+        context.fillText("FRONT",100,500);
+        var texture = new THREE.Texture(canvas);
+        var spriteAlignment = THREE.SpriteAlignment.center;
+        texture.needsUpdate = true;
+        var spriteMaterial = new THREE.SpriteMaterial(
+        { map: texture, useScreenCoordinates: false, alignment: spriteAlignment } );
+        var sprite = new THREE.Sprite( spriteMaterial );
+        sprite.scale.set(500,250,1.0);
+        sprite.position.set(0,0,550);
+        scene.add(sprite)
 
         // // Brush
 

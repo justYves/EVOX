@@ -1,4 +1,4 @@
-app.factory('EventsFactory', function() {
+app.factory('EventsFactory', function($rootScope) {
     function setEvent(game) {
         // var cow = creatures.cow[0];
 
@@ -33,9 +33,14 @@ app.factory('EventsFactory', function() {
         game.map.growGrass(game);
         game.addEvent(function() {
             game.map.growGrass(game);
-        }, 20);
+        }, 10);
+
+        game.addEvent(function() {
+            $rootScope.$broadcast("creaturesUpdate", game.creatures);
+        }, 1);
+
     }
     return {
         startLoop: setEvent
     };
-})
+});
