@@ -48,6 +48,16 @@ router.put('/:id', function(req, res, next) {
         .then(null, next);
 });
 
+router.put('/:id/creatures', function(req, res, next) {
+    req.CurrentUser.creatures.push(req.body.creature);
+    req.CurrentUser.save()
+        .then(function(user) {
+            res.status(200).json(user);
+        })
+        .then(null, next);
+});
+
+
 router.delete('/:id', function(req, res, next) {
     req.CurrentUser.remove()
         .then(function() {
