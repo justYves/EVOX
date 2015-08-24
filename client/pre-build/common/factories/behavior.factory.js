@@ -1,8 +1,7 @@
 app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope) {
   //Creature constructor
   function Creature() {
-  }
-  console.log(_)
+  };
   Creature.prototype.setPosition = function(x, y, z) {
     parseXYZ(x, y, z);
     this.position.y = y;
@@ -172,7 +171,9 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         this.item.avatar.scale.z *= 1.01;
       }
       // console.log("NAME: " + this.name + ", Hunger: " + this.hunger + ", HP: " + this.hp);
-      this.hunger++;
+      if(this.hunger >= this.hpMax){
+       this.hunger++;
+      }
       this.lifeCycle--;
       if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
       if (this.hp <= 0 || this.age > this.deathAge) this.die();
