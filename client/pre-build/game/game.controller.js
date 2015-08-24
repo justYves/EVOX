@@ -97,7 +97,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             //     vision: 5,
             //     social: 7,
             //     isHerbivore: false
-            // }, {
+            // }
+            // , {
             //     name: 'crocodile',
             //     size: 5,
             //     vision: 5,
