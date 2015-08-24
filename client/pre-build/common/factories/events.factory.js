@@ -38,6 +38,7 @@ app.factory('EventsFactory', function($rootScope) {
         game.addEvent(function() {
             $rootScope.$broadcast("creaturesUpdate", game.creatures);
         }, 1);
+
     }
     return {
         startLoop: setEvent

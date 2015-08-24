@@ -51,7 +51,14 @@ router.put('/:id', function(req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-    req.world.remove()
+    Creature.remove({
+        _id: {
+            $in: req.world.creatures
+        }
+    })
+        .then(function() {
+            return req.world.remove()
+        })
         .then(function() {
             res.status(200).json({
                 message: 'Successfully deleted!'

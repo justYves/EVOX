@@ -8,11 +8,12 @@
     <ul class="nav navbar-nav">
     	<li><a href="#" ui-sref="worlds">Worlds</a></li>
       <li><a href="#" ui-sref="createWorld">New World</a></li>
-      <li><a href="#" ui-sref="builder">Builder</a></li>
+      <li><a href="#" ng-click="reset()" ui-sref="builder">Builder</a></li>
       <li><a href="#" ui-sref="multiplayer.waiting">Multiplayer</a></li>
+      <li><a href="#" ui-sref="creatures">Creatures</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a ui-sref="Modal.login" ng-hide="user">Login</a></li>
+      <li><a href="#" ui-sref="logIn" ng-hide="user">Login</a></li>
       <li><a href="#" ng-show="user" ng-click="logout()">Logout</a></li>
     </ul>
   </div>

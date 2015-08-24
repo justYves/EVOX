@@ -13,19 +13,18 @@
     <link href="../colorpicker/css/colorpicker.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="build.css" />
     <script src="/jquery/dist/jquery.js"></script>
-    <script src="/bootstrap/dist/js/bootstrap.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-route/angular-route.min.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/angular-socket-io/socket.min.js"></script>
-    <script src="/lodash/lodash.min.js"></script>
+    <script src="../js/lodash.min.js"></script>
+    <script src="../js/ui-bootstrap.min.js"></script>
     <script src="build.js"></script>
 </head>
 
 <body ng-app="GameOfLife">
     <navbar></navbar>
-    <div ui-view="modal" autoscroll="false"></div>
     <div class="container">
         <ui-view></ui-view>
 

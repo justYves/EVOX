@@ -86,11 +86,12 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         if (!$scope.creatures.length) {
             $scope.creatures = [{
                 name: 'deer',
-                size: 5,
+                size: 12,
                 vision: 5,
                 social: 2,
-                isHerbivore: true
-            }
+                isHerbivore: true,
+                startPos : [5,5]
+            },
             // , {
             //     name: 'turtle',
             //     size: 5,
@@ -103,12 +104,14 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
             //     size: 5,
             //     vision: 5,
             //     isHerbivore: false
-            // }, {
-            //     name: 'lion',
-            //     size: 5,
-            //     vision: 5,
-            //     isHerbivore: false
-            // }
+            // }, 
+            {
+                name: 'lion',
+                size: 5,
+                vision: 7,
+                isHerbivore: false,
+                startPos: [8,8]
+            }
             ];
         }
         createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);

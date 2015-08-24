@@ -5,7 +5,6 @@ var chalk = require('chalk');
 var shape = require('./shape');
 
 // Models
-var Cell = mongoose.model('Cell');
 var Coordinate = mongoose.model('Coordinate');
 var Creature = mongoose.model('Creature');
 var Shape = mongoose.model('Shape');
