@@ -1,13 +1,31 @@
 app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope) {
-    //Creature constructor
-    function Creature() {}
-    // console.log(_)
-    Creature.prototype.setPosition = function(x, y, z) {
-        parseXYZ(x, y, z);
-        this.position.y = y;
-        this.position.x = x + 0.5;
-        this.position.z = z + 0.5;
-    };
+  //Creature constructor
+  function Creature() {
+  };
+  Creature.prototype.setPosition = function(x, y, z) {
+    parseXYZ(x, y, z);
+    this.position.y = y;
+    this.position.x = x + 0.5;
+    this.position.z = z + 0.5;
+  };
+
+  Creature.prototype.die = function() {
+    // var deathInterval = setInterval(function(){
+    //   this.
+    // },10)
+    this.isAlive = false;
+    var ind;
+    var self = this;
+    this.game.creatures.forEach(function(creature, index) {
+      if (self.item.avatar.id === creature.item.avatar.id) {
+        ind = index;
+        self.game.creatures.splice(ind, 1);
+      }
+    });
+    this.game.removeItem(this);
+    this.game.scene.remove(this.item.avatar);
+    this.game.removeEvent(this.item.avatar.id)
+  };
 
     Creature.prototype.die = function() {
         // var deathInterval = setInterval(function(){
@@ -160,19 +178,21 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         }
     };
 
-    Creature.prototype.exist = function() {
-        if (this.alive) {
-            this.age++;
-            if (this.age < this.maturity) {
-                this.item.avatar.scale.x *= 1.01;
-                this.item.avatar.scale.y *= 1.01;
-                this.item.avatar.scale.z *= 1.01;
-            }
-            // console.log("NAME: " + this.name + ", Hunger: " + this.hunger + ", HP: " + this.hp);
-            this.hunger++;
-            this.lifeCycle--;
-            if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
-            if (this.hp <= 0 || this.age > this.deathAge) this.die();
+  Creature.prototype.exist = function() {
+    if (this.alive) {
+      this.age++;
+      if(this.age < this.maturity){
+        this.item.avatar.scale.x *= 1.01;
+        this.item.avatar.scale.y *= 1.01;
+        this.item.avatar.scale.z *= 1.01;
+      }
+      // console.log("NAME: " + this.name + ", Hunger: " + this.hunger + ", HP: " + this.hp);
+      if(this.hunger <= this.hpMax){
+       this.hunger++;
+      }
+      this.lifeCycle--;
+      if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
+      if (this.hp <= 0 || this.age > this.deathAge) this.die();
 
             if (this.hunger >= Math.floor(this.hp / 2)) {
                 // console.log(this.name + " is looking for food");
