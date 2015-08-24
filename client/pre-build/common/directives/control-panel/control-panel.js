@@ -2,9 +2,7 @@ app.directive('controlPanel', function() {
 
     return {
         restrict: 'E',
-        scope: {
-            creatures: "="
-        },
+        scope: {},
         templateUrl: "pre-build/common/directives/control-panel/control-panel.html",
         controller: "PanelController"
     };
@@ -28,26 +26,27 @@ app.directive('controlPanel', function() {
             $scope.stats = !$scope.stats;
         };
 
-        $scope.setCreature = function(name) {
-             $scope.creatures.forEach(function(creature){
-                if (creature.name === name) {
-                    $scope.creature = creature;
-                    $scope.getPercentages($scope.creature);
-                    $scope.$digest();
-                }
-             });
-        };
+        $scope.killCreature = function() {
+            $scope.creature.die();
+            $scope.stats = false;
+        }
+
+        //this function crashes browser!
+        // $scope.procreate = function() {
+        //     $scope.creature.procreate();
+        // }
 
         $scope.$on("currentCreature", function(event, creature){
             $scope.stats = true;
             $scope.creature = creature;
             $scope.getPercentages($scope.creature);
             $scope.$digest();
+            console.log($scope.currentCreature);
         });
 
-        $scope.$on("creaturesUpdate", function(event, creatures){
-            $scope.creatures = creatures;
-            $scope.getPercentages($scope.creature);
+        $scope.$on("creaturesUpdate", function(){
+            $scope.creatures = game.creatures;
+            if ($scope.creature) $scope.getPercentages($scope.creature);
             $scope.$digest();
         });
 
