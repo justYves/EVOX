@@ -6,10 +6,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     var map, game, size;
     var sky, clouds;
 
-    // $scope.getCreatures = function() {
-    //     $scope.creatures = game.creatures;
-    // };
-
     initMap();
     initGame();
     initTrees();
@@ -119,6 +115,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         $scope.creatures.forEach(function(creature) {
            window[creature.name] = new createCreature(creature);
         });
+
+        // $scope.currentAnimal = CameraFactory.currentAnimal;
 
         //calling creature constructor
 
@@ -242,7 +240,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         }
         createTrees(options);
     }
-
 
     // var createTrees = window.Tree(game);
     // if (!game.trees) {
