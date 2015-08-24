@@ -1,1 +1,24 @@
-<creature-carousel fcn="builder" height="600" width="1000"></creature-carousel>
+<style type="text/css">
+.panel-mine {
+	background-color: #ECF0F1;
+	padding: 10px 15px;
+}
+</style>
+
+<div class="panel panel-default">
+  <div class="panel-mine">
+    <h3 class="panel-title">My Creatures</h3>
+  </div>
+  <div class="panel-body">
+    <creature-carousel file="false" slides="mySlides" fcn="builder" height="200" width="1000"></creature-carousel>
+  </div>
+</div>
+<br>
+<div class="panel panel-default">
+  <div class="panel-mine">
+    <h3 class="panel-title">Available Creatures</h3>
+  </div>
+  <div class="panel-body">
+    <creature-carousel file="true" slides="slides" fcn="builder" height="200" width="1000"></creature-carousel>
+  </div>
+</div>
