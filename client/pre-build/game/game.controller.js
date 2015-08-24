@@ -89,7 +89,8 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
                 size: 12,
                 vision: 5,
                 social: 2,
-                isHerbivore: true
+                isHerbivore: true,
+                spawner: true
             },
             // , {
             //     name: 'turtle',

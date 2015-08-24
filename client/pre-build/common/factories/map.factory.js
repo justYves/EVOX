@@ -220,7 +220,7 @@ app.factory('MapFactory', function($http) {
 
     function Cell(x, y, z, material) {
         this.legit = true;
-        this.material = material || "grass"; //need to change
+        this.material = material || "dirt"; //need to change
         this.coordinate = [x, y, z];
         this.neighbors = [];
         this.x = x;
