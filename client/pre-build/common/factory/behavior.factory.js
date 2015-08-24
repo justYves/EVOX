@@ -27,14 +27,14 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
 
   Creature.prototype.procreate = function() {
     //this.game.emit("procreate", 5.5, this.position.z - 0.5, this.name);
-    console.log('DAS BREEDING',this.constructor)
+    console.log(voxel)
     var newCreature = new this.constructor(this.game,{
       name: this.name,
       size: this.size,
       vision: this.vision,
       social: this.social,
       isHerbivore: this.isHerbivore
-    });
+    },voxel, voxelMesh);
     this.game.creatures.push(newCreature);
     //render(newCreature, this.map);
     newCreature.setPosition(this.position.x - 0.5, 10, this.position.z - 0.5);
@@ -58,9 +58,20 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
     myWorker.postMessage(data);
     var self = this;
     myWorker.onmessage = function(result) {
-      self.position.x = result.data.x;
-      self.position.y = result.data.y;
+      var y = result.data.y;
+      var block = self.game.getBlock([result.data.x,y,result.data.z]);
+      console.log(block)
+      if(block){
+        self.jump();
+        self.position.x = result.data.x;
       self.position.z = result.data.z;
+      }else{
+        self.position.y = result.data.y;
+        self.position.x = result.data.x;
+      self.position.z = result.data.z;
+      }
+      
+      
       self.rotation.y = Number(result.data.rotY) || self.rotation.y;
     };
   };
@@ -147,7 +158,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
       this.hunger++;
       this.age++;
       this.lifeCycle--;
-      if (this.hunger >= Math.floor(this.hp) && this.hunger > 0) this.hp--;
+      if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
       if (this.hp <= 0) this.die();
 
       if (this.hunger >= Math.floor(this.hp / 2)) {
@@ -196,7 +207,7 @@ Creature.prototype.getFood = function() {
     }
 };
 Creature.prototype.eat = function(target) {
-    // console.log(this.name + " ate " + this.food.material, this.food.hasAnimal);
+    console.log(this.name + " ate ", target);
     // this.game.emit('eat', this.position.x - 0.5, this.position.z - 0.5, target);
     if(this.hunger > 10){
         this.hunger -= 10; 
@@ -204,7 +215,7 @@ Creature.prototype.eat = function(target) {
       this.hunger = 0;
     } 
     // console.log('INSIDE THE EAT FUNC',target)
-    if(this.isHerbivore) this.map.empty(target.x, target.z);
+    if(this.isHerbivore) this.map.empty(target.x, target.y ,target.z);
     else target.die()
 };
 
