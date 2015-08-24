@@ -1,6 +1,17 @@
 app.factory('CameraFactory', function($rootScope) {
   return {
-    startCamera: function(game) {
+    startCamera: startCamera,
+    setGrass: setGrass
+  };
+      var grass = false;
+
+
+      function setGrass(bool){
+        grass = bool;
+        console.log(grass);
+      }
+
+     function startCamera(game) {
       var camera = new game.THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000)
       var size = game.map.size
       window.camera = camera;
@@ -15,7 +26,8 @@ app.factory('CameraFactory', function($rootScope) {
       var isMouseDown = false;
       var onMouseDownPosition = new game.THREE.Vector2(),
         onMouseDownPhi = -10,
-        onMouseDownTheta = -10
+        onMouseDownTheta = -10;
+
 
       camera.position.x = (radius * Math.sin(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360))
       camera.position.y = radius * Math.sin(phi * Math.PI / 360)
@@ -26,7 +38,7 @@ app.factory('CameraFactory', function($rootScope) {
       game.view.renderer.domElement.addEventListener('resize', onWindowResize, false);
       document.addEventListener('mousemove', onDocumentMouseMove, false)
       document.addEventListener('mousedown', onDocumentMouseDown, false)
-      document.addEventListener('mouseup', onDocumentMouseUp, false) 
+      document.addEventListener('mouseup', onDocumentMouseUp, false)
 
       function mousewheel(event) {
         event.preventDefault()
@@ -88,7 +100,7 @@ app.factory('CameraFactory', function($rootScope) {
       function highlight(x, y, z) {
         var geometry = new game.THREE.CubeGeometry(1, 1, 1);
         var material = new game.THREE.MeshBasicMaterial({
-          color: 0x000000,
+          color: grass ?  0x00FF000 : 0x000000,
           wireframe: true,
           wireframeLinewidth: 3,
           transparent: true,
@@ -103,6 +115,8 @@ app.factory('CameraFactory', function($rootScope) {
         highlighted.position.z = z;
         game.scene.add(highlighted);
       }
+
+
 
       function getIntersecting() {
 
@@ -208,5 +222,4 @@ app.factory('CameraFactory', function($rootScope) {
       camera.lookAt(target);
       game.view.camera = camera;
     }
-  };
 })

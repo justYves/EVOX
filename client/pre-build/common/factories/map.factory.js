@@ -51,7 +51,7 @@ app.factory('MapFactory', function($http) {
         for (var x = 0; x < this.size; x++) {
             for (var y = 0; y < height; y++) {
                 for (var z = 0; z < this.size; z++) {
-                    if (y === 0) three[x][y][z] = new Cell(x, y, z);
+                    if (y === 0) three[x][y][z] = new Cell(x, y, z,grassPercent);
                     if (!three[x][y][z].legit && x > 1 && z > 1 && x < this.size - 2 && z < this.size - 2) {
                         if (y === 1 && Math.random() > 0.85) {
                             three[x][y][z] = new Cell(x, y, z,grassPercent);

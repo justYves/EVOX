@@ -1,4 +1,4 @@
-app.directive('controlPanel', function() {
+app.directive('controlPanel', function(CameraFactory) {
 
     return {
         restrict: 'E',
@@ -39,8 +39,8 @@ app.directive('controlPanel', function() {
         };
 
         $scope.fertilize = function(){
-            console.log(game.map);
-        };
+            CameraFactory.setGrass(true);
+        }
 
         $scope.$on("currentCreature", function(event, creature){
             $scope.stats = true;
