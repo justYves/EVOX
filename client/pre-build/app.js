@@ -1,11 +1,26 @@
 var app = angular.module('GameOfLife', ['ui.router', 'fsaPreBuilt','btford.socket-io','ngRoute']);
 
-app.config(function($urlRouterProvider, $locationProvider,$routeProvider) {
+app.config(function($urlRouterProvider, $locationProvider,$routeProvider, $stateProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
     $locationProvider.html5Mode(true);
     // $routeProvider.when('/builder/',{templateUrl:'/builder/builder.html'});
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
+    $stateProvider.state("Modal", {
+        views:{
+          "modal": {
+            templateUrl: "/pre-build/modal.html"
+          }
+        },
+        abstract: true
+      });
+    $stateProvider.state("Modal.login", {
+        views:{
+        "modal": {
+            templateUrl: "/pre-build/modals/confirm.html"
+            }
+        }
+    });
 });
 
 // This app.run is for controlling access to specific states.

@@ -4,5 +4,8 @@ app.config(function($stateProvider) {
         templateUrl: '/pre-build/login/login.html',
         controller: 'LoginCtrl'
     });
+    $stateProvider.state('signUp', {
+    	url:'/signup'
+    })
 
 });
