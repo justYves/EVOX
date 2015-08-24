@@ -1,4 +1,6 @@
-app.controller('BuilderController', function($scope, $state) {
+app.controller('BuilderController', function($scope, $state, CreatureFactory) {
+    $scope.currentHash = CreatureFactory.currentHash;
+    // if ($scope.currentHash) buildFromHash();
     var THREE = window.THREE;
 
     var raf = window.raf;
@@ -297,7 +299,7 @@ app.controller('BuilderController', function($scope, $state) {
         camera.position.z = radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360)
 
         scene = new THREE.Scene()
-            // window.scene = scene
+        // window.scene = scene
 
         // // Grid
 
