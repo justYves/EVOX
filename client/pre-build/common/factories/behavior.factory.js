@@ -2,7 +2,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
   //Creature constructor
   function Creature() {
   }
-  console.log(_)
+  // console.log(_)
   Creature.prototype.setPosition = function(x, y, z) {
     parseXYZ(x, y, z);
     this.position.y = y;
@@ -82,7 +82,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
           self.position.y = result.data.y;
           self.position.x = result.data.x;
           self.position.z = result.data.z;
-      } 
+      }
       self.rotation.y = Number(result.data.rotY) || self.rotation.y;
     };
   };
@@ -154,7 +154,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             //move towards herd
 
             console.log('just herdin');
-            this.move(step(x, nearest.position.x - 0.5), 0, step(z, nearest.position.z - 0.5));       
+            this.move(step(x, nearest.position.x - 0.5), 0, step(z, nearest.position.z - 0.5));
     }
     else{
       this.moveRandomly(2);
@@ -191,7 +191,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
           this.procreate();
           this.lifeCycle = this.size * 4;
         }
-      } 
+      }
 
     }
   };
@@ -210,7 +210,7 @@ Creature.prototype.getFood = function() {
         var nearest = utilitiesFactory.findCreature(this.game.creatures,currentPos,this.vision, this);
         if(nearest && nearest.name !== this.name){
           // console.log("moving to food", this.name)
-          this.moveTowardsObjective(nearest); 
+          this.moveTowardsObjective(nearest);
 
         }else{
           // console.log("just moving", this.name)
@@ -226,10 +226,10 @@ Creature.prototype.eat = function(target) {
     console.log(this.name + " ate ", target);
     // this.game.emit('eat', this.position.x - 0.5, this.position.z - 0.5, target);
     if(this.hunger > 10){
-        this.hunger -= 10; 
+        this.hunger -= 10;
     }else{
       this.hunger = 0;
-    } 
+    }
     // console.log('INSIDE THE EAT FUNC',target)
     if(this.isHerbivore) this.map.empty(target.x, target.y ,target.z);
     else target.die();
