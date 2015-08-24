@@ -169,6 +169,10 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
 
   Creature.prototype.exist = function() {
     if (this.alive) {
+      if(this.spawner){
+        console.log("spawner", this.name)
+        this.game.map.fertilized.push(this.game.map.getCell(this.position.x - 0.5, this.position.y-1, this.position.z - 0.5));
+      }
       this.age++;
       if(this.age < this.maturity){
         this.item.avatar.scale.x *= 1.01;
