@@ -36,7 +36,8 @@ var worldSchema = new mongoose.Schema({
     }, //air, aquatic, tundra
     temperature: Number,
     trees: String,
-    flat: Boolean
+    flat: Boolean,
+    grassPercent: Number
 });
 
 worldSchema.plugin(deepPopulate, {});
