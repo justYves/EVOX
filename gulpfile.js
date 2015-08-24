@@ -10,6 +10,7 @@ var rename = require('gulp-rename');
 var mocha = require('gulp-mocha');
 var babel = require('gulp-babel');
 var browserify = require('browserify');
+var gulpLodash = require('gulp-lodash');
 var source = require('vinyl-source-stream')
 
 // Live reload

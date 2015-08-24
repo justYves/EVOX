@@ -171,15 +171,17 @@ app.factory('MapFactory', function($http) {
         this.game = this.game || game;
         var self = this;
         this.fertilized.forEach(function(cell) {
-            cell.setMaterial("grass");
-            self.game.setBlock(cell.coordinate, 1); // 1 = grass
-            cell.neighbors.forEach(function(neighbor) {
-                if (neighbor.material !== "grass") {
-                    if (Math.random() > 0.9)
-                        self.nextRound.push(neighbor);
-                    else self.nextRound.push(cell);
-                }
-            });
+            if(cell.legit){
+                cell.setMaterial("grass");
+                self.game.setBlock(cell.coordinate, 1); // 1 = grass
+                cell.neighbors.forEach(function(neighbor) {
+                    if (neighbor.material !== "grass") {
+                        if (Math.random() > 0.9)
+                            self.nextRound.push(neighbor);
+                        else self.nextRound.push(cell);
+                    }
+                });
+            }
         });
 
         //replace fertilized with the next round
