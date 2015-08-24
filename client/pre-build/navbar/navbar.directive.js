@@ -112,6 +112,7 @@ app.controller('SignupInstanceCtrl', function($scope, $modalInstance, UserFactor
 
 app.controller('worldInstanceCtrl', function($scope, $modalInstance, WorldsFactory, $state) {
     $scope.environments = ['ice', 'water', 'land'];
+    $scope.percents = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
     $scope.postWorld = function() {
         WorldsFactory.postWorld($scope.world)
