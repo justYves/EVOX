@@ -18,14 +18,10 @@ app.directive('controlPanel', function() {
         $scope.world = WorldsFactory.getCurrentWorld();
         $scope.points = 25;
         $scope.stats = false;
-        $scope.control = true;
 
-        $scope.healthPercentage = function(creature) {
-            $scope.creature.healthPercentage =  Math.floor(creature.hpMax / creature.hp) * 100;
-        };
-
-        $scope.controlHide = function() {
-            $scope.control = !$scope.control;
+        $scope.getPercentages = function(creature) {
+            $scope.creature.healthPercentage =  Math.round((creature.hp / creature.hpMax) * 100);
+            $scope.creature.hungerPercentage = Math.round((creature.hunger / creature.hpMax) * 100);
         };
 
         $scope.statsShow = function() {
@@ -48,16 +44,22 @@ app.directive('controlPanel', function() {
              $scope.creatures.forEach(function(creature){
                 if (creature.name === name) {
                     $scope.creature = creature;
-                    $scope.healthPercentage($scope.creature);
+                    $scope.getPercentages($scope.creature);
                     $scope.$digest();
                 }
              });
         };
 
         $scope.$on("currentCreature", function(event, creature){
+            $scope.stats = true;
             $scope.creature = creature;
-            $scope.healthPercentage($scope.creature);
-            console.log($scope.creature.healthPercentage);
+            $scope.getPercentages($scope.creature);
+            $scope.$digest();
+        });
+
+        $scope.$on("creaturesUpdate", function(event, creatures){
+            $scope.creatures = creatures;
+            $scope.getPercentages($scope.creature);
             $scope.$digest();
         });
 

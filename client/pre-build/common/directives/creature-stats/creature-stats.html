@@ -1,14 +1,15 @@
 <ul>
-  <li ng-model="creature.name">Species: {{creature.name}}</li>
+  <li ng-model="creature.name">Species: {{creature.name}}<span ng-hide="!stats" class='fui-cross pull-right' ng-click='statsShow()'></span></li>
   <li ng-model="creature.age">Age: {{creature.age}}</li>
   <li ng-model="creature.position">Location: [{{creature.position.x - 0.5}}, {{creature.position.z - 0.5}}]</li>
   <li>
-    <p ng-model="creature.hp">Health: {{creature.hp}}</p>
+    <p ng-model="creature.hp" style="margin: 0;">Health: {{creature.hp}}</p>
     <progress-bar></progress-bar>
   </li>
   <li>
-    <p ng-model="creature.hunger">Hunger: {{creature.hunger}}</p>
+    <p ng-model="creature.hunger" style="margin: 0;">Hunger: {{creature.hunger}}</p>
     <progress-bar></progress-bar>
     <button class='btn btn-danger'>Kill Creature?</button>
+    <button class='btn btn-success'>Procreate?</button>
   </li>
 </ul>

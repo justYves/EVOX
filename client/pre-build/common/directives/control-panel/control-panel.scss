@@ -1,6 +1,6 @@
 #instructions {
 	margin-top: 5%;
-	margin-right: 1%;
+	margin-right: 5%;
 	opacity: 0.4;
 	width: 40%;
 	height: 100%;
@@ -42,6 +42,10 @@
 		}
 	}
 
+	span{
+		margin-right: 5%;
+	}
+
 	.btn-group {
 		width: 100%;
 		p {
@@ -61,6 +65,10 @@
 			}
 
 			.btn-danger {
+				width: 100%;
+			}
+
+			.btn-success {
 				width: 100%;
 			}
 		}

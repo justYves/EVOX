@@ -1,6 +1,5 @@
 <div id="instructions">
   <div class="tile">
-    <span class='fui-cross' ng-hide='controlHide()'></span>
     <p>Hello, {{user.name.first}}!<p>
     <p>Welcome to {{world.name}}!</p>
     <p>Your Points: {{points}}</p>
@@ -16,9 +15,9 @@
     </div>
     <hr>
     <div class="row">
-      <p>My Creature Stats</p>
-      <p ng-show="!creature">Click a Creature to Select Them</p>
-      <p><creature-stats ng-hide="!creature"></creature-stats></p>
+      <p style="margin-bottom: 0;">My Creature Stats</p>
+      <p ng-show="!stats">Select A Creature!</p>
+      <p><creature-stats ng-hide="!stats || !creature "></creature-stats></p>
     </div>
   </div>  
 </div>
