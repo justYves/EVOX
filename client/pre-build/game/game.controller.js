@@ -75,7 +75,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         game.map = map;
         game.appendTo(document.getElementById("container"));
         window.game = game; //For Debugging
-        WorldsFactory.setCurrentGame(game);
+        WorldsFactory.setCurrentGame(game, WorldsFactory.getCurrentWorld());
         // var terrain = window.terrain;
         //set Camera
         CameraFactory.startCamera(game);
@@ -89,8 +89,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
                 size: 12,
                 vision: 5,
                 social: 2,
-                isHerbivore: true,
-                startPos : [5,5]
+                isHerbivore: true
             },
             // , {
             //     name: 'turtle',
@@ -109,8 +108,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
                 name: 'lion',
                 size: 5,
                 vision: 7,
-                isHerbivore: false,
-                startPos: [8,8]
+                isHerbivore: false
             }
             ];
         }
