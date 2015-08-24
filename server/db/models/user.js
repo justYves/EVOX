@@ -32,6 +32,10 @@ var userSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'Creature'
         }
+    }],
+    creature: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Shape'
     }]
 });
 
