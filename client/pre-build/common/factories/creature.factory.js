@@ -21,7 +21,6 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.parents = opts.parents;
         this.deathAge = Math.floor(this.size * 10);
         this.maturity = Math.floor(this.deathAge * 0.7);
-        this.startPos = opts.startPos;
         this.position = {
             x: 0,
             y: 0,
@@ -91,7 +90,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
 
         model.position = model.item.yaw.position;
         model.rotation = model.item.yaw.rotation;
-        model.setPosition(model.startPos[0], 10, model.startPos[1]);
+        model.setPosition(Math.round(Math.random() * game.map.size), 10, Math.round(Math.random() * game.map.size));
     }
 
     function build(obj, scale, game, voxel, mesh) {

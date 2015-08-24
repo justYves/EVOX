@@ -10,41 +10,24 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
   };
 
   Creature.prototype.die = function() {
-    // var deathInterval = setInterval(function(){
-    //   this.
-    // },10)
-    this.isAlive = false;
-    var ind;
-    var self = this;
-    this.game.creatures.forEach(function(creature, index) {
-      if (self.item.avatar.id === creature.item.avatar.id) {
-        ind = index;
-        self.game.creatures.splice(ind, 1);
-      }
-    });
-    this.game.removeItem(this);
-    this.game.scene.remove(this.item.avatar);
-    this.game.removeEvent(this.item.avatar.id)
+    // this.rotation.z = 3
+    // setTimeout(function(){
+
+      this.isAlive = false;
+      var ind;
+      var self = this;
+      this.game.creatures.forEach(function(creature, index) {
+        if (self.item.avatar.id === creature.item.avatar.id) {
+          ind = index;
+          self.game.creatures.splice(ind, 1);
+        }
+      });
+      this.game.removeItem(this);
+      this.game.scene.remove(this.item.avatar);
+      this.game.removeEvent(this.item.avatar.id)
+      
+    // },1000)
   };
-
-    Creature.prototype.die = function() {
-        // var deathInterval = setInterval(function(){
-        //   this.
-        // },10)
-        this.isAlive = false;
-        var ind;
-        var self = this;
-        this.game.creatures.forEach(function(creature, index) {
-            if (self.item.avatar.id === creature.item.avatar.id) {
-                ind = index;
-                self.game.creatures.splice(ind, 1);
-            }
-        });
-        this.game.removeItem(this);
-        this.game.scene.remove(this.item.avatar);
-        this.game.removeEvent(this.item.avatar.id)
-    };
-
     Creature.prototype.procreate = function() {
         //this.game.emit("procreate", 5.5, this.position.z - 0.5, this.name);
         var newCreature = new this.constructor(this.game, {
@@ -106,9 +89,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
     Creature.prototype.moveRandomly = function(amt) {
         var x = Math.round((Math.random() * amt) - amt / 2);
         var z = Math.round((Math.random() * amt) - amt / 2);
-        if (!this.game.map.getCell(x, 1, z).obstructed) {
-            this.move(x, 0, z);
-        }
+        this.move(x, 0, z);
     };
 
 
