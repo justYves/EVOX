@@ -2,7 +2,6 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory) {
   //Creature constructor
   function Creature() {
   }
-  console.log(_)
   Creature.prototype.setPosition = function(x, y, z) {
     parseXYZ(x, y, z);
     this.position.y = y;

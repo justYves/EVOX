@@ -3,9 +3,9 @@
   <li ng-model="creature.age">Age: {{creature.age}}</li>
   <li ng-model="creature.position">Location: [{{creature.position.x - 0.5}}, {{creature.position.z - 0.5}}]</li>
   <li>
-    <p ng-model="creature.hp" style="margin: 0;">Health: {{creature.hp}}</p>
+    <p style="margin: 0;">Health: {{creature.hp}}</p>
     <div class="progress">
-    <div class="progress-bar-success" 
+    <div class="progress-bar progress-bar-success" 
       role="progressbar" 
       aria-valuenow="{{creature.healthPercentage}}"
       aria-valuemin="0" 
@@ -14,16 +14,15 @@
     </div>
   </li>
   <li>
-    <p ng-model="creature.hunger" style="margin: 0;">Hunger: {{creature.hunger}}</p>
+    <p style="margin: 0;">Hunger: {{creature.hunger}}</p>
     <div class="progress">
-    <div class="progress-bar-danger" 
+    <div class="progress-bar progress-bar-danger" 
       role="progressbar" 
       aria-valuenow="{{creature.hungerPercentage}}"
       aria-valuemin="0" 
       aria-valuemax="100" 
       style="width: {{creature.hungerPercentage}}%;">
     </div>
-    <button class='btn btn-danger'>Kill Creature?</button>
-    <button class='btn btn-success'>Procreate?</button>
   </li>
+  <button class='btn btn-danger'>Kill Creature?</button>
 </ul>
