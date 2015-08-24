@@ -44,6 +44,18 @@ app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, C
                     $log.info('Modal dismissed at: ' + new Date());
                 });
             };
+
+            scope.newWorld = function() {
+                var worldInstance = $modal.open({
+                    animation: true,
+                    templateUrl: 'newWorld.html',
+                    controller: 'worldInstanceCtrl'
+                });
+
+                worldInstance.result.then(null, function() {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            }
         }
     };
 });
@@ -51,13 +63,13 @@ app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, C
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-app.controller('LoginInstanceCtrl', function($scope, $modalInstance, $modal, $state, $log, AuthService) {
+app.controller('LoginInstanceCtrl', function($scope, $modalInstance, $modal, $state, $log, AuthService, UserFactory) {
 
     $scope.ok = function() {
-        console.log($scope.credentials)
         AuthService.login($scope.credentials).then(function() {
             return AuthService.getLoggedInUser();
         }).then(function(user) {
+            UserFactory.currentUser = user;
             $modalInstance.close();
             $state.go('worlds');
         }).catch(function() {
@@ -90,6 +102,22 @@ app.controller('SignupInstanceCtrl', function($scope, $modalInstance, UserFactor
         UserFactory.postUser($scope.newUser)
             .then(function(user) {
                 $modalInstance.close();
+            })
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+app.controller('worldInstanceCtrl', function($scope, $modalInstance, WorldsFactory, $state) {
+    $scope.environments = ['ice', 'water', 'land'];
+
+    $scope.postWorld = function() {
+        WorldsFactory.postWorld($scope.world)
+            .then(function() {
+                $modalInstance.close();
+                $state.go('worlds')
             })
     };
 
