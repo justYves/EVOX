@@ -6,15 +6,19 @@
     <p>Your Points: {{points}}</p>
     <hr>
     <div class="row creature-container">
-        <div class="btn-group">
-          <p>My Creatures<p>
-          <ul>
-            <li ng-hide="!!creatures">You have no creatures!</li>
-            <li ng-show="!!creatures" ng-repeat="creature in creatures"><button class="btn btn-default" id="creatures" ng-click="statsShow()">{{creature.name}}</button><creature-stats ng-show="stats"></creature-stats></li>
-          </ul>
-          <p>Current Animal</p>
-            <li ng-show="!!currentAnimal"><creature-stats></creature-stats></li>
-        </div>
+      <div class="btn-group">
+        <p>My Species<p>
+        <ul id="creature-list">
+          <li ng-hide="!!creatures">You have no creatures!</li>
+          <li ng-show="!!creatures" ng-repeat="creature in creatures"><button class="btn btn-default col-lg-1" id="creatures">{{creature.name}}</button></li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <p>My Creature Stats</p>
+      <p ng-show="!creature">Click a Creature to Select Them</p>
+      <p><creature-stats ng-hide="!creature"></creature-stats></p>
     </div>
   </div>  
 </div>

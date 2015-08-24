@@ -1,6 +1,5 @@
-app.factory('CameraFactory', function() {
+app.factory('CameraFactory', function($rootScope) {
   return {
-
     startCamera: function(game) {
       var camera = new game.THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000)
       var size = game.map.size
@@ -170,14 +169,14 @@ app.factory('CameraFactory', function() {
         render();
       }
 
-      function getAnimal (position){
+      function getCreature (position){
         var x = position.x - 0.5;
         var y = position.y - 0.5;
         var z = position.z - 0.5;
         var cell = game.map.getCell(x, y, z);
         game.creatures.forEach(function(creature){
           if (position.x === creature.position.x && position.z === creature.position.z) {
-            console.log(creature);
+            $rootScope.$broadcast("currentCreature", creature);
           };
         });
       };
@@ -189,7 +188,7 @@ app.factory('CameraFactory', function() {
         onMouseDownPhi = phi;
         onMouseDownPosition.x = event.clientX;
         onMouseDownPosition.y = event.clientY;
-        getAnimal(highlighted.position);
+        getCreature(highlighted.position);
       };
 
       function onDocumentMouseUp(event) {
