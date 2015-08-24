@@ -34,7 +34,7 @@
     "gulp-sass": "^2.0.1",
     "gulp-sourcemaps": "^1.5.2",
     "jquery": "^2.1.4",
-    "lodash": "^3.9.3",
+    "lodash": "^3.10.1",
     "mongodb": "^1.0",
     "mongoose": "^4.0.4",
     "mongoose-deep-populate": "^2.0.0",
