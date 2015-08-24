@@ -55,9 +55,11 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             currentZ: this.position.z,
             size: this.map.size
         };
-        if (this.game.getBlock(x, 1, z) && this.game.map.getCell(x, 1, z).obstructed) {
-            var changeXZ = ["x", "z"];
-            data[Math.floor(Math.random() * 2)];
+        if(!this.game.flat){
+          if (this.game.getBlock(x, 1, z) && this.game.map.getCell(x, 0, z).obstructed) {
+              var changeXZ = ["x", "z"];
+              data[Math.floor(Math.random() * 2)];
+          }
         }
         var myWorker = new Worker(MoveWorker);
         myWorker.postMessage(data);
@@ -67,21 +69,27 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             var x = result.data.x - 0.5;
             var z = result.data.z - 0.5;
             var block = self.game.getBlock(result.data.x - 0.5, self.position.y, result.data.z - 0.5);
-            if (x > 0 && x < self.game.map.size - 1 && z > 0 && z < self.game.map.size - 1) {
-                if (block && self.game.map.getCell(x, self.position.y, z).legit) {
-                    self.position.y = self.position.y + 1;
-                    self.position.x = result.data.x;
-                    self.position.z = result.data.z;
+            if(!self.game.flat){
+                if (x > 0 && x < self.game.map.size - 1 && z > 0 && z < self.game.map.size - 1) {
+                    if (block && self.game.map.getCell(x, self.position.y, z).legit) {
+                        self.position.y = self.position.y + 1;
+                        self.position.x = result.data.x;
+                        self.position.z = result.data.z;
+                    } else {
+                        self.position.y = result.data.y;
+                        self.position.x = result.data.x;
+                        self.position.z = result.data.z;
+                    }
                 } else {
                     self.position.y = result.data.y;
                     self.position.x = result.data.x;
                     self.position.z = result.data.z;
                 }
-            } else {
-                self.position.y = result.data.y;
-                self.position.x = result.data.x;
-                self.position.z = result.data.z;
-            }
+              }else{
+                 self.position.y = result.data.y;
+                 self.position.x = result.data.x;
+                 self.position.z = result.data.z;
+              }
             self.rotation.y = Number(result.data.rotY) || self.rotation.y;
         };
     };
@@ -168,8 +176,10 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         this.item.avatar.scale.z *= 1.01;
       }
       // console.log("NAME: " + this.name + ", Hunger: " + this.hunger + ", HP: " + this.hp);
-      if(this.hunger <= this.hpMax){
-       this.hunger++;
+      if(this.hunger <= this.hpMax && this.appetite >=2){
+       this.hunger+=3;
+      }else if(this.hunger <= this.hpMax){
+        this.hunger++
       }
       this.lifeCycle--;
       if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;

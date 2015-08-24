@@ -75,7 +75,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         game.map = map;
         game.appendTo(document.getElementById("container"));
         window.game = game; //For Debugging
-        WorldsFactory.setCurrentGame(game);
+        WorldsFactory.setCurrentGame(game, WorldsFactory.getCurrentWorld());
         // var terrain = window.terrain;
         //set Camera
         CameraFactory.startCamera(game);
