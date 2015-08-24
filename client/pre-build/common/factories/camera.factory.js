@@ -1,4 +1,4 @@
-app.factory('CameraFactory', function() {
+app.factory('CameraFactory', function($rootScope) {
   return {
     startCamera: function(game) {
       var camera = new game.THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000)
@@ -26,8 +26,7 @@ app.factory('CameraFactory', function() {
       game.view.renderer.domElement.addEventListener('resize', onWindowResize, false);
       document.addEventListener('mousemove', onDocumentMouseMove, false)
       document.addEventListener('mousedown', onDocumentMouseDown, false)
-      document.addEventListener('mouseup', onDocumentMouseUp, false)
-
+      document.addEventListener('mouseup', onDocumentMouseUp, false) 
 
       function mousewheel(event) {
         event.preventDefault()
@@ -116,8 +115,6 @@ app.factory('CameraFactory', function() {
         }
       }
 
-
-
       function zoom(delta) {
         var origin = {
           x: game.map.size / 2,
@@ -172,29 +169,41 @@ app.factory('CameraFactory', function() {
         render();
       }
 
+      function getCreature (position){
+        var x = position.x - 0.5;
+        var y = position.y - 0.5;
+        var z = position.z - 0.5;
+        var cell = game.map.getCell(x, y, z);
+        game.creatures.forEach(function(creature){
+          if (position.x === creature.position.x && position.z === creature.position.z) {
+            $rootScope.$broadcast("currentCreature", creature);
+          };
+        });
+      };
+
       function onDocumentMouseDown(event) {
-        event.preventDefault()
-        isMouseDown = true
-        onMouseDownTheta = theta
-        onMouseDownPhi = phi
-        onMouseDownPosition.x = event.clientX
-        onMouseDownPosition.y = event.clientY
-      }
+        event.preventDefault();
+        isMouseDown = true;
+        onMouseDownTheta = theta;
+        onMouseDownPhi = phi;
+        onMouseDownPosition.x = event.clientX;
+        onMouseDownPosition.y = event.clientY;
+        getCreature(highlighted.position);
+      };
 
       function onDocumentMouseUp(event) {
-        event.preventDefault()
-        isMouseDown = false
-        onMouseDownPosition.x = event.clientX - onMouseDownPosition.x
-        onMouseDownPosition.y = event.clientY - onMouseDownPosition.y
-      }
-
+        event.preventDefault();
+        isMouseDown = false;
+        onMouseDownPosition.x = event.clientX - onMouseDownPosition.x;
+        onMouseDownPosition.y = event.clientY - onMouseDownPosition.y;
+      };
 
       function render() {
-        camera.lookAt(target)
-        raycaster = projector.pickingRay(mouse2D.clone(), camera)
-        interact()
-        game.view.renderer.render(game.scene, camera)
-      }
+        camera.lookAt(target);
+        raycaster = projector.pickingRay(mouse2D.clone(), camera);
+        interact();
+        game.view.renderer.render(game.scene, camera);
+      };
 
       camera.lookAt(target);
       game.view.camera = camera;

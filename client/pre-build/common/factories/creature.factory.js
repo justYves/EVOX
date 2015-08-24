@@ -176,5 +176,6 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
                 })
         }
         // currentCreatures set in one-world.ctrl
+        // currentHash set in creaturescontroller
     };
 })

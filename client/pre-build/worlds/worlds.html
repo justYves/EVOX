@@ -3,6 +3,7 @@
 	background: #eee;
 }
 </style>
+
 <ul>
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
@@ -20,9 +21,9 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="world in worlds"
-				ng-click="currentWorld(world)"
-				style="cursor:pointer"
-				class="highlight">
+					ng-click="currentWorld(world)"
+					style="cursor:pointer"
+					class="highlight">
 					<th scope="row">{{$index+1}}</th>
 					<td>{{world.name}}</td>
 					<td>{{world.environment}}</td>
@@ -33,4 +34,5 @@
 			</tbody>
 		</table>
 	</div>
-	<ui-view></ui-view>
+</ul>
+<ui-view></ui-view>

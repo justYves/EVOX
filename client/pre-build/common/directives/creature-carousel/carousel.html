@@ -1,0 +1,11 @@
+<div style="width: {{width}}px; margin: auto">
+  <div style="width: 100%; height: {{height}}px">
+    <carousel style="height: 100%" interval="myInterval" no-wrap="noWrapSlides">
+    <slide style="height: {{height}}px;" 
+      ng-repeat="slide in slides"
+      ng-click="fcn(slide)">
+    <img style="height: 100%; margin: auto" src="{{slide.name+'.png'}}"></img>
+    </slide>
+    </carousel>
+  </div>
+</div>

@@ -1,4 +1,5 @@
-app.controller('BuilderController', function($scope, $state,ShapeFactory) {
+app.controller('BuilderController', function($scope, $state,ShapeFactory,CreatureFactory) {
+  $scope.currentHash = CreatureFactory.currentHash;
   var THREE = window.THREE;
 
   var raf = window.raf;
@@ -81,6 +82,7 @@ app.controller('BuilderController', function($scope, $state,ShapeFactory) {
       name:'test',
       shape: shape,
       hash: $scope.currentHash
+
     };
     ShapeFactory.saveShape(creature)
       .then(function(data){
@@ -179,7 +181,7 @@ app.controller('BuilderController', function($scope, $state,ShapeFactory) {
       }
     }
     var x = bounds[1][1];
-    console.log(x);
+    // console.log(x);
     var y = 0.741534049053526 - 0.056417121048685195*x + 0.0012594302082374143*Math.pow(x,2);
     // var display =
 
@@ -346,7 +348,6 @@ app.controller('BuilderController', function($scope, $state,ShapeFactory) {
     grid = line
     scene.add(line)
 
-    // // Plane
 
     projector = new THREE.Projector()
 
