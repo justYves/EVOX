@@ -187,7 +187,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         this.item.avatar.scale.z *= 1.01;
       }
       // console.log("NAME: " + this.name + ", Hunger: " + this.hunger + ", HP: " + this.hp);
-      if(this.hunger >= this.hpMax){
+      if(this.hunger <= this.hpMax){
        this.hunger++;
       }
       this.lifeCycle--;
