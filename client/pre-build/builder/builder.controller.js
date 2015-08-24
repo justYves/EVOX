@@ -81,8 +81,8 @@ app.controller('BuilderController', function($scope, $state,ShapeFactory,Creatur
     var creature ={
       name:'test',
       shape: shape,
-      hash: $scope.currentHash
-
+      hash: $scope.currentHash,
+      img: exportImage(800, 600).src
     };
     ShapeFactory.saveShape(creature)
       .then(function(data){
@@ -96,7 +96,6 @@ app.controller('BuilderController', function($scope, $state,ShapeFactory,Creatur
     var canvas = getExportCanvas(width, height);
     var image = new Image
     image.src = canvas.toDataURL();
-    // console.log(image.src);
     return image;
   }
 

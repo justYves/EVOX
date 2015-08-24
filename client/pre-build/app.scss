@@ -23,11 +23,20 @@ transition: 0.4s ease all;
   opacity:0.8;
 }
 
+#stats {
+  opacity: 0;
+
+  &:hover{
+    opacity: 0.9;
+  }
+}
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 // Add your fractal Sass files below!
+@import "animate";
 @import 'navbar/navbar';
 @import 'home/home';
 @import 'login/login';
 @import 'common/directives/control-panel/control-panel';
 @import 'builder/builder';
+@import 'creatures/creatures';

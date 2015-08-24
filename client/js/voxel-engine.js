@@ -824,7 +824,7 @@ var Stats = function () {
   var container = document.createElement( 'div' );
   container.id = 'stats';
   container.addEventListener( 'mousedown', function ( event ) { event.preventDefault(); setMode( ++ mode % 2 ) }, false );
-  container.style.cssText = 'width:80px;opacity:0.9;cursor:pointer';
+  container.style.cssText = 'width:80px;cursor:pointer';
 
   var fpsDiv = document.createElement( 'div' );
   fpsDiv.id = 'fps';
