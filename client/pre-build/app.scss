@@ -2,50 +2,6 @@
   box-sizing: border-box;
 }
 
-.Modal-box
-{
-  margin: 0 auto;
-  width: 100%;
-  background: #fff;
-  padding: 15px;
-  border-radius: 4px;
-  box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
-  position: relative;
-}
-
-@media screen and (min-width: 992px)
-{
-  .Modal-box
-  {
-    width: 50%;
-    padding: 30px;
-  }
-}
-
-.Modal-backdrop
-{
- position: fixed;
- top: 0px;
- left: 0px;
- height:50%;
- width:50%;
- background: transparent;
- z-index: 1;
- opacity: 0;
-}
-
-.Modal-holder
-{
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  height:50%;
-  width:50%;
-  background: transparent;
-  z-index: 2;
-  padding: 30px 15px;
-}
-
 
 @mixin clearfix {
   &:after {
