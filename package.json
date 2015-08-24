@@ -27,6 +27,7 @@
     "font-awesome": "^4.4.0",
     "gulp-babel": "^5.1.0",
     "gulp-concat": "^2.5.2",
+    "gulp-lodash": "^0.1.1",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-run": "^1.6.8",
