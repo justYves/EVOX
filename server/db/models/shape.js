@@ -7,7 +7,9 @@ var shapeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    hash: String
+    hash: String,
+    img: String
 });
 
 mongoose.model('Shape', shapeSchema);
+

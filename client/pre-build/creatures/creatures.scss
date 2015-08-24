@@ -1,0 +1,15 @@
+
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+  font-size: 3em;
+
+  &:hover{
+      color: #34495e;
+       // @include bounceIn()
+  }
+}
+
+.carousel-control.left, .carousel-control.right {
+  background-image: none;
+}
+
+//
