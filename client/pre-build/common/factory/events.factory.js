@@ -30,6 +30,7 @@ app.factory('EventsFactory', function() {
 
         // <------ TICK ------>
         //Game.add Event takes a function that will be called at every 10 game time unit.
+        game.map.growGrass(game);
         game.addEvent(function() {
             game.map.growGrass(game);
         }, 10);
