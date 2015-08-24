@@ -138,10 +138,18 @@ app.factory('MapFactory', function($http) {
 
 
     Map.prototype.getCell = function(x, y, z) {
-        if (x >= 0 && x < this.size && z >= 0 && z < this.size) {
-            return this.data[x][y][z];
-        } else {
-            return false;
+        if(this.game && !this.game.flat){
+            if (x >= 0 && x < this.size && z >= 0 && z < this.size) {
+                return this.data[x][y][z];
+            } else {
+                return false;
+            }
+        }else{
+            if (x >= 0 && x < this.size && z >= 0 && z < this.size) {
+                return this.data[x][z];
+            } else {
+                return false;
+            }
         }
     };
 

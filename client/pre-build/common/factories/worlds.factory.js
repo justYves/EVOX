@@ -78,8 +78,9 @@ app.factory('WorldsFactory', function($http, MapFactory) {
                     return res.data;
                 })
         },
-        setCurrentGame: function(game) {
+        setCurrentGame: function(game, world) {
             currentGame = game;
+            currentGame.flat = world.flat;
         },
         getCurrentGame: function() {
             return currentGame;

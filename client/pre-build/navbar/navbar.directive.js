@@ -1,4 +1,4 @@
-app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, CreatureFactory) {
+app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, CreatureFactory, $modal, $log) {
     return {
         restrict: "E",
         templateUrl: "/pre-build/navbar/navbar.html",
@@ -29,6 +29,71 @@ app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, C
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
+
+
+
+            scope.open = function() {
+
+                var modalInstance = $modal.open({
+                    animation: true,
+                    templateUrl: 'login.html',
+                    controller: 'LoginInstanceCtrl'
+                });
+
+                modalInstance.result.then(null, function() {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            };
         }
+    };
+});
+
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $modal service used above.
+
+app.controller('LoginInstanceCtrl', function($scope, $modalInstance, $modal, $state, $log, AuthService) {
+
+    $scope.ok = function() {
+        console.log($scope.credentials)
+        AuthService.login($scope.credentials).then(function() {
+            return AuthService.getLoggedInUser();
+        }).then(function(user) {
+            $modalInstance.close();
+            $state.go('worlds');
+        }).catch(function() {
+            $scope.error = 'Invalid login credentials.';
+        });
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.openSignup = function() {
+        $scope.cancel();
+
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'signup.html',
+            controller: 'SignupInstanceCtrl'
+        });
+
+        modalInstance.result.then(null, function() {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    }
+});
+
+app.controller('SignupInstanceCtrl', function($scope, $modalInstance, UserFactory) {
+
+    $scope.ok = function() {
+        UserFactory.postUser($scope.newUser)
+            .then(function(user) {
+                $modalInstance.close();
+            })
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
     };
 });

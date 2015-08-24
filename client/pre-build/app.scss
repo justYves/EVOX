@@ -15,8 +15,7 @@ opacity: 0.1;
 transition: 0.4s ease all;
     position: absolute;
     bottom: 10px;
-    left: 0;
-    right: 0;
+    right: 6%;
 }
 
 #control-bar:hover{
@@ -36,7 +35,7 @@ transition: 0.4s ease all;
 @import "animate";
 @import 'navbar/navbar';
 @import 'home/home';
-@import 'login/login';
 @import 'common/directives/control-panel/control-panel';
+@import 'common/directives/game-of-life/gameoflife';
 @import 'builder/builder';
 @import 'creatures/creatures';
