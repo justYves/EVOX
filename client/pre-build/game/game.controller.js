@@ -251,14 +251,9 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
 
     var modalInstance;
     game.winObjective = function() {
-
         modalInstance = $modal.open({
             animation: true,
             templateUrl: 'objective.html'
-        });
-
-        modalInstance.result.then(function() {
-            modalInstance = undefined;
         });
 
     };
@@ -268,10 +263,6 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
             animation: true,
             templateUrl: 'level-up.html'
         });
-
-        modalInstance.result.then(function() {
-            modalInstance = undefined;
-        });
     };
 
     game.gameOver = function() {
@@ -280,11 +271,7 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
             templateUrl: 'game-over.html'
         });
 
-        modalInstance.result.then(function() {
-            modalInstance = undefined;
-        });
     };
-
 
     // var createTrees = window.Tree(game);
     // if (!game.trees) {

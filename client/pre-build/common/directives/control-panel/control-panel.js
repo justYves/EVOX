@@ -219,13 +219,13 @@ app.directive('controlPanel', function() {
     };
 
     $scope.winObj = function() {
-      game.winObjective();
       $scope.user.points += 25;
+      game.winObjective();
     };
 
     $scope.levelUp = function() {
-      game.levelUp();
       $scope.user.points += 50;
+      game.levelUp();
     }
 
 
