@@ -1,6 +1,49 @@
+
+
 <control-panel></control-panel>
 
     <div id="container"></div>
+
+<script type="text/ng-template" id="game_over.html">
+    <div class="modal-header">
+      <h3 class="modal-title"> GAME OVER!</h3>
+    </div>
+      <div class="modal-body" style="margin: auto; width: 450px">
+      	<p>All your creatures have died!</p>
+      <div class="modal-footer">
+        <a class="btn btn-success" ui-sref="worlds">Back to My Worlds</a>
+        <a class="btn btn-warning" ui-sref="home">Back to Home</a>
+      </div>
+    </form>
+</script>
+
+<script type="text/ng-template" id="objective.html">
+    <div class="modal-header">
+      <h3 class="modal-title"> Objective Completed!</h3>
+    </div>
+      <div class="modal-body" style="margin: auto; width: 450px">
+      	<p>You have completed your objective! Have some points!</p>
+      <div class="modal-footer">
+        <a class="btn btn-primary" ui-sref="close()">Continue</a>
+        <a class="btn btn-warning" ui-sref="home">Back to Home</a>
+      </div>
+    </form>
+</script>
+
+<script type="text/ng-template" id="level-up.html">
+    <div class="modal-header">
+      <h3 class="modal-title"> You have levelled up!</h3>
+    </div>
+      <div class="modal-body" style="margin: auto; width: 450px">
+      	<p>Congratulations You are travelling to the next level!</p>
+      	<p>Also...have some points!</p>
+      <div class="modal-footer">
+        <a class="btn btn-success" ui-sref="worlds">Back to My Worlds</a>
+        <a class="btn btn-warning" ui-sref="home">Back to Home</a>
+      </div>
+    </form>
+</script>
+
 
 <script src="../js/voxel-engine.js"></script>
 <script src="../js/voxel.js"></script>

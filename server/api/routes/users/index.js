@@ -7,7 +7,7 @@ module.exports = router;
 
 // /api/users
 router.param('id', function(req, res, next, id) {
-    User.findById(id).populate('world creature').exec()
+    User.findById(id).deepPopulate('world.name world.creature creature.shape creature.creature').exec()
         .then(function(user) {
             if (user) {
                 req.CurrentUser = user;
@@ -49,7 +49,7 @@ router.put('/:id', function(req, res, next) {
 });
 
 router.put('/:id/creatures', function(req, res, next) {
-    req.CurrentUser.creature.push(req.body.creature);
+    req.CurrentUser.creature.push(req.body);
     req.CurrentUser.save()
         .then(function(user) {
             res.status(200).json(user);

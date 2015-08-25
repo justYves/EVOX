@@ -1,95 +1,104 @@
-<div id="instructions">
-      <h3 class="demo-panel-title"><a href="/">Creature Builder</a></h3>
 
-    <form>Creature Name: <input type="text"></form>
-    <p>
-      <a class="btn btn-primary" ng-click="export()">Export PNG</a>
-      <a class="btn btn-primary" ng-click="save()">Save</a>
-
-
-      <div class="share mrl">
-        <ul>
-          <li>
-            <label class="share-label" for="share-toggle2">Grid</label>
-            <div ng-click="showGrid()" class="toggle">
-              <label class="toggle-radio" for="share-toggle2">ON</label>
-              <input type="radio" name="share-toggles" id="share-toggle2" value="toggle1" checked="checked">
-              <label class="toggle-radio" for="share-toggle1">OFF</label>
-              <input type="radio" name="share-toggles" id="share-toggle1" value="toggle2">
-            </div>
-          </li>
-          <li>
-            <label class="share-label" for="share-toggle3">Wireframe</label>
-            <div ng-click="setWireframe()" class="toggle">
-              <label class="toggle-radio" for="share-toggle4">ON</label>
-              <input type="radio" name="share-toggles2" id="share-toggle4" value="toggle1" checked="checked">
-              <label class="toggle-radio" for="share-toggle3">OFF</label>
-              <input type="radio" name="share-toggles2" id="share-toggle3" value="toggle2">
-            </div>
-          </li>
-        </ul>
-      </div> <!-- /share -->
-
-      <div class="row color-container">
-        <div class="span3">
-            <div class="btn-group color-picker">
-              <a class="btn btn-primary colorPickButton active" href="#"><i data-color="0" class="color"></i></a>
-              <a class="btn btn-primary colorPickButton" href="#"><i data-color="1" class="color"></i></a>
-              <a class="btn btn-primary colorPickButton" href="#"><i data-color="2" class="color"></i></a>
-              <a class="btn btn-primary colorPickButton" href="#"><i data-color="3" class="color"></i></a>
-              <a class="btn btn-primary colorPickButton" href="#"><i data-color="4" class="color"></i></a>
-              <a class="btn btn-primary colorAddButton" data-color="#000000" href="#"><i data-color="-1" class="colorAdd">++</i></a>
-            </div>
+<div class="container" id="instructions">
+  <div class="row">
+    <h3 class="demo-panel-title row"><a href="/">Builder</a></h3>
+    <form ng-submit="save(name)">
+      <div class="row">
+        Name: <input class="form-control" type="text" ng-model="name">
+      </div>
+      <div class="row">
+        <label ng-show="currentCreature.creature.category">Species: {{currentCreature.creature.name}} ({{currentCreature.creature.category}})</label>
+      </div>
+      <div class="row"><label>Vision:</label></div>
+      <div class="row">
+        <button type="button" class="btn btn-default" ng-click="decrement('vision')">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        </button>
+        <div class="btn btn-primary" style="cursor:none">
+          {{currentCreature.creature.vision}}
+        </div>
+        <button type="button" class="btn btn-default" ng-click="increment('vision')">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="row">
+        <label>Size:</label>
+        <div>
+          <button type="button" class="btn btn-default" ng-click="decrement('size')">
+          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+          </button>
+          <div class="btn btn-primary" style="cursor:none">
+            {{currentCreature.creature.size}}
+          </div>
+          <button type="button" class="btn btn-default" ng-click="increment('size')">
+          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
         </div>
       </div>
-
-     <div id="output"></div>
+      <br>
+      <div class="row">
+        <a class="btn btn-primary" ng-click="export()">Export PNG</a>
+        <button class="btn btn-primary" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+  <br>
+  <div class="row">
+    <div class="row share" style="padding: 0 10px;">
+        <label class="share-label" for="share-toggle2">Grid</label>
+        <div ng-click="showGrid()" class="toggle">
+          <label class="toggle-radio" for="share-toggle2">ON</label>
+          <input type="radio" name="share-toggles" id="share-toggle2" value="toggle1" checked="checked">
+          <label class="toggle-radio" for="share-toggle1">OFF</label>
+          <input type="radio" name="share-toggles" id="share-toggle1" value="toggle2">
+        </div>
     </div>
-
-    <div class="animationControls">
-      <div class="playback">
-        <span class="play-pause fui-play"></span>
-      </div>
-      <div class="sliderContainer">
-        <div id="slider" class="ui-slider">
+    <div class="row share" style="padding: 0 10px">
+        <label class="share-label" for="share-toggle3">Wireframe</label>
+        <div ng-click="setWireframe()" class="toggle">
+          <label class="toggle-radio" for="share-toggle4">ON</label>
+          <input type="radio" name="share-toggles2" id="share-toggle4" value="toggle1" checked="checked">
+          <label class="toggle-radio" for="share-toggle3">OFF</label>
+          <input type="radio" name="share-toggles2" id="share-toggle3" value="toggle2">
         </div>
-      </div>
-      <div class="addRemove">
-        <span class="plus-button fui-plus"></span>
-        <span class="minus-button fui-cross"></span>
-      </div>
-    </div>
-
-    <div id="container"></div>
-    </body>
-
-        <div id="share" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Share Critter</h3>
-      </div>
-      <div class="modal-body">
-        <div class="control-group">
-          <input type="text" class="login-field name" value="" placeholder="Critter name (optional)"
-          id="login-name">
+     </div>
+    </div> <!-- /share -->
+    <div class="row color-container">
+      <div class="span3">
+        <div class="btn-group color-picker">
+          <a class="btn btn-primary colorPickButton active" href="#"><i data-color="0" class="color"></i></a>
+          <a class="btn btn-primary colorPickButton" href="#"><i data-color="1" class="color"></i></a>
+          <a class="btn btn-primary colorPickButton" href="#"><i data-color="2" class="color"></i></a>
+          <a class="btn btn-primary colorPickButton" href="#"><i data-color="3" class="color"></i></a>
+          <a class="btn btn-primary colorPickButton" href="#"><i data-color="4" class="color"></i></a>
+          <a class="btn btn-primary colorAddButton" data-color="#000000" href="#"><i data-color="-1" class="colorAdd">++</i></a>
         </div>
-        <div class="control-group">
-          <input type="text" class="login-field author" value="" placeholder="Author name (optional)"
-          id="login-pass">
-        </div>
-
-        <div class="share-form"></div>
-
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-cancel" data-dismiss="modal" aria-hidden="true">Close</button>
       </div>
     </div>
-
-
-
-
-
+    <div id="output"></div>
+  </div>
+</div>
+<div id="container"></div>
+<!-- <div id="share" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Share Critter</h3>
+  </div>
+  <div class="modal-body">
+    <div class="control-group">
+      <input type="text" class="login-field name" value="" placeholder="Critter name (optional)"
+      id="login-name">
+    </div>
+    <div class="control-group">
+      <input type="text" class="login-field author" value="" placeholder="Author name (optional)"
+      id="login-pass">
+    </div>
+    <div class="share-form"></div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-cancel" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div> -->
 <script src="/flat-ui/js/jquery-1.8.3.min.js "></script>
 <script src="/flat-ui/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="/flat-ui/js/flatui-checkbox.js"></script>
@@ -100,4 +109,3 @@
 <script src="/flat-ui/js/bootstrap.min.js"></script>
 <script src="../js/three.js"></script>
 <script src ="../js/raf.js"></script>
-

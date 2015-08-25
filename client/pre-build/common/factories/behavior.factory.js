@@ -25,24 +25,18 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
       this.game.removeItem(this);
       this.game.scene.remove(this.item.avatar);
       this.game.removeEvent(this.item.avatar.id)
-      
+
     // },1000)
   };
     Creature.prototype.procreate = function() {
-        //this.game.emit("procreate", 5.5, this.position.z - 0.5, this.name);
         var newCreature = new this.constructor(this.game, {
             name: this.name,
             size: this.size,
             vision: this.vision,
             social: this.social,
-            isHerbivore: this.isHerbivore
+            isHerbivore: this.isHerbivore,
+            spawnPos:{x: this.position.x - 0.5, z: this.position.z - 0.5}
         }, voxel, voxelMesh);
-        this.game.creatures.push(newCreature);
-        //render(newCreature, this.map);
-        newCreature.setPosition(this.position.x - 0.5, 10, this.position.z - 0.5);
-        this.game.addEvent(function() {
-            newCreature.exist();
-        }, 1);
     };
 
     Creature.prototype.move = function(x, y, z) {

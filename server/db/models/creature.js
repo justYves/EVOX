@@ -20,7 +20,10 @@ var creatureSchema = new mongoose.Schema({
         ref: 'Creature'
     }],
     pregnant: Boolean,
-    hp: {type: Number, default: 40},
+    hp: {
+        type: Number,
+        default: 40
+    },
     isCarnivore: {
         type: Boolean,
         default: false
@@ -48,7 +51,8 @@ var creatureSchema = new mongoose.Schema({
     rotation: {
         type: mongoose.Schema.ObjectId,
         ref: 'Coordinate'
-    }
+    },
+    category: String
 });
 
 // creatureSchema.path('size').set(function(value) {
