@@ -234,6 +234,11 @@ footer .footer-below {
 }
 
 #lil-creature {
-    font-size: 50px;
+    font-size: 3em;
+}
+
+#home-pic:hover{
+    transition: all 0.4s ease;
+    transform:scale(1.1);
 }
 
