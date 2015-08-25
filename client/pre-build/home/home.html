@@ -1,12 +1,12 @@
-
-<game-of-life></game-of-life>
+<game-of-life>
+</game-of-life>
 <header>
     <div id="home-container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-text">
                     <span class="name">Evox</span>
-                    <i class="fa fa-qq" id="lil-creature"></i>
+                    <i class="fa fa-qq animated infinite pulse" id="lil-creature"></i>
                     <hr>
                     <span class="skills">An Interactive - Life Simulator - in 3D</span>
                 </div>
@@ -14,66 +14,69 @@
         </div>
     </div>
 </header>
-
 <!-- Portfolio Grid Section -->
-     
 <div class="container">
-    <div class="row">         
-  	   <div class="col-lg-12 text-center">
+    <div class="row">
+        <div class="col-lg-12 text-center">
             <h2>Design Your World</h2>
-            <i class="fa fa-qq" id="lil-creature"></i><i class="fa fa-qq" id="lil-creature"></i>
+            <i class="fa fa-qq animated infinite pulse" id="lil-creature"></i><i class="fa fa-qq animated infinite pulse" id="lil-creature"></i>
             <hr>
-       		<p class="text-left">
-       			Design a dynamic environment, with an atmospheric day and night cycle that changes in
-   				real-time. Build terrain in 3D. Choose from three different climate settings each with unique creatures.
-   			</p>
+            <p class="text-left">
+                Design a dynamic environment, with an atmospheric day and night cycle that changes in real-time. Build terrain in 3D. Choose from three different climate settings each with unique creatures.
+            </p>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-4">
-        	<p>GrassLand</p>
-        	<img class="img-responsive" src="3D-Grass-icon.png">
+        <div class="col-lg-4 text-center">
+            <h4>GrassLand</h4>
+            <img class="img-responsive" id="home-pic" ng-src="3D-Grass-icon.png">
         </div>
-        <div class="col-lg-4">
-        	<p>Desert</p>
-        	<img class="img-responsive" src="3D-Dirt-icon.png">
+        <div class="col-lg-4 text-center">
+            <h4>Desert</h4>
+            <img class="img-responsive" id="home-pic" ng-src="3D-Dirt-icon.png">
         </div>
-        <div class="col-lg-4">
-        	<p>Ice and Snow!</p>
-        	<img class="img-responsive" src="3D-Snow-icon.png">
+        <div class="col-lg-4 text-center">
+            <h4>Ice and Snow!</h4>
+            <img class="img-responsive" id="home-pic" ng-src="3D-Snow-icon.png">
         </div>
     </div>
     <h3 class="text-center">Choose different Environments</h3>
 </div>
-
 <!-- About Section -->
 <section class="success" id="about">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2>Design Your Creatures!</h2>
-                <i class="fa fa-qq" id="lil-creature"></i><i class="fa fa-qq" id="lil-creature"></i><i class="fa fa-qq" id="lil-creature"></i>
+                <i class="fa fa-qq animated infinite pulse" id="lil-creature"></i><i class="fa fa-qq animated infinite pulse" animated infinite pulse id="lil-creature"></i><i class="fa fa-qq animated infinite pulse" id="lil-creature"></i>
                 <hr>
                 <h4>Use pre-built creatures, or use the Creature Creator!</h4>
             </div>
         </div>
         <div class="row">
-        	<div class="col-lg-4">
-        		<p>Keep them alive as they interact with other creatures in three different environments.</p>
-        		<img class="img-responsive" src="lion.png">
-        	</div>
+            <div class="col-lg-4">
+                <p>Keep them alive as they interact with other creatures in three different environments.</p>
+            </div>
             <div class="col-lg-4">
                 <p>Creatures have unique stats including size, vision, speed and social intelligence! Level up to increase your stats! Help your creature develop and procreate</p>
-                <img class="img-responsive" src="fox.png">
             </div>
             <div class="col-lg-4">
                 <p>Use our pre-built creatures (over 12 different types) or customize your own using our Creature Creator!</p>
-                <img class="img-responsive" src="penguin.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <img class="img-responsive img-rounded" ng-src="fox.png">
+            </div>
+            <div class="col-lg-4">
+                <img class="img-responsive img-rounded" ng-src="deer.png">
+            </div>
+            <div class="col-lg-4">
+                <img class="img-responsive img-rounded" ng-src="crocodile.png">
             </div>
         </div>
     </div>
 </section>
-
 <!-- Contact Section -->
 <section id="contact">
     <div class="container">
@@ -86,7 +89,6 @@
         </div>
     </div>
 </section>
-
 <!-- Footer -->
 <footer class="text-center">
     <div class="footer-above">
@@ -120,7 +122,6 @@
         </div>
     </div>
 </footer>
-
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 <div class="scroll-top page-scroll visible-xs visible-sm">
     <a class="btn btn-primary" href="#page-top">
