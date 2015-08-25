@@ -45,7 +45,6 @@ app.directive('controlPanel', function() {
             $scope.creature = creature;
             $scope.getPercentages($scope.creature);
             $scope.$digest();
-            console.log($scope.currentCreature);
         });
 
         $scope.$on("creaturesUpdate", function(){
