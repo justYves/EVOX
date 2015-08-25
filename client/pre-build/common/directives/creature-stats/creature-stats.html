@@ -6,7 +6,7 @@
     <p style="margin: 0;">Health: {{creature.hp}}</p>
     <div class="progress">
     <div class="progress-bar"
-      ng-class = "creature.healthPercentage >= 50 'progress-bar-success' : 'progress-bar-danger'" 
+      ng-class = "creature.healthPercentage >= 50 ? 'progress-bar-success' : 'progress-bar-danger'" 
       role="progressbar" 
       aria-valuenow="{{creature.healthPercentage}}"
       aria-valuemin="0" 
@@ -18,7 +18,7 @@
     <p style="margin: 0;">Hunger: {{creature.hunger}}</p>
     <div class="progress">
     <div class="progress-bar progress-bar-danger" 
-      ng-class = "creature.healthPercentage >= 50 'progress-bar-danger' : 'progress-bar-success'" 
+      ng-class = "creature.healthPercentage <= 50 ? 'progress-bar-success' : 'progress-bar-danger'" 
       role="progressbar" 
       aria-valuenow="{{creature.hungerPercentage}}"
       aria-valuemin="0" 
