@@ -12,12 +12,12 @@ app.directive('controlPanel', function() {
     AuthService.getLoggedInUser()
       .then(function(user) {
         $scope.user = user;
+        $scope.user.points = 25;
       });
 
     $scope.creatures = game.creatures;
     $scope.selected;
     $scope.world = WorldsFactory.getCurrentWorld();
-    $scope.points = 25;
     $scope.stats = false;
 
     var createTree = window.OneTree(game);
@@ -36,11 +36,13 @@ app.directive('controlPanel', function() {
     $scope.killCreature = function() {
       $scope.creature.die();
       $scope.stats = false;
+      $scope.user.points -= 5;
     };
 
     // this function crashes browser!
     $scope.procreate = function() {
       $scope.creature.procreate();
+      $scope.user.points += 20;
     };
 
     $scope.fertilize = function() {
@@ -69,7 +71,7 @@ app.directive('controlPanel', function() {
     };
 
     $scope.$on('clicked', function() {
-      var pos = PointerFactory.getPos()
+      var pos = PointerFactory.getPos();
       var x = pos.x - 0.5;
       var y = pos.y - 0.5;
       var z = pos.z - 0.5;
@@ -101,6 +103,7 @@ app.directive('controlPanel', function() {
 
         case "grass":
           game.map.spawnGrass(x, y, z);
+          $scope.user.points -= 2;
           break;
 
         case "dirt":
@@ -110,10 +113,12 @@ app.directive('controlPanel', function() {
         case "tree":
           var newTree = createTree(x, y, z);
           game.trees.push(newTree);
+          $scope.user.points -= 10;
           break;
 
         case "shovel":
           game.setBlock([x, y, z], 0);
+          $scope.user.points -= 2;
           break;
 
         case "info":
@@ -135,7 +140,7 @@ app.directive('controlPanel', function() {
             z: z
           };
           new createCreature(pickedFood);
-
+          $scope.user.points -= 5;
           break;
       }
     }
@@ -147,6 +152,7 @@ app.directive('controlPanel', function() {
         $scope.$digest;
         return;
       };
+        $scope.getPercentages($scope.creature);
         $scope.$digest;
         $timeout(updateStats, 1000)
     }
