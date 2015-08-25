@@ -18,7 +18,7 @@ app.directive('controlPanel', function() {
         $scope.stats = false;
 
         $scope.getPercentages = function(creature) {
-            $scope.creature.healthPercentage =  Math.round((creature.hp / creature.hpMax) * 100);
+            $scope.creature.healthPercentage = Math.round((creature.hp / creature.hpMax) * 100);
             $scope.creature.hungerPercentage = Math.round((creature.hunger / creature.hpMax) * 100);
         };
 
@@ -36,11 +36,11 @@ app.directive('controlPanel', function() {
             $scope.creature.procreate();
         };
 
-        $scope.fertilize = function(){
+        $scope.fertilize = function() {
             console.log(game.map);
         };
 
-        $scope.$on("currentCreature", function(event, creature){
+        $scope.$on("currentCreature", function(event, creature) {
             $scope.stats = true;
             $scope.creature = creature;
             $scope.getPercentages($scope.creature);
@@ -54,5 +54,6 @@ app.directive('controlPanel', function() {
         //             $scope.creatures = game.creatures;
         //         }
         //     });
+
 
     });
