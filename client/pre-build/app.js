@@ -6,21 +6,6 @@ app.config(function($urlRouterProvider, $locationProvider, $routeProvider, $stat
     // $routeProvider.when('/builder/',{templateUrl:'/builder/builder.html'});
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
-    $stateProvider.state("Modal", {
-        views: {
-            "modal": {
-                templateUrl: "/pre-build/modal.html"
-            }
-        },
-        abstract: true
-    });
-    $stateProvider.state("Modal.login", {
-        views: {
-            "modal": {
-                templateUrl: "/pre-build/modals/confirm.html"
-            }
-        }
-    });
 });
 
 // This app.run is for controlling access to specific states.

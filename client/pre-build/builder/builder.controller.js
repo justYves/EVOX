@@ -51,6 +51,7 @@ app.controller('BuilderController', function($scope, $state,ShapeFactory,Creatur
   addEventListener();
   interact();
 
+
   $scope.setWireframe = function() {
     wireframe = !wireframe;
     scene.children
