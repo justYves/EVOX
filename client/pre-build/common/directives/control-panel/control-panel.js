@@ -19,6 +19,7 @@ app.directive('controlPanel', function() {
     $scope.world = WorldsFactory.getCurrentWorld();
     $scope.points = 25;
     $scope.stats = false;
+
     var createTree = window.OneTree(game);
     var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
 
@@ -206,14 +207,8 @@ app.directive('controlPanel', function() {
       }));
     }
 
-
-    //fix you later, son...
-    // $scope.$watch(function() {return game.creatures},
-    //     function(newVal, oldVal) {
-    //         if (newVal !== oldVal) {
-    //             $scope.creatures = game.creatures;
-    //         }
-    //     });
-
+    function updateScope() {
+      $scope.creatures = game.creatures;
+    };
 
   });
