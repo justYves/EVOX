@@ -216,6 +216,15 @@ app.factory('MapFactory', function($http) {
         if (hasGrass) self.nextRound.push(currentCell);
     };
 
+    Map.prototype.spawnGrass = function(x, y, z) {
+        var currentCell = this.getCell(x, y, z);
+        if (currentCell.getMaterial === "grass") return; //if animal eat empty patch
+        // console.log('EMPTY MAP FUNC', currentCell)
+        currentCell.setMaterial("grass");
+
+        this.game.setBlock(currentCell.coordinate, 1); // 1 = Grass
+    };
+
 
 
     function Cell(x, y, z, rand) {

@@ -48,6 +48,26 @@
                 }
             };
 
+
+            window.OneTree = function(game) {
+                return function(x, y, z) {
+                    return Tree(game, {
+                        position: {
+                            x: x,
+                            y: 1,
+                            z: z
+                        },
+                        bark: 3,
+                        leaves: 4,
+                        treeType: 'subspace',
+                        random: function() {
+                            return 1;
+                        }
+                    });
+                };
+            };
+
+
             function createNew(game, opts) {
                 var map = game.map;
                 game.trees = [];
@@ -107,7 +127,7 @@
                 if (!opts) opts = {};
                 if (opts.bark === undefined) opts.bark = 1;
                 if (opts.leaves === undefined) opts.leaves = 2;
-                if (!opts.height) opts.height = Math.floor(Math.random() * 16 + 4);
+                if (!opts.height) opts.height = Math.floor(Math.random() * 10) + 3;
                 if (opts.base === undefined) opts.base = Math.ceil(opts.height / 3); //MAp Size /3
                 if (opts.treeType === undefined) opts.treeType = 'subspace';
                 if (opts.random == undefined) opts.random = function() {
