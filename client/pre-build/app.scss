@@ -23,6 +23,20 @@ margin-bottom:auto;
     opacity: 0.9;
   }
 }
+
+#env-icon {
+  height: 4em;
+  margin-right:auto;
+  margin-left:auto;
+  position:relative;
+}
+
+#env-btn {
+padding-right: 0.3em;
+padding-left:0.3em;
+padding-top:0.3em;
+padding-bottom:0.3em;
+}
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 // Add your fractal Sass files below!

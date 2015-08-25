@@ -8,6 +8,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.appetite = Math.floor(opts.size / 4);
         this.hp = this.hpMax;
         this.age = 0;
+        this.spawnPos = opts.spawnPos;
         this.name = opts.name;
         this.alive = true;
         this.lifeCycle = this.size * 4;
@@ -22,6 +23,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.deathAge = Math.floor(this.size * 10);
         this.maturity = Math.floor(this.deathAge * 0.7);
         this.spawner = opts.spawner || false;
+        this.pos = opts.pos;
         this.position = {
             x: 0,
             y: 0,
@@ -45,7 +47,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
 
         if (voxel && mesh) {
             ShapeFactory.getShape(this.name).then(function(data) {
-                render(self, data, game, voxel, mesh);
+                render(self, data, game, voxel, mesh,self.spawnPos);
             })
                 .then(function() {
                     self.game.addEvent(function() {
@@ -69,7 +71,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
     }
 
     //render the 3D model
-    function render(model, shape, game, voxel, mesh) {
+    function render(model, shape, game, voxel, mesh,spawnPos) {
         // console.log("game", game);
         // console.log(arguments);
         if (typeof shape !== "function") {
@@ -91,7 +93,13 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
 
         model.position = model.item.yaw.position;
         model.rotation = model.item.yaw.rotation;
-        model.setPosition(Math.round(Math.random() * game.map.size), 10, Math.round(Math.random() * game.map.size));
+        if(spawnPos){
+        model.setPosition(spawnPos.x, 1, spawnPos.z);
+        }
+            else{
+        model.setPosition(Math.floor(Math.random() * game.map.size), 10, Math.floor(Math.random() * game.map.size));
+
+            }
     }
 
     function build(obj, scale, game, voxel, mesh) {

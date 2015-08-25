@@ -13,7 +13,7 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     initEnvironment();
     startGame();
 
-          function dragMoveListener (event) {
+    function dragMoveListener(event) {
         var target = event.target,
             // keep the dragged position in the data-x/data-y attributes
             x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
@@ -21,43 +21,48 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
 
         // translate the element
         target.style.webkitTransform =
-        target.style.transform =
-          'translate(' + x + 'px, ' + y + 'px)';
+            target.style.transform =
+            'translate(' + x + 'px, ' + y + 'px)';
 
         // update the posiion attributes
         target.setAttribute('data-x', x);
         target.setAttribute('data-y', y);
-      }
+    }
 
-      // this is used later in the resizing demo
-      window.dragMoveListener = dragMoveListener;
+    // this is used later in the resizing demo
+    window.dragMoveListener = dragMoveListener;
 
     interact('.drag-and-resize')
-  .draggable({
-    onmove: window.dragMoveListener
-  })
-  .resizable({
-    edges: { left: true, right: true, bottom: true, top: true }
-  })
-  .on('resizemove', function (event) {
-    var target = event.target,
-        x = (parseFloat(target.getAttribute('data-x')) || 0),
-        y = (parseFloat(target.getAttribute('data-y')) || 0);
+        .draggable({
+            onmove: window.dragMoveListener
+        })
+        .resizable({
+            edges: {
+                left: true,
+                right: true,
+                bottom: true,
+                top: true
+            }
+        })
+        .on('resizemove', function(event) {
+            var target = event.target,
+                x = (parseFloat(target.getAttribute('data-x')) || 0),
+                y = (parseFloat(target.getAttribute('data-y')) || 0);
 
-    // update the element's style
-    target.style.width  = event.rect.width + 'px';
-    target.style.height = event.rect.height + 'px';
+            // update the element's style
+            target.style.width = event.rect.width + 'px';
+            target.style.height = event.rect.height + 'px';
 
-    // translate when resizing from top or left edges
-    x += event.deltaRect.left;
-    y += event.deltaRect.top;
+            // translate when resizing from top or left edges
+            x += event.deltaRect.left;
+            y += event.deltaRect.top;
 
-    target.style.webkitTransform = target.style.transform =
-        'translate(' + x + 'px,' + y + 'px)';
+            target.style.webkitTransform = target.style.transform =
+                'translate(' + x + 'px,' + y + 'px)';
 
-    target.setAttribute('data-x', x);
-    target.setAttribute('data-y', y);
-  });
+            target.setAttribute('data-x', x);
+            target.setAttribute('data-y', y);
+        });
 
 
     function initMap() {
@@ -86,37 +91,37 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     function initCreatures() {
         if (!$scope.creatures.length) {
             $scope.creatures = [{
-                name: 'deer',
-                size: 12,
-                vision: 5,
-                social: 2,
-                isHerbivore: true,
-                spawner: true
-            },
-            // , {
-            //     name: 'turtle',
-            //     size: 5,
-            //     vision: 5,
-            //     social: 7,
-            //     isHerbivore: false
-            // }
-            // , {
-            //     name: 'crocodile',
-            //     size: 5,
-            //     vision: 5,
-            //     isHerbivore: false
-            // },
-            {
-                name: 'lion',
-                size: 5,
-                vision: 7,
-                isHerbivore: false
-            }
+                    name: 'deer',
+                    size: 12,
+                    vision: 5,
+                    social: 2,
+                    isHerbivore: true,
+                    spawner: true
+                },
+                // , {
+                //     name: 'turtle',
+                //     size: 5,
+                //     vision: 5,
+                //     social: 7,
+                //     isHerbivore: false
+                // }
+                // , {
+                //     name: 'crocodile',
+                //     size: 5,
+                //     vision: 5,
+                //     isHerbivore: false
+                // },
+                {
+                    name: 'lion',
+                    size: 5,
+                    vision: 7,
+                    isHerbivore: false
+                }
             ];
         }
         createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
         $scope.creatures.forEach(function(creature) {
-           window[creature.name] = new createCreature(creature);
+            window[creature.name] = new createCreature(creature);
         });
 
         // $scope.currentAnimal = CameraFactory.currentAnimal;
@@ -293,7 +298,6 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
     //     })
 
     // }
-
 
 
 
