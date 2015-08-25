@@ -22,16 +22,18 @@ app.controller('createWorldCtrl', function($scope, $modal, $log) {
 })
 
 app.controller('worldInstanceCtrl', function($scope, $modalInstance, WorldsFactory, $state) {
-    $scope.environments = ['ice', 'water', 'land'];
+    $scope.environments = ['land', 'desert', 'ice'];
     $scope.percents = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
     $scope.postWorld = function() {
-        WorldsFactory.postWorld($scope.world)
-            .then(function() {
-                $modalInstance.close();
-                $state.go('worlds')
-            })
-    };
+        console.log($scope.world)
+    //     WorldsFactory.postWorld($scope.world)
+    //         .then(function() {
+    //             $modalInstance.close();
+    //             $state.go('worlds')
+    //         })
+    // };
+}
 
     $scope.cancel = function() {
         $state.go('worlds');
