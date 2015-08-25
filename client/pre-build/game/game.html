@@ -1,15 +1,6 @@
 <control-panel></control-panel>
-<div class="container">
+
     <div id="container"></div>
-    <div class="row text-center" id="control-bar">
-        <a id="nav" class="btn btn-inverse" ui-sref="home"><h1 ><i class="fa fa-home"></i></h1></a>
-        <a id="nav" class="btn btn-inverse " ng-click="slowDown()"><h1><i class="fa fa-backward"></i></h1></a>
-        <a id="nav" class="btn btn-inverse " ng-hide="paused" ng-click="pause(); paused = true;"><h1 ><i class="fa fa-pause"></i></h1></a>
-        <a id="nav" class="btn btn-inverse " ng-show="paused" ng-click="play(); paused=false"><h1 ><i class="fa fa-play"></i></h1></a>
-        <a id="nav" class="btn btn-inverse" ng-click="speedUp()"><h1 ><i class="fa fa-forward"></i></h1></a>
-        <a id="nav" class="btn btn-inverse" ng-click="save()"><h1 ><i class="fa fa-save"></i></h1></a>
-    </div>
-</div>
 
 <script src="../js/voxel-engine.js"></script>
 <script src="../js/voxel.js"></script>

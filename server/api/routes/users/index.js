@@ -49,7 +49,7 @@ router.put('/:id', function(req, res, next) {
 });
 
 router.put('/:id/creatures', function(req, res, next) {
-    req.CurrentUser.creatures.push(req.body.creature);
+    req.CurrentUser.creature.push(req.body.creature);
     req.CurrentUser.save()
         .then(function(user) {
             res.status(200).json(user);
