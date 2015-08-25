@@ -2,6 +2,11 @@
 	border-radius: 0;
 }
 
+// .navbar:hover{
+//   height: 4em;
+//   transition: all 0.4s ease;
+// }
+
 .logo {
   display: block;
   margin-right: 15px;
@@ -20,5 +25,13 @@
     border-bottom : 0;
     border-right: 0;
   }
+
 }
 
+  #navbar-icon:hover {
+    transition: all 0.4s ease;
+    transform:scale(1.5);
+    border-right:0;
+    border-bottom:0;
+    border-left:0;
+  }

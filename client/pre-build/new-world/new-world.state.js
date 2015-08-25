@@ -26,14 +26,12 @@ app.controller('worldInstanceCtrl', function($scope, $modalInstance, WorldsFacto
     $scope.percents = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
     $scope.postWorld = function() {
-        console.log($scope.world)
-    //     WorldsFactory.postWorld($scope.world)
-    //         .then(function() {
-    //             $modalInstance.close();
-    //             $state.go('worlds')
-    //         })
-    // };
-}
+        WorldsFactory.postWorld($scope.world)
+            .then(function() {
+                $modalInstance.close();
+                $state.go('worlds')
+            });
+    };
 
     $scope.cancel = function() {
         $state.go('worlds');

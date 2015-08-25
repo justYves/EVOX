@@ -11,5 +11,9 @@ app.config(function($stateProvider) {
                     })
             }
         }
-    });
+    })
+    // .state('creatures.level',{
+    //     url:'/level',
+    //     templateUrl:''
+    // });
 });

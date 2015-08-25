@@ -1,10 +1,9 @@
-app.factory('CameraFactory', function($rootScope) {
+app.factory('CameraFactory', function($rootScope,PointerFactory) {
   return {
     startCamera: startCamera,
     setGrass: setGrass
   };
       var grass = false;
-
 
       function setGrass(bool){
         grass = bool;
@@ -183,17 +182,7 @@ app.factory('CameraFactory', function($rootScope) {
         render();
       }
 
-      function getCreature (position){
-        var x = position.x - 0.5;
-        var y = position.y - 0.5;
-        var z = position.z - 0.5;
-        var cell = game.map.getCell(x, y, z);
-        game.creatures.forEach(function(creature){
-          if (position.x === creature.position.x && position.z === creature.position.z) {
-            $rootScope.$broadcast("currentCreature", creature);
-          };
-        });
-      };
+
 
       function onDocumentMouseDown(event) {
         event.preventDefault();
@@ -202,7 +191,6 @@ app.factory('CameraFactory', function($rootScope) {
         onMouseDownPhi = phi;
         onMouseDownPosition.x = event.clientX;
         onMouseDownPosition.y = event.clientY;
-        getCreature(highlighted.position);
       };
 
       function onDocumentMouseUp(event) {
@@ -210,6 +198,8 @@ app.factory('CameraFactory', function($rootScope) {
         isMouseDown = false;
         onMouseDownPosition.x = event.clientX - onMouseDownPosition.x;
         onMouseDownPosition.y = event.clientY - onMouseDownPosition.y;
+        PointerFactory.setPos(highlighted.position);
+        $rootScope.$broadcast('clicked');
       };
 
       function render() {

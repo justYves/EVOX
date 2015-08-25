@@ -1,7 +1,7 @@
 #instructions {
 	margin-top: 5%;
 	margin-right: 5%;
-	opacity: 0.4;
+	opacity: 0.8;
 	width: 40%;
 	height: 100%;
 	position: absolute;
@@ -18,12 +18,12 @@
 	}
 
 	&:hover {
-		opacity: 0.8;
+		opacity: 1;
 	}
 }
 
 .tile {
-	min-width: 20vw;
+	// min-width: 100%;
 	position:absolute;
 	right:0;
 }
@@ -38,6 +38,10 @@
 
 #icon-button:active{
 	background-color: #1abc9c
+}
+
+#icon-button{
+	color: white;
 }
 
 .tile {

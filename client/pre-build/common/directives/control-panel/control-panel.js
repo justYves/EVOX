@@ -8,15 +8,21 @@ app.directive('controlPanel', function() {
     };
 
   })
-  .controller("PanelController", function($scope, AuthService, WorldsFactory, CreatureFactory, CameraFactory, $q,$stateParams,$state) {
+  .controller("PanelController", function($scope, AuthService, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout) {
     AuthService.getLoggedInUser()
       .then(function(user) {
         $scope.user = user;
+        $scope.user.points = 25;
       });
 
+    $scope.creatures = game.creatures;
+    $scope.selected;
     $scope.world = WorldsFactory.getCurrentWorld();
-    $scope.points = 25;
     $scope.stats = false;
+
+    var createTree = window.OneTree(game);
+    var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
+
 
     $scope.getPercentages = function(creature) {
       $scope.creature.healthPercentage = Math.round((creature.hp / creature.hpMax) * 100);
@@ -30,11 +36,13 @@ app.directive('controlPanel', function() {
     $scope.killCreature = function() {
       $scope.creature.die();
       $scope.stats = false;
+      $scope.user.points -= 5;
     };
 
     // this function crashes browser!
     $scope.procreate = function() {
       $scope.creature.procreate();
+      $scope.user.points += 20;
     };
 
     $scope.fertilize = function() {
@@ -61,6 +69,94 @@ app.directive('controlPanel', function() {
     $scope.slowDown = function() {
       game.slowDown();
     };
+
+    $scope.$on('clicked', function() {
+      var pos = PointerFactory.getPos();
+      var x = pos.x - 0.5;
+      var y = pos.y - 0.5;
+      var z = pos.z - 0.5;
+      console.log(game.map.size);
+      if (x >= 0 && x < game.map.size && y >= 0 && y < game.map.size && z >= 0 && z < game.map.size) {
+        processClick(x, y, z);
+      }
+    });
+
+    var food = [{
+      name: 'pigeon',
+      size: 5,
+      vision: 3,
+      isHerbivore: true
+    }, {
+      name: 'chick',
+      size: 5,
+      vision: 3,
+      isHerbivore: true
+    }, {
+      name: 'duck',
+      size: 5,
+      vision: 3,
+      isHerbivore: true
+    }];
+
+    function processClick(x, y, z) {
+      switch ($scope.selected) {
+
+        case "grass":
+          game.map.spawnGrass(x, y, z);
+          $scope.user.points -= 2;
+          break;
+
+        case "dirt":
+          game.map.empty(x, y, z);
+          break;
+
+        case "tree":
+          var newTree = createTree(x, y, z);
+          game.trees.push(newTree);
+          $scope.user.points -= 10;
+          break;
+
+        case "shovel":
+          game.setBlock([x, y, z], 0);
+          $scope.user.points -= 2;
+          break;
+
+        case "info":
+          game.creatures.forEach(function(creature) {
+            console.log(creature);
+            if (x === creature.position.x - 0.5 && z === creature.position.z - 0.5) {
+              $scope.stats = true;
+              $scope.creature = creature;
+              $scope.getPercentages($scope.creature);
+              updateStats();
+            }
+          });
+          break;
+
+        case "food":
+          var pickedFood = food[Math.floor(Math.random() * 3)];
+          pickedFood.spawnPos = {
+            x: x,
+            z: z
+          };
+          new createCreature(pickedFood);
+          $scope.user.points -= 5;
+          break;
+      }
+    }
+
+    function updateStats() {
+      "called";
+      if (!$scope.creature || !$scope.stats) {
+        $scope.stats=false;
+        game.gameOver();
+        $scope.$digest;
+        return;
+      };
+        $scope.getPercentages($scope.creature);
+        $scope.$digest;
+        $timeout(updateStats, 1000)
+    }
 
     $scope.save = function() {
       var existing = [],
@@ -97,35 +193,40 @@ app.directive('controlPanel', function() {
 
 
     function updateCreatureStuff(arr) {
-        return $q.all(arr.map(function(creature) {
-            return CreatureFactory.updateCoord(creature.position)
-                .then(function() {
-                    return CreatureFactory.updateCoord(creature.rotation);
-                });
-        }));
+      return $q.all(arr.map(function(creature) {
+        return CreatureFactory.updateCoord(creature.position)
+          .then(function() {
+            return CreatureFactory.updateCoord(creature.rotation);
+          });
+      }));
     }
 
     function postCreatureStuff(arr) {
-        return $q.all(arr.map(function(creature) {
-            return CreatureFactory.postCoord([creature.position, creature.rotation])
-                .then(function(coords) {
-                    console.log('hello', coords, creature);
-                    creature.position = coords[0];
-                    creature.rotation = coords[1];
-                    console.log(creature);
-                    return CreatureFactory.postCreature(creature); //parents will be set here
-                });
-        }));
+      return $q.all(arr.map(function(creature) {
+        return CreatureFactory.postCoord([creature.position, creature.rotation])
+          .then(function(coords) {
+            console.log('hello', coords, creature);
+            creature.position = coords[0];
+            creature.rotation = coords[1];
+            console.log(creature);
+            return CreatureFactory.postCreature(creature); //parents will be set here
+          });
+      }));
     }
 
+    function updateScope() {
+      $scope.creatures = game.creatures;
+    };
 
-    //fix you later, son...
-    // $scope.$watch(function() {return game.creatures},
-    //     function(newVal, oldVal) {
-    //         if (newVal !== oldVal) {
-    //             $scope.creatures = game.creatures;
-    //         }
-    //     });
+    $scope.winObj = function() {
+      $scope.user.points += 25;
+      game.winObjective();
+    };
+
+    $scope.levelUp = function() {
+      $scope.user.points += 50;
+      game.levelUp();
+    }
 
 
   });

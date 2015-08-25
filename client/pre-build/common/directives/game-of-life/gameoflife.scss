@@ -1,25 +1,20 @@
-
 #board {
-	position: absolute;
-	left: 0;
-	margin-top: -20px;
-	height: 100%;
-	width: 100%;
-	z-index: -1;
-
-	td {
-		background-color: gainsboro;
-		height: 5%;
-		width: 0.25%;
-	}
-
-	.alive {
-		opacity: 0.5;
-		transition: opacity .10s ease-in-out;
-	}
-
-	.dead {
-		opacity: 0;
-	}
-	
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    width: 100%;
+    z-index: -1;
+    td {
+        background-color: gainsboro;
+        height: 5%;
+        width: 0.25%;
+    }
+    .alive {
+        opacity: 0.5;
+        transition: opacity .10s ease-in-out;
+    }
+    .dead {
+        opacity: 0;
+    }
 }
