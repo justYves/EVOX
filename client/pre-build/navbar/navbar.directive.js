@@ -44,18 +44,6 @@ app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, C
                     $log.info('Modal dismissed at: ' + new Date());
                 });
             };
-
-            scope.newWorld = function() {
-                var worldInstance = $modal.open({
-                    animation: true,
-                    templateUrl: 'newWorld.html',
-                    controller: 'worldInstanceCtrl'
-                });
-
-                worldInstance.result.then(null, function() {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            }
         }
     };
 });
@@ -102,23 +90,6 @@ app.controller('SignupInstanceCtrl', function($scope, $modalInstance, UserFactor
         UserFactory.postUser($scope.newUser)
             .then(function(user) {
                 $modalInstance.close();
-            })
-    };
-
-    $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
-    };
-});
-
-app.controller('worldInstanceCtrl', function($scope, $modalInstance, WorldsFactory, $state) {
-    $scope.environments = ['ice', 'water', 'land'];
-    $scope.percents = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-
-    $scope.postWorld = function() {
-        WorldsFactory.postWorld($scope.world)
-            .then(function() {
-                $modalInstance.close();
-                $state.go('worlds')
             })
     };
 
