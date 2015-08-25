@@ -35,10 +35,6 @@ app.factory('EventsFactory', function($rootScope) {
             game.map.growGrass(game);
         }, 10);
 
-        game.addEvent(function() {
-            $rootScope.$broadcast("creaturesUpdate", game.creatures);
-        }, 1);
-
     }
     return {
         startLoop: setEvent

@@ -29,12 +29,12 @@ app.directive('controlPanel', function() {
         $scope.killCreature = function() {
             $scope.creature.die();
             $scope.stats = false;
-        }
+        };
 
-        //this function crashes browser!
-        // $scope.procreate = function() {
-        //     $scope.creature.procreate();
-        // }
+        // this function crashes browser!
+        $scope.procreate = function() {
+            $scope.creature.procreate();
+        };
 
         $scope.fertilize = function(){
             console.log(game.map);
@@ -47,10 +47,12 @@ app.directive('controlPanel', function() {
             $scope.$digest();
         });
 
-        $scope.$on("creaturesUpdate", function(){
-            $scope.creatures = game.creatures;
-            if ($scope.creature) $scope.getPercentages($scope.creature);
-            $scope.$digest();
-        });
+        //fix you later, son...
+        // $scope.$watch(function() {return game.creatures},
+        //     function(newVal, oldVal) {
+        //         if (newVal !== oldVal) {
+        //             $scope.creatures = game.creatures;
+        //         }
+        //     });
 
     });
