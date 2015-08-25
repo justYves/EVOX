@@ -26,7 +26,6 @@
                     <a class="btn" href="#" ng-class="{'btn-inverse ': !selected==='info', 'btn-primary': selected==='goals'}" id="icon-button" ng-click="selected= selected=='goals' ? null : 'goals'"><img class="img-responsive" id="icon-pic" ng-src="Book-icon.png" /></a>
                 </div>
                 <div class="row creature-container">
-                    <button ng-click="winObjective()">WIN</button>
                     <div class="btn-group">
                         <p>My Creatures
                         </p>
@@ -46,6 +45,10 @@
                         <creature-stats ng-hide="!stats || !creature "></creature-stats>
                     </p>
                 </div>
+                <hr>
+            <p>**for development**</p>
+            <button class = "btn btn-primary" ng-click="winObj()">WIN Objective</button>
+            <button class = "btn btn-primary" ng-click="levelUp()">Level Up</button>
     </div>
 </div>
 </div>

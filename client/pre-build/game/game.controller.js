@@ -249,55 +249,42 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
         createTrees(options);
     }
 
-    $scope.winObjective = function() {
+    var modalInstance;
+    game.winObjective = function() {
 
-        var modalInstance = $modal.open({
+        modalInstance = $modal.open({
             animation: true,
             templateUrl: 'objective.html'
         });
 
-        modalInstance.result.then(null, function() {
-            $log.info('Modal dismissed at: ' + new Date());
+        modalInstance.result.then(function() {
+            modalInstance = undefined;
         });
 
     };
 
-    $scope.levelUp = function() {
-        var modalInstance = $modal.open({
+    game.levelUp = function() {
+        modalInstance = $modal.open({
             animation: true,
             templateUrl: 'level-up.html'
         });
 
-        modalInstance.result.then(null, function() {
-            $log.info('Modal dismissed at: ' + new Date());
+        modalInstance.result.then(function() {
+            modalInstance = undefined;
         });
     };
 
-    $scope.gameOver = function() {
-        var modalInstance = $modal.open({
+    game.gameOver = function() {
+        modalInstance = $modal.open({
             animation: true,
             templateUrl: 'game-over.html'
         });
 
-        modalInstance.result.then(null, function() {
-            $log.info('Modal dismissed at: ' + new Date());
+        modalInstance.result.then(function() {
+            modalInstance = undefined;
         });
     };
 
-    $scope.$on("winObjective", function(){
-        console.log("win objective received");
-        $scope.winObjective();
-    });
-
-    $scope.$on("levelUp", function(){
-        console.log('level up received');
-        $scope.levelUp();
-    });
-
-    $scope.$on("gameOver", function(){
-        console.log("game over received");
-        $scope.gameOver();
-    });
 
     // var createTrees = window.Tree(game);
     // if (!game.trees) {
