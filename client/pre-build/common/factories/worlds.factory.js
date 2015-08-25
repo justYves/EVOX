@@ -56,7 +56,7 @@ app.factory('WorldsFactory', function($http, MapFactory) {
             var func;
             if (world.flat) func = concatFlatMap;
             else func = concat3DMap;
-            world.map = func(MapFactory.create(world.size, null, world.flat))
+            world.map = func(MapFactory.create(world.size, null, world.flat,world.grassPercent))
             return $http.post('/api/worlds', world)
                 .then(function(res) {
                     return res.data;

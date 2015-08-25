@@ -8,6 +8,7 @@ app.factory('MapFactory', function($http) {
         this.data = [];
         this.nextRound = [];
         this.fertilized = [];
+        console.log(grassPercent);
         if (cells) {
             if (flat) {
                 this.loadFlatMap(cells);
@@ -92,7 +93,6 @@ app.factory('MapFactory', function($http) {
                 this.data[x][y] = new Array(this.size);
             }
         }
-        // console.log(this.data);
         var self = this;
         cells.forEach(function(cell) {
             if (cell.legit) self.data[cell.x][cell.y][cell.z] = new Cell(cell.x, cell.y, cell.z, cell.material);
@@ -230,7 +230,12 @@ app.factory('MapFactory', function($http) {
     function Cell(x, y, z, rand) {
         rand = rand || 1;
         this.legit = true;
-        this.material = (Math.random>rand) ? "grass" : "dirt"; //need to change
+        if (Number.isInteger(rand)){
+            this.material = (Math.random()>rand) ? "grass" : "dirt"; //need to change
+        } else {
+            this.material = rand;
+        }
+
         this.coordinate = [x, y, z];
         this.neighbors = [];
         this.x = x;
@@ -247,11 +252,11 @@ app.factory('MapFactory', function($http) {
     };
 
     return {
-        create: function(size, cells, flat) { //used for both creating new world and loading world
+        create: function(size, cells, flat,grassPercent) { //used for both creating new world and loading world
             if (cells) {
                 currentMap = new Map(size, cells, flat);
-                return currentMap
-            } else return new Map(size, null, flat);
+                return currentMap;
+            } else return new Map(size, null, flat,grassPercent/100);
         },
         getCurrentMap: function() {
             return currentMap;
