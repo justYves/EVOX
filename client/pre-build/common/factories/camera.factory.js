@@ -33,12 +33,12 @@ app.factory('CameraFactory', function($rootScope) {
       camera.position.y = radius * Math.sin(phi * Math.PI / 360)
       camera.position.z = (radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360))
 
-      document.addEventListener('DOMMouseScroll', mousewheel, false);
-      document.addEventListener('mousewheel', mousewheel, false);
+      game.view.renderer.domElement.addEventListener('DOMMouseScroll', mousewheel, false);
+      game.view.renderer.domElement.addEventListener('mousewheel', mousewheel, false);
       game.view.renderer.domElement.addEventListener('resize', onWindowResize, false);
-      document.addEventListener('mousemove', onDocumentMouseMove, false)
-      document.addEventListener('mousedown', onDocumentMouseDown, false)
-      document.addEventListener('mouseup', onDocumentMouseUp, false)
+      game.view.renderer.domElement.addEventListener('mousemove', onDocumentMouseMove, false)
+      game.view.renderer.domElement.addEventListener('mousedown', onDocumentMouseDown, false)
+      game.view.renderer.domElement.addEventListener('mouseup', onDocumentMouseUp, false)
 
       function mousewheel(event) {
         event.preventDefault()

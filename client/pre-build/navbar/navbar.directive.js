@@ -51,13 +51,13 @@ app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, C
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-app.controller('LoginInstanceCtrl', function($scope, $modalInstance, $modal, $state, $log, AuthService) {
+app.controller('LoginInstanceCtrl', function($scope, $modalInstance, $modal, $state, $log, AuthService, UserFactory) {
 
     $scope.ok = function() {
-        console.log($scope.credentials)
         AuthService.login($scope.credentials).then(function() {
             return AuthService.getLoggedInUser();
         }).then(function(user) {
+            UserFactory.currentUser = user;
             $modalInstance.close();
             $state.go('worlds');
         }).catch(function() {

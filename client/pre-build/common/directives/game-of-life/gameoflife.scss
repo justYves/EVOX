@@ -1,12 +1,14 @@
 
 #board {
 	position: absolute;
+	left: 0;
+	margin-top: -20px;
 	height: 100%;
 	width: 100%;
 	z-index: -1;
 
 	td {
-		background-color: #34495e;
+		background-color: gainsboro;
 		height: 5%;
 		width: 0.25%;
 	}

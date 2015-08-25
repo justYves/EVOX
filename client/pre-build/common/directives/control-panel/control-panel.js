@@ -1,26 +1,25 @@
 app.directive('controlPanel', function(CameraFactory) {
 
-    return {
-        restrict: 'E',
-        scope: {
-            creatures: "="
-        },
-        templateUrl: "pre-build/common/directives/control-panel/control-panel.html",
-        controller: "PanelController"
-    };
+        return {
+            restrict: 'E',
+            scope: {},
+            templateUrl: "pre-build/common/directives/control-panel/control-panel.html",
+            controller: "PanelController"
+        };
 
-})
+    })
     .controller("PanelController", function($scope, AuthService, WorldsFactory, CreatureFactory, CameraFactory) {
         AuthService.getLoggedInUser()
             .then(function(user) {
                 $scope.user = user;
             });
+
         $scope.world = WorldsFactory.getCurrentWorld();
         $scope.points = 25;
         $scope.stats = false;
 
         $scope.getPercentages = function(creature) {
-            $scope.creature.healthPercentage =  Math.round((creature.hp / creature.hpMax) * 100);
+            $scope.creature.healthPercentage = Math.round((creature.hp / creature.hpMax) * 100);
             $scope.creature.hungerPercentage = Math.round((creature.hunger / creature.hpMax) * 100);
         };
 
@@ -28,31 +27,36 @@ app.directive('controlPanel', function(CameraFactory) {
             $scope.stats = !$scope.stats;
         };
 
-        $scope.setCreature = function(name) {
-             $scope.creatures.forEach(function(creature){
-                if (creature.name === name) {
-                    $scope.creature = creature;
-                    $scope.getPercentages($scope.creature);
-                    $scope.$digest();
-                }
-             });
+        $scope.killCreature = function() {
+            $scope.creature.die();
+            $scope.stats = false;
         };
 
-        $scope.fertilize = function(){
-            CameraFactory.setGrass(true);
-        }
+        // this function crashes browser!
+        $scope.procreate = function() {
+            $scope.creature.procreate();
+        };
 
-        $scope.$on("currentCreature", function(event, creature){
+        $scope.fertilize = function() {
+            CameraFactory.setGrass(true);
+            console.log(game.map);
+        };
+
+        $scope.$on("currentCreature", function(event, creature) {
             $scope.stats = true;
             $scope.creature = creature;
             $scope.getPercentages($scope.creature);
             $scope.$digest();
         });
 
-        $scope.$on("creaturesUpdate", function(event, creatures){
-            $scope.creatures = creatures;
-            $scope.getPercentages($scope.creature);
-            $scope.$digest();
-        });
+
+        //fix you later, son...
+        // $scope.$watch(function() {return game.creatures},
+        //     function(newVal, oldVal) {
+        //         if (newVal !== oldVal) {
+        //             $scope.creatures = game.creatures;
+        //         }
+        //     });
+
 
     });

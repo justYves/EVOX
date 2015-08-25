@@ -7,7 +7,7 @@ module.exports = router;
 
 // /api/users
 router.param('id', function(req, res, next, id) {
-    User.findById(id).populate('world').exec()
+    User.findById(id).populate('world creature').exec()
         .then(function(user) {
             if (user) {
                 req.CurrentUser = user;

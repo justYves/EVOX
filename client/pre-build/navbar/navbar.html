@@ -1,25 +1,22 @@
 <nav class="navbar navbar-inverse">
   <div class="container">
-      <img src="evolution.png" class="pull-left img-responsive logo">
-    <div class="navbar-header">
-      <a href="#" ui-sref="home" class="navbar-brand">Game Of Life 2.0</a>
-    </div>
 
     <ul class="nav navbar-nav">
-    	<li><a href="#" ui-sref="worlds">Worlds</a></li>
-      <li><a href="#" ui-sref="createWorld">New World</a></li>
-      <li><a href="#" ng-click="reset()" ui-sref="builder">Builder</a></li>
-      <li><a href="#" ui-sref="multiplayer.waiting">Multiplayer</a></li>
-      <li><a href="#" ui-sref="creatures">Creatures</a></li>
+      <li><img ng-src="evolution.png" class="img-responsive logo"></li>
+      <li><a href="#" ui-sref="home" class="navbar-brand"><i class="fa fa-home"></i></a></li>
+    	<li><a href="#" ui-sref="worlds" title="Worlds"><i class="fa fa-globe"></i></a></li>
+      <li><a href="#" ng-click="reset()" ui-sref="builder" title="Builder"><i class="fa fa-wrench"></i></a></li>
+      <li><a href="#" ui-sref="multiplayer.waiting" title="Multiplayer"><i class="fa fa-users"></i></a></li>
+      <li><a href="#" ui-sref="creatures" title="Creatures"><i class="fa fa-qq"></i></a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
 
 
-      
         <script type="text/ng-template" id="login.html">
         <div class="modal-header">
           <h3 class="modal-title">Log in</h3>
         </div>
+        <div class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
         <form ng-submit="ok()">
           <div class="modal-body" style="margin: auto; width: 450px">
             <div class="form-group">
@@ -69,12 +66,12 @@
         </form>
         </script>
 
-        <li><a href="" ng-hide="user" ng-click="open()">Login</a></li>
+        <li><a href="" ng-hide="user" ng-click="open()" title="Login"><i class="fa fa-sign-in"></i></a></li>
 
 
 
       <!-- <li><a href="#" ui-sref="logIn" ng-hide="user">Login</a></li> -->
-      <li><a href="#" ng-show="user" ng-click="logout()">Logout</a></li>
+      <li><a href="#" ng-show="user" ng-click="logout()" title="Logout"><i class="fa fa-sign-out"></i></a></li>
     </ul>
   </div>
 </nav>
