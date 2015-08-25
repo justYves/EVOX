@@ -1,58 +1,56 @@
-// app.directive('controlPanel', function() {
+app.directive('controlPanel', function() {
 
-//     return {
-//         restrict: 'E',
-//         scope: {
-//             creatures: "="
-//         },
-//         templateUrl: "pre-build/common/directives/control-panel/control-panel.html",
-//         controller: "PanelController"
-//     };
+    return {
+        restrict: 'E',
+        scope: {},
+        templateUrl: "pre-build/common/directives/control-panel/control-panel.html",
+        controller: "PanelController"
+    };
 
-// })
-//     .controller("PanelController", function($scope, AuthService, WorldsFactory, CreatureFactory, CameraFactory) {
-//         AuthService.getLoggedInUser()
-//             .then(function(user) {
-//                 $scope.user = user;
-//             });
-//         $scope.world = WorldsFactory.getCurrentWorld();
-//         $scope.points = 25;
-//         $scope.stats = false;
+})
+    .controller("PanelController", function($scope, AuthService, WorldsFactory, CreatureFactory, CameraFactory) {
+        AuthService.getLoggedInUser()
+            .then(function(user) {
+                $scope.user = user;
+            });
+        $scope.world = WorldsFactory.getCurrentWorld();
+        $scope.points = 25;
+        $scope.stats = false;
 
-//         $scope.getPercentages = function(creature) {
-//             $scope.creature.healthPercentage =  Math.round((creature.hp / creature.hpMax) * 100);
-//             $scope.creature.hungerPercentage = Math.round((creature.hunger / creature.hpMax) * 100);
-//         };
+        $scope.getPercentages = function(creature) {
+            $scope.creature.healthPercentage = Math.round((creature.hp / creature.hpMax) * 100);
+            $scope.creature.hungerPercentage = Math.round((creature.hunger / creature.hpMax) * 100);
+        };
 
-//         $scope.statsShow = function() {
-//             $scope.stats = !$scope.stats;
-//         };
+        $scope.statsShow = function() {
+            $scope.stats = !$scope.stats;
+        };
 
-//         $scope.setCreature = function(name) {
-//              $scope.creatures.forEach(function(creature){
-//                 if (creature.name === name) {
-//                     $scope.creature = creature;
-//                     $scope.getPercentages($scope.creature);
-//                     $scope.$digest();
-//                 }
-//              });
-//         };
+        $scope.killCreature = function() {
+            $scope.creature.die();
+            $scope.stats = false;
+        }
 
-//         $scope.fertilize = function(){
-//             console.log(game.map);
-//         };
+        //this function crashes browser!
+        // $scope.procreate = function() {
+        //     $scope.creature.procreate();
+        // }
 
-//         $scope.$on("currentCreature", function(event, creature){
-//             $scope.stats = true;
-//             $scope.creature = creature;
-//             $scope.getPercentages($scope.creature);
-//             $scope.$digest();
-//         });
+        $scope.fertilize = function() {
+            console.log(game.map);
+        };
 
-//         $scope.$on("creaturesUpdate", function(event, creatures){
-//             $scope.creatures = creatures;
-//             $scope.getPercentages($scope.creature);
-//             $scope.$digest();
-//         });
+        $scope.$on("currentCreature", function(event, creature) {
+            $scope.stats = true;
+            $scope.creature = creature;
+            $scope.getPercentages($scope.creature);
+            $scope.$digest();
+        });
 
-//     });
+        $scope.$on("creaturesUpdate", function() {
+            $scope.creatures = game.creatures;
+            if ($scope.creature) $scope.getPercentages($scope.creature);
+            $scope.$digest();
+        });
+
+    });

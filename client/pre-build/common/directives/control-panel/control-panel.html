@@ -6,7 +6,7 @@
     <p>Your Points: {{points}}</p>
     <hr>
             <div>
-            <p>Actions</p>
+            <p style="margin:0;">Actions</p>
             <a class="btn" href="#" ng-class="{'btn-default': !clicked, 'btn-primary': clicked}" id="icon-button" ng-click="fertilize();clicked = true;"><img class="img-responsive" id="icon-pic" src="3D-Grass-icon.png"/></a>
             <a class="btn btn-primary" ng-click="showInfo()"><i class="fa fa-info-circle"></i></a>
         </div>
@@ -18,6 +18,11 @@
           <li ng-show="!!creatures.length" ng-repeat="creature in creatures"><button class="btn btn-default col-lg-1" id="creatures">{{creature.name}}</button></li>
         </ul>
       </div>
-
+    </div>
+    <hr>
+    <div class="row">
+      <p style="margin-bottom: 0;">My Creature Stats</p>
+      <p ng-show="!stats">Select A Creature!</p>
+      <p><creature-stats ng-hide="!stats || !creature "></creature-stats></p>
     </div>
 </div>
