@@ -37,4 +37,26 @@ app.controller('worldInstanceCtrl', function($scope, $modalInstance, WorldsFacto
         $state.go('worlds');
         $modalInstance.dismiss('cancel');
     };
+
+    var $grassSlider = $("#grassSlider");
+    if ($grassSlider.length > 0) {
+        $grassSlider.slider({
+            min: 0,
+            max: 100,
+            value: 50,
+            orientation: "horizontal",
+            range: "min"
+        }).addSliderSegments($grassSlider.slider("option").max);
+    }
+
+    var $sizeSlider = $("#sizeSlider");
+    if ($sizeSlider.length > 0) {
+        $sizeSlider.slider({
+            min: 10,
+            max: 50,
+            value: 20,
+            orientation: "horizontal",
+            range: "min"
+        }).addSliderSegments($sizeSlider.slider("option").max);
+    }
 });
