@@ -1,4 +1,4 @@
-app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q) {
+app.controller('GameController', function($modal, $scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q) {
 
     $scope.creatures = CreatureFactory.currentCreatures;
     var createGame = window.voxelEngine; // use to create the World
@@ -248,6 +248,56 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         }
         createTrees(options);
     }
+
+    $scope.winObjective = function() {
+
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'objective.html'
+        });
+
+        modalInstance.result.then(null, function() {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+
+    };
+
+    $scope.levelUp = function() {
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'level-up.html'
+        });
+
+        modalInstance.result.then(null, function() {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.gameOver = function() {
+        var modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'game-over.html'
+        });
+
+        modalInstance.result.then(null, function() {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    $scope.$on("winObjective", function(){
+        console.log("win objective received");
+        $scope.winObjective();
+    });
+
+    $scope.$on("levelUp", function(){
+        console.log('level up received');
+        $scope.levelUp();
+    });
+
+    $scope.$on("gameOver", function(){
+        console.log("game over received");
+        $scope.gameOver();
+    });
 
     // var createTrees = window.Tree(game);
     // if (!game.trees) {
