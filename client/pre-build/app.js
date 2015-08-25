@@ -1,6 +1,6 @@
-var app = angular.module('GameOfLife', ['ui.router', 'fsaPreBuilt', 'btford.socket-io', 'ngRoute', 'ui.bootstrap']);
+var app = angular.module('GameOfLife', ['ui.router', 'fsaPreBuilt', 'btford.socket-io', 'ui.bootstrap']);
 
-app.config(function($urlRouterProvider, $locationProvider, $routeProvider, $stateProvider) {
+app.config(function($urlRouterProvider, $locationProvider, $stateProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
     $locationProvider.html5Mode(true);
     // $routeProvider.when('/builder/',{templateUrl:'/builder/builder.html'});

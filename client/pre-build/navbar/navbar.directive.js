@@ -1,4 +1,4 @@
-app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, CreatureFactory, $modal, $log) {
+app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, CreatureFactory, $modal, $log,PointerFactory) {
     return {
         restrict: "E",
         templateUrl: "/pre-build/navbar/navbar.html",
