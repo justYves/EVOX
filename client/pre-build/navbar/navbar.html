@@ -1,11 +1,9 @@
 <nav class="navbar navbar-inverse">
   <div class="container">
-      <img src="evolution.png" class="pull-left img-responsive logo">
-    <div class="navbar-header">
-      <a href="#" ui-sref="home" class="navbar-brand"><i class="fa fa-home"></i></a>
-    </div>
 
     <ul class="nav navbar-nav">
+      <li><img ng-src="evolution.png" class="img-responsive logo"></li>
+      <li><a href="#" ui-sref="home" class="navbar-brand"><i class="fa fa-home"></i></a></li>
     	<li><a href="#" ui-sref="worlds" title="Worlds"><i class="fa fa-globe"></i></a></li>
       <li><a href="#" ng-click="reset()" ui-sref="builder" title="Builder"><i class="fa fa-wrench"></i></a></li>
       <li><a href="#" ui-sref="multiplayer.waiting" title="Multiplayer"><i class="fa fa-users"></i></a></li>
@@ -13,7 +11,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
 
-      
+
         <script type="text/ng-template" id="login.html">
         <div class="modal-header">
           <h3 class="modal-title">Log in</h3>

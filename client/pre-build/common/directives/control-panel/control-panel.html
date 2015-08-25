@@ -1,28 +1,39 @@
-<div id="instructions">
-
-  <div class="tile">
-    <p>Hello, {{user.name.first}}!<p>
-    <p>Welcome to {{world.name}}!</p>
-    <p>Your Points: {{points}}</p>
-    <hr>
-            <div>
-            <p style="margin:0;">Actions</p>
-            <a class="btn" href="#" ng-class="{'btn-default': !clicked, 'btn-primary': clicked}" id="icon-button" ng-click="fertilize();clicked = true;"><img class="img-responsive" id="icon-pic" src="3D-Grass-icon.png"/></a>
-            <a class="btn btn-primary" ng-click="showInfo()"><i class="fa fa-info-circle"></i></a>
-        </div>
-    <div class="row creature-container">
-      <div class="btn-group">
-        <p>My Species<p>
-        <ul id="creature-list">
-          <li ng-hide="!!creatures.length">You have no creatures!</li>
-          <li ng-show="!!creatures.length" ng-repeat="creature in creatures"><button class="btn btn-default col-lg-1" id="creatures">{{creature.name}}</button></li>
-        </ul>
-      </div>
-    </div>
-    <hr>
-    <div class="row">
-      <p style="margin-bottom: 0;">My Creature Stats</p>
-      <p ng-show="!stats">Select A Creature!</p>
-      <p><creature-stats ng-hide="!stats || !creature "></creature-stats></p>
-    </div>
-</div>
+<div id="instructions" >
+    <div class="tile drag-and-resize">
+        <p>Hello, {{user.name.first}}!
+            <p>
+                <p>Welcome to {{world.name}}!</p>
+                <p>Your Points: {{points}}</p>
+                <hr>
+                <div class="row">
+                    <p>Actions</p>
+                    <div>
+                        <p style="margin:0;">Actions</p>
+                        <a class="btn" href="#" ng-class="{'btn-default': !grassClicked, 'btn-primary': grassClicked}" id="icon-button" ng-click="fertilize();grassClicked = true;"><img class="img-responsive" id="icon-pic" ng-src="3D-Grass-icon.png" /></a>
+                             <!-- <a class="btn" href="#" ng-class="{'btn-default': !snowClicked, 'btn-primary': snowClicked}" id="icon-button" ng-click="snowClicked"><img class="img-responsive" id="icon-pic" ng-src="3D-Snow-icon.png" /></a>
+ -->
+                        <a class="btn" href="#" ng-class="{'btn-default': !dirtClicked, 'btn-primary': dirtClicked}" id="icon-button" ng-click="dirtClicked" ><img class="img-responsive" id="icon-pic" ng-src="3D-Dirt-icon.png" /></a>
+                        <a class="btn" href="#" ng-class="{'btn-default': !treeClicked, 'btn-primary': treeClicked}" id="icon-button" ng-click="treeClicked"><img class="img-responsive" id="icon-pic" ng-src="3D-Tree-icon.png" /></a>
+                        <a class="btn btn-primary"><i class="fa fa-info-circle"></i></a>
+                    </div>
+                    <div class="row creature-container">
+                        <div class="btn-group">
+                            <p>My Species
+                                <p>
+                                    <ul id="creature-list">
+                                        <li ng-hide="!!creatures.length">You have no creatures!</li>
+                                        <li ng-show="!!creatures.length" ng-repeat="creature in creatures">
+                                            <button class="btn btn-default col-lg-1" id="creatures">{{creature.name}}</button>
+                                        </li>
+                                    </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <p style="margin-bottom: 0;">My Creature Stats</p>
+                        <p ng-show="!stats">Select A Creature!</p>
+                        <p>
+                            <creature-stats ng-hide="!stats || !creature "></creature-stats>
+                        </p>
+                    </div>
+                </div>

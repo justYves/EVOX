@@ -1,18 +1,19 @@
-app.directive('controlPanel', function() {
+app.directive('controlPanel', function(CameraFactory) {
 
-    return {
-        restrict: 'E',
-        scope: {},
-        templateUrl: "pre-build/common/directives/control-panel/control-panel.html",
-        controller: "PanelController"
-    };
+        return {
+            restrict: 'E',
+            scope: {},
+            templateUrl: "pre-build/common/directives/control-panel/control-panel.html",
+            controller: "PanelController"
+        };
 
-})
+    })
     .controller("PanelController", function($scope, AuthService, WorldsFactory, CreatureFactory, CameraFactory) {
         AuthService.getLoggedInUser()
             .then(function(user) {
                 $scope.user = user;
             });
+
         $scope.world = WorldsFactory.getCurrentWorld();
         $scope.points = 25;
         $scope.stats = false;
@@ -37,6 +38,7 @@ app.directive('controlPanel', function() {
         };
 
         $scope.fertilize = function() {
+            CameraFactory.setGrass(true);
             console.log(game.map);
         };
 
@@ -46,6 +48,7 @@ app.directive('controlPanel', function() {
             $scope.getPercentages($scope.creature);
             $scope.$digest();
         });
+
 
         //fix you later, son...
         // $scope.$watch(function() {return game.creatures},

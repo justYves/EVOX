@@ -4,7 +4,7 @@
 
 .logo {
   display: block;
-  margin-right: 7px;
+  margin-right: 15px;
   margin-top: 8px;
   //display: block;
   width: 50px;
@@ -14,6 +14,11 @@
   // }
   @media (max-width: 768px) {
     margin-left: 15px;
+  }
+
+  .navbar-inverse .navbar-brand{
+    border-bottom : 0;
+    border-right: 0;
   }
 }
 
