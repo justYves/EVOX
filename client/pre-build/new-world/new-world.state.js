@@ -30,7 +30,7 @@ app.controller('worldInstanceCtrl', function($scope, $modalInstance, WorldsFacto
             .then(function() {
                 $modalInstance.close();
                 $state.go('worlds')
-            })
+            });
     };
 
     $scope.cancel = function() {
