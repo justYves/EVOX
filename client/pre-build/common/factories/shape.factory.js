@@ -20,7 +20,7 @@ app.factory('ShapeFactory', function($http,AuthService) {
               })
               .then(function(user){
                 console.log(user._id);
-                return $http.put('api/users/'+ user._id,{creature: creature});
+                return $http.put('api/users/'+ user._id+'/creatures',{creature: creature});
               })
               .then(function(){
                 return "update succesfull";

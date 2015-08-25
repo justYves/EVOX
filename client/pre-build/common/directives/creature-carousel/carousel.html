@@ -1,10 +1,10 @@
 <div style="width: {{width}}px; margin: auto">
   <div style="width: 100%; height: {{height}}px">
     <carousel ng-show="file" style="height: 100%" interval="myInterval" no-wrap="noWrapSlides">
-    <slide style="height: {{height}}px;" 
+    <slide style="height: {{height}}px;"
       ng-repeat="array in creatures">
 
-      <img ng-click="fcn(creature)" ng-repeat="creature in array" style="height: 100%; display: inline; margin: auto" src="{{creature.name+'.png'}}"></img>
+      <img ng-click="fcn(creature)" id="creature-png" ng-repeat="creature in array" style="height: 100%; display: inline; margin: auto" ng-src="{{creature.name+'.png'}}"></img>
 
     </slide>
 
@@ -12,10 +12,10 @@
 
     <carousel ng-hide="file" style="height: 100%" interval="myInterval" no-wrap="noWrapSlides">
 
-    <slide style="height: {{height}}px;" 
+    <slide style="height: {{height}}px;"
       ng-repeat="array in creatures">
 
-      <img ng-click="fcn(creature)" ng-repeat="creature in array" style="height: 100%; display: inline; margin: auto" src="{{creature.img}}"></img>
+      <img ng-click="fcn(creature)" id="creature-png" ng-repeat="creature in array" style="height: 100%; display: inline; margin: auto" ng-src="{{creature.img}}"></img>
 
     </slide>
 

@@ -77,6 +77,8 @@ app.controller('BuilderController', function($scope, $state,ShapeFactory,Creatur
   };
 
   $scope.save = function() {
+    grid.material.visible =false;
+    removeFront();
     var shape = convertToVoxels($scope.currentHash);
     var creature ={
       name:'test',
