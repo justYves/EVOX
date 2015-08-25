@@ -17,6 +17,7 @@ app.directive('controlPanel', function() {
     $scope.world = WorldsFactory.getCurrentWorld();
     $scope.points = 25;
     $scope.stats = false;
+    $scope.creatures;
 
     $scope.getPercentages = function(creature) {
       $scope.creature.healthPercentage = Math.round((creature.hp / creature.hpMax) * 100);
@@ -118,14 +119,8 @@ app.directive('controlPanel', function() {
         }));
     }
 
-
-    //fix you later, son...
-    // $scope.$watch(function() {return game.creatures},
-    //     function(newVal, oldVal) {
-    //         if (newVal !== oldVal) {
-    //             $scope.creatures = game.creatures;
-    //         }
-    //     });
-
+    function updateScope() {
+      $scope.creatures = game.creatures;
+    };
 
   });
