@@ -148,7 +148,8 @@ app.directive('controlPanel', function() {
     function updateStats() {
       "called";
       if (!$scope.creature || !$scope.stats) {
-        $scope.stats=false
+        $scope.stats=false;
+        game.gameOver();
         $scope.$digest;
         return;
       };
@@ -216,5 +217,16 @@ app.directive('controlPanel', function() {
     function updateScope() {
       $scope.creatures = game.creatures;
     };
+
+    $scope.winObj = function() {
+      $scope.user.points += 25;
+      game.winObjective();
+    };
+
+    $scope.levelUp = function() {
+      $scope.user.points += 50;
+      game.levelUp();
+    }
+
 
   });

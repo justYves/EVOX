@@ -1,4 +1,4 @@
-app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q) {
+app.controller('GameController', function($modal, $scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q) {
 
     $scope.creatures = CreatureFactory.currentCreatures;
     var createGame = window.voxelEngine; // use to create the World
@@ -248,6 +248,30 @@ app.controller('GameController', function($scope, $stateParams, WorldsFactory, C
         }
         createTrees(options);
     }
+
+    var modalInstance;
+    game.winObjective = function() {
+        modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'objective.html'
+        });
+
+    };
+
+    game.levelUp = function() {
+        modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'level-up.html'
+        });
+    };
+
+    game.gameOver = function() {
+        modalInstance = $modal.open({
+            animation: true,
+            templateUrl: 'game-over.html'
+        });
+
+    };
 
     // var createTrees = window.Tree(game);
     // if (!game.trees) {
