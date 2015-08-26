@@ -2,13 +2,12 @@ app.factory('MapFactory', function($http) {
 
     var currentMap;
 
-    function Map(n, cells, flat,grassPercent) {
+    function Map(n, cells, flat, grassPercent) {
         this.game;
         this.size = n;
         this.data = [];
         this.nextRound = [];
         this.fertilized = [];
-        console.log(grassPercent);
         if (cells) {
             if (flat) {
                 this.loadFlatMap(cells);
@@ -19,7 +18,7 @@ app.factory('MapFactory', function($http) {
             }
         } else {
             if (flat) this.createFlatMap(grassPercent);
-            else this.create3DMap(3,grassPercent);
+            else this.create3DMap(3, grassPercent);
         }
     }
 
@@ -27,12 +26,12 @@ app.factory('MapFactory', function($http) {
         for (var x = 0; x < this.size; x++) {
             this.data[x] = new Array(this.size);
             for (var z = 0; z < this.size; z++) {
-                this.data[x][z] = new Cell(x, 0, z,grassPercent);
+                this.data[x][z] = new Cell(x, 0, z, grassPercent);
             }
         }
     };
 
-    Map.prototype.create3DMap = function(height,grassPercent) {
+    Map.prototype.create3DMap = function(height, grassPercent) {
         var three = new Array(this.size);
         for (var x = 0; x < this.size; x++) {
             three[x] = new Array(height);
@@ -52,20 +51,20 @@ app.factory('MapFactory', function($http) {
         for (var x = 0; x < this.size; x++) {
             for (var y = 0; y < height; y++) {
                 for (var z = 0; z < this.size; z++) {
-                    if (y === 0) three[x][y][z] = new Cell(x, y, z,grassPercent);
+                    if (y === 0) three[x][y][z] = new Cell(x, y, z, grassPercent);
                     if (!three[x][y][z].legit && x > 1 && z > 1 && x < this.size - 2 && z < this.size - 2) {
                         if (y === 1 && Math.random() > 0.85) {
-                            three[x][y][z] = new Cell(x, y, z,grassPercent);
-                            three[x - 1][y][z] = new Cell(x - 1, y, z,grassPercent);
-                            three[x][y][z - 1] = new Cell(x, y, z - 1,grassPercent);
-                            three[x + 1][y][z] = new Cell(x + 1, y, z,grassPercent);
-                            three[x][y][z + 1] = new Cell(x, y, z + 1,grassPercent);
-                            three[x - 1][y][z - 1] = new Cell(x - 1, y, z - 1,grassPercent);
-                            three[x - 1][y][z + 1] = new Cell(x - 1, y, z + 1,grassPercent);
-                            three[x + 1][y][z - 1] = new Cell(x + 1, y, z - 1,grassPercent);
-                            three[x + 1][y][z + 1] = new Cell(x + 1, y, z + 1,grassPercent);
+                            three[x][y][z] = new Cell(x, y, z, grassPercent);
+                            three[x - 1][y][z] = new Cell(x - 1, y, z, grassPercent);
+                            three[x][y][z - 1] = new Cell(x, y, z - 1, grassPercent);
+                            three[x + 1][y][z] = new Cell(x + 1, y, z, grassPercent);
+                            three[x][y][z + 1] = new Cell(x, y, z + 1, grassPercent);
+                            three[x - 1][y][z - 1] = new Cell(x - 1, y, z - 1, grassPercent);
+                            three[x - 1][y][z + 1] = new Cell(x - 1, y, z + 1, grassPercent);
+                            three[x + 1][y][z - 1] = new Cell(x + 1, y, z - 1, grassPercent);
+                            three[x + 1][y][z + 1] = new Cell(x + 1, y, z + 1, grassPercent);
                         }
-                        if (y > 1 && Math.random() > 0.5 && three[x - 1][y - 1][z].legit && three[x + 1][y - 1][z].legit && three[x][y - 1][z - 1].legit && three[x][y - 1][z + 1].legit) three[x][y][z] = new Cell(x, y, z,grassPercent);
+                        if (y > 1 && Math.random() > 0.5 && three[x - 1][y - 1][z].legit && three[x + 1][y - 1][z].legit && three[x][y - 1][z - 1].legit && three[x][y - 1][z + 1].legit) three[x][y][z] = new Cell(x, y, z, grassPercent);
                     }
                 }
             }
@@ -138,13 +137,13 @@ app.factory('MapFactory', function($http) {
 
 
     Map.prototype.getCell = function(x, y, z) {
-        if(this.game && !this.game.flat){
+        if (this.game && !this.game.flat) {
             if (x >= 0 && x < this.size && z >= 0 && z < this.size) {
                 return this.data[x][y][z];
             } else {
                 return false;
             }
-        }else{
+        } else {
             if (x >= 0 && x < this.size && z >= 0 && z < this.size) {
                 return this.data[x][z];
             } else {
@@ -179,7 +178,7 @@ app.factory('MapFactory', function($http) {
         this.game = this.game || game;
         var self = this;
         this.fertilized.forEach(function(cell) {
-            if(cell.legit){
+            if (cell.legit) {
                 cell.setMaterial("grass");
                 self.game.setBlock(cell.coordinate, 1); // 1 = grass
                 cell.neighbors.forEach(function(neighbor) {
@@ -230,8 +229,8 @@ app.factory('MapFactory', function($http) {
     function Cell(x, y, z, rand) {
         rand = rand || 1;
         this.legit = true;
-        if (Number.isInteger(rand)){
-            this.material = (Math.random()>rand) ? "grass" : "dirt"; //need to change
+        if (Number.isInteger(rand)) {
+            this.material = (Math.random() > rand) ? "grass" : "dirt"; //need to change
         } else {
             this.material = rand;
         }
@@ -252,11 +251,11 @@ app.factory('MapFactory', function($http) {
     };
 
     return {
-        create: function(size, cells, flat,grassPercent) { //used for both creating new world and loading world
+        create: function(size, cells, flat, grassPercent) { //used for both creating new world and loading world
             if (cells) {
                 currentMap = new Map(size, cells, flat);
                 return currentMap;
-            } else return new Map(size, null, flat,grassPercent/100);
+            } else return new Map(size, null, flat, grassPercent / 100);
         },
         getCurrentMap: function() {
             return currentMap;
