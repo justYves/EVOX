@@ -42,11 +42,9 @@ router.post('/', function(req, res, next) {
         .then(function(parent) {
             setParents.push(parent);
             req.body.parents = setParents
-            console.log('why', req.body)
             return Creature.create(req.body)
         })
         .then(function(creature) {
-            console.log('yes', creature)
             res.status(201).json(creature);
         })
         .then(null, next);

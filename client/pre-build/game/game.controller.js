@@ -1,4 +1,4 @@
-app.controller('GameController', function($scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q) {
+app.controller('GameController', function($modal, $scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q) {
 
     $scope.creatures = CreatureFactory.currentCreatures;
     var createGame = window.voxelEngine; // use to create the World
