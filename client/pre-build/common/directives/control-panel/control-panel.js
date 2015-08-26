@@ -152,7 +152,7 @@ app.directive('controlPanel', function() {
     function updateStats() {
       "called";
       if (!$scope.creature || !$scope.stats) {
-        $scope.gameOver();
+        if (!$scope.creatures.length) $scope.gameOver();
         $scope.stats=false;
         $scope.$digest;
         return;
@@ -217,10 +217,6 @@ app.directive('controlPanel', function() {
           });
       }));
     }
-
-    // function updateScope() {
-    //   $scope.creatures = game.creatures;
-    // };
 
     $scope.winObj = function() {
       $scope.user.points += 10;

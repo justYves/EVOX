@@ -1,4 +1,6 @@
-<div ng-show="stats" class="tile drag-and-resize">
+<div ng-show="stats" class="tile drag-and-resize" style="transform: translate(249px, -312px);
+    width: 236.90625px;
+    height: 273px;">
   <ul>
     <li ng-model="creature.name">Species: {{creature.name}}<span ng-hide="!stats" class='fui-cross pull-right' ng-click='statsShow()'></span></li>
     <li ng-model="creature.age">Age: {{creature.age}}</li>
@@ -27,7 +29,7 @@
         style="width: {{creature.hungerPercentage}}%;">
       </div>
     </li>
-    <button style="padding-top: 0;" ng-click="killCreature()" class="btn btn-danger">Kill</button>
+    <button style="margin-top: 0;" ng-click="killCreature()" class="btn btn-danger">Kill</button>
     <button ng-click="procreate()" class="btn btn-success">Spawn</button>
   </ul>
 </div>
