@@ -6704,7 +6704,8 @@ var shape = {
             ]
         ],
         scale: 0.23,
-        display: 0.2
+        display: 0.2,
+        rotation: -1
     }
 };
 
