@@ -1,76 +1,96 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 @mixin clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 }
-
 
 .carousel-control {
-margin-top:auto;
-margin-bottom:auto;
-
+    margin-top: auto;
+    margin-bottom: auto;
 }
-#stats {
-  opacity: 0;
 
-  &:hover{
-    opacity: 0.9;
-  }
+#stats {
+    opacity: 0;
+    &:hover {
+        opacity: 0.9;
+    }
 }
 
 #env-icon {
-  height: 4em;
-  margin-right:auto;
-  margin-left:auto;
-  position:relative;
+    height: 4em;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
 }
 
 #env-btn {
-padding-right: 0.3em;
-padding-left:0.3em;
-padding-top:0.3em;
-padding-bottom:0.3em;
+    padding-right: 0.3em;
+    padding-left: 0.3em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
 }
 
-#level-icon{
-margin-right: auto;
-margin-left:auto;
-margin-bottom: 1em;
-width: 50%
+#level-icon {
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1em;
+    width: 50%
 }
+
+
+#edit-icon {
+    position: absolute;
+    width: 40%;
+    right: 0;
+    size: 2em;
+    color: #34495e;
+    &:hover {
+        transition: all 0.4s ease;
+        transform: scale(1.5);
+        color: #18bc9c;
+    }
+}
+
 
 .grayscale {
-     filter: grayscale(100%); /* Current draft standard */
-    -webkit-filter: grayscale(100%); /* New WebKit */
+    filter: grayscale(100%);
+    /* Current draft standard */
+    -webkit-filter: grayscale(100%);
+    /* New WebKit */
     -moz-filter: grayscale(100%);
     -ms-filter: grayscale(100%);
     -o-filter: grayscale(100%);
 }
 
-#level-num{
-  position: absolute;
+#level-num {
+    position: absolute;
     color: white;
     // font-size:2em;
-    width:50%;
-    bottom:5%;
+    width: 50%;
+    bottom: 5%;
     left: 25%;
 }
 
-#check-mark{
-  position:absolute;
-  display:inline;
-  right:21%;
-  top: 9%;
-  font-size: 4em;
+#check-mark {
+    position: absolute;
+    display: inline;
+    right: 21%;
+    top: 9%;
+    font-size: 4em;
 }
 
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+    cursor: pointer;
+}
 
 // Add your fractal Sass files below!
 @import "animate";
@@ -80,3 +100,4 @@ width: 50%
 @import 'common/directives/game-of-life/gameoflife';
 @import 'builder/builder';
 @import 'creatures/creatures';
+
