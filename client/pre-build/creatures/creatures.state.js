@@ -19,7 +19,8 @@ app.config(function($stateProvider) {
 
     })
     .state('creatures.level',{
-        url:'/level',
-        templateUrl:'/pre-build/creatures/level.html'
+        url:'/level/{id}',
+        templateUrl:'/pre-build/creatures/level.html',
+        controller: "LevelController"
     });
 });
