@@ -111,12 +111,12 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             $scope.currentCreature.shape = creatureShape;
             ShapeFactory.updateShape($scope.currentCreature)
                 .then(function(data) {
-                    $state.go('creatures');
+                    $state.go('creatures.select');
                 });
         } else {
             ShapeFactory.saveShape(creatureShape, $scope.currentCreature)
                 .then(function(data) {
-                    $state.go('creatures');
+                    $state.go('creatures.select');
                 });
         }
     };
