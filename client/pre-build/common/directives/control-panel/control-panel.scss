@@ -22,6 +22,32 @@
 	}
 }
 
+#sideinfo {
+	margin-top: 5%;
+	margin-left: 5%;
+	top: 0;
+	left: 0;
+	opacity: 0.8;
+	width: 40%;
+	height: 100%;
+	position: absolute;
+	transition: 0.4s;
+
+	.fui-cross {
+		vertical-align: text-top;
+		float: right;
+
+		&:hover{
+			cursor: pointer;
+			color: #660000;
+		}
+	}
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
 .tile {
 	// min-width: 100%;
 	position:absolute;
