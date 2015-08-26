@@ -12,17 +12,17 @@ app.directive('controlPanel', function() {
     AuthService.getLoggedInUser()
       .then(function(user) {
         $scope.user = user;
-        $scope.user.points = 25;
+        $scope.user.points = user.points || 25;
       });
 
     $scope.creatures = game.creatures;
     $scope.selected;
     $scope.world = WorldsFactory.getCurrentWorld();
     $scope.stats = false;
+    $scope.obj = false;
 
     var createTree = window.OneTree(game);
-    var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh)
-
+    var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
 
     $scope.getPercentages = function(creature) {
       $scope.creature.healthPercentage = Math.round((creature.hp / creature.hpMax) * 100);
@@ -31,6 +31,10 @@ app.directive('controlPanel', function() {
 
     $scope.statsShow = function() {
       $scope.stats = !$scope.stats;
+    };
+
+    $scope.toggleObj = function() {
+      $scope.obj = !$scope.obj;
     };
 
     $scope.killCreature = function() {
@@ -148,7 +152,7 @@ app.directive('controlPanel', function() {
     function updateStats() {
       "called";
       if (!$scope.creature || !$scope.stats) {
-        $scope.gameOver();
+        if (!$scope.creatures.length) $scope.gameOver();
         $scope.stats=false;
         $scope.$digest;
         return;
@@ -214,12 +218,8 @@ app.directive('controlPanel', function() {
       }));
     }
 
-    function updateScope() {
-      $scope.creatures = game.creatures;
-    };
-
     $scope.winObj = function() {
-      $scope.user.points += 25;
+      $scope.user.points += 10;
         var modalInstance = $modal.open({
             animation: true,
             controller: 'objectiveInstanceCtrl',
@@ -237,14 +237,12 @@ app.directive('controlPanel', function() {
     };
 
     $scope.gameOver = function() {
-      $scope.user.points += 50;
         var modalInstance = $modal.open({
             animation: true,
             controller: 'gameOverInstanceCtrl',
             templateUrl: 'game-over.html'
         });
     };
-
 
   });
 app.controller('objectiveInstanceCtrl', function($scope, $modalInstance, $state) {
@@ -274,10 +272,10 @@ app.controller('gameOverInstanceCtrl', function($scope, $modalInstance, $state) 
     $scope.toHome = function() {
         $state.go('home');
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     $scope.toWorlds = function() {
         $state.go('worlds');
         $modalInstance.dismiss('cancel');
-    }
+    };
 });
