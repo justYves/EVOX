@@ -22,7 +22,7 @@ app.controller('createWorldCtrl', function($scope, $modal, $log) {
 })
 
 app.controller('worldInstanceCtrl', function($scope, $modalInstance, WorldsFactory, $state) {
-    $scope.environments = ['ice', 'water', 'land'];
+    $scope.environments = ['land', 'desert', 'ice'];
     $scope.percents = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
     $scope.postWorld = function() {

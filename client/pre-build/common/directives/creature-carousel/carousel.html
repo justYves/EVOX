@@ -4,7 +4,10 @@
     <slide style="height: {{height}}px;"
       ng-repeat="array in creatures">
 
-      <img ng-click="fcn(creature)" id="creature-png" ng-repeat="creature in array" style="height: 100%; display: inline; margin: auto" ng-src="{{creature.name+'.png'}}"></img>
+      <div class="col-sm-4" ng-repeat="creature in array" style="height: 100%;">
+	      <img ng-click="fcn(creature)" id="creature-png" style="height: 80%; display: inline; margin: auto" ng-src="{{creature.name+'.png'}}"></img>
+	      <h3 style="font-size:16px; margin: 0">{{creature.name}}</h3>
+	  </div>
 
     </slide>
 
@@ -15,7 +18,12 @@
     <slide style="height: {{height}}px;"
       ng-repeat="array in creatures">
 
-      <img ng-click="fcn(creature)" id="creature-png" ng-repeat="creature in array" style="height: 100%; display: inline; margin: auto" ng-src="{{creature.img}}"></img>
+      <div class="col-sm-4" ng-repeat="creature in array" style="height: 100%;">            
+      <!-- 	<button class="btn btn-sm">Play Level</button><button class="btn btn-sm" >Edit</button> -->
+	      <img ng-click="fcn(creature)" id="creature-png" style="height: 80%; display: inline; margin: auto" ng-src="{{creature.shape.img}}"></img>
+	      <h3 style="font-size:16px; margin: 0">{{creature.name}}</h3>
+
+	  </div>
 
     </slide>
 

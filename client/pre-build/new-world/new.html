@@ -8,20 +8,12 @@
                 <label>Name</label>
                 <input type="text" class="form-control" ng-model="world.name" />
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-show="world">
                 <label>Environment</label>
-                <select class="form-control" ng-model="world.environment">
-                    <option ng-repeat="env in environments">{{env}}</option>
-                </select>
+                
                 <div class="row">
-                    <div class="col-lg-4 text-center">
-                        <a class="btn btn-default" id="env-btn" toggle="tooltip" title="Land"><img id="env-icon" ng-src="grass-icon.png" /></a>
-                    </div>
-                    <div class="col-lg-4 text-center">
-                        <a class="btn btn-default" id="env-btn"><img id="env-icon" ng-src="desert-icon.png" /></a>
-                    </div>
-                    <div class="col-lg-4 text-center">
-                        <a class="btn btn-default" id="env-btn"><img id="env-icon" ng-src="ice-icon.png" /></a>
+                    <div class="col-lg-4 text-center" ng-repeat="env in environments">
+                        <button type="button" class="btn btn-default" ng-click="world.environment=env" id="env-btn" toggle="tooltip" title="{{env}}"><img id="env-icon" ng-src="{{env}}-icon.png" /></a>
                     </div>
                 </div>
             </div>

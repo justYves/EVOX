@@ -57,6 +57,7 @@ var creatures = [];
 var elephant = new Creature({
     shape: findMatch(shapes, 'elephant'),
     name: 'elephant',
+    category: 'large',
     size: 10,
     vision: 3
 });
@@ -65,6 +66,7 @@ creatures.push(elephant);
 var giraffe = new Creature({
     shape: findMatch(shapes, 'giraffe'),
     name: 'giraffe',
+    category: 'large',
     size: 7,
     vision: 5
 });
@@ -73,6 +75,7 @@ creatures.push(giraffe);
 var fox = new Creature({
     shape: findMatch(shapes, 'fox'),
     name: 'fox',
+    category: 'medium',
     size: 3,
     vision: 5
 });
@@ -81,6 +84,7 @@ creatures.push(fox);
 var lion = new Creature({
     shape: findMatch(shapes, 'lion'),
     name: 'lion',
+    category: 'large',
     size: 6,
     vision: 6
 });
@@ -89,6 +93,7 @@ creatures.push(lion);
 var turtle = new Creature({
     shape: findMatch(shapes, 'turtle'),
     name: 'turtle',
+    category: 'small',
     size: 1,
     vision: 2
 });
@@ -97,6 +102,7 @@ creatures.push(turtle);
 var penguin = new Creature({
     shape: findMatch(shapes, 'penguin'),
     name: 'penguin',
+    category: 'small',
     size: 2,
     vision: 3
 });
@@ -105,6 +111,7 @@ creatures.push(penguin);
 var deer = new Creature({
     shape: findMatch(shapes, 'deer'),
     name: 'deer',
+    category: 'medium',
     size: 5,
     vision: 3
 });
@@ -113,6 +120,7 @@ creatures.push(deer);
 var chick = new Creature({
     shape: findMatch(shapes, 'chick'),
     name: 'chick',
+    category: 'small',
     size: 1,
     vision: 1
 });
@@ -121,6 +129,7 @@ creatures.push(chick);
 var wildDog = new Creature({
     shape: findMatch(shapes, 'wildDog'),
     name: 'wildDog',
+    category: 'medium',
     size: 3,
     vision: 5
 });
@@ -129,6 +138,7 @@ creatures.push(wildDog);
 var crocodile = new Creature({
     shape: findMatch(shapes, 'crocodile'),
     name: 'crocodile',
+    category: 'medium',
     size: 4,
     vision: 3
 });
@@ -137,6 +147,7 @@ creatures.push(crocodile);
 var beaver = new Creature({
     shape: findMatch(shapes, 'beaver'),
     name: 'beaver',
+    category: 'small',
     size: 2,
     vision: 2
 });
@@ -145,6 +156,7 @@ creatures.push(beaver);
 var pigeon = new Creature({
     shape: findMatch(shapes, 'pigeon'),
     name: 'pigeon',
+    category: 'small',
     size: 1,
     vision: 3
 });
@@ -153,6 +165,7 @@ creatures.push(pigeon);
 var duck = new Creature({
     shape: findMatch(shapes, 'duck'),
     name: 'duck',
+    category: 'small',
     size: 2,
     vision: 3
 });
