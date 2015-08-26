@@ -20,6 +20,15 @@ router.get('/', function(req, res, next) {
         .then(null, next);
 });
 
+router.get('/id/:id', function(req, res, next) {
+    Shape.findById(req.params.id).exec()
+        .then(function(shape) {
+            shape.shape = JSON.parse(shape.shape);
+            res.json(shape);
+        })
+        .then(null, next);
+});
+
 router.get('/:name', function(req, res, next) {
     Shape.findOne({
         name: req.params.name

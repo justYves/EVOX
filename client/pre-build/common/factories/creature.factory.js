@@ -46,8 +46,8 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         angular.extend(Creature.prototype, BehaviorFactory.prototype);
 
         if (voxel && mesh) {
-            ShapeFactory.getShape(this.name).then(function(data) {
-                render(self, data, game, voxel, mesh,self.spawnPos);
+            ShapeFactory.getShape(this.name, opts.shape).then(function(data) {
+                render(self, data, game, voxel, mesh, self.spawnPos);
             })
                 .then(function() {
                     self.game.addEvent(function() {
@@ -71,7 +71,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
     }
 
     //render the 3D model
-    function render(model, shape, game, voxel, mesh,spawnPos) {
+    function render(model, shape, game, voxel, mesh, spawnPos) {
         // console.log("game", game);
         // console.log(arguments);
         if (typeof shape !== "function") {
@@ -93,13 +93,12 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
 
         model.position = model.item.yaw.position;
         model.rotation = model.item.yaw.rotation;
-        if(spawnPos){
-        model.setPosition(spawnPos.x, 1, spawnPos.z);
-        }
-            else{
-        model.setPosition(Math.floor(Math.random() * game.map.size), 10, Math.floor(Math.random() * game.map.size));
+        if (spawnPos) {
+            model.setPosition(spawnPos.x, 1, spawnPos.z);
+        } else {
+            model.setPosition(Math.floor(Math.random() * game.map.size), 10, Math.floor(Math.random() * game.map.size));
 
-            }
+        }
     }
 
     function build(obj, scale, game, voxel, mesh) {
