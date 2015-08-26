@@ -19,7 +19,7 @@ app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactor
     $scope.deleteWorld = function() {
         WorldsFactory.removeWorld($stateParams.id)
             .then(function() {
-                $state.go('worlds');
+                $state.go('worlds', {}, {reload: true});
             })
     }
 });

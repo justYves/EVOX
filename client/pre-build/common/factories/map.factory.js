@@ -230,8 +230,8 @@ app.factory('MapFactory', function($http) {
     function Cell(x, y, z, rand) {
         rand = rand || 1;
         this.legit = true;
-        if (Number.isInteger(rand)){
-            this.material = (Math.random()>rand) ? "grass" : "dirt"; //need to change
+        if (typeof rand === 'number'){
+            this.material = (Math.random()>rand) ? "dirt" : "grass"; //need to change
         } else {
             this.material = rand;
         }

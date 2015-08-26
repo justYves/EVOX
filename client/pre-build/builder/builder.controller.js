@@ -104,6 +104,7 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             hash: $scope.currentHash,
             img: exportImage(800, 600).src
         };
+
         console.log($scope.currentCreature);
         $scope.currentCreature.creature.name = name;
         if ($scope.currentCreature._id) {
