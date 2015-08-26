@@ -1,12 +1,15 @@
 app.controller('BuilderController', function($scope, $state, ShapeFactory, CreatureFactory) {
     if (CreatureFactory.currentCreature) $scope.currentHash = CreatureFactory.currentCreature.shape.hash;
     $scope.currentCreature = CreatureFactory.currentCreature || {
-        stats: {
+        creature: {
             vision: 1,
             size: 1
         }
     }
+
+    $scope.show = !!$scope.currentCreature.creature._id;
     console.log($scope.currentCreature);
+
     $scope.decrement = function(string) {
         if ($scope.currentCreature[string] > 0)
             $scope.currentCreature[string]--
@@ -71,10 +74,10 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         wireframe = !wireframe;
         scene.children
             .filter(function(el) {
-                return el.isVoxel
+                return el.isVoxel;
             })
             .map(function(mesh) {
-                mesh.wireMesh.visible = wireframe
+                mesh.wireMesh.visible = wireframe;
             });
     };
 
@@ -102,18 +105,20 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             hash: $scope.currentHash,
             img: exportImage(800, 600).src
         };
-        if($scope.currentCreature.creature) $scope.currentCreature.creature.name = name;
+
+        console.log($scope.currentCreature);
+        $scope.currentCreature.creature.name = name;
         if ($scope.currentCreature._id) {
             creatureShape._id = $scope.currentCreature.shape._id;
             $scope.currentCreature.shape = creatureShape;
             ShapeFactory.updateShape($scope.currentCreature)
                 .then(function(data) {
-                    $state.go('creatures')
-                })
+                    $state.go('creatures.select');
+                });
         } else {
             ShapeFactory.saveShape(creatureShape, $scope.currentCreature)
                 .then(function(data) {
-                    $state.go('creatures');
+                    $state.go('creatures.select');
                 });
         }
     };

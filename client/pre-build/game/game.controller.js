@@ -1,5 +1,5 @@
-app.controller('GameController', function($modal, $scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q) {
-
+app.controller('GameController', function($modal, $scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q, UserFactory) {
+    console.log(UserFactory.currentUser)
     $scope.creatures = CreatureFactory.currentCreatures;
     var createGame = window.voxelEngine; // use to create the World
     var createCreature;
@@ -119,6 +119,13 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
                 }
             ];
         }
+
+        if (UserFactory.currentUser.creature.length) {
+            UserFactory.currentUser.creature.forEach(function(thing) {
+                $scope.creatures.push(thing.creature);
+            })
+        }
+        console.log($scope.creatures)
         createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
         $scope.creatures.forEach(function(creature) {
             window[creature.name] = new createCreature(creature);
@@ -248,30 +255,6 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
         }
         createTrees(options);
     }
-
-    var modalInstance;
-    game.winObjective = function() {
-        modalInstance = $modal.open({
-            animation: true,
-            templateUrl: 'objective.html'
-        });
-
-    };
-
-    game.levelUp = function() {
-        modalInstance = $modal.open({
-            animation: true,
-            templateUrl: 'level-up.html'
-        });
-    };
-
-    game.gameOver = function() {
-        modalInstance = $modal.open({
-            animation: true,
-            templateUrl: 'game-over.html'
-        });
-
-    };
 
     // var createTrees = window.Tree(game);
     // if (!game.trees) {

@@ -11,26 +11,26 @@
       </div>
       <div class="row"><label>Vision:</label></div>
       <div class="row">
-        <button type="button" class="btn btn-default" ng-click="decrement('vision')">
+        <button ng-show="show" type="button" class="btn btn-default" ng-click="decrement('vision')">
         <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
         </button>
         <div class="btn btn-primary" style="cursor:none">
           {{currentCreature.creature.vision}}
         </div>
-        <button type="button" class="btn btn-default" ng-click="increment('vision')">
+        <button ng-show="show" type="button" class="btn btn-default" ng-click="increment('vision')">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>
       </div>
       <div class="row">
         <label>Size:</label>
         <div>
-          <button type="button" class="btn btn-default" ng-click="decrement('size')">
+          <button ng-show="show" type="button" class="btn btn-default" ng-click="decrement('size')">
           <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
           </button>
           <div class="btn btn-primary" style="cursor:none">
             {{currentCreature.creature.size}}
           </div>
-          <button type="button" class="btn btn-default" ng-click="increment('size')">
+          <button ng-show="show" type="button" class="btn btn-default" ng-click="increment('size')">
           <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
           </button>
         </div>

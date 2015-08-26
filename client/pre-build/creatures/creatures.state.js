@@ -1,7 +1,8 @@
 app.config(function($stateProvider) {
-    $stateProvider.state('creatures', {
-        url: '/creatures',
-        templateUrl: '/pre-build/creatures/creatures.html',
+    $stateProvider
+    .state('creatures',{
+        url:'/creatures',
+        templateUrl: '/pre-build/creatures/index.html',
         controller: 'CreaturesController',
         resolve: {
             user: function($http, UserFactory) {
@@ -12,8 +13,13 @@ app.config(function($stateProvider) {
             }
         }
     })
-    // .state('creatures.level',{
-    //     url:'/level',
-    //     templateUrl:''
-    // });
+    .state('creatures.select', {
+        url: '/select',
+        templateUrl: '/pre-build/creatures/creatures.html',
+
+    })
+    .state('creatures.level',{
+        url:'/level',
+        templateUrl:'/pre-build/creatures/level.html'
+    });
 });

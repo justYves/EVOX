@@ -27,6 +27,18 @@ router.get('/', function(req, res, next) {
         .then(null, next);
 });
 
+router.post('/all', function(req, res, next) { //actually a get, need post for payload
+    Creature.find({
+        name: {
+            $in: req.body
+        }
+    }).exec()
+        .then(function(creatures) {
+            res.json(creatures);
+        })
+        .then(null, next);
+});
+
 router.post('/', function(req, res, next) {
     if (!req.body.parents) req.body.parents = [{
         name: 'God'
@@ -42,7 +54,7 @@ router.post('/', function(req, res, next) {
         .then(function(parent) {
             setParents.push(parent);
             req.body.parents = setParents
-            return Creature.create(req.body)
+            return Creature.create(req.body.creature)
         })
         .then(function(creature) {
             res.status(201).json(creature);
