@@ -50,7 +50,7 @@ var userSchema = new mongoose.Schema({
         levels: {
             1: {
                 type: Boolean,
-                default: true
+                default: false
             },
             2: {
                 type: Boolean,

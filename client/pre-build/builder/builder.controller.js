@@ -11,11 +11,10 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
     console.log($scope.currentCreature);
 
     $scope.decrement = function(string) {
-        if ($scope.currentCreature[string] > 0)
-            $scope.currentCreature[string]--
+        if ($scope.currentCreature.creature[string] > 0)
+            $scope.currentCreature.creature[string]--
     }
     $scope.increment = function(string) {
-        console.log($scope.currentCreature)
         if ($scope.currentCreature.creature[string] < 10)
             $scope.currentCreature.creature[string]++
     }
