@@ -231,7 +231,7 @@ app.factory('MapFactory', function($http) {
         rand = rand || 1;
         this.legit = true;
         if (typeof rand === 'number'){
-            this.material = (Math.random()>rand) ? "grass" : "dirt"; //need to change
+            this.material = (Math.random()>rand) ? "dirt" : "grass"; //need to change
         } else {
             this.material = rand;
         }
