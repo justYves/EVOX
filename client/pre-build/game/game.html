@@ -4,15 +4,15 @@
 
     <div id="container"></div>
 
-<script type="text/ng-template" id="game_over.html">
+<script type="text/ng-template" id="game-over.html">
     <div class="modal-header">
       <h3 class="modal-title"> GAME OVER!</h3>
     </div>
       <div class="modal-body" style="margin: auto; width: 450px">
       	<p>All your creatures have died!</p>
       <div class="modal-footer">
-        <a class="btn btn-success" ui-sref="worlds">Back to My Worlds</a>
-        <a class="btn btn-warning" ui-sref="home">Back to Home</a>
+        <a class="btn btn-success" ng-click="toWorlds()">Back to My Worlds</a>
+        <a class="btn btn-warning" ng-click="toHome()">Back to Home</a>
       </div>
     </form>
 </script>
@@ -24,8 +24,8 @@
       <div class="modal-body" style="margin: auto; width: 450px">
       	<p>You have completed your objective! Have some points!</p>
       <div class="modal-footer">
-        <a class="btn btn-primary" ui-sref="close()">Continue</a>
-        <a class="btn btn-warning" ui-sref="home">Back to Home</a>
+        <button class="btn btn-primary" ng-click="close()">Continue</button>
+        <button class="btn btn-warning" ng-click="toHome()">Back to Home</button>
       </div>
     </form>
 </script>
@@ -38,8 +38,8 @@
       	<p>Congratulations You are travelling to the next level!</p>
       	<p>Also...have some points!</p>
       <div class="modal-footer">
-        <a class="btn btn-success" ui-sref="worlds">Back to My Worlds</a>
-        <a class="btn btn-warning" ui-sref="home">Back to Home</a>
+        <button class="btn btn-success" ng-click="toWorlds()">Back to My Worlds</button>
+        <button class="btn btn-warning" ng-click="toHome()">Back to Home</button>
       </div>
     </form>
 </script>

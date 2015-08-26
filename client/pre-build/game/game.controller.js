@@ -249,30 +249,6 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
         createTrees(options);
     }
 
-    var modalInstance;
-    game.winObjective = function() {
-        modalInstance = $modal.open({
-            animation: true,
-            templateUrl: 'objective.html'
-        });
-
-    };
-
-    game.levelUp = function() {
-        modalInstance = $modal.open({
-            animation: true,
-            templateUrl: 'level-up.html'
-        });
-    };
-
-    game.gameOver = function() {
-        modalInstance = $modal.open({
-            animation: true,
-            templateUrl: 'game-over.html'
-        });
-
-    };
-
     // var createTrees = window.Tree(game);
     // if (!game.trees) {
     //   createTrees({
