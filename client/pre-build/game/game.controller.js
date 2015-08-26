@@ -125,7 +125,7 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
                 $scope.creatures.push(thing.creature);
             })
         }
-        console.log($scope.creatures)
+        console.log("CREATURES TO LOAD",$scope.creatures)
         createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
         $scope.creatures.forEach(function(creature) {
             new createCreature(creature);

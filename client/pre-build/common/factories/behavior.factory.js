@@ -183,20 +183,20 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
       if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
       if (this.hp <= 0 || this.age > this.deathAge) this.die();
 
-            if (this.hunger >= Math.floor(this.hp / 2)) {
-                // console.log(this.name + " is looking for food");
-                this.getFood();
-            } else {
-                // console.log(this.name + " is herding");
-                this.herd();
+        if (this.hunger >= Math.floor(this.hp / 2)) {
+            // console.log(this.name + " is looking for food");
+            this.getFood();
+        } else {
+            // console.log(this.name + " is herding");
+            this.herd();
+        }
+        if (this.lifeCycle === 0) {
+            // console.log(this.name + ' is procreating');
+            if (Math.random() < 0.2) {
+                this.procreate();
+                this.lifeCycle = this.size * 4;
             }
-            if (this.lifeCycle === 0) {
-                // console.log(this.name + ' is procreating');
-                if (Math.random() < 0.2) {
-                    this.procreate();
-                    this.lifeCycle = this.size * 4;
-                }
-            }
+        }
 
         }
     };
