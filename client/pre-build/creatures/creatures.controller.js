@@ -1,8 +1,6 @@
 app.controller('CreaturesController', function($scope, $state, CreatureFactory, user) {
     $scope.mySlides = user.creature;
 
-    $scope.selectedCreature;
-
     $scope.slides = [{
         name: 'beaver',
         vision: 3,
@@ -107,29 +105,5 @@ app.controller('CreaturesController', function($scope, $state, CreatureFactory, 
         $state.go('builder');
     };
 
-    $scope.levels = [{
-        name: "Level 1",
-        img: "land-icon.png",
-        completed: true
-    }, {
-        name: "Level 2",
-        img: "desert-icon.png",
-        completed: true
-    }, {
-        name: "Level 3",
-        img: "ice-icon.png",
-        completed: true
-    }, {
-        name: "Level 4",
-        img: "land-icon.png",
-        completed: false
-    }, {
-        name: "Level 5",
-        img: "desert-icon.png",
-        completed: false
-    }, {
-        name: "Level 6",
-        img: "ice-icon.png",
-        completed: false
-    }];
+
 })
