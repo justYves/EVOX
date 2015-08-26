@@ -1,12 +1,15 @@
 app.controller('BuilderController', function($scope, $state, ShapeFactory, CreatureFactory) {
     if (CreatureFactory.currentCreature) $scope.currentHash = CreatureFactory.currentCreature.shape.hash;
     $scope.currentCreature = CreatureFactory.currentCreature || {
-        stats: {
+        creature: {
             vision: 1,
             size: 1
         }
     }
+
+    $scope.show = !!$scope.currentCreature.creature._id;
     console.log($scope.currentCreature);
+
     $scope.decrement = function(string) {
         if ($scope.currentCreature[string] > 0)
             $scope.currentCreature[string]--
