@@ -8,7 +8,7 @@ app.directive('controlPanel', function() {
     };
 
   })
-  .controller("PanelController", function($scope, AuthService, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout) {
+  .controller("PanelController", function($modal, $scope, AuthService, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout) {
     AuthService.getLoggedInUser()
       .then(function(user) {
         $scope.user = user;
@@ -148,8 +148,8 @@ app.directive('controlPanel', function() {
     function updateStats() {
       "called";
       if (!$scope.creature || !$scope.stats) {
+        $scope.gameOver();
         $scope.stats=false;
-        game.gameOver();
         $scope.$digest;
         return;
       };
@@ -220,13 +220,64 @@ app.directive('controlPanel', function() {
 
     $scope.winObj = function() {
       $scope.user.points += 25;
-      game.winObjective();
+        var modalInstance = $modal.open({
+            animation: true,
+            controller: 'objectiveInstanceCtrl',
+            templateUrl: 'objective.html'
+        });
     };
 
     $scope.levelUp = function() {
       $scope.user.points += 50;
-      game.levelUp();
-    }
+        var modalInstance = $modal.open({
+            animation: true,
+            controller: 'levelUpInstanceCtrl',
+            templateUrl: 'level-up.html'
+        });
+    };
+
+    $scope.gameOver = function() {
+      $scope.user.points += 50;
+        var modalInstance = $modal.open({
+            animation: true,
+            controller: 'gameOverInstanceCtrl',
+            templateUrl: 'game-over.html'
+        });
+    };
 
 
   });
+app.controller('objectiveInstanceCtrl', function($scope, $modalInstance, $state) {
+    $scope.toHome = function() {
+        $state.go('home');
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.close = function() {
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+app.controller('levelUpInstanceCtrl', function($scope, $modalInstance, $state) {
+    $scope.toHome = function() {
+        $state.go('home');
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.toWorlds = function() {
+        $state.go('home');
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+app.controller('gameOverInstanceCtrl', function($scope, $modalInstance, $state) {
+    $scope.toHome = function() {
+        $state.go('home');
+        $modalInstance.dismiss('cancel');
+    }
+
+    $scope.toWorlds = function() {
+        $state.go('worlds');
+        $modalInstance.dismiss('cancel');
+    }
+});
