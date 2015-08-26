@@ -1,0 +1,6 @@
+<ul id="creature-list">
+    <li ng-hide="!!creatures.length">You have no creatures!</li>
+    <li ng-show="!!creatures.length" ng-repeat="creature in creatures">
+        <button class="btn btn-inverse  col-lg-1" id="creatures">{{creature.name}}</button>
+    </li>
+</ul>

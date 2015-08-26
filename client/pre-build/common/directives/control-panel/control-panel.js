@@ -245,7 +245,6 @@ app.directive('controlPanel', function() {
         });
     };
 
-
   });
 app.controller('objectiveInstanceCtrl', function($scope, $modalInstance, $state) {
     $scope.toHome = function() {
@@ -274,10 +273,10 @@ app.controller('gameOverInstanceCtrl', function($scope, $modalInstance, $state) 
     $scope.toHome = function() {
         $state.go('home');
         $modalInstance.dismiss('cancel');
-    }
+    };
 
     $scope.toWorlds = function() {
         $state.go('worlds');
         $modalInstance.dismiss('cancel');
-    }
+    };
 });
