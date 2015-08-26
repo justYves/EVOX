@@ -128,7 +128,7 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
         console.log($scope.creatures)
         createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
         $scope.creatures.forEach(function(creature) {
-            window[creature.name] = new createCreature(creature);
+            new createCreature(creature);
         });
 
         // $scope.currentAnimal = CameraFactory.currentAnimal;
