@@ -113,22 +113,22 @@ app.factory('WorldsFactory', function($http, MapFactory) {
             if (world.environment === 'land') {
                 grass = ['grass-nice', 'light-dirt', 'grass-dirt-light'];
                 dirt = ['light-dirt', 'light-dirt', 'light-dirt'];
-                bark = ['leaves2', 'bark'];
-                leaves = ['leaves2'];
+                bark = ['leaves1', 'bark'];
+                leaves = ['leaves1'];
                 materials = [grass, dirt, bark, leaves];
             }
             if (world.environment === 'ice') {
-                grass = ['whitewool', 'dirt-med', 'dirt-med'];
-                dirt = ['dirt', 'dirt', 'dirt'];
+                grass = ['whitewool', 'dirt-med', 'dirt-med-snow'];
+                dirt = ['dirt-med', 'dirt-med', 'dirt-med'];
                 bark = ['whitewool', 'bark'];
                 leaves = ['whitewool', 'leaves1', 'leaves1'];
                 materials = [grass, dirt, bark, leaves];
             }
-            if (world.environment === 'water') {
-                grass = ['crate', 'dirt', 'grass_dirt'];
-                dirt = ['dirt', 'dirt', 'dirt'];
-                bark = ['tree_side'];
-                leaves = ['leaves_opaque'];
+            if (world.environment === 'desert') {
+                grass = ['sand', 'rock', 'rock-sand'];
+                dirt = ['rock', 'rock', 'rock'];
+                bark = ['leaves2', 'bark'];
+                leaves = ['leaves2'];
                 materials = [grass, dirt, bark, leaves];
             }
         },
