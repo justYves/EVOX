@@ -10,10 +10,10 @@
             </div>
             <div class="form-group" ng-show="world">
                 <label>Environment</label>
-                
+
                 <div class="row">
-                    <div class="col-lg-4 text-center" ng-repeat="env in environments">
-                        <button type="button" class="btn btn-default" ng-click="world.environment=env" id="env-btn" toggle="tooltip" title="{{env}}"><img id="env-icon" ng-src="{{env}}-icon.png" /></a>
+                    <div class="col-lg-4 text-center" ng-repeat="env in environments" data-ng-click="toggleObject.item =$index">
+                        <button type="button" class="btn btn-default" id="env-btn" data-ng-class="{'animated infinite pulse': toggleObject.item == $index}"  ng-click="world.environment=env" toggle="tooltip" title="{{env}}"><img id="env-icon" ng-src="{{env}}-icon.png" /></a>
                     </div>
                 </div>
             </div>
