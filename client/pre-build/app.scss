@@ -37,6 +37,39 @@ padding-left:0.3em;
 padding-top:0.3em;
 padding-bottom:0.3em;
 }
+
+#level-icon{
+margin-right: auto;
+margin-left:auto;
+margin-bottom: 1em;
+width: 50%
+}
+
+.grayscale {
+     filter: grayscale(100%); /* Current draft standard */
+    -webkit-filter: grayscale(100%); /* New WebKit */
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+}
+
+#level-num{
+  position: absolute;
+    color: white;
+    // font-size:2em;
+    width:50%;
+    bottom:5%;
+    left: 25%;
+}
+
+#check-mark{
+  position:absolute;
+  display:inline;
+  right:21%;
+  top: 9%;
+  font-size: 4em;
+}
+
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 // Add your fractal Sass files below!

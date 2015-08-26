@@ -89,7 +89,7 @@ app.controller('BuilderController', function($scope, $state,ShapeFactory,Creatur
     ShapeFactory.saveShape(creature)
       .then(function(data){
         console.log(data);
-        $state.go('creatures');
+        $state.go('creatures.select');
       });
   };
 
