@@ -12,8 +12,9 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             $scope.currentCreature[string]--
     }
     $scope.increment = function(string) {
-        if ($scope.currentCreature[string] < 10)
-            $scope.currentCreature[string]++
+        console.log($scope.currentCreature)
+        if ($scope.currentCreature.creature[string] < 10)
+            $scope.currentCreature.creature[string]++
     }
     var THREE = window.THREE;
 
@@ -101,7 +102,7 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             hash: $scope.currentHash,
             img: exportImage(800, 600).src
         };
-        $scope.currentCreature.creature.name = name;
+        if($scope.currentCreature.creature) $scope.currentCreature.creature.name = name;
         if ($scope.currentCreature._id) {
             creatureShape._id = $scope.currentCreature.shape._id;
             $scope.currentCreature.shape = creatureShape;
