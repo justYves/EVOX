@@ -1,10 +1,17 @@
 app.factory('ShapeFactory', function($http, AuthService, UserFactory) {
     return {
-        getShape: function(name) {
-            return $http.get('/api/shapes/' + name)
-                .then(function(res) {
-                    return JSON.parse(res.data);
-                });
+        getShape: function(name, shape) {
+            if (shape) {
+                return $http.get('/api/shapes/id/' + id)
+                    .then(function(res) {
+                        return res.data;
+                    });
+            } else {
+                return $http.get('/api/shapes/' + name)
+                    .then(function(res) {
+                        return JSON.parse(res.data);
+                    });
+            }
         },
         saveShape: function(data, creature) {
             data.shape = JSON.stringify(data.shape);
