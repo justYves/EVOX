@@ -1,0 +1,11 @@
+<div class="tile drag-and-resize">
+	<ul id="creatures-list">
+		<p style="margin-bottom:0;">My Creatures</p>
+		<hr style="margin-bottom: 0;">
+	    <li ng-hide="!!creatures.length">You have no creatures!</li>
+	    <li ng-show="!!creatures.length" ng-repeat="creature in creatures">
+	        <button class="btn btn-inverse" id="creatures" ng-click="statsShow()">{{creature.name}}</button>
+	        <creature-stats></creature-stats>
+	    </li>
+	</ul>
+</div>

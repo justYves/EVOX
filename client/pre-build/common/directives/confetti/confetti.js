@@ -2,7 +2,7 @@ app.directive("confetti", function(){
 
 	return {
 		restrict: 'E',
-		templateUrl: 'pre-build/common/directives/confetti/confetti.html'
+		templateUrl: 'pre-build/common/directives/confetti/confetti.html',
 		controller: "confettiCTRL"
 	}
 

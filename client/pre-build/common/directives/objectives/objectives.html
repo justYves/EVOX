@@ -1,0 +1,10 @@
+<div ng-show="obj" class="tile drag-and-resize">
+	<ul id="objectives-list">
+		<p style="margin-bottom:0;">My Objectives</p><span ng-hide="!stats" class='fui-cross pull-right' ng-click='toggleObj()'></span>
+		<hr style="margin-bottom:0;">
+	    <li ng-hide="!!objectives.length">You have no more objectives!</li>
+	    <li ng-show="!!objectives.length" ng-repeat="objective in objectives">
+	        <button class="btn btn-inverse" id="objective">{{objective.name}}</button>
+	    </li>
+	</ul>
+</div>

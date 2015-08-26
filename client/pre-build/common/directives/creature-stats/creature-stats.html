@@ -1,31 +1,33 @@
-<ul>
-  <li ng-model="creature.name">Species: {{creature.name}}<span ng-hide="!stats" class='fui-cross pull-right' ng-click='statsShow()'></span></li>
-  <li ng-model="creature.age">Age: {{creature.age}}</li>
-  <li ng-model="creature.position">Location: [{{creature.position.x - 0.5}}, {{creature.position.z - 0.5}}]</li>
-  <li>
-    <p style="margin: 0;">Health: {{creature.hp}}</p>
-    <div class="progress">
-    <div class="progress-bar"
-      ng-class = "creature.healthPercentage >= 50 ? 'progress-bar-success' : 'progress-bar-danger'" 
-      role="progressbar" 
-      aria-valuenow="{{creature.healthPercentage}}"
-      aria-valuemin="0" 
-      aria-valuemax="100" 
-      style="width: {{creature.healthPercentage}}%;">
-    </div>
-  </li>
-  <li>
-    <p style="margin: 0;">Hunger: {{creature.hunger}}</p>
-    <div class="progress">
-    <div class="progress-bar progress-bar-danger" 
-      ng-class = "creature.healthPercentage <= 50 ? 'progress-bar-success' : 'progress-bar-danger'" 
-      role="progressbar" 
-      aria-valuenow="{{creature.hungerPercentage}}"
-      aria-valuemin="0" 
-      aria-valuemax="100" 
-      style="width: {{creature.hungerPercentage}}%;">
-    </div>
-  </li>
-  <button ng-click="killCreature()" class='btn btn-danger'>Kill</button>
-  <button ng-click="procreate()" class='btn btn-success'>Spawn</button>
-</ul>
+<div ng-show="stats" class="tile drag-and-resize">
+  <ul>
+    <li ng-model="creature.name">Species: {{creature.name}}<span ng-hide="!stats" class='fui-cross pull-right' ng-click='statsShow()'></span></li>
+    <li ng-model="creature.age">Age: {{creature.age}}</li>
+    <li ng-model="creature.position">Location: [{{creature.position.x - 0.5}}, {{creature.position.z - 0.5}}]</li>
+    <li>
+      <p style="margin: 0;">Health: {{creature.hp}}</p>
+      <div class="progress">
+      <div class="progress-bar"
+        ng-class = "creature.healthPercentage >= 50 ? 'progress-bar-success' : 'progress-bar-danger'" 
+        role="progressbar" 
+        aria-valuenow="{{creature.healthPercentage}}"
+        aria-valuemin="0" 
+        aria-valuemax="100" 
+        style="width: {{creature.healthPercentage}}%;">
+      </div>
+    </li>
+    <li>
+      <p style="margin: 0;">Hunger: {{creature.hunger}}</p>
+      <div class="progress">
+      <div class="progress-bar progress-bar-danger" 
+        ng-class = "creature.healthPercentage <= 50 ? 'progress-bar-success' : 'progress-bar-danger'" 
+        role="progressbar" 
+        aria-valuenow="{{creature.hungerPercentage}}"
+        aria-valuemin="0" 
+        aria-valuemax="100" 
+        style="width: {{creature.hungerPercentage}}%;">
+      </div>
+    </li>
+    <button style="padding-top: 0;" ng-click="killCreature()" class="btn btn-danger">Kill</button>
+    <button ng-click="procreate()" class="btn btn-success">Spawn</button>
+  </ul>
+</div>
