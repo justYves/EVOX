@@ -25,7 +25,8 @@ router.get('/', function(req, res, next) {
     World.find().deepPopulate('map creatures.position creatures.rotation').exec()
         .then(function(worlds) {
             res.json(worlds);
-})    .then(null, next);
+        })
+        .then(null, next);
 });
 
 router.post('/', function(req, res, next) {

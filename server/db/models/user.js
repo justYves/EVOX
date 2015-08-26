@@ -48,12 +48,30 @@ var userSchema = new mongoose.Schema({
         // category: String,
         // size: Number,
         levels: {
-            1: Boolean,
-            2: Boolean,
-            3: Boolean,
-            4: Boolean,
-            5: Boolean,
-            6: Boolean
+            1: {
+                type: Boolean,
+                default: true
+            },
+            2: {
+                type: Boolean,
+                default: false
+            },
+            3: {
+                type: Boolean,
+                default: false
+            },
+            4: {
+                type: Boolean,
+                default: false
+            },
+            5: {
+                type: Boolean,
+                default: false
+            },
+            6: {
+                type: Boolean,
+                default: false
+            }
         }
     }]
 });

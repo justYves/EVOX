@@ -6,7 +6,10 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             size: 1
         }
     }
+
+    $scope.show = !!$scope.currentCreature.creature._id;
     console.log($scope.currentCreature);
+
     $scope.decrement = function(string) {
         if ($scope.currentCreature[string] > 0)
             $scope.currentCreature[string]--
