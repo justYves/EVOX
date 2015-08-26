@@ -89,36 +89,36 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
 
     // <------ Creature ------>
     function initCreatures() {
-        if (!$scope.creatures.length) {
-            $scope.creatures = [{
-                    name: 'deer',
-                    size: 12,
-                    vision: 5,
-                    social: 2,
-                    isHerbivore: true,
-                    spawner: true
-                },
-                // , {
-                //     name: 'turtle',
-                //     size: 5,
-                //     vision: 5,
-                //     social: 7,
-                //     isHerbivore: false
-                // }
-                // , {
-                //     name: 'crocodile',
-                //     size: 5,
-                //     vision: 5,
-                //     isHerbivore: false
-                // },
-                {
-                    name: 'lion',
-                    size: 5,
-                    vision: 7,
-                    isHerbivore: false
-                }
-            ];
-        }
+        // if (!$scope.creatures.length) {
+        //     $scope.creatures = [{
+        //             name: 'deer',
+        //             size: 12,
+        //             vision: 5,
+        //             social: 2,
+        //             isHerbivore: true,
+        //             spawner: true
+        //         },
+        //         // , {
+        //         //     name: 'turtle',
+        //         //     size: 5,
+        //         //     vision: 5,
+        //         //     social: 7,
+        //         //     isHerbivore: false
+        //         // }
+        //         // , {
+        //         //     name: 'crocodile',
+        //         //     size: 5,
+        //         //     vision: 5,
+        //         //     isHerbivore: false
+        //         // },
+        //         {
+        //             name: 'lion',
+        //             size: 5,
+        //             vision: 7,
+        //             isHerbivore: false
+        //         }
+        //     ];
+        // }
 
         if (UserFactory.currentUser.creature.length) {
             UserFactory.currentUser.creature.forEach(function(thing) {
