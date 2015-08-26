@@ -72,8 +72,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
 
     //render the 3D model
     function render(model, shape, game, voxel, mesh, spawnPos) {
-        // console.log("game", game);
-        // console.log(arguments);
+        var rotation = shape.rotation;
         if (typeof shape !== "function") {
             // console.log("Render is called!");
             var displayScale = shape.display || 0.5;
@@ -93,6 +92,10 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
 
         model.position = model.item.yaw.position;
         model.rotation = model.item.yaw.rotation;
+            if(rotation) {
+                model.rotation.y = rotation *Math.PI;
+                console.log("rotation called")
+            }
         if (spawnPos) {
             model.setPosition(spawnPos.x, 1, spawnPos.z);
         } else {
