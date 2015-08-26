@@ -27,22 +27,14 @@
                 </div>
                 <div class="row creature-container">
                     <div class="btn-group">
-                        <button class="btn btn-inverse" ng-click="showCreatures">My Creatures</button>
+                        <button class="btn btn-inverse" ng-click="showCreatures()">My Creatures</button>
                     </div>
                 </div>
                 <hr>
-                <div class="row">
-                    <p style="margin-bottom: 0;">My Creature Stats</p>
-                    <p ng-show="!stats">Select A Creature!</p>
-                    <p>
-                        <creature-stats ng-hide="!stats || !creature "></creature-stats>
-                    </p>
-                </div>
                 <hr>
             <p>**for development**</p>
             <button class="btn btn-primary" ng-click="winObj()">WIN Objective</button>
             <button class="btn btn-primary" ng-click="levelUp()">Level Up</button>
             <button class="btn btn-danger" ng-click="gameOver()">Game Over</button>
     </div>
-</div>
 </div>
