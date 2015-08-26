@@ -73,10 +73,10 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         wireframe = !wireframe;
         scene.children
             .filter(function(el) {
-                return el.isVoxel
+                return el.isVoxel;
             })
             .map(function(mesh) {
-                mesh.wireMesh.visible = wireframe
+                mesh.wireMesh.visible = wireframe;
             });
     };
 
@@ -104,18 +104,19 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             hash: $scope.currentHash,
             img: exportImage(800, 600).src
         };
+        console.log($scope.currentCreature);
         $scope.currentCreature.creature.name = name;
         if ($scope.currentCreature._id) {
             creatureShape._id = $scope.currentCreature.shape._id;
             $scope.currentCreature.shape = creatureShape;
             ShapeFactory.updateShape($scope.currentCreature)
                 .then(function(data) {
-                    $state.go('creatures')
-                })
+                    $state.go('creatures.select');
+                });
         } else {
             ShapeFactory.saveShape(creatureShape, $scope.currentCreature)
                 .then(function(data) {
-                    $state.go('creatures');
+                    $state.go('creatures.select');
                 });
         }
     };
