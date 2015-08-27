@@ -8,17 +8,15 @@ app.directive('controlPanel', function() {
     };
 
 })
-    .controller("PanelController", function($modal, $scope, AuthService, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout) {
-        AuthService.getLoggedInUser()
-            .then(function(user) {
-                $scope.user = user;
-            });
-
+    .controller("PanelController", function($modal, $scope, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout, UserFactory) {
         $scope.creatures = game.creatures;
         $scope.selected;
         $scope.world = WorldsFactory.getCurrentWorld();
         $scope.stats = false;
         $scope.obj = false;
+        $scope.user = UserFactory.currentUser;
+        var currentLevel = 0;
+        $scope.currentObjectives = $scope.user.levels[currentLevel].objectives;
 
         var createTree = window.OneTree(game);
         var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
@@ -42,7 +40,6 @@ app.directive('controlPanel', function() {
             $scope.user.points -= 5;
         };
 
-        // this function crashes browser!
         $scope.procreate = function() {
             $scope.creature.procreate();
             $scope.user.points += 20;
@@ -158,7 +155,7 @@ app.directive('controlPanel', function() {
             };
             $scope.getPercentages($scope.creature);
             $scope.$digest;
-            $timeout(updateStats, 1000)
+            $timeout(updateStats, 1000);
         }
 
         $scope.save = function() {
@@ -171,11 +168,11 @@ app.directive('controlPanel', function() {
                 delete creature.item;
                 if (creature._id) existing.push(creature);
                 else isNew.push(creature);
-            })
-            var allCreatures
+            });
+            var allCreatures;
             updateCreatureStuff(existing)
                 .then(function() {
-                    return postCreatureStuff(isNew)
+                    return postCreatureStuff(isNew);
                 })
                 .then(function(newCreatures) {
                     allCreatures = existing.concat(newCreatures);

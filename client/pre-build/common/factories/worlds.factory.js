@@ -52,7 +52,7 @@ app.factory('WorldsFactory', function($http, MapFactory) {
                     return res.data;
                 })
         },
-        postWorld: function(world) {
+        postWorld: function(world, nopost) {
             var func, creatures;
             if (world.flat) func = concatFlatMap;
             else func = concat3DMap;
@@ -61,14 +61,24 @@ app.factory('WorldsFactory', function($http, MapFactory) {
             if (world.environment === 'ice') creatures = ['penguin', 'wildDog', 'deer', 'beaver'];
             world.map = func(MapFactory.create(world.size, null, world.flat, world.grassPercent))
 
-            return $http.post('/api/creatures/all', creatures)
+            if (nopost) {
+                return $http.post('/api/creatures/all', creatures)
                 .then(function(res) {
-                    world.creatures = res.data
-                    return $http.post('/api/worlds', world)
+                    world.creatures = res.data;
+                    return world;
                 })
-                .then(function(res) {
-                    return res.data;
-                })
+            }
+            else {
+                return $http.post('/api/creatures/all', creatures)
+                    .then(function(res) {
+                        console.log('worldsfactory',res.data)
+                        world.creatures = res.data
+                        return $http.post('/api/worlds', world)
+                    })
+                    .then(function(res) {
+                        return res.data;
+                    })
+            }
         },
         updateWorld: function(world) {
             var func;
