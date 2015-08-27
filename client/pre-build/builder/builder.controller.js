@@ -18,6 +18,17 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         if ($scope.currentCreature.creature[string] < 10)
             $scope.currentCreature.creature[string]++
     }
+
+    $scope.rotate = rotateHash;
+
+    $scope.reset = reset;
+
+    $scope.undo = undo;
+    $scope.redo = redo;
+
+    $scope.undoMemory = [];
+    $scope.redoMemory =[];
+    window.undoMemory = $scope.undoMemory;
     var THREE = window.THREE;
 
     var raf = window.raf;
@@ -830,6 +841,7 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
 
     //<---UpdateHas --- >
     function updateHash() {
+        if($scope.currentHash !== $scope.undoMemory[length-1]) $scope.undoMemory.push($scope.currentHash);
         var data = [],
             voxels = [],
             code
@@ -929,13 +941,146 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         // hack to ignore programmatic hash changes
         $scope.updatingHash = true
         $scope.currentHash = outHash;
-        // window.location.replace("outHash")
 
         setTimeout(function() {
             $scope.updatingHash = false
         }, 1)
 
         return voxels
+    }
+
+    function undo(){
+        if(!$scope.undoMemory.length) return;
+        console.log("done");
+        reset();
+        $scope.redoMemory.push($scope.undoMemory.pop());
+        $scope.currentHash = $scope.undoMemory.pop();
+        console.log($scope.currentHash);
+        buildFromHash();
+        render();
+    }
+
+window.redo = $scope.redoMemory;
+    function redo(){
+        if(!$scope.redoMemory.length) return;
+        $scope.undoMemory.push($scope.currentHash);
+        $scope.currentHash = $scope.redoMemory.pop();
+        buildFromHash();
+        render();
+
+    }
+
+        //<---UpdateHas --- >
+    function rotateHash(bool) {
+        var rotX = (bool) ? -1 :1 ;
+        var rotZ = (bool) ? 1 : -1;
+        var data = [],
+            voxels = [],
+            code
+        var current = {
+            x: 0,
+            y: 0,
+            z: 0,
+            c: 0
+        }
+        var last = {
+            x: 0,
+            y: 0,
+            z: 0,
+            c: 0
+        }
+        for (var i in scene.children) {
+
+            var object = scene.children[i]
+
+            if (object.isVoxel && object !== plane && object !== brush) {
+
+                current.x = (object.position.z - 25)/ 50 *(rotX)
+                current.y = (object.position.y - 25) / 50
+                current.z = (object.position.x - 25) / 50 * (rotZ)
+
+                var colorString = ['r', 'g', 'b'].map(function(col) {
+                        return object.material.color[col]
+                    }).join('')
+                    // this string matching of floating point values to find an index seems a little sketchy
+                for (var i = 0; i < colors.length; i++)
+                    if (colors[i].join('') === colorString) current.c = i
+                voxels.push({
+                    x: current.x,
+                    y: current.y + 1,
+                    z: current.z,
+                    c: current.c + 1
+                })
+
+                code = 0
+
+                if (current.x != last.x) code += 1000
+                if (current.y != last.y) code += 100
+                if (current.z != last.z) code += 10
+                if (current.c != last.c) code += 1
+
+                code += 10000
+
+                data.push(parseInt(code, 2))
+
+                if (current.x != last.x) {
+
+                    data.push(current.x - last.x + 32)
+                    last.x = current.x
+
+                }
+
+                if (current.y != last.y) {
+
+                    data.push(current.y - last.y + 32)
+                    last.y = current.y
+
+                }
+
+                if (current.z != last.z) {
+
+                    data.push(current.z - last.z + 32)
+                    last.z = current.z
+
+                }
+
+                if (current.c != last.c) {
+
+                    data.push(current.c - last.c + 32)
+                    last.c = current.c
+
+                }
+            }
+        }
+
+        data = encode(data)
+        animationFrames[currentFrame] = data
+
+        var cData = '';
+        for (var i = 0; i < colors.length; i++) {
+            cData += rgb2hex(colors[i]);
+        }
+
+        var outHash = "#" + (cData ? ("C/" + cData) : '')
+        for (var i = 0; i < animationFrames.length; i++) {
+            if (i === 0) {
+                outHash = outHash + ":A/" + animationFrames[i]
+            } else {
+                outHash = outHash + ":A" + i + '/' + animationFrames[i]
+            }
+        }
+
+
+        $scope.updatingHash = true
+
+        reset()
+        $scope.currentHash = outHash;
+        buildFromHash();
+        render()
+
+        setTimeout(function() {
+            $scope.updatingHash = false
+        }, 1)
     }
 
     function getIntersecting() {
@@ -984,12 +1129,21 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         voxel.position.z = z
         voxel.wireMesh.position.copy(voxel.position)
         voxel.wireMesh.visible = wireframe
+        voxel.wireMesh.isVoxelMesh = true;
         voxel.matrixAutoUpdate = false
         voxel.updateMatrix()
         voxel.name = x + "," + y + "," + z
         voxel.overdraw = true
         scene.add(voxel)
         scene.add(voxel.wireMesh)
+    }
+
+    function reset(){
+        $scope.currentHash = '#/';
+    scene.children
+      .filter(function(el) { return el.isVoxel || el.isVoxelMesh })
+      .map(function(mesh) { scene.remove(mesh) })
+
     }
 
     // function getVoxels() {

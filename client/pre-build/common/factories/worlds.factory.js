@@ -102,7 +102,7 @@ app.factory('WorldsFactory', function($http, MapFactory) {
                 texturePath: '../textures/',
                 controls: {
                     discreteFire: true
-                }
+                },
                 // lightsDisabled: true
             }
         },

@@ -56,7 +56,7 @@ function findMatch(arr, name) {
 var creatures = [];
 
 var elephant = new Creature({
-    shape: findMatch(shapes, 'elephant'),
+    shape: findMatch(shapes, 'big elephant'),
     name: 'elephant',
     category: 'large',
     size: 10,
