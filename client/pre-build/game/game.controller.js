@@ -1,4 +1,5 @@
-app.controller('GameController', function($modal, $scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q, UserFactory) {
+app.controller('GameController', function($modal, $scope, $stateParams, WorldsFactory, CameraFactory, MapFactory, CreatureFactory, TimeFactory, EventsFactory, $state, $q, user) {
+    console.log(user);
     $scope.creatures = CreatureFactory.currentCreatures;
     var createGame = window.voxelEngine; // use to create the World
     var createCreature;
@@ -119,12 +120,12 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
         //     ];
         // }
 
-        if (UserFactory.currentUser.creature.length) {
-            UserFactory.currentUser.creature.forEach(function(thing) {
+        if (user.creature.length) {
+            user.creature.forEach(function(thing) {
                 $scope.creatures.push(thing.creature);
             })
         }
-        console.log("CREATURES TO LOAD",$scope.creatures)
+        console.log("CREATURES TO LOAD", $scope.creatures)
         createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
         $scope.creatures.forEach(function(creature) {
             new createCreature(creature);

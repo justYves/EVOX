@@ -1,4 +1,6 @@
-app.controller('BuilderController', function($scope, $state, ShapeFactory, CreatureFactory) {
+app.controller('BuilderController', function($scope, $state, ShapeFactory, CreatureFactory, UserFactory) {
+    $scope.isAdmin = UserFactory.currentUser.isAdmin;
+
     if (CreatureFactory.currentCreature) $scope.currentHash = CreatureFactory.currentCreature.shape.hash;
     $scope.currentCreature = CreatureFactory.currentCreature || {
         creature: {
@@ -18,6 +20,14 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         if ($scope.currentCreature.creature[string] < 10)
             $scope.currentCreature.creature[string]++
     }
+    $scope.updateDefault = function() {
+        CreatureFactory.currentCreature.shape.hash = $scope.currentHash;
+        CreatureFactory.currentCreature.shape.shape = JSON.stringify(convertToVoxels($scope.currentHash));
+        ShapeFactory.updateDefault(CreatureFactory.currentCreature.shape)
+            .then(function() {
+                $state.go('creatures.select')
+            })
+    }
 
     $scope.rotate = rotateHash;
 
@@ -27,7 +37,7 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
     $scope.redo = redo;
 
     $scope.undoMemory = [];
-    $scope.redoMemory =[];
+    $scope.redoMemory = [];
     window.undoMemory = $scope.undoMemory;
     var THREE = window.THREE;
 
@@ -841,7 +851,7 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
 
     //<---UpdateHas --- >
     function updateHash() {
-        if($scope.currentHash !== $scope.undoMemory[length-1]) $scope.undoMemory.push($scope.currentHash);
+        if ($scope.currentHash !== $scope.undoMemory[length - 1]) $scope.undoMemory.push($scope.currentHash);
         var data = [],
             voxels = [],
             code
@@ -949,8 +959,8 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         return voxels
     }
 
-    function undo(){
-        if(!$scope.undoMemory.length) return;
+    function undo() {
+        if (!$scope.undoMemory.length) return;
         console.log("done");
         reset();
         $scope.redoMemory.push($scope.undoMemory.pop());
@@ -960,9 +970,10 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         render();
     }
 
-window.redo = $scope.redoMemory;
-    function redo(){
-        if(!$scope.redoMemory.length) return;
+    window.redo = $scope.redoMemory;
+
+    function redo() {
+        if (!$scope.redoMemory.length) return;
         $scope.undoMemory.push($scope.currentHash);
         $scope.currentHash = $scope.redoMemory.pop();
         buildFromHash();
@@ -970,9 +981,9 @@ window.redo = $scope.redoMemory;
 
     }
 
-        //<---UpdateHas --- >
+    //<---UpdateHash --- >
     function rotateHash(bool) {
-        var rotX = (bool) ? -1 :1 ;
+        var rotX = (bool) ? -1 : 1;
         var rotZ = (bool) ? 1 : -1;
         var data = [],
             voxels = [],
@@ -995,7 +1006,7 @@ window.redo = $scope.redoMemory;
 
             if (object.isVoxel && object !== plane && object !== brush) {
 
-                current.x = (object.position.z - 25)/ 50 *(rotX)
+                current.x = (object.position.z - 25) / 50 * (rotX)
                 current.y = (object.position.y - 25) / 50
                 current.z = (object.position.x - 25) / 50 * (rotZ)
 
@@ -1138,11 +1149,15 @@ window.redo = $scope.redoMemory;
         scene.add(voxel.wireMesh)
     }
 
-    function reset(){
+    function reset() {
         $scope.currentHash = '#/';
-    scene.children
-      .filter(function(el) { return el.isVoxel || el.isVoxelMesh })
-      .map(function(mesh) { scene.remove(mesh) })
+        scene.children
+            .filter(function(el) {
+                return el.isVoxel || el.isVoxelMesh
+            })
+            .map(function(mesh) {
+                scene.remove(mesh)
+            })
 
     }
 
