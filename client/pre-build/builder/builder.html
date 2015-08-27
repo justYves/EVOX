@@ -1,82 +1,92 @@
-
 <div class="container" id="instructions">
-  <div class="row">
-    <h3 class="demo-panel-title row"><a href="/">Builder</a></h3>
-    <form ng-submit="save(name)">
-      <div class="row">
-        Name: <input class="form-control" type="text" ng-model="name">
-      </div>
-      <div class="row">
-        <label ng-show="currentCreature.creature.category">Species: {{currentCreature.creature.name}} ({{currentCreature.creature.category}})</label>
-      </div>
-      <div class="row"><label>Vision:</label></div>
-      <div class="row">
-        <button ng-show="show" type="button" class="btn btn-default" ng-click="decrement('vision')">
-        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-        </button>
-        <div class="btn btn-primary" style="cursor:none">
-          {{currentCreature.creature.vision}}
+    <div class="row">
+        <h3 class="demo-panel-title row"><a href="/">Builder</a></h3>
+        <form ng-submit="save(name)">
+            <div class="row">
+                Name:
+                <input class="form-control" type="text" ng-model="name">
+            </div>
+            <div class="row">
+                <label ng-show="currentCreature.creature.category">Species: {{currentCreature.creature.name}} ({{currentCreature.creature.category}})</label>
+            </div>
+            <div class="row">
+                <label>Vision:</label>
+            </div>
+            <div class="row">
+                <button ng-show="show" type="button" class="btn btn-default" ng-click="decrement('vision')">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                </button>
+                <div class="btn btn-primary" style="cursor:none">
+                    {{currentCreature.creature.vision}}
+                </div>
+                <button ng-show="show" type="button" class="btn btn-default" ng-click="increment('vision')">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="row">
+                <label>Size:</label>
+                <div>
+                    <button ng-show="show" type="button" class="btn btn-default" ng-click="decrement('size')">
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                    </button>
+                    <div class="btn btn-primary" style="cursor:none">
+                        {{currentCreature.creature.size}}
+                    </div>
+                    <button ng-show="show" type="button" class="btn btn-default" ng-click="increment('size')">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <a class="btn btn-primary" ng-click="export()">Export PNG</a>
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+            <div class="row">
+                <a class="btn btn-primary" ng-click="rotate()"><i class="fa fa-chevron-left"></i></a>
+                <a class="btn btn-primary" ng-click="rotate(true)"><i class="fa fa-chevron-right"></i></a>
+                <a class="btn btn-primary" ng-click="undo()"><i class="fa fa-rotate-left"></i></a>
+                <a class="btn btn-primary" ng-click="redo()"><i class="fa fa-rotate-right"></i></a>
+                <a class="btn btn-primary" ng-click="reset()"><i class="fa fa-eraser"></i></a>
+            </div>
+        </form>
+    </div>
+    <br>
+    <div class="row">
+        <div class="row share" style="padding: 0 10px;">
+            <label class="share-label" for="share-toggle2">Grid</label>
+            <div ng-click="showGrid()" class="toggle">
+                <label class="toggle-radio" for="share-toggle2">ON</label>
+                <input type="radio" name="share-toggles" id="share-toggle2" value="toggle1" checked="checked">
+                <label class="toggle-radio" for="share-toggle1">OFF</label>
+                <input type="radio" name="share-toggles" id="share-toggle1" value="toggle2">
+            </div>
         </div>
-        <button ng-show="show" type="button" class="btn btn-default" ng-click="increment('vision')">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
-      </div>
-      <div class="row">
-        <label>Size:</label>
-        <div>
-          <button ng-show="show" type="button" class="btn btn-default" ng-click="decrement('size')">
-          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-          </button>
-          <div class="btn btn-primary" style="cursor:none">
-            {{currentCreature.creature.size}}
-          </div>
-          <button ng-show="show" type="button" class="btn btn-default" ng-click="increment('size')">
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-          </button>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <a class="btn btn-primary" ng-click="export()">Export PNG</a>
-        <button class="btn btn-primary" type="submit">Save</button>
-      </div>
-    </form>
-  </div>
-  <br>
-  <div class="row">
-    <div class="row share" style="padding: 0 10px;">
-        <label class="share-label" for="share-toggle2">Grid</label>
-        <div ng-click="showGrid()" class="toggle">
-          <label class="toggle-radio" for="share-toggle2">ON</label>
-          <input type="radio" name="share-toggles" id="share-toggle2" value="toggle1" checked="checked">
-          <label class="toggle-radio" for="share-toggle1">OFF</label>
-          <input type="radio" name="share-toggles" id="share-toggle1" value="toggle2">
+        <div class="row share" style="padding: 0 10px">
+            <label class="share-label" for="share-toggle3">Wireframe</label>
+            <div ng-click="setWireframe()" class="toggle">
+                <label class="toggle-radio" for="share-toggle4">ON</label>
+                <input type="radio" name="share-toggles2" id="share-toggle4" value="toggle1" checked="checked">
+                <label class="toggle-radio" for="share-toggle3">OFF</label>
+                <input type="radio" name="share-toggles2" id="share-toggle3" value="toggle2">
+            </div>
         </div>
     </div>
-    <div class="row share" style="padding: 0 10px">
-        <label class="share-label" for="share-toggle3">Wireframe</label>
-        <div ng-click="setWireframe()" class="toggle">
-          <label class="toggle-radio" for="share-toggle4">ON</label>
-          <input type="radio" name="share-toggles2" id="share-toggle4" value="toggle1" checked="checked">
-          <label class="toggle-radio" for="share-toggle3">OFF</label>
-          <input type="radio" name="share-toggles2" id="share-toggle3" value="toggle2">
-        </div>
-     </div>
-    </div> <!-- /share -->
+    <!-- /share -->
     <div class="row color-container">
-      <div class="span3">
-        <div class="btn-group color-picker">
-          <a class="btn btn-primary colorPickButton active" href="#"><i data-color="0" class="color"></i></a>
-          <a class="btn btn-primary colorPickButton" href="#"><i data-color="1" class="color"></i></a>
-          <a class="btn btn-primary colorPickButton" href="#"><i data-color="2" class="color"></i></a>
-          <a class="btn btn-primary colorPickButton" href="#"><i data-color="3" class="color"></i></a>
-          <a class="btn btn-primary colorPickButton" href="#"><i data-color="4" class="color"></i></a>
-          <a class="btn btn-primary colorAddButton" data-color="#000000" href="#"><i data-color="-1" class="colorAdd">++</i></a>
+        <div class="span3">
+            <div class="btn-group color-picker">
+                <a class="btn btn-primary colorPickButton active" href="#"><i data-color="0" class="color"></i></a>
+                <a class="btn btn-primary colorPickButton" href="#"><i data-color="1" class="color"></i></a>
+                <a class="btn btn-primary colorPickButton" href="#"><i data-color="2" class="color"></i></a>
+                <a class="btn btn-primary colorPickButton" href="#"><i data-color="3" class="color"></i></a>
+                <a class="btn btn-primary colorPickButton" href="#"><i data-color="4" class="color"></i></a>
+                <a class="btn btn-primary colorAddButton" data-color="#000000" href="#"><i data-color="-1" class="colorAdd">++</i></a>
+            </div>
         </div>
-      </div>
     </div>
     <div id="output"></div>
-  </div>
+</div>
 </div>
 <div id="container"></div>
 <!-- <div id="share" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -108,4 +118,4 @@
 <script src="../colorpicker/js/bootstrap-colorpicker.js"></script>
 <script src="/flat-ui/js/bootstrap.min.js"></script>
 <script src="../js/three.js"></script>
-<script src ="../js/raf.js"></script>
+<script src="../js/raf.js"></script>
