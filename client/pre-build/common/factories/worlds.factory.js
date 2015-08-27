@@ -58,7 +58,7 @@ app.factory('WorldsFactory', function($http, MapFactory) {
             else func = concat3DMap;
             if (world.environment === 'land') creatures = ['fox', 'turtle'];
             if (world.environment === 'desert') creatures = ['elephant', 'crocodile', 'lion', 'giraffe'];
-            if (world.environment === 'ice') creatures = ['penguin', 'wildDog', 'deer', 'beaver'];
+            if (world.environment === 'ice') creatures = ['penguin', 'wolf', 'deer', 'beaver'];
             world.map = func(MapFactory.create(world.size, null, world.flat, world.grassPercent))
 
             return $http.post('/api/creatures/all', creatures)

@@ -1,4 +1,4 @@
-app.directive('creatureCarousel', function() {
+app.directive('creatureCarousel', function(UserFactory) {
 
     return {
         restrict: 'E',
@@ -11,6 +11,7 @@ app.directive('creatureCarousel', function() {
             showLevel: '='
         },
         link: function(scope, elem, attr) {
+            scope.isAdmin = UserFactory.currentUser.isAdmin;
             scope.creatures = [];
             for (var i = 0; i < scope.slides.length; i += 3) {
                 scope.creatures.push(scope.slides.slice(i, i + 3));

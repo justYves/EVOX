@@ -13,6 +13,12 @@ app.factory('ShapeFactory', function($http, AuthService, UserFactory) {
                     });
             }
         },
+        getMany: function(arr) {
+            return $http.post('/api/shapes/many', arr)
+                .then(function(res) {
+                    return res.data
+                })
+        },
         saveShape: function(data, creature) {
             data.shape = JSON.stringify(data.shape);
             var tempCreatureId, tempShapeId;
@@ -52,6 +58,12 @@ app.factory('ShapeFactory', function($http, AuthService, UserFactory) {
                 .then(function() {
                     return "update succesfull";
                 });
+        },
+        updateDefault: function(shape) {
+            return $http.put('/api/shapes/default/' + shape._id, shape)
+                .then(function(res) {
+                    return res.data
+                })
         }
     };
 });

@@ -1,7 +1,7 @@
 <div class="container" id="instructions">
     <div class="row">
         <h3 class="demo-panel-title row"><a href="/">Builder</a></h3>
-        <form ng-submit="save(name)">
+        <form>
             <div class="row">
                 Name:
                 <input class="form-control" type="text" ng-model="name">
@@ -40,7 +40,8 @@
             <br>
             <div class="row">
                 <a class="btn btn-primary" ng-click="export()">Export PNG</a>
-                <button class="btn btn-primary" type="submit">Save</button>
+                <button ng-hide="isAdmin" class="btn btn-primary" ng-click="save(name)">Save</button>
+                <button ng-show="isAdmin" class="btn btn-primary" ng-click="updateDefault()">Update Default</button>
             </div>
             <div class="row">
                 <a class="btn btn-primary" ng-click="rotate()"><i class="fa fa-chevron-left"></i></a>
