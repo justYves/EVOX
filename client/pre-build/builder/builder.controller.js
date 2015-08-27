@@ -21,6 +21,8 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
 
     $scope.rotate = rotateHash;
 
+    $scope.reset = reset;
+
     var THREE = window.THREE;
 
     var raf = window.raf;
@@ -833,7 +835,6 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
 
     //<---UpdateHas --- >
     function updateHash() {
-        console.log("in update",$scope.currentHash)
         var data = [],
             voxels = [],
             code
@@ -933,8 +934,6 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         // hack to ignore programmatic hash changes
         $scope.updatingHash = true
         $scope.currentHash = outHash;
-        console.log(outHash);
-        // window.location.replace("outHash")
 
         setTimeout(function() {
             $scope.updatingHash = false
@@ -1043,15 +1042,11 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             }
         }
 
-        // hack to ignore programmatic hash changes
+
         $scope.updatingHash = true
-        // window.location.replace("outHash")
-        console.log(outHash);
 
         reset()
-        console.log(outHash);
         $scope.currentHash = outHash;
-        console.log("scope",$scope.currentHash);
         buildFromHash();
         render()
 
