@@ -1,4 +1,4 @@
-app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, CreatureFactory, $modal, $log,PointerFactory) {
+app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, CreatureFactory, $modal, $log, PointerFactory) {
     return {
         restrict: "E",
         templateUrl: "/pre-build/navbar/navbar.html",
@@ -69,31 +69,8 @@ app.controller('LoginInstanceCtrl', function($scope, $modalInstance, $modal, $st
         $modalInstance.dismiss('cancel');
     };
 
-    $scope.openSignup = function() {
+    $scope.goSignup = function() {
         $scope.cancel();
-
-        var modalInstance = $modal.open({
-            animation: true,
-            templateUrl: 'signup.html',
-            controller: 'SignupInstanceCtrl'
-        });
-
-        modalInstance.result.then(null, function() {
-            $log.info('Modal dismissed at: ' + new Date());
-        });
+        $state.go('home.signup');
     }
-});
-
-app.controller('SignupInstanceCtrl', function($scope, $modalInstance, UserFactory) {
-
-    $scope.ok = function() {
-        UserFactory.postUser($scope.newUser)
-            .then(function(user) {
-                $modalInstance.close();
-            })
-    };
-
-    $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
-    };
 });

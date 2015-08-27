@@ -1,10 +1,20 @@
+<style type="text/css">
+.expand:hover {
+    transition: all 0.2s ease;
+    transform:scale(1.15);
+  }
+</style>
+
 <div style="width: {{width}}px; margin: auto">
 	<div style="width: 100%; height: {{height}}px">
 		<!-- default creatures -->
 		<carousel ng-show="file" style="height: 100%" interval="myInterval" no-wrap="noWrapSlides">
 		<slide style="height: {{height}}px;"
 		ng-repeat="array in creatures">
-		<div class="col-sm-4" ng-repeat="creature in array" style="height: 100%;">
+		<div class="col-sm-4" style="height: 100%;" ng-show="add">
+			<img class="expand" ui-sref="builder" style="height: 80%; display: inline; margin: auto" src="plus.png"></img>
+		</div>
+		<div class="col-sm-4 expand" ng-repeat="creature in array" style="height: 100%;">
 			<img ng-click="fcn({creature:creature, shape: creature.shape})" id="creature-png" style="height: 80%; display: inline; margin: auto" ng-src="{{creature.name+'.png'}}"></img>
 			<h3 style="font-size:16px; margin: 0">{{creature.name}}</h3>
 		</div>
@@ -15,7 +25,10 @@
 		<carousel ng-hide="file" style="height: 100%" interval="myInterval" no-wrap="noWrapSlides">
 		<slide style="height: {{height}}px;"
 		ng-repeat="array in creatures">
-		<div class="col-sm-4" ng-repeat="creature in array" style="height: 100%;">
+		<div class="col-sm-4" style="height: 100%;" ng-show="add">
+			<img class="expand" ui-sref="builder" style="height: 80%; display: inline; margin: auto; padding-top: 20px" src="plus.png"></img>
+		</div>
+		<div class="col-sm-4 expand" ng-repeat="creature in array" style="height: 100%;">
 			<!-- 	<button class="btn btn-sm">Play Level</button><button class="btn btn-sm" >Edit</button> --><a id="edit-icon" ng-click="fcn(creature)"  ><i class="fa fa-pencil-square-o"></i></a>
 			<a ui-sref="creatures.level({id:user._id})" ><img id="creature-png"  style="height: 80%; display: inline; margin: auto" ng-src="{{creature.shape.img}}"></img></a>
 			<h3 style="font-size:16px; margin: 0">{{creature.creature.name}}</h3>
