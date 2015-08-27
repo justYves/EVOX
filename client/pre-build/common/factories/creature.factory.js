@@ -24,6 +24,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.maturity = Math.floor(this.deathAge * 0.7);
         this.spawner = opts.spawner || false;
         this.pos = opts.pos;
+        this.isFood = opts.isFood;
         this.position = {
             x: 0,
             y: 0,
@@ -55,9 +56,11 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
                     }, 1, self.item.avatar.id);
                 });
         }
-
         if (!game.creatures) game.creatures = [];
-        game.creatures.push(this);
+        if (!this.isFood) {
+            console.log("WHOA FOOD", this.name, this.isFood)
+            game.creatures.push(this);
+        }
     }
 
 
@@ -87,17 +90,17 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         model.map = game.map;
         model.item = game.makePhysical(shape);
         model.item.subjectTo(game.gravity);
-        model.item.avatar.castShadow=true;
-        model.item.avatar.receiveShadow=true;
+        model.item.avatar.castShadow = true;
+        model.item.avatar.receiveShadow = true;
         game.scene.add(shape);
         game.addItem(model.item);
 
         model.position = model.item.yaw.position;
         model.rotation = model.item.yaw.rotation;
-            if(rotation) {
-                model.rotation.y = rotation *Math.PI;
-                console.log("rotation called")
-            }
+        if (rotation) {
+            model.rotation.y = rotation * Math.PI;
+            console.log("rotation called")
+        }
         if (spawnPos) {
             model.setPosition(spawnPos.x, 1, spawnPos.z);
         } else {
