@@ -38,10 +38,23 @@ router.get('/:name', function(req, res, next) {
         })
         .then(null, next);
 });
+
 router.post('/', function(req, res, next) {
     Shape.create(req.body)
         .then(function(shape) {
             res.status(201).json(shape);
+        })
+        .then(null, next);
+});
+
+router.post('/many', function(req, res, next) { //post for payload
+    Shape.find({
+        name: {
+            $in: req.body
+        }
+    }).exec()
+        .then(function(shapes) {
+            res.status(200).json(shapes);
         })
         .then(null, next);
 });
@@ -76,4 +89,17 @@ router.put('/:id', function(req, res, next) {
         })
         .then(null, next)
 
+})
+
+router.put('/default/:id', function(req, res, next) {
+    console.log('hitting', req.body)
+    Shape.findById(req.params.id).exec()
+        .then(function(shape) {
+            _.extend(shape, req.body);
+            return shape.save()
+        })
+        .then(function(result) {
+            res.status(200).json(result)
+        })
+        .then(null, next)
 })

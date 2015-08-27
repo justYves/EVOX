@@ -1,5 +1,6 @@
 <div style="width: {{width}}px; margin: auto">
 	<div style="width: 100%; height: {{height}}px">
+		<!-- default creatures -->
 		<carousel ng-show="file" style="height: 100%" interval="myInterval" no-wrap="noWrapSlides">
 		<slide style="height: {{height}}px;"
 		ng-repeat="array in creatures">
@@ -9,6 +10,8 @@
 		</div>
 		</slide>
 		</carousel>
+
+		<!-- user creatures -->
 		<carousel ng-hide="file" style="height: 100%" interval="myInterval" no-wrap="noWrapSlides">
 		<slide style="height: {{height}}px;"
 		ng-repeat="array in creatures">
