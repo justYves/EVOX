@@ -18,6 +18,9 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         if ($scope.currentCreature.creature[string] < 10)
             $scope.currentCreature.creature[string]++
     }
+
+    $scope.rotate = rotateHash;
+
     var THREE = window.THREE;
 
     var raf = window.raf;
@@ -940,9 +943,10 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         return voxels
     }
 
-    window.rotate = rotateHash;
         //<---UpdateHas --- >
-    function rotateHash() {
+    function rotateHash(bool) {
+        var rotX = (bool) ? -1 :1 ;
+        var rotZ = (bool) ? 1 : -1;
         var data = [],
             voxels = [],
             code
@@ -964,9 +968,9 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
 
             if (object.isVoxel && object !== plane && object !== brush) {
 
-                current.x = (object.position.z - 25)/ 50
+                current.x = (object.position.z - 25)/ 50 *(rotX)
                 current.y = (object.position.y - 25) / 50
-                current.z = (object.position.x - 25) / -50
+                current.z = (object.position.x - 25) / 50 * (rotZ)
 
                 var colorString = ['r', 'g', 'b'].map(function(col) {
                         return object.material.color[col]
