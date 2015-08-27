@@ -252,8 +252,8 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
 // sprite.rotation = 0;
 
 // sprite.renderDepth = 1;
-                game.scene.add( sprite );
-                window.sprite = sprite;
+                // game.scene.add( sprite );
+                // window.sprite = sprite;
         var createTrees = window.Tree(game);
         game.trees = WorldsFactory.getCurrentWorld().trees;
         var options = {
