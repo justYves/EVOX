@@ -47,33 +47,15 @@ var userSchema = new mongoose.Schema({
         // vision: Number,
         // category: String,
         // size: Number,
-        levels: {
-            1: {
-                type: Boolean,
-                default: false
-            },
-            2: {
-                type: Boolean,
-                default: false
-            },
-            3: {
-                type: Boolean,
-                default: false
-            },
-            4: {
-                type: Boolean,
-                default: false
-            },
-            5: {
-                type: Boolean,
-                default: false
-            },
-            6: {
-                type: Boolean,
-                default: false
-            }
-        }
-    }]
+    }],
+    levels: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Level'
+    }],
+    points: {
+        type: Number,
+        default: 25
+    }
 });
 
 userSchema.plugin(deepPopulate, {});

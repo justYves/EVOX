@@ -13,6 +13,9 @@ app.config(function($stateProvider) {
                         'fox', 'lion', 'penguin', 'pigeon', 'turtle', 'wolf'
                     ];
                     return ShapeFactory.getMany(arr)
+                },
+                worlds: function(WorldsFactory) {
+                    return WorldsFactory.getWorlds();
                 }
             }
         })
@@ -24,6 +27,6 @@ app.config(function($stateProvider) {
         .state('creatures.level', {
             url: '/level/{id}',
             templateUrl: '/pre-build/creatures/level.html',
-            controller: "LevelController"
+            controller: "OneWorldCtrl"
         });
 });
