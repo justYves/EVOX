@@ -87,6 +87,8 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         model.map = game.map;
         model.item = game.makePhysical(shape);
         model.item.subjectTo(game.gravity);
+        model.item.avatar.castShadow=true;
+        model.item.avatar.receiveShadow=true;
         game.scene.add(shape);
         game.addItem(model.item);
 

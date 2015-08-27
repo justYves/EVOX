@@ -238,6 +238,22 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
     // });
 
     function initTrees() {
+//         var map = game.THREE.ImageUtils.loadTexture( "../textures/jolicraft/rose.png" );
+//                 var material = new game.THREE.SpriteMaterial( { map: map, color: 0xffffff, fog: true ,depthTest: false,alphaTest: 0.5} );
+//                 var sprite = new game.THREE.Sprite( material );
+//                         sprite.position.set(10, 1, 10);
+//         sprite.isFront = true;
+//         sprite.position.set(3, 2, 3);
+
+// sprite.scale.set(2, 4, 2);
+
+// sprite.alphaTest = 0.5;
+
+// sprite.rotation = 0;
+
+// sprite.renderDepth = 1;
+                game.scene.add( sprite );
+                window.sprite = sprite;
         var createTrees = window.Tree(game);
         game.trees = WorldsFactory.getCurrentWorld().trees;
         var options = {
