@@ -7,6 +7,9 @@ app.config(function($stateProvider) {
             resolve: {
                 worlds: function(WorldsFactory) {
                     return WorldsFactory.getWorlds();
+                },
+                user: function(UserFactory) {
+                    return UserFactory.currentUser
                 }
             }
         })
