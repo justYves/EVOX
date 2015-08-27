@@ -23,6 +23,12 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
 
     $scope.reset = reset;
 
+    $scope.undo = undo;
+    $scope.redo = redo;
+
+    $scope.undoMemory = [];
+    $scope.redoMemory =[];
+    window.undoMemory = $scope.undoMemory;
     var THREE = window.THREE;
 
     var raf = window.raf;
@@ -835,6 +841,7 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
 
     //<---UpdateHas --- >
     function updateHash() {
+        if($scope.currentHash !== $scope.undoMemory[length-1]) $scope.undoMemory.push($scope.currentHash);
         var data = [],
             voxels = [],
             code
@@ -940,6 +947,27 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         }, 1)
 
         return voxels
+    }
+
+    function undo(){
+        if(!$scope.undoMemory.length) return;
+        console.log("done");
+        reset();
+        $scope.redoMemory.push($scope.undoMemory.pop());
+        $scope.currentHash = $scope.undoMemory.pop();
+        console.log($scope.currentHash);
+        buildFromHash();
+        render();
+    }
+
+window.redo = $scope.redoMemory;
+    function redo(){
+        if(!$scope.redoMemory.length) return;
+        $scope.undoMemory.push($scope.currentHash);
+        $scope.currentHash = $scope.redoMemory.pop();
+        buildFromHash();
+        render();
+
     }
 
         //<---UpdateHas --- >
