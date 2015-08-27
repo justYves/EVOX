@@ -5,11 +5,14 @@ app.config(function($stateProvider) {
             templateUrl: '/pre-build/creatures/index.html',
             controller: 'CreaturesController',
             resolve: {
-                user: function($http, UserFactory) {
-                    return $http.get('/api/users/' + UserFactory.currentUser._id)
-                        .then(function(res) {
-                            return res.data;
-                        })
+                user: function(UserFactory) {
+                    return UserFactory.getUser(UserFactory.currentUser._id)
+                },
+                shapes: function(ShapeFactory) {
+                    var arr = ['beaver', 'chick', 'crocodile', 'deer', 'duck', 'elephant',
+                        'fox', 'lion', 'penguin', 'pigeon', 'turtle', 'wolf'
+                    ];
+                    return ShapeFactory.getMany(arr)
                 },
                 worlds: function(WorldsFactory) {
                     return WorldsFactory.getWorlds();
