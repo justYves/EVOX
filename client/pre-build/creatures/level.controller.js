@@ -1,50 +1,26 @@
-app.controller('LevelController', function($scope, $state, CreatureFactory, $stateParams, user) {
-    var creatureId = $stateParams.id;
-    console.log(creatureId)
+app.controller('LevelController', function($scope, $state, CreatureFactory, user, MapFactory, WorldsFactory) {
     $scope.selectedCreature = undefined;
-    user.creature.forEach(function(item){
-        console.log(item);
-        if(item._id ===creatureId);
-        $scope.selectedCreature = item;
+    user.levels.forEach(function(level) {
+        console.log(level);
     });
 
+    $scope.world = WorldsFactory.getCurrentWorld
+    $scope.levels = user.levels;
 
-    $scope.levels = [{
-        name: "Level 1",
-        levelNum: 1,
-        img: "land-icon.png",
-        completed: true
-    }, {
-        name: "Level 2",
-        img: "desert-icon.png",
-        levelNum: 2,
-        completed: true
-    }, {
-        name: "Level 3",
-        img: "ice-icon.png",
-        levelNum:3,
-        completed: true
-    }, {
-        name: "Level 4",
-        img: "land-icon.png",
-        levelNum:4,
-        completed: false
-    }, {
-        name: "Level 5",
-        img: "desert-icon.png",
-        levelNum:5,
-        completed: false
-    }, {
-        name: "Level 6",
-        img: "ice-icon.png",
-        levelNum:6,
-        completed: false
-    }];
-
+    $scope.playLevel = function(idx) {
+        var environs = ["land", "desert", "ice"];
+        var world = {
+            name: "Level" + (idx + 1),
+            environment: environs[idx],
+            flat: true,
+            size: 30
+        };
+        WorldsFactory.postWorld(world)
+        $state.go('game.level', {
+            id: "55de456f922875564d86c145",
+            currentLevel: idx + 1
+        });
+    };
     // console.log($scope.selectedCreature);
     // console.log($scope.levels);
-    $scope.levels.forEach(function(level){
-        level.completed = $scope.selectedCreature.levels[level.levelNum];
-    });
-
 });

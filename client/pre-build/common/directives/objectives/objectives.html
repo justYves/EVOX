@@ -3,8 +3,8 @@
 		<p style="margin-bottom:0;">My Objectives</p>
 		<hr style="margin-bottom:0;">
 	    <li ng-hide="!!objectives.length">You have no more objectives!</li>
-	    <li ng-show="!!objectives.length" ng-repeat="objective in objectives">
-	        <button class="btn btn-inverse" id="objective">{{objective}}</button>
+	    <li ng-show="!!objectives.length" ng-repeat="objective in user.currentLevel.objectives">
+	        <button class="btn btn-inverse" id="objective">{{objective.text}}</button>
 	    </li>
 	</ul>
 </div>

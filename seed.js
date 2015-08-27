@@ -10,6 +10,7 @@ var Creature = mongoose.model('Creature');
 var Shape = mongoose.model('Shape');
 var User = mongoose.model('User');
 var World = mongoose.model('World');
+var Level = mongoose.model('Level');
 
 var shapes = [];
 for (var key in shape) {
@@ -171,7 +172,124 @@ var duck = new Creature({
 });
 creatures.push(duck);
 
+var levels1 = [
+    new Level({
+        number: 1,
+        objectives: [{
+            text: 'eat grass',
+            completed: false
+        }, {
+            text: 'eat grass 3X',
+            completed: false
+        }, {
+            text: 'procreate',
+            completed: false
+        }, {
+            text: 'procreate 3x',
+            completed: false
+        }],
+        available: true,
+        img: "land-icon.png"
+    }),
+    new Level({
+        number: 2,
+        objectives: [{
+            text: 'eat an animal',
+            completed: false
+        }, {
+            text: 'eat 5 animals',
+            completed: false
+        }, {
+            text: 'procreate',
+            completed: false
+        }, {
+            text: 'procreate 3x',
+            completed: false
+        }],
+        available: false,
+        img: "desert-icon.png"
+    }),
+    new Level({
+        number: 3,
+        available: false,
+        img: "ice-icon.png"
+    }),
+    new Level({
+        number: 4,
+        available: false,
+        img: "land-icon.png"
+    }),
+    new Level({
+        number: 5,
+        available: false,
+        img: "desert-icon.png"
+    }),
+    new Level({
+        number: 6,
+        available: false,
+        img: "ice-icon.png"
+    })
+];
 
+
+var levels2 = [
+    new Level({
+        number: 1,
+        objectives: [{
+            text: 'eat grass',
+            completed: false
+        }, {
+            text: 'eat grass 3X',
+            completed: false
+        }, {
+            text: 'procreate',
+            completed: false
+        }, {
+            text: 'procreate 3x',
+            completed: false
+        }],
+        available: true,
+        img: "land-icon.png"
+    }),
+    new Level({
+        number: 2,
+        objectives: [{
+            text: 'eat an animal',
+            completed: false
+        }, {
+            text: 'eat 5 animals',
+            completed: false
+        }, {
+            text: 'procreate',
+            completed: false
+        }, {
+            text: 'procreate 3x',
+            completed: false
+        }],
+        available: false,
+        img: "desert-icon.png"
+    }),
+    new Level({
+        number: 3,
+        available: false,
+        img: "ice-icon.png"
+    }),
+    new Level({
+        number: 4,
+        available: false,
+        img: "land-icon.png"
+    }),
+    new Level({
+        number: 5,
+        available: false,
+        img: "desert-icon.png"
+    }),
+    new Level({
+        number: 6,
+        available: false,
+        img: "ice-icon.png"
+    })
+];
 
 var users = [
     new User({
@@ -181,7 +299,8 @@ var users = [
         },
         email: 'jkim430@gmail.com',
         password: 'cowgoesmoo',
-        isAdmin: true
+        isAdmin: true,
+        levels: levels1
     }),
     new User({
         name: {
@@ -190,13 +309,14 @@ var users = [
         },
         email: 'darwin@gmail.com',
         password: 'evolution',
-        isAdmin: false
+        isAdmin: false,
+        levels: levels2
     })
-]
+];
 
 
-var models = [Shape, Creature, User];
-var data = [shapes, creatures, users];
+var models = [Shape, Creature, User, Level, Level];
+var data = [shapes, creatures, users, levels1, levels2];
 
 startDb.then(function() {
     return Promise.all(models.map(function(model) {
