@@ -17,7 +17,6 @@ app.directive('creatureCarousel', function() {
             };
             scope.creatures = scope.creatures.reverse();
             scope.myInterval = 0;
-            console.log(scope.creatures)
             scope.noWrapSlides = false;
         },
         templateUrl: "pre-build/common/directives/creature-carousel/carousel.html"
