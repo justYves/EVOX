@@ -1,7 +1,6 @@
 app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope) {
-  //Creature constructor
-  function Creature() {
-  };
+    //Creature constructor
+    function Creature() {};
 
     var stateIcon = {
         dead: 'dead.png',
@@ -9,28 +8,32 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         food: 'dead.png',
         hunting: 'look.png',
         procreating: 'love.png',
-        eating: 'eating.png'
+        eating: 'eating.png',
+        herd: 'herd.png',
+        fight: 'fight.png'
     };
 
-    Creature.prototype.changeState = function(state){
-        if(this.state === state) return;
+    Creature.prototype.changeState = function(state) {
+        if (this.state === state) return;
         this.state = state;
         this.updateSprite();
+        // console.log(this.state);
     };
 
     Creature.prototype.updateSprite = function() {
         this.sprite.material.map = this.game.THREE.ImageUtils.loadTexture("../textures/" + stateIcon[this.state]);
-        console.log(this.state);
+        console.log(this.name, this.state);
     };
 
-  Creature.prototype.setPosition = function(x, y, z) {
-    parseXYZ(x, y, z);
-    this.position.y = y;
-    this.position.x = x + 0.5;
-    this.position.z = z + 0.5;
-  };
+    Creature.prototype.setPosition = function(x, y, z) {
+        parseXYZ(x, y, z);
+        this.position.y = y;
+        this.position.x = x + 0.5;
+        this.position.z = z + 0.5;
+    };
 
     Creature.prototype.die = function() {
+        this.changeState('dead');
         this.isAlive = false;
         var ind;
         var self = this;
@@ -41,21 +44,18 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
                 self.game.creatures.splice(ind, 1);
             }
         });
-        // this.game.removeItem(this);
+        this.game.removeItem(this);
         // this.game.scene.remove(this.item.avatar);
         this.game.removeEvent(this.item.avatar.id);
         this.dieAnimation();
-
-        //becomes food
-        this.changeState('dead');
     };
 
     Creature.prototype.dieAnimation = function() {
         this.item.forces.y = 0;
 
 
-        this.rotation.x =    (this.position.x > 0 ) ? -Math.PI / 2 : Math.PI / 2;
-        this.rotation.z = (this.position.y < 0 ) ? -Math.PI / 2 : Math.PI/2;
+        this.rotation.x = (this.position.x > 0) ? -Math.PI / 2 : Math.PI / 2;
+        this.rotation.z = (this.position.y < 0) ? -Math.PI / 2 : Math.PI / 2;
         var x = this.sprite.position.x;
         var y = this.sprite.position.y;
         var z = this.sprite.position.z;
@@ -70,7 +70,10 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             vision: this.vision,
             social: this.social,
             isHerbivore: this.isHerbivore,
-            spawnPos:{x: this.position.x - 0.5, z: this.position.z - 0.5}
+            spawnPos: {
+                x: this.position.x - 0.5,
+                z: this.position.z - 0.5
+            }
         }, voxel, voxelMesh);
     };
 
@@ -84,11 +87,11 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             currentZ: this.position.z,
             size: this.map.size
         };
-        if(!this.game.flat){
-          if (this.game.getBlock(x, 1, z) && this.game.map.getCell(x, 0, z).obstructed) {
-              var changeXZ = ["x", "z"];
-              data[Math.floor(Math.random() * 2)];
-          }
+        if (!this.game.flat) {
+            if (this.game.getBlock(x, 1, z) && this.game.map.getCell(x, 0, z).obstructed) {
+                var changeXZ = ["x", "z"];
+                data[Math.floor(Math.random() * 2)];
+            }
         }
         var myWorker = new Worker(MoveWorker);
         myWorker.postMessage(data);
@@ -98,7 +101,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             var x = result.data.x - 0.5;
             var z = result.data.z - 0.5;
             var block = self.game.getBlock(result.data.x - 0.5, self.position.y, result.data.z - 0.5);
-            if(!self.game.flat){
+            if (!self.game.flat) {
                 if (x > 0 && x < self.game.map.size - 1 && z > 0 && z < self.game.map.size - 1) {
                     if (block && self.game.map.getCell(x, self.position.y, z).legit) {
                         self.position.y = self.position.y + 1;
@@ -114,16 +117,17 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
                     self.position.x = result.data.x;
                     self.position.z = result.data.z;
                 }
-              }else{
-                 self.position.y = result.data.y;
-                 self.position.x = result.data.x;
-                 self.position.z = result.data.z;
-              }
+            } else {
+                self.position.y = result.data.y;
+                self.position.x = result.data.x;
+                self.position.z = result.data.z;
+            }
             self.rotation.y = Number(result.data.rotY) || self.rotation.y;
         };
     };
 
     Creature.prototype.moveRandomly = function(amt) {
+        // this.changeState('normal');
         var x = Math.round((Math.random() * amt) - amt / 2);
         var z = Math.round((Math.random() * amt) - amt / 2);
         this.move(x, 0, z);
@@ -172,6 +176,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
     Creature.prototype.moveTowardsObjective = utilitiesFactory.moveToEat;
 
     Creature.prototype.herd = function() {
+        this.changeState('herd');
         var x = this.position.x - 0.5;
         var z = this.position.z - 0.5;
         var currentPos = [x, z]
@@ -187,7 +192,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         if (nearest && dist > this.social && nearest.name === this.name) {
             //move towards herd
 
-            console.log('just herdin');
+            // console.log('just herdin');
             this.move(step(x, nearest.position.x - 0.5), 0, step(z, nearest.position.z - 0.5));
         } else {
             this.moveRandomly(2);
@@ -196,27 +201,44 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         }
     };
 
-  Creature.prototype.exist = function() {
-    if (this.alive) {
-      if(this.spawner){
-        console.log("spawner", this.name)
-        this.game.map.fertilized.push(this.game.map.getCell(this.position.x - 0.5, this.position.y-1, this.position.z - 0.5));
-      }
-      this.age++;
-      if(this.age < this.maturity){
-        this.item.avatar.scale.x *= 1.01;
-        this.item.avatar.scale.y *= 1.01;
-        this.item.avatar.scale.z *= 1.01;
-      }
-      // console.log("NAME: " + this.name + ", Hunger: " + this.hunger + ", HP: " + this.hp);
-      if(this.hunger <= this.hpMax && this.appetite >=2){
-       this.hunger+=3;
-      }else if(this.hunger <= this.hpMax){
-        this.hunger++
-      }
-      this.lifeCycle--;
-      if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
-      if (this.hp <= 0 || this.age > this.deathAge) this.die();
+    Creature.prototype.exist = function() {
+        if (this.alive) {
+            // if (this.spawner) {
+            //     // console.log("spawner", this.name)
+            //     this.game.map.fertilized.push(this.game.map.getCell(this.position.x - 0.5, this.position.y - 1, this.position.z - 0.5));
+            // }
+            this.growOld();
+            this.getHungry();
+            // console.log("NAME: " + this.name + ", Hunger: " + this.hunger + ", HP: " + this.hp);
+        };
+    };
+
+    Creature.prototype.growOld = function() {
+        this.age++;
+        if (this.age < this.maturity) {
+            this.item.avatar.scale.x *= 1.01;
+            this.item.avatar.scale.y *= 1.01;
+            this.item.avatar.scale.z *= 1.01;
+        }
+        this.lifeCycle--;
+        if (this.lifeCycle === 0) {
+            // console.log(this.name + ' is procreating');
+            if (Math.random() < 0.2) {
+                this.procreate();
+                this.lifeCycle = this.size * 4;
+            }
+        }
+    };
+
+    Creature.prototype.getHungry = function() {
+        if (this.hunger <= this.hpMax && this.appetite >= 2) {
+            this.hunger += 3;
+        } else if (this.hunger <= this.hpMax) {
+            this.hunger++
+        }
+
+        if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
+        if (this.hp <= 0 || this.age > this.deathAge) this.die();
 
         if (this.hunger >= Math.floor(this.hp / 2)) {
             // console.log(this.name + " is looking for food");
@@ -225,16 +247,8 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             // console.log(this.name + " is herding");
             this.herd();
         }
-        if (this.lifeCycle === 0) {
-            // console.log(this.name + ' is procreating');
-            if (Math.random() < 0.2) {
-                this.procreate();
-                this.lifeCycle = this.size * 4;
-            }
-        }
+    }
 
-        }
-    };
     /**** Eating behavior *****/
     Creature.prototype.getFood = function() {
         this.changeState('hunting');
@@ -252,13 +266,13 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             if (nearest && nearest.name !== this.name) {
                 // console.log("moving to food", this.name)
                 this.moveTowardsObjective(nearest);
-
             } else {
                 // console.log("just moving", this.name)
                 this.herd()
             }
         }
         if (this.isHerbivore) {
+            self.changeState('fight');
             // console.log('getFood HERB', this.name)
             this.moveTowardsObjective("grass");
         }
