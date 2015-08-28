@@ -1,4 +1,4 @@
-app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactory, $stateParams, worlds, CreatureFactory, user) {
+app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactory, $stateParams, worlds, CreatureFactory, UserFactory) {
     function getWorld() {
         if (!WorldsFactory.getCurrentWorld()) {
             for (var i = 0; i < worlds.length; i++) {
@@ -7,9 +7,10 @@ app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactor
                     WorldsFactory.setCurrentWorld($scope.currentWorld);
                     break;
                 }
-            };
+            }
         } else $scope.currentWorld = WorldsFactory.getCurrentWorld();
-    }
+    };
+
     $scope.loadGame = function() {
         getWorld();
         MapFactory.create($scope.currentWorld.size, $scope.currentWorld.map, $scope.currentWorld.flat, $scope.currentWorld.grassPercent);
@@ -17,31 +18,36 @@ app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactor
         $state.go('game', {
             id: $stateParams.id
         });
-    }
+    };
+
     $scope.deleteWorld = function() {
         WorldsFactory.removeWorld($stateParams.id)
             .then(function() {
                 $state.go('worlds', {}, {
                     reload: true
                 });
-            })
+            });
     };
 
-    $scope.levels = user.levels
+    $scope.levels = UserFactory.currentUser.levels;
     $scope.playLevel = function(idx) {
         var environs = ["land", "desert", "ice"];
         var world = {
             name: "Level" + (idx + 1),
             environment: environs[idx],
             flat: true,
-            size: 30
+            size: 30,
+            grassPercent: 50
         };
-        WorldsFactory.postWorld(world)
+        WorldsFactory.postWorld(world, true)
             .then(function(data) {
-                var playWorld = data;
-                console.log("PLAY WORLD", playWorld)
+                console.log('received from postworld', data)
+                WorldsFactory.setCurrentWorld(data);
+                MapFactory.create(data.size, data.map, data.flat, data.grassPercent);
+                CreatureFactory.currentCreatures = data.creatures;
+                console.log("Creatures", CreatureFactory.currentCreatures);
                 $state.go('game.level', {
-                    id: playWorld._id,
+                    id: data._id,
                     currentLevel: idx + 1
                 });
             });

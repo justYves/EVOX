@@ -2,9 +2,12 @@
 	<ul id="objectives-list">
 		<p style="margin-bottom:0;">My Objectives</p>
 		<hr style="margin-bottom:0;">
-	    <li ng-hide="!!objectives.length">You have no more objectives!</li>
-	    <li ng-show="!!objectives.length" ng-repeat="objective in user.currentLevel.objectives">
-	        <button class="btn btn-inverse" id="objective">{{objective.text}}</button>
+	    <li ng-hide="!!currentObjectives.length">You have no more objectives!</li>
+	    <li ng-show="!!currentObjectives.length" ng-repeat="objective in currentObjectives">
+	        <button 
+	        class="btn btn-inverse" 
+	        ng-class="objective.completed ? strike : btn-inverse" 
+	        id="objective">{{objective.text}}<i ng-show="objective.completed" class="fa fa-check"></i></button>
 	    </li>
 	</ul>
 </div>

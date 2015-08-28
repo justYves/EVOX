@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var levelSchema = new mongoose.Schema({
     number: {
@@ -21,5 +22,7 @@ var levelSchema = new mongoose.Schema({
     },
     img: String
 });
+
+levelSchema.plugin(deepPopulate, {});
 
 mongoose.model('Level', levelSchema);
