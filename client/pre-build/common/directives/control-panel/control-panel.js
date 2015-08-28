@@ -15,10 +15,13 @@ app.directive('controlPanel', function() {
         $scope.stats = false;
         $scope.obj = false;
         $scope.user = UserFactory.currentUser;
-        $scope.level = $stateParams.currentLevel;
-        $scope.currentObjectives = $scope.user.levels[$scope.level].objectives;
         
-
+        //load objectives if you are playing in level mode
+        if ($stateParams.currentLevel) {
+            $scope.level = $stateParams.currentLevel;
+            $scope.currentObjectives = $scope.user.levels[$scope.level].objectives;
+        }
+        
         var createTree = window.OneTree(game);
         var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
 
