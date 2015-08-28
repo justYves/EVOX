@@ -8,7 +8,7 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
 
     initMap();
     initGame();
-    initTrees();
+    // initTrees();
     initCreatures();
     initEnvironment();
     startGame();
