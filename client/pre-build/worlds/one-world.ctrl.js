@@ -1,4 +1,4 @@
-app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactory, $stateParams, worlds, CreatureFactory, user) {
+app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactory, $stateParams, worlds, CreatureFactory, UserFactory) {
     function getWorld() {
         if (!WorldsFactory.getCurrentWorld()) {
             for (var i = 0; i < worlds.length; i++) {
@@ -27,7 +27,7 @@ app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactor
             })
     };
 
-    $scope.levels = user.levels
+    $scope.levels = UserFactory.currentUser.levels
     $scope.playLevel = function(idx) {
         var environs = ["land", "desert", "ice"];
         var world = {

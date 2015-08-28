@@ -43,5 +43,6 @@ app.controller('SignupInstanceCtrl', function($scope, $state, $modalInstance, Us
 
     $scope.cancel = function() {
         $modalInstance.dismiss('cancel');
+        $state.go('home');
     };
 });
