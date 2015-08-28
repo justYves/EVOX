@@ -90,17 +90,20 @@ app.directive('controlPanel', function() {
             name: 'pigeon',
             size: 5,
             vision: 3,
-            isHerbivore: true
+            isHerbivore: true,
+            isFood: true
         }, {
             name: 'chick',
             size: 5,
             vision: 3,
-            isHerbivore: true
+            isHerbivore: true,
+            isFood: true
         }, {
             name: 'duck',
             size: 5,
             vision: 3,
-            isHerbivore: true
+            isHerbivore: true,
+            isFood: true
         }];
 
         function processClick(x, y, z) {

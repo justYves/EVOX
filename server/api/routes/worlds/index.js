@@ -9,7 +9,7 @@ module.exports = router;
 
 //  /api/worlds/
 router.param('id', function(req, res, next, id) {
-    World.findById(id).deepPopulate('map creatures.position creatures.rotation').exec()
+    World.findById(id).deepPopulate('creatures.position creatures.rotation').exec()
         .then(function(world) {
             if (!world) {
                 throw new Error("World doesn't exist!");
@@ -22,7 +22,7 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
-    World.find().deepPopulate('map creatures.position creatures.rotation').exec()
+    World.find().deepPopulate('creatures.position creatures.rotation').exec()
         .then(function(worlds) {
             res.json(worlds);
         })
