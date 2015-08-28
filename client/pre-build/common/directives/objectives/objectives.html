@@ -4,7 +4,10 @@
 		<hr style="margin-bottom:0;">
 	    <li ng-hide="!!currentObjectives.length">You have no more objectives!</li>
 	    <li ng-show="!!currentObjectives.length" ng-repeat="objective in currentObjectives">
-	        <button class="btn btn-inverse" id="objective">{{objective.text}}<i ng-show="objective.completed"class="fa fa-check"></i></button>
+	        <button 
+	        class="btn btn-inverse" 
+	        ng-class="objective.completed ? strike : btn-inverse" 
+	        id="objective">{{objective.text}}<i ng-show="objective.completed" class="fa fa-check"></i></button>
 	    </li>
 	</ul>
 </div>

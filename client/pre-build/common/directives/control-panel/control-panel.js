@@ -8,15 +8,16 @@ app.directive('controlPanel', function() {
     };
 
 })
-    .controller("PanelController", function($modal, $scope, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout, UserFactory) {
+    .controller("PanelController", function($modal, $scope, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout, UserFactory, ObjectivesFactory) {
         $scope.creatures = game.creatures;
         $scope.selected;
         $scope.world = WorldsFactory.getCurrentWorld();
         $scope.stats = false;
         $scope.obj = false;
         $scope.user = UserFactory.currentUser;
-        var currentLevel = 0;
-        $scope.currentObjectives = $scope.user.levels[currentLevel].objectives;
+        $scope.level = $stateParams.currentLevel;
+        $scope.currentObjectives = $scope.user.levels[$scope.level].objectives;
+        
 
         var createTree = window.OneTree(game);
         var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
@@ -148,7 +149,6 @@ app.directive('controlPanel', function() {
         function updateStats() {
             "called";
             if (!$scope.creature || !$scope.stats) {
-                if (!$scope.creatures.length) $scope.gameOver();
                 $scope.stats = false;
                 $scope.$digest;
                 return;
