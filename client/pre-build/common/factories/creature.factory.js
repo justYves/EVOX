@@ -21,7 +21,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.memory = [];
         this.food = "none";
         this.parents = opts.parents;
-        this.deathAge = Math.floor(this.size * 10);
+        this.deathAge = Math.floor(this.size * 20);
         this.maturity = Math.floor(this.deathAge * 0.7);
         this.spawner = opts.spawner || false;
         this.pos = opts.pos;
