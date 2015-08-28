@@ -53,8 +53,9 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         this.item.forces.y = 0;
 
 
-        this.rotation.x = (this.position.x > 0) ? -Math.PI / 2 : Math.PI / 2;
-        this.rotation.z = (this.position.y < 0) ? -Math.PI / 2 : Math.PI / 2;
+        // this.rotation.x = (this.position.x > 0) ? -Math.PI / 2 : Math.PI / 2;
+        // this.rotation.z = (this.position.y < 0) ? -Math.PI / 2 : Math.PI / 2;
+        this.rotation.y = 2;
         var x = this.sprite.position.x;
         var y = this.sprite.position.y;
         var z = this.sprite.position.z;
