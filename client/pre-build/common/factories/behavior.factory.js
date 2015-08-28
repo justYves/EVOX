@@ -237,6 +237,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
     };
     /**** Eating behavior *****/
     Creature.prototype.getFood = function() {
+        this.changeState('hunting');
         var x = this.position.x - 0.5;
         var z = this.position.z - 0.5;
         var currentPos = [x, z];
