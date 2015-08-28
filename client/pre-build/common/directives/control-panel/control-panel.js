@@ -8,18 +8,20 @@ app.directive('controlPanel', function() {
     };
 
 })
-    .controller("PanelController", function($modal, $scope, AuthService, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout) {
-        AuthService.getLoggedInUser()
-            .then(function(user) {
-                $scope.user = user;
-            });
-
+    .controller("PanelController", function($modal, $scope, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout, UserFactory, ObjectivesFactory) {
         $scope.creatures = game.creatures;
         $scope.selected;
         $scope.world = WorldsFactory.getCurrentWorld();
         $scope.stats = false;
         $scope.obj = false;
-
+        $scope.user = UserFactory.currentUser;
+        
+        //load objectives if you are playing in level mode
+        if ($stateParams.currentLevel) {
+            $scope.level = $stateParams.currentLevel;
+            $scope.currentObjectives = $scope.user.levels[$scope.level].objectives;
+        }
+        
         var createTree = window.OneTree(game);
         var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
 
@@ -42,7 +44,6 @@ app.directive('controlPanel', function() {
             $scope.user.points -= 5;
         };
 
-        // this function crashes browser!
         $scope.procreate = function() {
             $scope.creature.procreate();
             $scope.user.points += 20;
@@ -88,17 +89,20 @@ app.directive('controlPanel', function() {
             name: 'pigeon',
             size: 5,
             vision: 3,
-            isHerbivore: true
+            isHerbivore: true,
+            isFood: true
         }, {
             name: 'chick',
             size: 5,
             vision: 3,
-            isHerbivore: true
+            isHerbivore: true,
+            isFood: true
         }, {
             name: 'duck',
             size: 5,
             vision: 3,
-            isHerbivore: true
+            isHerbivore: true,
+            isFood: true
         }];
 
         function processClick(x, y, z) {
@@ -151,14 +155,13 @@ app.directive('controlPanel', function() {
         function updateStats() {
             "called";
             if (!$scope.creature || !$scope.stats) {
-                if (!$scope.creatures.length) $scope.gameOver();
                 $scope.stats = false;
                 $scope.$digest;
                 return;
             };
             $scope.getPercentages($scope.creature);
             $scope.$digest;
-            $timeout(updateStats, 1000)
+            $timeout(updateStats, 1000);
         }
 
         $scope.save = function() {
@@ -171,11 +174,11 @@ app.directive('controlPanel', function() {
                 delete creature.item;
                 if (creature._id) existing.push(creature);
                 else isNew.push(creature);
-            })
-            var allCreatures
+            });
+            var allCreatures;
             updateCreatureStuff(existing)
                 .then(function() {
-                    return postCreatureStuff(isNew)
+                    return postCreatureStuff(isNew);
                 })
                 .then(function(newCreatures) {
                     allCreatures = existing.concat(newCreatures);

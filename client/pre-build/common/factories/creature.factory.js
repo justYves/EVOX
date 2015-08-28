@@ -16,14 +16,16 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.hunger = divide(this.hp, 4);
         this.vision = opts.vision;
         this.speed = 1;
+        this.state;
         this.social = opts.social || 10;
         this.memory = [];
         this.food = "none";
         this.parents = opts.parents;
-        this.deathAge = Math.floor(this.size * 10);
+        this.deathAge = Math.floor(this.size * 20);
         this.maturity = Math.floor(this.deathAge * 0.7);
         this.spawner = opts.spawner || false;
         this.pos = opts.pos;
+        this.isFood = opts.isFood;
         this.position = {
             x: 0,
             y: 0,
@@ -55,9 +57,11 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
                     }, 1, self.item.avatar.id);
                 });
         }
-
         if (!game.creatures) game.creatures = [];
-        game.creatures.push(this);
+        if (!this.isFood) {
+            console.log("WHOA FOOD", this.name, this.isFood)
+            game.creatures.push(this);
+        }
     }
 
 
@@ -87,17 +91,42 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         model.map = game.map;
         model.item = game.makePhysical(shape);
         model.item.subjectTo(game.gravity);
-        model.item.avatar.castShadow=true;
-        model.item.avatar.receiveShadow=true;
+        model.item.avatar.castShadow = true;
+        model.item.avatar.receiveShadow = true;
+
+
+        var spriteMaterial = new game.THREE.SpriteMaterial({
+            map: game.THREE.ImageUtils.loadTexture("../textures/boop"),
+            useScreenCoordinates: false,
+        });
+
+        (function setSprite() {
+            var sprite = new game.THREE.Sprite(spriteMaterial);
+            sprite.scale.set(0.5, 0.5, 0.5);
+            // var display ratio =
+            sprite.position.set(0.5 / displayScale * 0.2, Math.max(1 / displayScale, 4), 0.5 / displayScale * 0.2);
+            // console.log(Math.floor(10*Math.abs(shape.scale.x-0.5)))
+            sprite.isFront = true;
+            sprite.renderDepth = 1;
+
+            model.item.yaw.add(sprite);
+            model.sprite = sprite;
+            game.scene.add(shape);
+            game.addItem(model.item);
+        })();
+
+
         game.scene.add(shape);
         game.addItem(model.item);
 
+
+
         model.position = model.item.yaw.position;
         model.rotation = model.item.yaw.rotation;
-            if(rotation) {
-                model.rotation.y = rotation *Math.PI;
-                console.log("rotation called")
-            }
+        if (rotation) {
+            model.rotation.y = rotation * Math.PI;
+            console.log("rotation called")
+        }
         if (spawnPos) {
             model.setPosition(spawnPos.x, 1, spawnPos.z);
         } else {

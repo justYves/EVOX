@@ -12,8 +12,7 @@ app.config(function($stateProvider) {
 
     $stateProvider.state('game.level', {
         url: '/:currentLevel',
-        templateUrl: '/pre-build/game/game.html',
-        controller: 'GameController'
+        templateUrl: '/pre-build/game/game.html'
     })
 
 });
