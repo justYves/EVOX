@@ -1,5 +1,5 @@
 app.controller('BuilderController', function($scope, $state, ShapeFactory, CreatureFactory, UserFactory) {
-    $scope.isAdmin = UserFactory.currentUser.isAdmin;
+    if (UserFactory.currentUser) $scope.isAdmin = UserFactory.currentUser.isAdmin;
 
     if (CreatureFactory.currentCreature) $scope.currentHash = CreatureFactory.currentCreature.shape.hash;
     $scope.currentCreature = CreatureFactory.currentCreature || {
