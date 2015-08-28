@@ -16,6 +16,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.hunger = divide(this.hp, 4);
         this.vision = opts.vision;
         this.speed = 1;
+        this.state;
         this.social = opts.social || 10;
         this.memory = [];
         this.food = "none";
@@ -89,8 +90,32 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         model.item.subjectTo(game.gravity);
         model.item.avatar.castShadow=true;
         model.item.avatar.receiveShadow=true;
+
+
+ var spriteMaterial = new game.THREE.SpriteMaterial({
+     map: game.THREE.ImageUtils.loadTexture("../textures/boop"),
+     useScreenCoordinates: false,
+ });
+
+ (function setSprite() {
+     var sprite = new game.THREE.Sprite(spriteMaterial);
+     sprite.scale.set(0.5, 0.5, 0.5);
+     // var display ratio =
+     sprite.position.set(0.5 / displayScale * 0.2, Math.max(1 / displayScale, 4), 0.5 / displayScale * 0.2);
+     // console.log(Math.floor(10*Math.abs(shape.scale.x-0.5)))
+     sprite.isFront = true;
+     sprite.renderDepth = 1;
+
+     model.item.yaw.add(sprite);
+     model.sprite = sprite;
+     game.scene.add(shape);
+     game.addItem(model.item);
+ })();
+
         game.scene.add(shape);
         game.addItem(model.item);
+
+
 
         model.position = model.item.yaw.position;
         model.rotation = model.item.yaw.rotation;
