@@ -20,7 +20,7 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
-    User.find().populate('world').exec()
+    User.find().deepPopulate('world creature.shape creature.creature').exec()
         .then(function(users) {
             res.json(users);
         })

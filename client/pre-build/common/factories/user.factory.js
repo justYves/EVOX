@@ -6,6 +6,12 @@ app.factory('UserFactory', function($http) {
                     return res.data
                 })
         },
+        getUsers: function() {
+            return $http.get('/api/users')
+                .then(function(res) {
+                    return res.data
+                })
+        },
         postUser: function(user) {
             return $http.post('/api/users', user)
                 .then(function(res) {
