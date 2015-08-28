@@ -112,7 +112,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             if (!self.game.flat) {
                 if (x > 0 && x < self.game.map.size - 1 && z > 0 && z < self.game.map.size - 1) {
                     if (block && self.game.map.getCell(x, self.position.y, z).legit) {
-                        self.position.y = self.position.y + 1;
+                        self.position.y = self.position.y + 2;
                         self.position.x = result.data.x;
                         self.position.z = result.data.z;
                     } else {
@@ -224,7 +224,9 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             if (this.hunger <= this.hpMax && this.appetite >= 2) {
                 this.hunger += 3;
             } else if (this.hunger <= this.hpMax) {
+
                 this.hunger++;
+
             }
             this.lifeCycle--;
             if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;

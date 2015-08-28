@@ -30,6 +30,7 @@ app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactor
     };
 
     $scope.levels = UserFactory.currentUser.levels;
+
     $scope.playLevel = function(idx) {
         var environs = ["land", "desert", "ice"];
         var world = {
