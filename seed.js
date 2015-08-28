@@ -92,6 +92,7 @@ var fox = new Creature({
     shape: findMatch(shapes, 'fox'),
     name: 'fox',
     category: 'medium',
+    isHerbivore: false,
     size: 3,
     vision: 5
 });
@@ -101,6 +102,7 @@ var lion = new Creature({
     shape: findMatch(shapes, 'lion'),
     name: 'lion',
     category: 'large',
+    isHerbivore: false,
     size: 6,
     vision: 6
 });
@@ -146,6 +148,7 @@ var wildDog = new Creature({
     shape: findMatch(shapes, 'wolf'),
     name: 'wolf',
     category: 'medium',
+    isHerbivore: false,
     size: 3,
     vision: 5
 });
@@ -154,6 +157,7 @@ creatures.push(wildDog);
 var crocodile = new Creature({
     shape: findMatch(shapes, 'crocodile'),
     name: 'crocodile',
+    isHerbivore: false,
     category: 'medium',
     size: 4,
     vision: 3

@@ -184,8 +184,6 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
                 this.item.avatar.scale.x *= 1.01;
                 this.item.avatar.scale.y *= 1.01;
                 this.item.avatar.scale.z *= 1.01;
-            } else {
-                this.name = "old " + this.name;
             }
             // console.log("NAME: " + this.name + ", Hunger: " + this.hunger + ", HP: " + this.hp);
             if (this.hunger <= this.hpMax && this.appetite >= 2) {
