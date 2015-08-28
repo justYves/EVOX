@@ -60,12 +60,12 @@ app.factory('utilitiesFactory', function() {
             var count = 0;
             // console.log("WHAT MY APPETITE", self.appetite)
             foundFood = ard.some(function(coords) {
-                if(!self.game.flat){ 
-                    if(self.game.getBlock([coords[0], self.position.y,coords[1]])){
-                        if(self.game.getBlock(coords[0], self.position.y,coords[1])){
-                            if (self.map.getCell(coords[0], self.position.y,coords[1]).material === objv) {
-                                self.lookAt(self.map.getCell(coords[0], self.position.y,coords[1]));
-                                self.eat(self.map.getCell(coords[0], self.position.y,coords[1]));
+                if (!self.game.flat) {
+                    if (self.game.getBlock([coords[0], self.position.y, coords[1]])) {
+                        if (self.game.getBlock(coords[0], self.position.y, coords[1])) {
+                            if (self.map.getCell(coords[0], self.position.y, coords[1]).material === objv) {
+                                self.lookAt(self.map.getCell(coords[0], self.position.y, coords[1]));
+                                self.eat(self.map.getCell(coords[0], self.position.y, coords[1]));
                                 count++;
                                 if (count >= self.appetite) {
                                     return true;
@@ -73,12 +73,12 @@ app.factory('utilitiesFactory', function() {
                             }
                         }
                     }
-                }else{
-                    if(self.game.getBlock([coords[0], 0,coords[1]])){
-                        if(self.game.getBlock(coords[0], 0,coords[1])){
-                            if (self.map.getCell(coords[0], 0,coords[1]).material === objv) {
-                                self.lookAt(self.map.getCell(coords[0], 0,coords[1]));
-                                self.eat(self.map.getCell(coords[0], 0,coords[1]));
+                } else {
+                    if (self.game.getBlock([coords[0], 0, coords[1]])) {
+                        if (self.game.getBlock(coords[0], 0, coords[1])) {
+                            if (self.map.getCell(coords[0], 0, coords[1]).material === objv) {
+                                self.lookAt(self.map.getCell(coords[0], 0, coords[1]));
+                                self.eat(self.map.getCell(coords[0], 0, coords[1]));
                                 count++;
                                 if (count >= self.appetite) {
                                     return true;
@@ -96,11 +96,6 @@ app.factory('utilitiesFactory', function() {
         }
 
     }
-
-    function step() {
-        return 0;
-    }
-
 
     function step(dir, objective) {
         if (dir < objective) return 1;
