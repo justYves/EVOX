@@ -43,7 +43,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         });
         // this.game.removeItem(this);
         // this.game.scene.remove(this.item.avatar);
-        // this.game.removeEvent(this.item.avatar.id);
+        this.game.removeEvent(this.item.avatar.id);
         this.dieAnimation();
 
         //becomes food
@@ -52,8 +52,10 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
 
     Creature.prototype.dieAnimation = function() {
         this.item.forces.y = 0;
-        this.rotation.x = Math.PI / 2;
-        this.rotation.z = Math.PI / 2;
+
+
+        this.rotation.x =    (this.position.x > 0 ) ? -Math.PI / 2 : Math.PI / 2;
+        this.rotation.z = (this.position.y < 0 ) ? -Math.PI / 2 : Math.PI/2;
         var x = this.sprite.position.x;
         var y = this.sprite.position.y;
         var z = this.sprite.position.z;
