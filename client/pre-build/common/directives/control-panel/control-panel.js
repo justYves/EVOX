@@ -58,6 +58,7 @@ app.directive('controlPanel', function() {
             $scope.stats = true;
             $scope.creature = creature;
             $scope.getPercentages($scope.creature);
+            ObjectivesFactory
             $scope.$digest();
         });
 
@@ -125,17 +126,6 @@ app.directive('controlPanel', function() {
                     $scope.user.points -= 2;
                     break;
 
-                case "info":
-                    game.creatures.forEach(function(creature) {
-                        console.log(creature);
-                        if (x === creature.position.x - 0.5 && z === creature.position.z - 0.5) {
-                            $scope.stats = true;
-                            $scope.creature = creature;
-                            $scope.getPercentages($scope.creature);
-                            updateStats();
-                        }
-                    });
-                    break;
 
                 case "food":
                     var pickedFood = food[Math.floor(Math.random() * 3)];
@@ -146,6 +136,18 @@ app.directive('controlPanel', function() {
                     new createCreature(pickedFood);
                     $scope.user.points -= 5;
                     break;
+                
+                default:
+                    game.creatures.forEach(function(creature) {
+                        console.log(creature);
+                        if (x === creature.position.x - 0.5 && z === creature.position.z - 0.5) {
+                            $scope.stats = true;
+                            $scope.creature = creature;
+                            $scope.getPercentages($scope.creature);
+                            updateStats();
+                        }
+                    });
+
             }
         }
 
@@ -243,6 +245,14 @@ app.directive('controlPanel', function() {
             });
         };
 
+        $scope.info = function() {
+            var modalInstance = $modal.open({
+                animation: true,
+                controller: 'infoInstanceCtrl',
+                templateUrl: 'info.html'
+            });
+        }
+
     });
 app.controller('objectiveInstanceCtrl', function($scope, $modalInstance, $state) {
     $scope.toHome = function() {
@@ -270,6 +280,17 @@ app.controller('levelUpInstanceCtrl', function($scope, $modalInstance, $state) {
 app.controller('gameOverInstanceCtrl', function($scope, $modalInstance, $state) {
     $scope.toHome = function() {
         $state.go('home');
+        $modalInstance.dismiss('cancel');
+    };
+
+    $scope.toWorlds = function() {
+        $state.go('worlds');
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+app.controller('infoInstanceCtrl', function($scope, $modalInstance, $state) {
+    $scope.close = function() {
         $modalInstance.dismiss('cancel');
     };
 

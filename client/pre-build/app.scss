@@ -100,12 +100,25 @@
     text-decoration: line-through;
 }
 
-
 .nav,
 .pagination,
 .carousel,
 .panel-title a {
     cursor: pointer;
+}
+
+.info {
+    background-color: #1ABC9C;
+    border-radius: 5px;
+    opacity: 0.8;
+    color: white;
+    height: 100%;
+
+    .img-container{
+        display: inline-block;
+        margin-top: 2%;
+        margin-bottom: 3%;
+    }
 }
 
 // Add your fractal Sass files below!
