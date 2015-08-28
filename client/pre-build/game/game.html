@@ -43,6 +43,82 @@
       </div>
 </script>
 
+<script type="text/ng-template" id="info.html">
+    <div class="info">
+    <div class="modal-header">
+      <h3 class="modal-title text-center"><i class="fa fa-qq animated infinite pulse" id="lil-creature"></i> EVOX <i class="fa fa-qq animated infinite pulse" id="lil-creature"></i></h3>
+    </div>
+      <div class="modal-body" style="margin: 5%; width: 90%">
+        <h3 class="text-center">Welcome to Your World!</h3> 
+        <hr>
+        <p>You can interact with the world using the control panel on 
+        the right of the screen!</p>
+        <p>Use the setting buttons to control gameplay!</p>
+        <div class="img-container col-lg-6">
+          <i id="settings-icon"  class="fa fa-backward"></i> Slow down time.
+        </div>
+          <div class="img-container col-lg-6">
+          <i id="settings-icon"  class="fa fa-forward"></i> Speed up time.
+        </div>
+        <div class="img-container col-lg-6">
+            <i id="settings-icon"  class="fa fa-pause"></i> Pause the game.
+        </div>
+        <div class="img-container col-lg-6">
+          <i id="settings-icon"  class="fa fa-play"></i> Resume the game.
+        </div>
+        <div class="img-container col-lg-12">
+          <i id="settings-icon"  class="fa fa-save"></i> Save your game.
+        </div>
+        <h4 class=text-center>land and food icons modify your environment!</h4>
+        <div class="img-container col-lg-6">
+            <img class="img-responsive" id="icon-pic" ng-src="3D-Grass-icon.png"/>
+            Spawn Grass
+        </div>
+        <div class="img-container col-lg-6">
+            <img class="img-responsive" id="icon-pic" ng-src="3D-Dirt-icon.png"/>
+            Remove Grass
+        </div>
+        <div class="img-container col-lg-6">
+            <img class="img-responsive" id="icon-pic" ng-src="Stone-Hoe-icon.png"/>
+            Remove a block.
+        </div>
+        <div class='img-container col-lg-6'>
+          <img class="img-responsive" id="icon-pic" ng-src="food.png"/>
+          Feeder critters!
+        </div>
+        <div class='img-container col-lg-12'>
+          <i id="settings-icon"  class="fa fa-info-circle" style="display:block;"></i>Get game info
+        </div>
+        <p>Click on a creature to get their stats. Remember to feed them if they are hungry!</p>
+        <h4>Icons above a creature indicate their current behavior.</h4> 
+        <div class='img-container col-lg-6'>
+          <img class="img-responsive" id="icon-pic" ng-src="textures/look.png"/>
+          Searching for food.
+        </div>
+        <div class='img-container col-lg-6'>
+          <img class="img-responsive" id="icon-pic" ng-src="textures/eating.png"/>
+          A creature is eating.
+        </div>
+        <div class='img-container col-lg-6'>
+          <img class="img-responsive" id="icon-pic" ng-src="textures/herd.png"/>
+          Searching for other animals to herd with.
+        </div>
+        <div class='img-container col-lg-6'>
+          <img class="img-responsive" id="icon-pic" ng-src="textures/dead.png"/>
+          The animal has died! :(
+        </div>
+        <div class='img-container col-lg-6'>
+          <img class="img-responsive" id="icon-pic" ng-src="textures/love.png"/>
+          If animals are healthy and the timing is right, animals will procreate!
+        </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-success pull-left" ng-click="close()">Back to Game</button>
+        <button style="margin-top:0;" class="btn btn-danger" ng-click="toWorlds()">Exit to My Worlds</button>
+      </div>
+    </div>
+</script>
+
 
 <script src="../js/voxel-engine.js"></script>
 <script src="../js/voxel.js"></script>
