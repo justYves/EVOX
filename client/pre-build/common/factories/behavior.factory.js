@@ -185,7 +185,6 @@ Creature.prototype.lookAt = function(obj) {
 Creature.prototype.moveTowardsObjective = utilitiesFactory.moveToEat;
 
 Creature.prototype.herd = function() {
-    this.changeState('herd');
     var x = this.position.x - 0.5;
     var z = this.position.z - 0.5;
     var currentPos = [x, z]
@@ -200,7 +199,7 @@ Creature.prototype.herd = function() {
     }
     if (nearest && dist > this.social && nearest.name === this.name) {
         //move towards herd
-
+        this.changeState('herd');
         // console.log('just herdin');
         this.move(step(x, nearest.position.x - 0.5), 0, step(z, nearest.position.z - 0.5));
     } else {
