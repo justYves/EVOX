@@ -16,6 +16,12 @@ app.directive('creatureCarousel', function(UserFactory) {
             for (var i = 0; i < scope.slides.length; i += 3) {
                 scope.creatures.push(scope.slides.slice(i, i + 3));
             };
+            if (!scope.creatures.length) {
+                scope.creatures = [
+                    []
+                ];
+                scope.add = true;
+            }
             scope.creatures = scope.creatures.reverse();
             scope.myInterval = 0;
             scope.noWrapSlides = false;
