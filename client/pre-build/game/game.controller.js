@@ -89,36 +89,35 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
 
     // <------ Creature ------>
     function initCreatures() {
-        // if (!$scope.creatures.length) {
-        //     $scope.creatures = [{
-        //             name: 'deer',
-        //             size: 12,
-        //             vision: 5,
-        //             social: 2,
-        //             isHerbivore: true,
-        //             spawner: true
-        //         },
-        //         // , {
-        //         //     name: 'turtle',
-        //         //     size: 5,
-        //         //     vision: 5,
-        //         //     social: 7,
-        //         //     isHerbivore: false
-        //         // }
-        //         // , {
-        //         //     name: 'crocodile',
-        //         //     size: 5,
-        //         //     vision: 5,
-        //         //     isHerbivore: false
-        //         // },
-        //         {
-        //             name: 'lion',
-        //             size: 5,
-        //             vision: 7,
-        //             isHerbivore: false
-        //         }
-        //     ];
-        // }
+        if (!$scope.creatures.length) {
+            $scope.creatures = [{
+                    name: 'lion',
+                    size: 12,
+                    vision: 5,
+                    social: 2,
+                    isHerbivore: true,
+                    spawner: true
+                }, {
+                    name: 'elephant',
+                    size: 5,
+                    vision: 5,
+                    social: 7,
+                    isHerbivore: false
+                },
+                // , {
+                //     name: 'crocodile',
+                //     size: 5,
+                //     vision: 5,
+                //     isHerbivore: false
+                // },
+                {
+                    name: 'giraffe',
+                    size: 5,
+                    vision: 7,
+                    isHerbivore: false
+                }
+            ];
+        }
 
         if (user.creature.length) {
             user.creature.forEach(function(thing) {
@@ -261,7 +260,7 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
         var options = {
             bark: 3,
             leaves: 4,
-            densityScale: 2,
+            densityScale: 10,
             treeType: 'subspace',
             random: function() {
                 return 1;
