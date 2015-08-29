@@ -142,7 +142,7 @@ app.directive('controlPanel', function() {
 
         function updateStats() {
             "called";
-            if (!game.creatures.length) $scope.gameOver();
+            if (!game.creatures.filter(function(creature) {return creature.isUser}).length) $scope.gameOver();
             if (!$scope.creature || !$scope.stats) {
                 $scope.stats = false;
                 $scope.$digest;
@@ -230,11 +230,13 @@ app.directive('controlPanel', function() {
 app.controller('gameOverInstanceCtrl', function($scope, $modalInstance, $state) {
     $scope.toHome = function() {
         $state.go('home');
+        location.reload();
         $modalInstance.dismiss('cancel');
     };
 
     $scope.toWorlds = function() {
         $state.go('worlds');
+        location.reload();
         $modalInstance.dismiss('cancel');
     };
 });
