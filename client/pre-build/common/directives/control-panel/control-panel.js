@@ -14,7 +14,7 @@ app.directive('controlPanel', function() {
         $scope.selected;
         $scope.world = WorldsFactory.getCurrentWorld();
         $scope.stats = false;
-        
+
         var createTree = window.OneTree(game);
         var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
 
@@ -126,7 +126,7 @@ app.directive('controlPanel', function() {
                     new createCreature(pickedFood);
                     $scope.user.points -= 5;
                     break;
-                
+
                 default:
                     game.creatures.forEach(function(creature) {
                         if (x === creature.position.x - 0.5 && z === creature.position.z - 0.5) {
@@ -142,7 +142,7 @@ app.directive('controlPanel', function() {
 
         function updateStats() {
             "called";
-            if (!game.creatures.filter(function(creature) {return creature.isUser}).length) $scope.gameOver();
+        // if (!game.creatures.filter(function(creature) {return creature.isUser}).length) $scope.gameOver();
             if (!$scope.creature || !$scope.stats) {
                 $scope.stats = false;
                 $scope.$digest;
