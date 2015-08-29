@@ -123,6 +123,7 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
             user.creature.forEach(function(thing) {
                 thing.creature.name = thing.shape.name;
                 thing.creature.isUser = true;
+                thing.creature.name = thing.shape.name;
                 $scope.creatures.push(thing.creature);
             })
         }
