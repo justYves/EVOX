@@ -20,7 +20,7 @@ At 1X speed, a second IRL equals to 4 minutes IG.
 
 Welcome to Your World!
 #You can interact with the world using the control panel on the right of the screen!
-![alt tag](https://raw.github.com/justyves/EVOX/master/readmefiles/game-buttons.png)
+![alt tag](https://raw.github.com/justyves/EVOX/master/server/images/game-buttons.png)
 Use setting buttons to control gameplay!
 
 ##land and food icons modify your environment!
@@ -43,7 +43,7 @@ Use setting buttons to control gameplay!
 
 ##Click on a creature to get their stats. Remember to feed them if they are hungry!
 #Icons above a creature indicate their current behavior.
-![alt tag](https://raw.github.com/justyves/EVOX/master/readmefiles/icons.png)
+![alt tag](https://raw.github.com/justyves/EVOX/server/images/icons.png)
 
 
 ![alt tag](https://raw.github.com/justyves/EVOX/master/client/textures/look.png)
