@@ -8,19 +8,12 @@ app.directive('controlPanel', function() {
     };
 
 })
-    .controller("PanelController", function($modal, $scope, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout, UserFactory, ObjectivesFactory) {
-        $scope.creatures = game.creatures;
+    .controller("PanelController", function($modal, $scope, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout, UserFactory) {
+        $scope.user = UserFactory.currentUser;
+        $scope.creatures = $scope.user.creature;
         $scope.selected;
         $scope.world = WorldsFactory.getCurrentWorld();
         $scope.stats = false;
-        $scope.obj = false;
-        $scope.user = UserFactory.currentUser;
-        
-        //load objectives if you are playing in level mode
-        if ($stateParams.currentLevel) {
-            $scope.level = $stateParams.currentLevel;
-            $scope.currentObjectives = $scope.user.levels[$scope.level].objectives;
-        }
         
         var createTree = window.OneTree(game);
         var createCreature = CreatureFactory.create(game, window.voxel, window.voxelMesh);
@@ -58,7 +51,6 @@ app.directive('controlPanel', function() {
             $scope.stats = true;
             $scope.creature = creature;
             $scope.getPercentages($scope.creature);
-            ObjectivesFactory
             $scope.$digest();
         });
 
@@ -220,24 +212,6 @@ app.directive('controlPanel', function() {
                         return CreatureFactory.postCreature(creature); //parents will be set here
                     });
             }));
-        }
-
-        $scope.winObj = function() {
-            $scope.user.points += 10;
-            var modalInstance = $modal.open({
-                animation: true,
-                controller: 'objectiveInstanceCtrl',
-                templateUrl: 'objective.html'
-            });
-        };
-
-        $scope.levelUp = function() {
-            $scope.user.points += 50;
-            var modalInstance = $modal.open({
-                animation: true,
-                controller: 'levelUpInstanceCtrl',
-                templateUrl: 'level-up.html'
-            });
         };
 
         $scope.gameOver = function() {
@@ -254,31 +228,9 @@ app.directive('controlPanel', function() {
                 controller: 'infoInstanceCtrl',
                 templateUrl: 'info.html'
             });
-        }
+        };
 
     });
-app.controller('objectiveInstanceCtrl', function($scope, $modalInstance, $state) {
-    $scope.toHome = function() {
-        $state.go('home');
-        $modalInstance.dismiss('cancel');
-    };
-
-    $scope.close = function() {
-        $modalInstance.dismiss('cancel');
-    };
-});
-
-app.controller('levelUpInstanceCtrl', function($scope, $modalInstance, $state) {
-    $scope.toHome = function() {
-        $state.go('home');
-        $modalInstance.dismiss('cancel');
-    };
-
-    $scope.toWorlds = function() {
-        $state.go('home');
-        $modalInstance.dismiss('cancel');
-    };
-});
 
 app.controller('gameOverInstanceCtrl', function($scope, $modalInstance, $state) {
     $scope.toHome = function() {

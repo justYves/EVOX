@@ -2,9 +2,9 @@
 	<ul id="creatures-list">
 		<p style="margin-bottom:0;">My Creatures</p>
 		<hr style="margin-bottom: 0;">
-	    <li ng-hide="!!creatures.length">You have no creatures!</li>
-	    <li ng-show="!!creatures.length" ng-repeat="creature in creatures">
-	        <button class="btn btn-inverse" id="creatures">{{creature.name}}</button>
+	    <li ng-hide="!!user.creature.length">You have no creatures!</li>
+	    <li ng-show="!!user.creature.length" ng-repeat="creature in user.creature">
+	        <button class="btn btn-inverse" id="creatures">{{creature.creature.name}}</button>
 	    </li>
 	</ul>
 </div>
