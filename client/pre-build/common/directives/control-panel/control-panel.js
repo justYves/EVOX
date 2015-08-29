@@ -10,13 +10,7 @@ app.directive('controlPanel', function() {
 })
     .controller("PanelController", function($modal, $scope, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout, UserFactory) {
         $scope.user = UserFactory.currentUser;
-        $scope.user.gameCreatures = game.creatures.filter(function(creature){
-            for (var i = 0; i < $scope.user.creature.length; i++){
-                return $scope.user.creature[0].creature.name === creature.name;
-            }
-        });
-
-        window.user = UserFactory.currentUser;
+        $scope.creatures = game.creatures;
         $scope.selected;
         $scope.world = WorldsFactory.getCurrentWorld();
         $scope.stats = false;
@@ -148,6 +142,7 @@ app.directive('controlPanel', function() {
 
         function updateStats() {
             "called";
+            if (!game.creatures.length) $scope.gameOver();
             if (!$scope.creature || !$scope.stats) {
                 $scope.stats = false;
                 $scope.$digest;
