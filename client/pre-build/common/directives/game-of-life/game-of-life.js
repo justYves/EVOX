@@ -97,7 +97,7 @@ app.controller('GOLCTRL', function($scope){
     initialize: function () {
       this.pause();
       this.forEachCell(function (cell) {
-        var status = Math.random() > 0.20 ? 'dead' : 'alive';
+        var status = Math.random() > 0.2 ? 'dead' : 'alive';
         cell.setAttribute('data-status', status);
         cell.className = status;
       });
