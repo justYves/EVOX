@@ -3,7 +3,6 @@
         <p>Hello, {{user.name.first}}!
             <p>
                 <p>Welcome to {{world.name}}!</p>
-                <p>Your Points: {{user.points}}</p>
                 <hr>
                 <div class="row">
                     <p style="margin:0;">Game Settings</p>
@@ -23,21 +22,7 @@
                     <a class="btn" href="#" ng-class="{'btn-inverse ': !selected==='shovel', 'btn-primary': selected==='shovel'}" id="icon-button" ng-click="selected= selected=='shovel' ? null : 'shovel'"><img class="img-responsive" id="icon-pic" ng-src="Stone-Hoe-icon.png" /></a>
                     <a class="btn" href="#" ng-class="{'btn-inverse ': !selected==='food', 'btn-primary': selected==='food'}" id="icon-button" ng-click="selected= selected=='food' ? null : 'food'"><img class="img-responsive" id="icon-pic" ng-src="food.png" /></a>
                     <a class="btn" href="#" ng-class="{'btn-inverse ': !selected==='info', 'btn-primary': selected==='info'}" id="icon-button" ng-click="info()"><i id="settings-icon"  class="fa fa-info-circle"></i></a>
-                    <a class="btn" href="#" ng-class="{'btn-inverse ': !selected==='info', 'btn-primary': selected==='goals'}" id="icon-button" ng-click="toggleObj()" ng-click="selected= selected=='goals' ? null : 'goals'"><img class="img-responsive" id="icon-pic" ng-src="Book-icon.png" /></a>
                 </div>
-              <!--   <div class="row creature-container">
-                    <creatures-list><creatures-list>
-                </div> -->
-             <!--    <div class='row objectives'>
-                    <objectives></objectives>
-                </div> -->
-                <hr>
-            <p>**for development**</p>
-            <div id="developer-buttons">
-                <button class="btn btn-primary" ng-click="levelUp()">Level Up</button>
-                <button class="btn btn-danger" ng-click="gameOver()">Game Over</button>
-                <button class="btn btn-primary" ng-click="winObj()">WIN Objective</button>
-            </div>
     </div>
 </div>
 
@@ -47,8 +32,5 @@
     </div>
      <div class="row creature-container">
         <creature-stats></creature-stats>
-    </div>
-    <div class="row creature-container">
-        <objectives></objectives>
     </div>
 </div>

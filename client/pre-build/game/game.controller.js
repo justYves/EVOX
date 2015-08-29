@@ -122,6 +122,7 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
 
         if (user.creature.length) {
             user.creature.forEach(function(thing) {
+                thing.creature.isUser = true;
                 $scope.creatures.push(thing.creature);
             })
         }

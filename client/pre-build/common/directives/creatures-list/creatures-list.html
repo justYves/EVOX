@@ -4,7 +4,7 @@
 		<hr style="margin-bottom: 0;">
 	    <li ng-hide="!!creatures.length">You have no creatures!</li>
 	    <li ng-show="!!creatures.length" ng-repeat="creature in creatures">
-	        <button class="btn btn-inverse" id="creatures">{{creature.name}}</button>
+	        <button ng-show="creature.isUser" class="btn btn-inverse" id="creatures">{{creature.name}}</button>
 	    </li>
 	</ul>
 </div>

@@ -26,6 +26,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.spawner = opts.spawner || false;
         this.pos = opts.pos;
         this.isFood = opts.isFood;
+        this.isUser = opts.isUser || false;
         this.position = {
             x: 0,
             y: 0,
