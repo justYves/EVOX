@@ -60,7 +60,6 @@ router.post('/many', function(req, res, next) { //post for payload
 });
 
 router.put('/:id', function(req, res, next) {
-    // console.log('before db', req.body)
     Shape.findById(req.params.id).exec()
         .then(function(shape) {
             _.extend(shape, req.body.shape);
@@ -73,12 +72,13 @@ router.put('/:id', function(req, res, next) {
             _.extend(creature, req.body.creature)
             return creature.save()
         })
-        .then(function(creature) {
+        .then(function() {
             return User.findById(req.body.user).exec()
         })
         .then(function(user) {
             var toChange;
             user.creature.forEach(function(critter) {
+                console.log(critter.id)
                 if (critter.id === req.body._id) toChange = critter;
             })
             _.extend(toChange, req.body)
@@ -92,7 +92,6 @@ router.put('/:id', function(req, res, next) {
 })
 
 router.put('/default/:id', function(req, res, next) {
-    console.log('hitting', req.body)
     Shape.findById(req.params.id).exec()
         .then(function(shape) {
             _.extend(shape, req.body);
