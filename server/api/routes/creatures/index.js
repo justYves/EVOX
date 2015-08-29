@@ -54,7 +54,7 @@ router.post('/', function(req, res, next) {
         .then(function(parent) {
             setParents.push(parent);
             req.body.parents = setParents
-            return Creature.create(req.body.creature)
+            return Creature.create(req.body)
         })
         .then(function(creature) {
             res.status(201).json(creature);

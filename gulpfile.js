@@ -37,7 +37,7 @@ gulp.task('default', function() {
     // Reload when a template (.html) file changes.
     gulp.watch(['client/**/*.html', 'server/*.html'], ['reload']);
 
-    gulp.watch(['server/**/*.js'], ['testServerJS']);
+    gulp.watch(['tests/**/*.js'], ['testServerJS']);
 
 });
 
@@ -52,7 +52,7 @@ gulp.task('seedDB', function() {
 // Build tasks
 //// Build all
 gulp.task('build', function() {
-    runSeq(['buildJS', 'buildCSS']);
+    runSeq(['buildJS', 'buildCSS', 'testServerJS']);
 });
 
 //Browserify
@@ -85,7 +85,7 @@ gulp.task('buildCSS', function() {
 
 // Testing
 gulp.task('testServerJS', function() {
-    return gulp.src('./server/**/*.spec.js', {
+    return gulp.src(['./server/db/models/', './tests/**/*.spec.js'], {
             read: false
         })
         .pipe(mocha({
