@@ -10,7 +10,6 @@ app.directive('controlPanel', function() {
 })
     .controller("PanelController", function($modal, $scope, WorldsFactory, CreatureFactory, CameraFactory, $q, $stateParams, $state, $rootScope, PointerFactory, $timeout, UserFactory) {
         $scope.user = UserFactory.currentUser;
-        $scope.creatures = $scope.user.creature;
         $scope.selected;
         $scope.world = WorldsFactory.getCurrentWorld();
         $scope.stats = false;
@@ -34,17 +33,14 @@ app.directive('controlPanel', function() {
         $scope.killCreature = function() {
             $scope.creature.die();
             $scope.stats = false;
-            $scope.user.points -= 5;
         };
 
         $scope.procreate = function() {
             $scope.creature.procreate();
-            $scope.user.points += 20;
         };
 
         $scope.fertilize = function() {
             CameraFactory.setGrass(true);
-            console.log(game.map);
         };
 
         $scope.$on("currentCreature", function(event, creature) {
@@ -72,7 +68,6 @@ app.directive('controlPanel', function() {
             var x = pos.x - 0.5;
             var y = pos.y - 0.5;
             var z = pos.z - 0.5;
-            console.log(game.map.size);
             if (x >= 0 && x < game.map.size && y >= 0 && y < game.map.size && z >= 0 && z < game.map.size) {
                 processClick(x, y, z);
             }
@@ -112,7 +107,6 @@ app.directive('controlPanel', function() {
 
                 case "tree":
                     var newTree = createTree(x, y, z);
-                    game.trees.push(newTree);
                     $scope.user.points -= 10;
                     break;
 
@@ -134,7 +128,6 @@ app.directive('controlPanel', function() {
                 
                 default:
                     game.creatures.forEach(function(creature) {
-                        console.log(creature);
                         if (x === creature.position.x - 0.5 && z === creature.position.z - 0.5) {
                             $scope.stats = true;
                             $scope.creature = creature;
