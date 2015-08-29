@@ -22,40 +22,39 @@ Welcome to Your World!
 You can interact with the world using the control panel on 
 the right of the screen!
 Use setting buttons to control gameplay!
-![alt tag](https://raw.github.com/justyves/EVOX/master/readmefiles/game-buttons.png)
 
 ##land and food icons modify your environment!
 
 ![alt tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Grass-icon.png)
-Spawn Grass
+#Spawn Grass
 
-	![alt tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Dirt-icon.png)
-Remove Grass
+![alt tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Dirt-icon.png)
+#Remove Grass
 
 
 ![alt tag](https://raw.github.com/justyves/EVOX/master/server/images/Stone-Hoe-icon.png)
-Remove a block.
+#Remove a block.
 
 ![alt tag](https://raw.github.com/justyves/EVOX/master/server/images/chick.png)
-Feeder critters!
+#Feeder critters!
 
 ![alt tag](https://raw.github.com/justyves/EVOX/master/server/images/info.png)
-Get game info
+#Get game info
 
 Click on a creature to get their stats. Remember to feed them if they are hungry!
 Icons above a creature indicate their current behavior.
 
 ![alt tag](https://raw.github.com/justyves/EVOX/master/client/textures/look.png)
-Searching for food.
+#Searching for food.
 
 ![alt tag](https://raw.github.com/justyves/EVOX/master/client/textures/eating.png)
-A creature is eating.
+#A creature is eating.
 
 ![alt tag](https://raw.github.com/justyves/EVOX/master/client/textures/herd.png)
-Searching for other animals to herd with.
+#Searching for other animals to herd with.
 
 ![alt tag](https://raw.github.com/justyves/EVOX/master/client/textures/dead.png)
-The animal has died! :(
+#The animal has died! :(
 
-![alt tag](https://raw.github.com/justyves/EVOX/master/client/textures/game-buttons.png)
-If animals are healthy and the timing is right, animals will procreate!
+![alt tag](https://raw.github.com/justyves/EVOX/master/client/textures/love.png)
+#If animals are healthy and the timing is right, animals will procreate!
