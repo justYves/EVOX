@@ -232,6 +232,7 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             }
         }
         var x = bounds[1][1];
+        bounds[0][1] = 0; // should be set to 0
         // console.log(x);
         var y = 0.741534049053526 - 0.056417121048685195 * x + 0.0012594302082374143 * Math.pow(x, 2);
         // var display =
@@ -241,7 +242,7 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             colors: colors,
             bounds: bounds,
             scale: y,
-            display: 0,
+            display: 0.2,
         };
     }
 
