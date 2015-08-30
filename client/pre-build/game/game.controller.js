@@ -89,39 +89,39 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
 
     // <------ Creature ------>
     function initCreatures() {
-        // if (!$scope.creatures.length) {
-        //     $scope.creatures = [{
-        //             name: 'deer',
-        //             size: 12,
-        //             vision: 5,
-        //             social: 2,
-        //             isHerbivore: true,
-        //             spawner: true
-        //         },
-        //         // , {
-        //         //     name: 'turtle',
-        //         //     size: 5,
-        //         //     vision: 5,
-        //         //     social: 7,
-        //         //     isHerbivore: false
-        //         // }
-        //         // , {
-        //         //     name: 'crocodile',
-        //         //     size: 5,
-        //         //     vision: 5,
-        //         //     isHerbivore: false
-        //         // },
-        //         {
-        //             name: 'lion',
-        //             size: 5,
-        //             vision: 7,
-        //             isHerbivore: false
-        //         }
-        //     ];
-        // }
+        if (!$scope.creatures.length) {
+            $scope.creatures = [{
+                    name: 'lion',
+                    size: 12,
+                    vision: 5,
+                    social: 2,
+                    isHerbivore: true,
+                    spawner: true
+                }, {
+                    name: 'elephant',
+                    size: 5,
+                    vision: 5,
+                    social: 7,
+                    isHerbivore: false
+                },
+                // , {
+                //     name: 'crocodile',
+                //     size: 5,
+                //     vision: 5,
+                //     isHerbivore: false
+                // },
+                {
+                    name: 'giraffe',
+                    size: 5,
+                    vision: 7,
+                    isHerbivore: false
+                }
+            ];
+        }
 
         if (user.creature.length) {
             user.creature.forEach(function(thing) {
+                thing.creature.name = thing.shape.name;
                 thing.creature.isUser = true;
                 thing.creature.name = thing.shape.name;
                 $scope.creatures.push(thing.creature);
@@ -240,28 +240,28 @@ app.controller('GameController', function($modal, $scope, $stateParams, WorldsFa
     // });
 
     function initTrees() {
-//         var map = game.THREE.ImageUtils.loadTexture( "../textures/jolicraft/rose.png" );
-//                 var material = new game.THREE.SpriteMaterial( { map: map, color: 0xffffff, fog: true ,depthTest: false,alphaTest: 0.5} );
-//                 var sprite = new game.THREE.Sprite( material );
-//                         sprite.position.set(10, 1, 10);
-//         sprite.isFront = true;
-//         sprite.position.set(3, 2, 3);
+        //         var map = game.THREE.ImageUtils.loadTexture( "../textures/jolicraft/rose.png" );
+        //                 var material = new game.THREE.SpriteMaterial( { map: map, color: 0xffffff, fog: true ,depthTest: false,alphaTest: 0.5} );
+        //                 var sprite = new game.THREE.Sprite( material );
+        //                         sprite.position.set(10, 1, 10);
+        //         sprite.isFront = true;
+        //         sprite.position.set(3, 2, 3);
 
-// sprite.scale.set(2, 4, 2);
+        // sprite.scale.set(2, 4, 2);
 
-// sprite.alphaTest = 0.5;
+        // sprite.alphaTest = 0.5;
 
-// sprite.rotation = 0;
+        // sprite.rotation = 0;
 
-// sprite.renderDepth = 1;
-                // game.scene.add( sprite );
-                // window.sprite = sprite;
+        // sprite.renderDepth = 1;
+        // game.scene.add( sprite );
+        // window.sprite = sprite;
         var createTrees = window.Tree(game);
         game.trees = WorldsFactory.getCurrentWorld().trees;
         var options = {
             bark: 3,
             leaves: 4,
-            densityScale: 2,
+            densityScale: 10,
             treeType: 'subspace',
             random: function() {
                 return 1;

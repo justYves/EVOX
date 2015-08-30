@@ -37,7 +37,7 @@ gulp.task('default', function() {
     // Reload when a template (.html) file changes.
     gulp.watch(['client/**/*.html', 'server/*.html'], ['reload']);
 
-    gulp.watch(['tests/**/*.js'], ['testServerJS']);
+    // gulp.watch(['tests/**/*.js'], ['testServerJS']);
 
 });
 
@@ -50,10 +50,16 @@ gulp.task('seedDB', function() {
 
 
 // Build tasks
-//// Build all
+//// Build all for normal use
 gulp.task('build', function() {
-    runSeq(['buildJS', 'buildCSS', 'testServerJS']);
+    runSeq(['buildJS', 'buildCSS']);
 });
+
+//for testing
+// gulp.task('build', function() {
+//     runSeq(['buildJS', 'buildCSS', 'testServerJS']);
+// });
+
 
 //Browserify
 gulp.task('browserify', function() {
@@ -84,11 +90,11 @@ gulp.task('buildCSS', function() {
 
 
 // Testing
-gulp.task('testServerJS', function() {
-    return gulp.src(['./server/db/models/', './tests/**/*.spec.js'], {
-            read: false
-        })
-        .pipe(mocha({
-            reporter: 'spec'
-        }));
-});
+// gulp.task('testServerJS', function() {
+//     return gulp.src(['./server/db/models/', './tests/**/*.spec.js'], {
+//             read: false
+//         })
+//         .pipe(mocha({
+//             reporter: 'spec'
+//         }));
+// });
