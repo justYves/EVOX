@@ -3,11 +3,9 @@ app.factory('utilitiesFactory', function() {
     var min;
 
     function findCreature(mapCreatures, currentPoint, radius, self) {
-        // console.log("the factory is working", self);
         mapCreatures.forEach(function(creature) {
             if (creature !== self) {
                 var dist = distance(currentPoint, creature.position);
-                // console.log("distance: ", dist);
                 //var dist = Math.sqrt(Math.pow((creature.position.x - x), 2) + Math.pow((creature.position.z - z), 2)) ;
                 if (dist < radius) {
                     if (!min) {
@@ -18,7 +16,6 @@ app.factory('utilitiesFactory', function() {
                         nearest = creature;
                     }
                 }
-                // console.log("factory nearest",nearest);
             }
         });
         return nearest;
@@ -44,7 +41,6 @@ app.factory('utilitiesFactory', function() {
         shuffle(ard);
         if (!this.isHerbivore) {
             ard.forEach(function(coords) {
-                // console.log("i want eat: ", objv)
                 if (coords[0] === objv.position.x - 0.5 && coords[1] === objv.position.z - 0.5 && !foundFood) {
                     foundFood = true;
                     self.lookAt(objv);
@@ -58,7 +54,6 @@ app.factory('utilitiesFactory', function() {
         }
         if (this.isHerbivore) {
             var count = 0;
-            // console.log("WHAT MY APPETITE", self.appetite)
             foundFood = ard.some(function(coords) {
                 if (!self.game.flat) {
                     if (self.game.getBlock([coords[0], self.position.y, coords[1]])) {
@@ -104,7 +99,6 @@ app.factory('utilitiesFactory', function() {
     }
 
     function distance(pointA, pointB) {
-        // console.log("distance pointA: ", typeof pointA[0], "B", typeof pointB.x)
         return Math.floor(Math.sqrt(Math.pow((pointB.x - pointA[0]), 2) + Math.pow((pointB.z - pointA[1]), 2)));
     }
 

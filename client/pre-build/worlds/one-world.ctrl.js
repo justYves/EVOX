@@ -42,11 +42,9 @@ app.controller('OneWorldCtrl', function($scope, WorldsFactory, $state, MapFactor
         };
         WorldsFactory.postWorld(world, true)
             .then(function(data) {
-                console.log('received from postworld', data)
                 WorldsFactory.setCurrentWorld(data);
                 MapFactory.create(data.size, data.map, data.flat, data.grassPercent);
                 CreatureFactory.currentCreatures = data.creatures;
-                console.log("Creatures", CreatureFactory.currentCreatures);
                 $state.go('game.level', {
                     id: data._id,
                     currentLevel: idx + 1

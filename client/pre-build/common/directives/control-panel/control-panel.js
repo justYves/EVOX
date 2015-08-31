@@ -142,7 +142,7 @@ app.directive('controlPanel', function() {
 
         function updateStats() {
             "called";
-        // if (!game.creatures.filter(function(creature) {return creature.isUser}).length) $scope.gameOver();
+            // if (!game.creatures.filter(function(creature) {return creature.isUser}).length) $scope.gameOver();
             if (!$scope.creature || !$scope.stats) {
                 $scope.stats = false;
                 $scope.$digest;
@@ -200,10 +200,8 @@ app.directive('controlPanel', function() {
             return $q.all(arr.map(function(creature) {
                 return CreatureFactory.postCoord([creature.position, creature.rotation])
                     .then(function(coords) {
-                        console.log('hello', coords, creature);
                         creature.position = coords[0];
                         creature.rotation = coords[1];
-                        console.log(creature);
                         return CreatureFactory.postCreature(creature); //parents will be set here
                     });
             }));

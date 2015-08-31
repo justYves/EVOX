@@ -199,7 +199,6 @@ app.factory('MapFactory', function($http) {
     Map.prototype.empty = function(x, y, z) {
         var currentCell = this.getCell(x, y, z);
         if (currentCell.getMaterial === "dirt") return; //if animal eat empty patch
-        // console.log('EMPTY MAP FUNC', currentCell)
         currentCell.setMaterial("dirt");
 
         this.game.setBlock(currentCell.coordinate, 2); // 2 = Dirt
@@ -218,7 +217,6 @@ app.factory('MapFactory', function($http) {
     Map.prototype.spawnGrass = function(x, y, z) {
         var currentCell = this.getCell(x, y, z);
         if (currentCell.getMaterial === "grass") return; //if animal eat empty patch
-        // console.log('EMPTY MAP FUNC', currentCell)
         currentCell.setMaterial("grass");
 
         this.game.setBlock(currentCell.coordinate, 1); // 1 = Grass
