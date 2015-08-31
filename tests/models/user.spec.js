@@ -1,22 +1,10 @@
-var dbURI = 'mongodb://localhost:27017/gameoflife';
+var dbURI = 'mongodb://localhost:27017/evoxTest';
 var clearDB = require('mocha-mongoose')(dbURI);
 
-// var sinon = require('sinon');
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
 
 var User = mongoose.model('User');
-
-// var models = {
-//     User: mongoose.model('User'),
-//     Address: mongoose.model('Address'),
-//     Dish: mongoose.model('Dish'),
-//     Order: mongoose.model('Order'),
-//     Review: mongoose.model('Review'),
-//     Tag: mongoose.model('Tag')
-// };
-
-// var toSeed = require('../../testingseed.js');
 
 describe('User model', function() {
 
@@ -25,7 +13,6 @@ describe('User model', function() {
             mongoose.connect(dbURI);
         }
         done();
-        // return toSeed(models, done);
     });
 
     afterEach('Clear test database', function(done) {

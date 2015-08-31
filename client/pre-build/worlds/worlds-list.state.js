@@ -8,11 +8,17 @@ app.config(function($stateProvider) {
                 worlds: function(WorldsFactory) {
                     return WorldsFactory.getWorlds();
                 }
+            },
+            data: {
+                authenticate: true
             }
         })
         .state('worlds.world', {
             url: '/:id',
             controller: 'OneWorldCtrl',
-            templateUrl: '/pre-build/worlds/oneWorld.html'
+            templateUrl: '/pre-build/worlds/oneWorld.html',
+            data: {
+                authenticate: true
+            }
         })
 });

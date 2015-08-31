@@ -20,7 +20,6 @@ app.factory('ShapeFactory', function($http, AuthService, UserFactory) {
                 })
         },
         saveShape: function(data, creature) {
-            console.log(creature);
             data.shape = JSON.stringify(data.shape);
             var tempCreatureId, tempShapeId;
             return $http.post('/api/shapes', data)
@@ -28,9 +27,8 @@ app.factory('ShapeFactory', function($http, AuthService, UserFactory) {
                     return res.data._id;
                 })
                 .then(function(shapeId) {
-                    console.log(creature);
                     tempShapeId = shapeId;
-                    creature.shape = shapeId;
+                creature.shape = shapeId;
                     return $http.post('/api/creatures/', creature)
                 })
                 .then(function(res) {
@@ -66,6 +64,9 @@ app.factory('ShapeFactory', function($http, AuthService, UserFactory) {
                 .then(function(res) {
                     return res.data
                 })
+        },
+        removeShape: function(shape) {
+            return $http.delete('/api/shapes/' + shape._id)
         }
     };
 });

@@ -11,6 +11,9 @@ app.config(function($stateProvider) {
             users: function(UserFactory) {
                 return UserFactory.getUsers();
             }
+        },
+        data: {
+            authenticate: true
         }
     })
         .state('multiplayer.waiting', {

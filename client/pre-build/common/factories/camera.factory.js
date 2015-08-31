@@ -77,10 +77,12 @@ app.factory('CameraFactory', function($rootScope, PointerFactory) {
       // phi = Math.min(180, Math.max(0, phi))
 
       // theta is x; phi is y;
-      camera.position.x = radius * Math.sin(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360) + size/2;
-      camera.position.z = radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360) + size /2;
+      camera.position.x = radius * Math.sin(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360) + size / 2;
+      camera.position.z = radius * Math.cos(theta * Math.PI / 360) * Math.cos(phi * Math.PI / 360) + size / 2;
       render();
-      if(isShiftDown) setTimeout(function(){rotateCamera(inverse)},1)
+      if (isShiftDown) setTimeout(function() {
+        rotateCamera(inverse)
+      }, 1)
     }
 
 

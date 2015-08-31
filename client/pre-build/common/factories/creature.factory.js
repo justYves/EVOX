@@ -38,11 +38,6 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
             z: 0
         };
 
-        // this.intelligence = opts.intelligence || 10;
-        // console.log(BehaviorFactory.prototype);
-        // console.log("this",this.prototype);
-        // angular.extend(this.prototype,BehaviorFactory);
-        // console.log("textended this",test);
         var self = this;
 
         //gives basic behavior
@@ -60,7 +55,6 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         }
         if (!game.creatures) game.creatures = [];
         if (!this.isFood) {
-            console.log("WHOA FOOD", this.name, this.isFood)
             game.creatures.push(this);
         }
     }
@@ -79,10 +73,8 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
     function render(model, shape, game, voxel, mesh, spawnPos) {
         var rotation = shape.rotation;
         if (typeof shape !== "function") {
-            // console.log("Render is called!");
             var displayScale = shape.display || 0.5;
             shape = build(shape, shape.scale, game, voxel, game.mesh);
-            // console.log(displayScale);
             shape.scale = new game.THREE.Vector3(displayScale, displayScale, displayScale);
         } else {
             shape = shape();
@@ -106,7 +98,6 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
             sprite.scale.set(0.5, 0.5, 0.5);
             // var display ratio =
             sprite.position.set(0.5 / displayScale * 0.2, Math.max(1 / displayScale, 4), 0.5 / displayScale * 0.2);
-            // console.log(Math.floor(10*Math.abs(shape.scale.x-0.5)))
             sprite.isFront = true;
             sprite.renderDepth = 1;
 
@@ -126,7 +117,6 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         model.rotation = model.item.yaw.rotation;
         if (rotation) {
             model.rotation.y = rotation * Math.PI;
-            console.log("rotation called")
         }
         if (spawnPos) {
             model.setPosition(spawnPos.x, 1, spawnPos.z);
@@ -137,7 +127,6 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
     }
 
     function build(obj, scale, game, voxel, mesh) {
-        // console.log("build", arguments)
         var bounds = obj.bounds;
         var voxels = obj.voxels;
         var colors = obj.colors;
@@ -152,7 +141,6 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         var voxels = generate(bounds[0], bounds[1], function(x, y, z) {
             return voxels[[x, y, z].join('|')] || 0;
         });
-        // console.log(voxels);
         // create mesh
         scale = scale || 0.2;
         var mesh = voxelMesh(voxels, game.mesher, new game.THREE.Vector3(scale, scale, scale), game.THREE);
@@ -219,6 +207,9 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
                 .then(function(res) {
                     return res.data
                 })
+        },
+        deleteCreature: function(creature) {
+            return $http.delete('/api/creatures/' + creature._id)
         }
         // currentCreatures set in one-world.ctrl
         // currentHash set in creaturescontroller

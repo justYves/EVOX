@@ -63,15 +63,13 @@ app.factory('WorldsFactory', function($http, MapFactory) {
 
             if (nopost) {
                 return $http.post('/api/creatures/all', creatures)
-                .then(function(res) {
-                    world.creatures = res.data;
-                    return world;
-                })
-            }
-            else {
+                    .then(function(res) {
+                        world.creatures = res.data;
+                        return world;
+                    })
+            } else {
                 return $http.post('/api/creatures/all', creatures)
                     .then(function(res) {
-                        console.log('worldsfactory',res.data)
                         world.creatures = res.data
                         return $http.post('/api/worlds', world)
                     })
@@ -105,7 +103,6 @@ app.factory('WorldsFactory', function($http, MapFactory) {
         },
         newWorldOptions: function() {
             map = MapFactory.getCurrentMap();
-            // console.log(map)
             return {
                 generate: randomMap,
                 materials: materials,

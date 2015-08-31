@@ -7,6 +7,9 @@ app.config(function($stateProvider) {
             user: function(UserFactory) {
                 return UserFactory.getUser(UserFactory.currentUser._id)
             }
+        },
+        data: {
+            authenticate: true
         }
     });
 

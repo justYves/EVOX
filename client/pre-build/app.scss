@@ -68,6 +68,20 @@
     }
 }
 
+#delete-icon {
+    position: absolute;
+    width: 40%;
+    right: 0;
+    top: 30px;
+    size: 2em;
+    color: #34495e;
+    &:hover {
+        transition: all 0.4s ease;
+        transform: scale(1.5);
+        color: #18bc9c;
+    }
+}
+
 
 .grayscale {
     filter: grayscale(100%);
