@@ -50,15 +50,15 @@ gulp.task('seedDB', function() {
 
 
 // Build tasks
-//// Build all for normal use
-// gulp.task('build', function() {
-//     runSeq(['buildJS', 'buildCSS']);
-// });
-
-//for testing
+// Build all for normal use
 gulp.task('build', function() {
-    runSeq(['buildJS', 'buildCSS', 'testServerJS']);
+    runSeq(['buildJS', 'buildCSS']);
 });
+
+// //for testing
+// gulp.task('build', function() {
+//     runSeq(['buildJS', 'buildCSS', 'testServerJS']);
+// });
 
 
 //Browserify
@@ -90,11 +90,11 @@ gulp.task('buildCSS', function() {
 
 
 // Testing
-gulp.task('testServerJS', function() {
-    return gulp.src(['./server/db/models/', './tests/**/*.spec.js'], {
-            read: false
-        })
-        .pipe(mocha({
-            reporter: 'spec'
-        }));
-});
+// gulp.task('testServerJS', function() {
+//     return gulp.src(['./server/db/models/', './tests/**/*.spec.js'], {
+//             read: false
+//         })
+//         .pipe(mocha({
+//             reporter: 'spec'
+//         }));
+// });
