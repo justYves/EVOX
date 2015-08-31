@@ -1,8 +1,10 @@
 #instructions {
+	width: 0px; 
+	top: 0px; 
+	right: 0px; 
 	margin-top: 5%;
 	margin-right: 5%;
 	opacity: 0.8;
-	width: 40%;
 	height: 100%;
 	position: absolute;
 	transition: 0.4s;
@@ -50,6 +52,7 @@
 
 .tile {
 	// min-width: 100%;
+	width: 250px;
 	position:absolute;
 	right:0;
 }
