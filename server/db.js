@@ -1,8 +1,9 @@
 var Promise = require('bluebird');
 var chalk = require('chalk');
 var dbName = "evox";
+var env = require('./env');
 
-var DATABASE_URI = "mongodb://localhost:27017/" + dbName;
+var DATABASE_URI = env.DATABASE_URI;
 
 var mongoose = require('mongoose');
 var db = mongoose.connect(DATABASE_URI).connection;

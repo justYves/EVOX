@@ -1,10 +1,10 @@
-// Transpile ES6 to ES5
+her// Transpile ES6 to ES5
 require('babel/register');
 
 var chalk = require('chalk');
 
 // Returns a promise from ./db/index.js
-var startDb = require('./db');
+var startDb = require('./db.js');
 var port = (process.env.PORT || 4545);
 var app;
 
