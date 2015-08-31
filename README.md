@@ -28,35 +28,35 @@ Use setting buttons to control gameplay!
 <img src="server/images/3D-Grass-icon.png" style="width:50px">
 ##Spawn Grass
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Dirt-icon.png)
+![img tag](server/images/3D-Dirt-icon.png)
 ##Remove Grass
 
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/Stone-Hoe-icon.png)
+![img tag](server/images/Stone-Hoe-icon.png)
 ##Remove a block.
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/chick.png)
+![img tag](server/images/chick.png)
 ##Feeder critters!
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/info.png)
+![img tag](server/images/info.png)
 ##Get game info
 
 ##Click on a creature to get their stats. Remember to feed them if they are hungry!
 #Icons above a creature indicate their current behavior.
-![img tag](https://raw.github.com/justyves/EVOX/server/images/icons.png)
+![img tag](server/images/icons.png)
 
 
-![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/look.png)
+![img tag](client/textures/look.png)
 #Searching for food.
 
-![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/eating.png)
+![img tag](client/textures/eating.png)
 #A creature is eating.
 
-![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/herd.png)
+![img tag](client/textures/herd.png)
 #Searching for other animals to herd with.
 
-![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/dead.png)
+![img tag](client/textures/dead.png)
 #The animal has died! :(
 
-![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/love.png)
+![img tag](client/textures/love.png)
 #If animals are healthy and the timing is right, animals will procreate!
