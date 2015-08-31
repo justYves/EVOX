@@ -141,8 +141,7 @@ app.directive('controlPanel', function() {
         }
 
         function updateStats() {
-            "called";
-            // if (!game.creatures.filter(function(creature) {return creature.isUser}).length) $scope.gameOver();
+            if (!game.creatures.filter(function(creature) {return creature.isUser}).length) $scope.gameOver();
             if (!$scope.creature || !$scope.stats) {
                 $scope.stats = false;
                 $scope.$digest;

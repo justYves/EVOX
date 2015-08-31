@@ -156,32 +156,6 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         this.rotation.y = Math.atan2(a.x - b.x, a.z - b.z) + Math.random() * 1 / 4 - 1 / 8;
     };
 
-    // Creature.prototype.notice = function(target, opts) {
-    //     var self = this;
-    //     if (!opts) opts = {};
-    //     if (opts.radius === undefined) opts.radius = 500;
-    //     if (opts.collisionRadius === undefined) opts.collisionRadius = 25;
-    //     if (opts.interval === undefined) opts.interval = 1000;
-    //     var pos = target.position || target;
-
-    //     return setInterval(function() {
-    //         var dist = self.position.distanceTo(pos);
-    //         if (dist < opts.collisionRadius) {
-    //             self.emit('collide', target);
-    //         }
-
-    //         if (dist < opts.radius) {
-    //             self.noticed = true;
-    //             self.emit('notice', target);
-    //         } else {
-    //             self.noticed = false;
-    //             self.emit('frolic', target);
-    //         }
-    //     }, opts.interval);
-    // };
-
-
-
     Creature.prototype.moveTowardsObjective = utilitiesFactory.moveToEat;
 
     Creature.prototype.herd = function() {
@@ -240,18 +214,18 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         if (this.hunger <= this.hpMax && this.appetite >= 2) {
             this.hunger += 3;
         } else if (this.hunger <= this.hpMax) {
-            this.hunger++
+            this.hunger++;
         }
 
-        // if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
-        // if (this.hp <= 0 || this.age > this.deathAge) this.die();
+        if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
+        if (this.hp <= 0 || this.age > this.deathAge) this.die();
 
-        // if (this.hunger >= Math.floor(this.hp / 2)) {
-        //     this.getFood();
-        // } else {
+        if (this.hunger >= Math.floor(this.hp / 2)) {
+            this.getFood();
+        } else {
         this.herd();
-        // }
-    }
+        }
+    };
 
     /**** Eating behavior *****/
     Creature.prototype.getFood = function() {
@@ -271,7 +245,7 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
                 this.changeState('fight');
                 this.moveTowardsObjective(nearest);
             } else {
-                this.herd()
+                this.herd();
             }
         }
         if (this.isHerbivore) {
