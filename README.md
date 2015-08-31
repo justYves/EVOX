@@ -28,7 +28,7 @@ Use setting buttons to control gameplay!
 <img src="server/images/3D-Grass-icon.png" style="width:50px">
 ##Spawn Grass
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Dirt-icon.png)
+![img tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Dirt-icon.png =100)
 ##Remove Grass
 
 
