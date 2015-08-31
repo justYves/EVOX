@@ -27,11 +27,7 @@ app.directive('creatureCarousel', function(UserFactory, CreatureFactory, ShapeFa
             scope.myInterval = 0;
             scope.noWrapSlides = false;
 
-            scope.removeCreature = function(creature) {
-                var index;
-                user.creature.forEach(function(thing, ind) {
-                    if (thing._id === creature._id) index = ind;
-                })
+            scope.removeCreature = function(creature, index) {
                 user.creature.splice(index, 1);
                 UserFactory.updateUser(user)
                     .then(function() {
