@@ -12,7 +12,6 @@ app.directive('creatureCarousel', function(UserFactory, CreatureFactory, ShapeFa
         },
         link: function(scope, elem, attr) {
             scope.isAdmin = UserFactory.currentUser.isAdmin;
-            var user = UserFactory.currentUser
             scope.creatures = [];
             for (var i = 0; i < scope.slides.length; i += 3) {
                 scope.creatures.push(scope.slides.slice(i, i + 3));
@@ -28,8 +27,12 @@ app.directive('creatureCarousel', function(UserFactory, CreatureFactory, ShapeFa
             scope.noWrapSlides = false;
 
             scope.removeCreature = function(creature, index) {
-                user.creature.splice(index, 1);
-                UserFactory.updateUser(user)
+                UserFactory.getUser(UserFactory.currentUser._id)
+                    .then(function(user) {
+                        user.creature.splice(index, 1);
+                        console.log(user);
+                        return UserFactory.updateUser(user)
+                    })
                     .then(function() {
                         return CreatureFactory.deleteCreature(creature.creature)
                     })
