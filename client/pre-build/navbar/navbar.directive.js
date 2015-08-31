@@ -32,18 +32,18 @@ app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, C
 
 
 
-            scope.open = function() {
+            // scope.open = function() {
 
-                var modalInstance = $modal.open({
-                    animation: true,
-                    templateUrl: 'login.html',
-                    controller: 'LoginInstanceCtrl'
-                });
+            //     var modalInstance = $modal.open({
+            //         animation: true,
+            //         templateUrl: 'login.html',
+            //         controller: 'LoginInstanceCtrl'
+            //     });
 
-                modalInstance.result.then(null, function() {
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-            };
+            //     modalInstance.result.then(null, function() {
+            //         $log.info('Modal dismissed at: ' + new Date());
+            //     });
+            // };
         }
     };
 });
@@ -51,26 +51,26 @@ app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, C
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-app.controller('LoginInstanceCtrl', function($scope, $modalInstance, $modal, $state, $log, AuthService, UserFactory) {
+// app.controller('LoginInstanceCtrl', function($scope, $modalInstance, $modal, $state, $log, AuthService, UserFactory) {
 
-    $scope.ok = function() {
-        AuthService.login($scope.credentials).then(function() {
-            return AuthService.getLoggedInUser();
-        }).then(function(user) {
-            UserFactory.currentUser = user;
-            $modalInstance.close();
-            $state.go('worlds');
-        }).catch(function() {
-            $scope.error = 'Invalid login credentials.';
-        });
-    };
+//     $scope.ok = function() {
+//         AuthService.login($scope.credentials).then(function() {
+//             return AuthService.getLoggedInUser();
+//         }).then(function(user) {
+//             UserFactory.currentUser = user;
+//             $modalInstance.close();
+//             $state.go('worlds');
+//         }).catch(function() {
+//             $scope.error = 'Invalid login credentials.';
+//         });
+//     };
 
-    $scope.cancel = function() {
-        $modalInstance.dismiss('cancel');
-    };
+//     $scope.cancel = function() {
+//         $modalInstance.dismiss('cancel');
+//     };
 
-    $scope.goSignup = function() {
-        $scope.cancel();
-        $state.go('home.signup');
-    }
-});
+//     $scope.goSignup = function() {
+//         $scope.cancel();
+//         $state.go('home.signup');
+//     }
+// });

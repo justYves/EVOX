@@ -17,6 +17,9 @@ app.factory('UserFactory', function($http) {
                 .then(function(res) {
                     return res.data
                 })
-        } //currentUser set in navbar directive
+        }, //currentUser set in navbar directive
+        updateUser: function(user) {
+            return $http.put('/api/users/' + user._id, user)
+        }
     };
 });

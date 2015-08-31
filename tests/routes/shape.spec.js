@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var expect = require('chai').expect;
 
-var dbURI = 'mongodb://localhost:27017/testingDB';
+var dbURI = 'mongodb://localhost:27017/evoxTest';
 var clearDB = require('mocha-mongoose')(dbURI);
 
 var supertest = require('supertest');
