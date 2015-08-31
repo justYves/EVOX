@@ -43,9 +43,6 @@ Use setting buttons to control gameplay!
 
 ##Click on a creature to get their stats. Remember to feed them if they are hungry!
 #Icons above a creature indicate their current behavior.
-![img tag](server/images/icons.png)
-
-
 ![img tag](client/textures/look.png)
 #Searching for food.
 
