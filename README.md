@@ -25,7 +25,7 @@ Use setting buttons to control gameplay!
 
 ##land and food icons modify your environment!
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Grass-icon.png =400x)
+![img tag](server/images/3D-Grass-icon.png)
 ##Spawn Grass
 
 ![img tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Dirt-icon.png)
