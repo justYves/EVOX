@@ -5,7 +5,7 @@
     <div class="panel-body">
         <div class="col-lg-3 cold-md-4 col-sm-6 text-center" id="home-pic" ng-repeat="level in levels">
             <div id="level-icon" >
-                <button ng-click="playLevel($index)"><img class="img-responsive" ng-class="{grayscale: !{{level.available}}}" ng-src="{{level.img}}"><h6 id="{{level.number}}">Level: {{level.number}} </h6><h6 id="check-mark"><i class="fa fa-check-square-o" ng-show="{{level.available}}"></i></h6></button>
+                <button ng-click="playLevel($index)"><img class="img-responsive" ng-src="{{level.img}}"><h6 id="{{level.number}}">Level: {{level.number}} </h6><h6 id="check-mark"></i></h6></button>
             </div>
         </div>
     </div>

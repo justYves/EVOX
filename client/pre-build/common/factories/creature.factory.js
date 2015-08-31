@@ -14,7 +14,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.lifeCycle = this.size * 4;
         this.isHerbivore = opts.isHerbivore;
         this.hunger = divide(this.hp, 4);
-        this.vision = opts.vision;
+        this.vision = opts.vision || 5;
         this.speed = 1;
         this.state;
         this.social = opts.social || 10;
