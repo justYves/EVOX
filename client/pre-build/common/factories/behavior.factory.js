@@ -156,32 +156,6 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
         this.rotation.y = Math.atan2(a.x - b.x, a.z - b.z) + Math.random() * 1 / 4 - 1 / 8;
     };
 
-    // Creature.prototype.notice = function(target, opts) {
-    //     var self = this;
-    //     if (!opts) opts = {};
-    //     if (opts.radius === undefined) opts.radius = 500;
-    //     if (opts.collisionRadius === undefined) opts.collisionRadius = 25;
-    //     if (opts.interval === undefined) opts.interval = 1000;
-    //     var pos = target.position || target;
-
-    //     return setInterval(function() {
-    //         var dist = self.position.distanceTo(pos);
-    //         if (dist < opts.collisionRadius) {
-    //             self.emit('collide', target);
-    //         }
-
-    //         if (dist < opts.radius) {
-    //             self.noticed = true;
-    //             self.emit('notice', target);
-    //         } else {
-    //             self.noticed = false;
-    //             self.emit('frolic', target);
-    //         }
-    //     }, opts.interval);
-    // };
-
-
-
     Creature.prototype.moveTowardsObjective = utilitiesFactory.moveToEat;
 
     Creature.prototype.herd = function() {
@@ -209,9 +183,6 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
 
     Creature.prototype.exist = function() {
         if (this.alive || this.state !== 'dead') {
-            // if (this.spawner) {
-            //     this.game.map.fertilized.push(this.game.map.getCell(this.position.x - 0.5, this.position.y - 1, this.position.z - 0.5));
-            // }
             this.growOld();
             this.getHungry();
         } else {
@@ -243,14 +214,14 @@ app.factory('BehaviorFactory', function(MoveWorker, utilitiesFactory, $rootScope
             this.hunger++
         }
 
-        // if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
-        // if (this.hp <= 0 || this.age > this.deathAge) this.die();
+        if (this.hunger >= Math.floor(this.hpMax) && this.hunger > 0) this.hp--;
+        if (this.hp <= 0 || this.age > this.deathAge) this.die();
 
-        // if (this.hunger >= Math.floor(this.hp / 2)) {
-        //     this.getFood();
-        // } else {
-        this.herd();
-        // }
+        if (this.hunger >= Math.floor(this.hp / 2)) {
+            this.getFood();
+        } else {
+            this.herd();
+        }
     }
 
     /**** Eating behavior *****/

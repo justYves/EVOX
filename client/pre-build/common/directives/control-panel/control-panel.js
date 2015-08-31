@@ -128,6 +128,7 @@ app.directive('controlPanel', function() {
                     break;
 
                 default:
+                    var done;
                     game.creatures.forEach(function(creature) {
                         if (x === creature.position.x - 0.5 && z === creature.position.z - 0.5) {
                             $scope.stats = true;
@@ -140,9 +141,14 @@ app.directive('controlPanel', function() {
             }
         }
 
+        var done;
+
         function updateStats() {
-            "called";
-            // if (!game.creatures.filter(function(creature) {return creature.isUser}).length) $scope.gameOver();
+            if (!done && !game.creatures.filter(function(creature) {
+                return creature.isUser
+            }).length) {
+                $scope.gameOver();
+            }
             if (!$scope.creature || !$scope.stats) {
                 $scope.stats = false;
                 $scope.$digest;
@@ -208,11 +214,15 @@ app.directive('controlPanel', function() {
         };
 
         $scope.gameOver = function() {
-            var modalInstance = $modal.open({
-                animation: true,
-                controller: 'gameOverInstanceCtrl',
-                templateUrl: 'game-over.html'
-            });
+            if (!done) {
+                console.log('running')
+                done = true;
+                var modalInstance = $modal.open({
+                    animation: true,
+                    controller: 'gameOverInstanceCtrl',
+                    templateUrl: 'game-over.html'
+                });
+            }
         };
 
         $scope.info = function() {
@@ -227,15 +237,19 @@ app.directive('controlPanel', function() {
 
 app.controller('gameOverInstanceCtrl', function($scope, $modalInstance, $state) {
     $scope.toHome = function() {
-        $state.go('home');
-        location.reload();
-        $modalInstance.dismiss('cancel');
+        $modalInstance.close();
+        $state.go('home', {}, {
+            reload: true
+        });
+        // location.reload();
     };
 
     $scope.toWorlds = function() {
-        $state.go('worlds');
-        location.reload();
-        $modalInstance.dismiss('cancel');
+        $modalInstance.close();
+        $state.go('worlds', {}, {
+            reload: true
+        });
+        // location.reload();
     };
 });
 
