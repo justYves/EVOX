@@ -5,7 +5,6 @@ app.controller('MultiplayerPlayController', function(user, $scope, mySocket, $st
   mySocket.on('fight', function(roomId) {
     $scope.roomId = roomId;
     launchGame();
-    console.log($scope.roomId);
   });
 
 
@@ -45,7 +44,7 @@ app.controller('MultiplayerPlayController', function(user, $scope, mySocket, $st
 
 
     function sendState() {
-      var player = self.game.controls.target()
+            var player = self.game.controls.target()
       var state = {
         position: player.yaw.position,
         rotation: {

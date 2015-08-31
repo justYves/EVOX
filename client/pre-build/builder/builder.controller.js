@@ -10,7 +10,6 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
     }
 
     $scope.show = !!$scope.currentCreature.creature._id;
-    console.log($scope.currentCreature);
 
     $scope.decrement = function(string) {
         if ($scope.currentCreature.creature[string] > 0)
@@ -126,7 +125,6 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             img: exportImage(800, 600).src
         };
 
-        console.log($scope.currentCreature);
         $scope.currentCreature.creature.name = name;
         if ($scope.currentCreature._id) {
             creatureShape._id = $scope.currentCreature.shape._id;
@@ -183,7 +181,6 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
     function convertToVoxels(hash, done) {
         hash = hash.slice(1);
         var hashChunks = hash.split(':');
-        // console.log(hashChunks);
         var chunks = {};
         var colors = [0x000000];
 
@@ -198,7 +195,6 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             for (var c = 0, nC = hexColors.length / 6; c < nC; c++) {
                 var hex = hexColors.substr(c * 6, 6);
                 colors[c] = hex2rgb(hex);
-                // console.log(colors[c]);
             }
         }
 
@@ -233,7 +229,6 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
         }
         var x = bounds[1][1];
         bounds[0][1] = 0; // should be set to 0
-        // console.log(x);
         var y = 0.741534049053526 - 0.056417121048685195 * x + 0.0012594302082374143 * Math.pow(x, 2);
         // var display =
 
@@ -962,11 +957,9 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
 
     function undo() {
         if (!$scope.undoMemory.length) return;
-        console.log("done");
         reset();
         $scope.redoMemory.push($scope.undoMemory.pop());
         $scope.currentHash = $scope.undoMemory.pop();
-        console.log($scope.currentHash);
         buildFromHash();
         render();
     }
