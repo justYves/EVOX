@@ -49,12 +49,12 @@ router.post('/', function(req, res, next) {
     Creature.findOne(req.body.parents[0]).exec()
         .then(function(parent) {
             setParents.push(parent);
-            return Creature.findOne(req.body.parents[1]).exec()
+            return Creature.findOne(req.body.parents[1]).exec();
         })
         .then(function(parent) {
             setParents.push(parent);
-            req.body.parents = setParents
-            return Creature.create(req.body.creature)
+            req.body.parents = setParents;
+            return Creature.create(req.body.creature);
         })
         .then(function(creature) {
             res.status(201).json(creature);
