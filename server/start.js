@@ -1,4 +1,4 @@
-her// Transpile ES6 to ES5
+// Transpile ES6 to ES5
 require('babel/register');
 
 var chalk = require('chalk');
