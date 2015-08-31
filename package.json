@@ -28,6 +28,7 @@
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
     "gulp-concat": "^2.5.2",
+    "gulp-livereload": "^3.8.0",
     "gulp-lodash": "^0.1.1",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
