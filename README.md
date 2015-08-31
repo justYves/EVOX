@@ -20,43 +20,43 @@ At 1X speed, a second IRL equals to 4 minutes IG.
 
 Welcome to Your World!
 #You can interact with the world using the control panel on the right of the screen!
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/game-buttons.png=200x)
+![img tag](https://raw.github.com/justyves/EVOX/master/server/images/game-buttons.png)
 Use setting buttons to control gameplay!
 
 ##land and food icons modify your environment!
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Grass-icon.png=200x)
-#Spawn Grass
+![img tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Grass-icon.png)
+##Spawn Grass
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Dirt-icon.png=200x)
-#Remove Grass
+![img tag](https://raw.github.com/justyves/EVOX/master/server/images/3D-Dirt-icon.png)
+##Remove Grass
 
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/Stone-Hoe-icon.png=200x)
-#Remove a block.
+![img tag](https://raw.github.com/justyves/EVOX/master/server/images/Stone-Hoe-icon.png)
+##Remove a block.
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/chick.png=200x)
-#Feeder critters!
+![img tag](https://raw.github.com/justyves/EVOX/master/server/images/chick.png)
+##Feeder critters!
 
-![img tag](https://raw.github.com/justyves/EVOX/master/server/images/info.png=200x)
-#Get game info
+![img tag](https://raw.github.com/justyves/EVOX/master/server/images/info.png)
+##Get game info
 
 ##Click on a creature to get their stats. Remember to feed them if they are hungry!
 #Icons above a creature indicate their current behavior.
-![img tag](https://raw.github.com/justyves/EVOX/server/images/icons.png=200x)
+![img tag](https://raw.github.com/justyves/EVOX/server/images/icons.png)
 
 
-![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/look.png=200x)
+![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/look.png)
 #Searching for food.
 
-![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/eating.png=200x)
+![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/eating.png)
 #A creature is eating.
 
-![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/herd.png=200x)
+![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/herd.png)
 #Searching for other animals to herd with.
 
-![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/dead.png=200x)
+![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/dead.png)
 #The animal has died! :(
 
-![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/love.png=200x)
+![img tag](https://raw.github.com/justyves/EVOX/master/client/textures/love.png)
 #If animals are healthy and the timing is right, animals will procreate!
