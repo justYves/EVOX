@@ -102,3 +102,16 @@ router.put('/default/:id', function(req, res, next) {
         })
         .then(null, next)
 })
+
+router.delete('/:id', function(req, res, next) {
+    Shape.findById(req.params.id).exec()
+        .then(function(shape) {
+            return shape.remove()
+        })
+        .then(function() {
+            res.status(200).json({
+                message: 'Successfully deleted!'
+            });
+        })
+        .then(null, next);
+})

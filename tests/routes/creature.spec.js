@@ -68,9 +68,10 @@ describe('Creature route', function() {
     describe('POST requests', function() {
 
         it('/api/creatures should post with 201 response and create a new creature', function(done) {
-            loggedInAgent.post('/api/creatures').send(postCreature).expect(201).end(function(err, res) {
+            loggedInAgent.post('/api/creatures').send({
+                creature: postCreature
+            }).expect(201).end(function(err, res) {
                 if (err) return done(err);
-                console.log(res.body)
                 expect(res.body.name).to.equal('Dragon');
                 done();
             });

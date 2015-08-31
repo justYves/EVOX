@@ -219,6 +219,9 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
                 .then(function(res) {
                     return res.data
                 })
+        },
+        deleteCreature: function(creature) {
+            return $http.delete('/api/creatures/' + creature._id)
         }
         // currentCreatures set in one-world.ctrl
         // currentHash set in creaturescontroller

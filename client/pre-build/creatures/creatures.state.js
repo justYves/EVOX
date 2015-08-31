@@ -17,6 +17,9 @@ app.config(function($stateProvider) {
                 worlds: function(WorldsFactory) {
                     return WorldsFactory.getWorlds();
                 }
+            },
+            data: {
+                authenticate: true
             }
         })
         .state('creatures.select', {

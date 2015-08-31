@@ -2,7 +2,10 @@ app.config(function($stateProvider) {
     $stateProvider.state('worlds.newWorld', {
         url: '/new',
         templateUrl: '/pre-build/new-world/new.html',
-        controller: 'createWorldCtrl'
+        controller: 'createWorldCtrl',
+        data: {
+            authenticate: true
+        }
     });
 });
 
@@ -29,7 +32,9 @@ app.controller('worldInstanceCtrl', function($scope, $modalInstance, WorldsFacto
         WorldsFactory.postWorld($scope.world)
             .then(function() {
                 $modalInstance.close();
-                $state.go('worlds', {}, {reload: true});
+                $state.go('worlds', {}, {
+                    reload: true
+                });
             });
     };
 

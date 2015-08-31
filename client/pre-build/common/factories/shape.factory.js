@@ -66,6 +66,9 @@ app.factory('ShapeFactory', function($http, AuthService, UserFactory) {
                 .then(function(res) {
                     return res.data
                 })
+        },
+        removeShape: function(shape) {
+            return $http.delete('/api/shapes/' + shape._id)
         }
     };
 });

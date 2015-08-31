@@ -69,7 +69,6 @@ describe('User route', function() {
         it('/api/users should post with 201 response and create a new creature', function(done) {
             loggedInAgent.post('/api/users').send(postUser).expect(201).end(function(err, res) {
                 if (err) return done(err);
-                console.log(res.body);
                 expect(res.body.email).to.equal('alfred@gmail.com');
                 done();
             });
@@ -98,7 +97,6 @@ describe('User route', function() {
                 name: "turtle"
             }).expect(200).end(function(err, res) {
                 if (err) return done(err);
-                console.log(res.body)
                 expect(res.body.creature.length).to.equal(2);
                 done();
             });

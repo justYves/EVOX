@@ -51,7 +51,7 @@ app.run(function($rootScope, AuthService, $state, UserFactory) {
             if (user) {
                 $state.go(toState.name, toParams);
             } else {
-                $state.go('login');
+                $state.go('home.login');
             }
         });
 
