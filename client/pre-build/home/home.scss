@@ -242,3 +242,24 @@ footer .footer-below {
     transform:scale(1.1);
 }
 
+.noblock {
+    height: auto;
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.spacing {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+@media(max-width: 768px) {
+    .very-small {
+        display:none;
+    }
+}
+
+.small-font {
+    font-size: 20px;
+}
