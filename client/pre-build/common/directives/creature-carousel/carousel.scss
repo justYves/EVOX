@@ -1,0 +1,17 @@
+.expand:hover {
+    transition: all 0.2s ease;
+    transform:scale(1.15);
+  }
+
+.smaller {
+	display: none;
+}
+
+@media (max-width: 1200px) {
+	.larger {
+		display: none;
+	}
+	.smaller{
+		display: block;
+	}
+}

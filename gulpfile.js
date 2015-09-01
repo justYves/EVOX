@@ -30,7 +30,7 @@ gulp.task('default', function() {
     //     runSeq('browserify','reload');
     // })
 
-    gulp.watch(['client/pre-build/app.scss', 'client/pre-build/**/*.scss'], function() {
+    gulp.watch(['client/pre-build/app.scss', 'client/pre-build/**/*.scss', 'client/pre-build/**/**/**/*.scss'], function() {
         runSeq('buildCSS', 'reload');
     });
 
