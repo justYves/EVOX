@@ -57,7 +57,7 @@ router.delete('/:id', function(req, res, next) {
         }
     })
         .then(function() {
-            return req.world.remove()
+            return World.remove({_id: req.params.id})
         })
         .then(function() {
             res.status(200).json({
