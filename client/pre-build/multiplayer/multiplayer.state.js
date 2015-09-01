@@ -1,7 +1,6 @@
 app.config(function($stateProvider) {
     $stateProvider.state('multiplayer', {
         url: '/users',
-        abstract: true,
         templateUrl: '/pre-build/multiplayer/multiplayer.html',
         controller: 'MultiplayerController',
         resolve: {
