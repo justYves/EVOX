@@ -24,6 +24,10 @@ var userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    key: {
+        type: String,
+        default: null
+    },
     worlds: [{
         name: {
             type: mongoose.Schema.ObjectId,
@@ -80,6 +84,10 @@ userSchema.pre('save', function(next) {
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
 
+    if (this.key && this.isModified('key')) {
+        this.key = this.constructor.encryptPassword(this.key, this.salt);
+    }
+
     next();
 
 });
@@ -89,6 +97,10 @@ userSchema.statics.encryptPassword = encryptPassword;
 
 userSchema.method('correctPassword', function(candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
+});
+
+userSchema.method('correctKey', function(key) {
+    return encryptPassword(key, this.salt) === this.key;
 });
 
 mongoose.model('User', userSchema);

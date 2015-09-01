@@ -318,7 +318,7 @@ var users = [
         },
         email: 'jkim430@gmail.com',
         password: 'cowgoesmoo',
-        isAdmin: true,
+        isAdmin: false,
         levels: levels1
     }),
     new User({
@@ -328,7 +328,8 @@ var users = [
         },
         email: 'darwin@gmail.com',
         password: 'evolution',
-        isAdmin: false,
+        isAdmin: true,
+        key: 'abc123boop',
         levels: levels2
     })
 ];

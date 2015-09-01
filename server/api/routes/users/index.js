@@ -58,8 +58,13 @@ router.put('/:id/creatures', function(req, res, next) {
 });
 
 
-router.delete('/:id', function(req, res, next) {
-    req.CurrentUser.remove()
+router.delete('/:id/admin/:adminId/:key', function(req, res, next) {
+    User.findById(req.params.adminId).exec()
+        .then(function(user) {
+            if (user.isAdmin && user.correctKey(req.params.key))
+                return req.CurrentUser.remove()
+            else throw new Error("You are not authorized!");
+        })
         .then(function() {
             res.status(200).json({
                 message: 'Successfully deleted!'
