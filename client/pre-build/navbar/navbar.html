@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="" ng-show="user && !navCollapsed">{{user.name.first}} {{user.name.last}}</a> <a href="" ng-show="!user && !navCollapsed">EVOX</a>
                 </li>
-                <li><a href="" ng-hide="user" ui-sref="home.login" title="Login"><i class="fa fa-sign-in"></i><span><small> Log In </small></span></a><a href="#" ng-show="user && !navCollapsed" id="navbar-icon" ng-click="logout()" title="Logout"><i class="fa fa-sign-out"></i><span><small> Log Out</small></span></a></li>
+                <li><a href="" ng-show="!user && !navCollapsed" ui-sref="home.login" title="Login"><i class="fa fa-sign-in"></i><span><small> Log In </small></span></a><a href="#" ng-show="user && !navCollapsed" id="navbar-icon" ng-click="logout()" title="Logout"><i class="fa fa-sign-out"></i><span><small> Log Out</small></span></a></li>
                 <li><a href="#" ui-sref="home" id="navbar-icon"><i class="fa fa-home"></i><span ng-show="!navCollapsed"><small> Home</small></span></a></li>
                 <li><a href="#" ui-sref="worlds" ng-show="user" id="navbar-icon" title="Worlds"><i class="fa fa-globe"></i><span ng-show="!navCollapsed"><small> Worlds</small></span></a></li>
                 <li><a href="#" ng-click="reset()" ng-show="user" id="navbar-icon" ui-sref="builder" title="Builder"><i class="fa fa-wrench"></i><span ng-show="!navCollapsed"><small> Builder</small></span></a></li>
