@@ -1,16 +1,29 @@
 <nav class="navbar navbar-inverse">
-  <div class="container">
-    <ul class="nav navbar-nav">
-      <li><a href="#" ui-sref="home" id="navbar-icon"><i class="fa fa-home"></i></a></li>
-      <li><a href="#" ui-sref="worlds" ng-show="user"  id="navbar-icon" title="Worlds"><i class="fa fa-globe"></i></a></li>
-      <li><a href="#" ng-click="reset()" ng-show="user"  id="navbar-icon" ui-sref="builder" title="Builder"><i class="fa fa-wrench"></i></a></li>
-      <li><a href="#" ui-sref="multiplayer" ng-show="user" id="navbar-icon"  title="Multiplayer"><i class="fa fa-users"></i></a></li>
-      <li><a href="#" ui-sref="creatures.select" ng-show="user"  id="navbar-icon" title="Creatures"><i class="fa fa-qq"></i></a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="" ng-hide="user" ui-sref="home.login" title="Login"><i class="fa fa-sign-in"></i></a></li>
-      <li><a href="" ng-show="user">{{user.name.first}} {{user.name.last}}</a></li>
-      <li><a href="#" ng-show="user" id="navbar-icon"  ng-click="logout()" title="Logout"><i class="fa fa-sign-out"></i></a></li>
-    </ul>
-  </div>
+    <div class="container">
+        <div class="navbar-head">
+            <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" id="navbar-icon" ng-click="navCollapsed = !navCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" collapse="navCollapsed">
+            <ul class="nav navbar-nav navbar-right" ng-hide="!navCollapsed">
+                <li><a href="" ng-show="user">{{user.name.first}} {{user.name.last}}</a></li>
+                <li><a href="" ng-hide="user" ui-sref="home.login" title="Login"><i class="fa fa-sign-in"></i></a> <span ng-show="!navCollapsed"> Log In</span></li>
+                <li><a href="#" ng-show="user" id="navbar-icon" ng-click="logout()" title="Logout"><i class="fa fa-sign-out"></i><span ng-show="!navCollapsed"> Log Out</span></a></li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li><a href="" ng-show="user && !navCollapsed">{{user.name.first}} {{user.name.last}}</a> <a href="" ng-show="!user && !navCollapsed">EVOX</a>
+                </li>
+                <li><a href="" ng-hide="user" ui-sref="home.login" title="Login"><i class="fa fa-sign-in"></i><span><small> Log In </small></span></a><a href="#" ng-show="user && !navCollapsed" id="navbar-icon" ng-click="logout()" title="Logout"><i class="fa fa-sign-out"></i><span><small> Log Out</small></span></a></li>
+                <li><a href="#" ui-sref="home" id="navbar-icon"><i class="fa fa-home"></i><span ng-show="!navCollapsed"><small> Home</small></span></a></li>
+                <li><a href="#" ui-sref="worlds" ng-show="user" id="navbar-icon" title="Worlds"><i class="fa fa-globe"></i><span ng-show="!navCollapsed"><small> Worlds</small></span></a></li>
+                <li><a href="#" ng-click="reset()" ng-show="user" id="navbar-icon" ui-sref="builder" title="Builder"><i class="fa fa-wrench"></i><span ng-show="!navCollapsed"><small> Builder</small></span></a></li>
+                <li><a href="#" ui-sref="multiplayer" ng-show="user" id="navbar-icon" title="Multiplayer"><i class="fa fa-users"></i> <span ng-show="!navCollapsed"><small> Creatures Gallery</small></span></a></li>
+                <li><a href="#" ui-sref="creatures.select" ng-show="user" id="navbar-icon" title="Creatures"><i class="fa fa-qq"></i> <span ng-show="!navCollapsed"><small> My Creatures</small></span></a></li>
+            </ul>
+        </div>
+    </div>
 </nav>
