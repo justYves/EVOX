@@ -63,6 +63,13 @@
             return !!Session.user;
         };
 
+        this.isAuthenticatedAdmin = function() {
+            //console.log('SUPERUSER',Session.user.isSuperUser)
+
+
+            return Session.user.isAdmin;
+        };
+
         this.getLoggedInUser = function() {
 
             // If an authenticated session exists, we
