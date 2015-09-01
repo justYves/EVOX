@@ -65,7 +65,8 @@
 
         this.isAuthenticatedAdmin = function() {
             //console.log('SUPERUSER',Session.user.isSuperUser)
-            console.log('ADMIN?')
+
+
             return Session.user.isAdmin;
         };
 

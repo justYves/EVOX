@@ -75,13 +75,14 @@ router.put('/:id', function(req, res, next) {
         .then(null, next);
 });
 
-// var ensureAuthenticatedAdmin = function(req, res, next) {
-//     if (req.isAuthenticatedAdmin()) {
-//         next();
-//     } else {
-//         res.status(401).end();
-//     }
-// };
+
+var ensureAuthenticatedAdmin = function(req, res, next) {
+    if (req.user.isAdmin) {
+        next();
+    } else {
+        res.status(401).end();
+    }
+};
 // router.use('/', ensureAuthenticatedAdmin);
 
 

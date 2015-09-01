@@ -22,7 +22,7 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
-    console.log("WHOA", req.isAuthenticated)
+    // console.log("req", req.user)
     World.find().deepPopulate('creatures.position creatures.rotation').exec()
         .then(function(worlds) {
             res.json(worlds);
