@@ -22,6 +22,7 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
+    // console.log("req", req.user)
     World.find().deepPopulate('creatures.position creatures.rotation').exec()
         .then(function(worlds) {
             res.json(worlds);
@@ -50,6 +51,7 @@ router.put('/:id', function(req, res, next) {
         .then(null, next);
 });
 
+
 router.delete('/:id', function(req, res, next) {
     Creature.remove({
         _id: {
@@ -57,7 +59,9 @@ router.delete('/:id', function(req, res, next) {
         }
     })
         .then(function() {
-            return World.remove({_id: req.params.id})
+            return World.remove({
+                _id: req.params.id
+            })
         })
         .then(function() {
             res.status(200).json({

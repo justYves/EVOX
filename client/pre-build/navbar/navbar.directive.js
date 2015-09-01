@@ -11,7 +11,7 @@ app.directive("navbar", function(AuthService, $state, $rootScope, AUTH_EVENTS, C
             };
             scope.reset = function() {
                 CreatureFactory.currentHash = null;
-            }
+            };
 
             var setUser = function() {
                 AuthService.getLoggedInUser().then(function(user) {

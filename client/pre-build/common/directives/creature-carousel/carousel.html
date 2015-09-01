@@ -54,7 +54,7 @@
 		ng-repeat="creature in slides">
 		<div class="col-xs-12" style="height: 100%;">
 			<!-- 	<button class="btn btn-sm">Play Level</button><button class="btn btn-sm" >Edit</button> --><a id="edit-icon" ng-click="fcn(creature)" ><i class="fa fa-pencil-square-o"></i></a>
-			<!-- <a id="delete-icon" ng-click="removeCreature(creature, $index)" ><i class="fa fa-times"></i></a> -->
+			<a id="delete-icon" ng-click="removeCreature(creature, $index)" ><i class="fa fa-times"></i></a>
 			<a ui-sref="creatures.level({id:user._id})" ><img id="creature-png"  style="height: 80%; display: inline; margin: auto" ng-src="{{creature.shape.img}}"></img></a>
 			<h3 style="font-size:16px; margin: 0">{{creature.creature.name}}</h3>
 		</div>
