@@ -10,7 +10,7 @@
         </div>
         <div class="collapse navbar-collapse" collapse="navCollapsed">
             <ul class="nav navbar-nav navbar-right" ng-hide="!navCollapsed">
-                <li><a href="" ng-show="user">{{user.name.first}} {{user.name.last}}</a></li>
+                <li><a href="" ng-show="user" style="font-size:1em">{{user.name.first}} {{user.name.last}}</a></li>
                 <li><a href="" ng-hide="user" ui-sref="home.login" title="Login"><i class="fa fa-sign-in"></i></a> <span ng-show="!navCollapsed"> Log In</span></li>
                 <li><a href="#" ng-show="user" id="navbar-icon" ng-click="logout()" title="Logout"><i class="fa fa-sign-out"></i><span ng-show="!navCollapsed"> Log Out</span></a></li>
             </ul>
