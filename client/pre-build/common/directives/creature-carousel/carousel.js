@@ -4,13 +4,12 @@ app.directive('creatureCarousel', function(UserFactory, CreatureFactory, ShapeFa
         restrict: 'E',
         scope: {
             fcn: "=",
-            height: '=',
-            width: '=',
             slides: '=',
             file: '=',
             showLevel: '='
         },
         link: function(scope, elem, attr) {
+            console.log('slides', scope.slides)
             scope.isAdmin = UserFactory.currentUser.isAdmin;
             scope.creatures = [];
             for (var i = 0; i < scope.slides.length; i += 3) {

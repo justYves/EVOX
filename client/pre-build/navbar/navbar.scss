@@ -28,10 +28,11 @@
 
 }
 
-  #navbar-icon:hover {
-    transition: all 0.4s ease;
-    transform:scale(1.5);
-    border-right:0;
-    border-bottom:0;
-    border-left:0;
-  }
+#navbar-icon:hover {
+  transition: all 0.4s ease;
+  transform:scale(1.5);
+  border-right:0;
+  border-bottom:0;
+  border-left:0;
+}
+
