@@ -76,7 +76,7 @@ router.put('/:id', function(req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-    req.creature.remove()
+    Creature.remove({_id: req.params.id})
         .then(function() {
             res.status(200).json({
                 message: 'Successfully deleted!'

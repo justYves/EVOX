@@ -62,7 +62,9 @@ router.delete('/:id/admin/:adminId/:key', function(req, res, next) {
     User.findById(req.params.adminId).exec()
         .then(function(user) {
             if (user.isAdmin && user.correctKey(req.params.key))
-                return req.CurrentUser.remove()
+                return User.remove({
+                    _id: req.params.id
+                })
             else throw new Error("You are not authorized!");
         })
         .then(function() {
