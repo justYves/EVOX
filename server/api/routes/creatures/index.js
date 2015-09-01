@@ -75,8 +75,21 @@ router.put('/:id', function(req, res, next) {
         .then(null, next);
 });
 
+var ensureAuthenticatedAdmin = function(req, res, next) {
+    if (req.user.isAdmin) {
+        next();
+    } else {
+        res.status(401).end();
+    }
+};
+// router.use('/', ensureAuthenticatedAdmin);
+
+
+
 router.delete('/:id', function(req, res, next) {
-    Creature.remove({_id: req.params.id})
+    Creature.remove({
+        _id: req.params.id
+    })
         .then(function() {
             res.status(200).json({
                 message: 'Successfully deleted!'
