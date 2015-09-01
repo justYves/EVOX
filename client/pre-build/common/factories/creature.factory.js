@@ -12,7 +12,7 @@ app.factory('CreatureFactory', function(ShapeFactory, BehaviorFactory, TimeFacto
         this.name = opts.name;
         this.alive = true;
         this.lifeCycle = this.size * 4;
-        this.isHerbivore = opts.isHerbivore;
+        this.isHerbivore = opts.isHerbivore || true;
         this.hunger = divide(this.hp, 4);
         this.vision = opts.vision || 5;
         this.speed = 1;
