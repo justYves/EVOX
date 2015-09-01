@@ -1,4 +1,5 @@
 app.controller('CreaturesController', function($scope, $state, CreatureFactory, user, shapes) {
+
     $scope.mySlides = user.creature;
 
     function findMatch(arr, name) {

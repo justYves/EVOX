@@ -27,8 +27,8 @@ app.run(function($rootScope, AuthService, $state, UserFactory) {
 
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
-
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        $rootScope.fromState = fromState
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication
             // Short circuit with return.
@@ -54,6 +54,7 @@ app.run(function($rootScope, AuthService, $state, UserFactory) {
                 $state.go('home.login');
             }
         });
+
 
     });
 

@@ -1,6 +1,5 @@
-app.controller('MultiplayerController', function($rootScope, $scope, $state, users) {
+app.controller('HomeController', function($rootScope, $state) {
     if ($rootScope.fromState.name === 'game' || $rootScope.fromState.name === 'builder') {
         window.location.reload();
     }
-    $scope.users = users;
-});
+})
