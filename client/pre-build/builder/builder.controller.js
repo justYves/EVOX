@@ -125,7 +125,7 @@ app.controller('BuilderController', function($scope, $state, ShapeFactory, Creat
             img: exportImage(800, 600).src
         };
 
-        $scope.currentCreature.creature.name = name;
+        if (name) $scope.currentCreature.creature.name = name;
         if ($scope.currentCreature._id) {
             creatureShape._id = $scope.currentCreature.shape._id;
             $scope.currentCreature.shape = creatureShape;
