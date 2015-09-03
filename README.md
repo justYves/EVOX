@@ -1,5 +1,9 @@
 # EVOX
 
+Deployed at: www.evox.life
+
+Video Presentation: https://www.youtube.com/watch?v=sVJ3vTde7nQ
+
 ##Contributors
 - [Richard Michels](https://github.com/richardalexandermichels)
 - [Justin Kim](https://github.com/jkim430)
