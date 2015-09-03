@@ -29,7 +29,7 @@ Use setting buttons to control gameplay!
 </div>
 ##Spawn Grass
 
-![img tag](server/images/3D-Dirt-icon.png =100x)
+![](server/images/3D-Dirt-icon.png =100x)
 ##Remove Grass
 
 
