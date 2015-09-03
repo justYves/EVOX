@@ -19,7 +19,8 @@ Define the size of the landscape, the terrain type (flat/multilevel), then save.
 
 ####Gameplay
 You can interact with the world using the control panel on the top right. Slow down, pause, or speed up time, and save the game at any point. 
-![img tag](server/images/controlpanel.png)
+
+![](server/images/controlpanel.png)
 Use setting buttons to control gameplay!
 
 ##land and food icons modify your environment!
@@ -29,7 +30,7 @@ Use setting buttons to control gameplay!
 </div>
 ##Spawn Grass
 
-![](server/images/3D-Dirt-icon.png =100x)
+![](server/images/3D-Dirt-icon.png =100x50)
 ##Remove Grass
 
 
