@@ -1,12 +1,12 @@
 # EVOX
 
-###What is it?
+##What is it?
 EVOX is a 3D life simulator game where you can create your own landscapes and populate them with creatures. Each creature has its own set of abilities on top of basic behaviors such as procreation and death, and you can observe over time how the combination of these skillsets affect the balance of the ecosystem. EVOX is inspired by Conway's Game of Life, and the fundamental concept is to visualize the theory of evolution. To learn more:
 
 Play the game: www.evox.life  
 Watch an overview: https://www.youtube.com/watch?v=sVJ3vTde7nQ
 
-###How to play
+##How to play
 After creating an account, head to the Creatures page and choose between building your own creature from scratch, or modifying one of the available default creatures. Once you've created one that you want to proceed with, navigate to the Worlds page and create your own environment. After providing a name, you'll be presented with three types of environments, each one with its own versions of predator and prey:
 
 |Environment      | Predator            | Prey            |
@@ -14,6 +14,10 @@ After creating an account, head to the Creatures page and choose between buildin
 | Grassland  | Fox     | Turtle |
 | Desert | Crocodile, Lion      | Giraffe, Elephant     |
 | Ice | Wolf| Penguin, Deer, Beaver    |
+
+Define the size of the landscape, the terrain type (flat/multilevel), then save. To play the world, select it and click play.
+
+####Gameplay
 
 ###Contributors
 - [Richard Michels](https://github.com/richardalexandermichels)
