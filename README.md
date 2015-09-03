@@ -1,10 +1,12 @@
 # EVOX
 
-Deployed at: www.evox.life
+###What is it?
+EVOX is a 3D life simulator game where you can create your own landscapes and populate them with creatures. Each creature has its own set of abilities on top of basic behaviors such as procreation and death, and you can observe over time how the combination of these skillsets affect the balance of the ecosystem. EVOX is inspired by Conway's Game of Life, and the fundamental concept is to visualize the theory of evolution. To learn more:
 
-Video Presentation: https://www.youtube.com/watch?v=sVJ3vTde7nQ
+Play the game: www.evox.life
+Watch an overview: https://www.youtube.com/watch?v=sVJ3vTde7nQ
 
-##Contributors
+###Contributors
 - [Richard Michels](https://github.com/richardalexandermichels)
 - [Justin Kim](https://github.com/jkim430)
 - [Pete Steele](https://github.com/celanajaya)
