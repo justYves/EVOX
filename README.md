@@ -8,6 +8,7 @@ Watch an overview: https://www.youtube.com/watch?v=sVJ3vTde7nQ
 
 ###How to play
 After creating an account, head to the Creatures page and choose between building your own creature from scratch, or modifying one of the available default creatures. Once you've created one that you want to proceed with, navigate to the Worlds page and create your own environment. After providing a name, you'll be presented with three types of environments, each one with its own versions of predator and prey:
+
 |Environment      | Predator            | Prey            |
 |--------| :------------- |:-------------:|
 | Grassland  | Fox     | Turtle |
