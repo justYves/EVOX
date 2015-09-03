@@ -24,7 +24,9 @@ Use setting buttons to control gameplay!
 
 ##land and food icons modify your environment!
 
+<div style="width:50px">
 <img src="server/images/3D-Grass-icon.png" style="width:10px">
+</div>
 ##Spawn Grass
 
 ![img tag](server/images/3D-Dirt-icon.png)
