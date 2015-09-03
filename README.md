@@ -7,7 +7,13 @@ Play the game: www.evox.life
 Watch an overview: https://www.youtube.com/watch?v=sVJ3vTde7nQ
 
 ##How to play
-After creating an account, head to the Creatures page and choose between building your own creature from scratch, or modifying one of the available default creatures. Once you've created one that you want to proceed with, navigate to the Worlds page and create your own environment. After providing a name, you'll be presented with three types of environments, each one with its own versions of predator and prey:
+After creating an account, head to the Creatures page and choose between building your own creature from scratch, or modifying one of the available default creatures. This will lead you to the creature builder.
+
+####Builder
+Click anywhere on the grid to place a voxel. The default color (![](client/textures/block.png)) is a placeholder and will not render in the game. Use this to fill up any parts of the creature that will never be exposed (e.g. inside) to assist you with construction and reduce rendering time during gameplay.  
+The grid clearly indicates which way the creature should be facing in order for it to move around sensibly on the map. To delete a voxel, hold down shift and click. To create many voxels by clicking and dragging, hold down alt. To change a color on the palette, right click to open the color picker.
+
+Once you've created a creature that you want to proceed with, navigate to the Worlds page and create your own environment. After providing a name, you'll be presented with three types of environments, each one with its own versions of predator and prey:
 
 |Environment      | Predator            | Prey            |
 |--------| :------------- |:-------------|
@@ -29,11 +35,11 @@ Click on a creature to get its stats, which are updated in real time. If they ar
 
 |Icon      | Meaning            |
 |--------| :------------- |
-| ![img tag](client/textures/look.png)  | Searching for food due to high hunger |
-| ![img tag](client/textures/eating.png) | Eating      |
-| ![img tag](client/textures/herd.png) | Attempting to herd with same species - exhibited by prey to reduce attack by predators|
-| ![img tag](client/textures/love.png) | Procreating - occurs when animals are healthy and life cycles are in sync|
-| ![img tag](client/textures/dead.png) | Death|
+| ![](client/textures/look.png)  | Searching for food due to high hunger |
+| ![](client/textures/eating.png) | Eating      |
+| ![](client/textures/herd.png) | Attempting to herd with same species - exhibited by prey to reduce attack by predators|
+| ![](client/textures/love.png) | Procreating - occurs when animals are healthy and life cycles are in sync|
+| ![](client/textures/dead.png) | Death (next version release) |
 
 ####Time
 At 1X speed, a second IRL equates to 4 minutes IG.
