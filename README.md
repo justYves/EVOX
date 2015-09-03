@@ -18,65 +18,35 @@ After creating an account, head to the Creatures page and choose between buildin
 Define the size of the landscape, the terrain type (flat/multilevel), then save. To play the world, select it and click play.
 
 ####Gameplay
-You can interact with the world using the control panel on the top right. Slow down, pause, or speed up time, and save the game at any point. 
+You can interact with the world using the control panel on the top right. Game Settings: Slow down, pause, or speed up time, and save the game at any point.
 
 ![](server/images/controlpanel.png)
-Use setting buttons to control gameplay!
 
-##land and food icons modify your environment!
+Actions: Spawn grass, remove grass, plant a tree, remove a voxel, add small prey, and view game info.
 
-<div style="width:50px">
-<img src="server/images/3D-Grass-icon.png" style="max-width:10%">
-</div>
-##Spawn Grass
+Click on a creature to get its stats, which are updated in real time. If they are a carnivore and get too hungry, you can feed them with small prey in the control panel. In addition to creature stats, you can observe their activity from the icons that appear above them:
 
-![](server/images/3D-Dirt-icon.png =100x50)
-##Remove Grass
+|Icon      | Meaning            |
+|--------| :------------- |
+| ![img tag](client/textures/look.png)  | Searching for food due to high hunger |
+| ![img tag](client/textures/eating.png) | Eating      |
+| ![img tag](client/textures/herd.png) | Attempting to herd with same species - exhibited by prey to reduce attack by predators|
+| ![img tag](client/textures/love.png) | Procreating - occurs when animals are healthy and life cycles are in sync|
+| ![img tag](client/textures/dead.png) | Death|
 
+####Time
+At 1X speed, a second IRL equates to 4 minutes IG.
+1 day cycle IG = 1 month IG
 
-![img tag](server/images/Stone-Hoe-icon.png)
-##Remove a block.
+|IG      | 1x            | 2X            | 4X    |
+|--------| :------------- |:-------------:| -----:|
+| 1 day cycle | 6 m     | 3m | 90s |
+| 1 month| 6 m      | 3m     |   90s|
+| 1 year| 1h12m| 36m    |    18m |
 
-![img tag](server/images/chick.png)
-##Feeder critters!
-
-![img tag](server/images/info.png)
-##Get game info
-
-##Click on a creature to get their stats. Remember to feed them if they are hungry!
-#Icons above a creature indicate their current behavior.
-![img tag](client/textures/look.png)
-#Searching for food.
-
-![img tag](client/textures/eating.png)
-#A creature is eating.
-
-![img tag](client/textures/herd.png)
-#Searching for other animals to herd with.
-
-![img tag](client/textures/dead.png)
-#The animal has died! :(
-
-![img tag](client/textures/love.png)
-#If animals are healthy and the timing is right, animals will procreate!
-
-###Contributors
+##Contributors
 - [Richard Michels](https://github.com/richardalexandermichels)
 - [Justin Kim](https://github.com/jkim430)
 - [Pete Steele](https://github.com/celanajaya)
 - [Yves Yuen](https://github.com/justYves)
-
-##Time
-At 1X speed, a second IRL equals to 4 minutes IG.
-1 day ig = 1 month ig
-
-|IG      | 1x            | 2X            | 4X    |
-|--------| :------------- |:-------------:| -----:|
-| 1 day  | 6 m     | 3m | 90s |
-| 1 month| 6 m      | 3m     |   90s|
-| 1 year| 1h12m| 36m    |    18m |
-
-
-
-Welcome to Your World!
 
