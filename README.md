@@ -18,13 +18,13 @@ After creating an account, head to the Creatures page and choose between buildin
 Define the size of the landscape, the terrain type (flat/multilevel), then save. To play the world, select it and click play.
 
 ####Gameplay
-You can interact with the world using the control panel on the top right.
+You can interact with the world using the control panel on the top right. Slow down, pause, or speed up time, and save the game at any point. 
 ![img tag](server/images/controlpanel.png)
 Use setting buttons to control gameplay!
 
 ##land and food icons modify your environment!
 
-<img src="server/images/3D-Grass-icon.png" style="width:50px">
+<img src="server/images/3D-Grass-icon.png" style="width:10px">
 ##Spawn Grass
 
 ![img tag](server/images/3D-Dirt-icon.png)
