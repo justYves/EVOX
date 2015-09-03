@@ -18,7 +18,7 @@ After creating an account, head to the Creatures page and choose between buildin
 Define the size of the landscape, the terrain type (flat/multilevel), then save. To play the world, select it and click play.
 
 ####Gameplay
-You can interact with the world using the control panel on the top right. 
+You can interact with the world using the control panel on the top right.  
 Game Settings: Slow down, pause, or speed up time, and save the game at any point.
 
 ![](server/images/controlpanel.png)
