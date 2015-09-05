@@ -13,7 +13,7 @@ After creating an account, head to the Creatures page and choose between buildin
 Click anywhere on the grid to place a voxel. The default color (![](client/textures/block.png)) is a placeholder and will not render in the game. Use this to fill up any parts of the creature that will never be exposed (e.g. inside) to assist you with construction and reduce rendering time during gameplay. The grid clearly indicates which way the creature should be facing in order for it to move around sensibly on the map.  
 To delete a voxel, hold down shift and click.  
 To create many voxels by clicking and dragging, hold down alt.  
-To change a color on the palette, right click to open the color picker.
+To change a color on the palette, right click to open the color picker.  
 Images saved from the users tab or exported as a png can be rendered in the builder by simply draggin and dropping the file onto the builder grid.
 
 ####Worlds
