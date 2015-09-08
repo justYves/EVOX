@@ -14,7 +14,7 @@ Click anywhere on the grid to place a voxel. The default color (![](client/textu
 To delete a voxel, hold down shift and click.  
 To create many voxels by clicking and dragging, hold down alt.  
 To change a color on the palette, right click to open the color picker.  
-Images saved from the users tab or exported as a png can be rendered in the builder by simply draggin and dropping the file onto the builder grid.
+Images saved from the users tab or exported as a png can be rendered in the builder by simply dragging and dropping the file onto the builder grid.
 
 ####Worlds
 Once you've created a creature that you want to proceed with, navigate to the Worlds page and create your own environment. After providing a name, you'll be presented with three types of environments, each one with its own versions of predator and prey:
